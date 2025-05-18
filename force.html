@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Force‑Directed People Graph</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <style>
+    html,body{margin:0;height:100%;background:#fff;font-family:Arial,Helvetica,sans-serif}
+    #topControls,#bottomControls{display:flex;gap:12px;padding:8px;flex-wrap:wrap}
+    #topControls{border-bottom:1px solid #ddd}
+    #bottomControls{border-top:1px solid #ddd}
+    #graph{width:100%;height:calc(100% - 260px)} /* two control bars + export */
+
+    textarea#export{position:fixed;bottom:0;left:0;width:100%;height:140px;border:none;resize:none;font-family:monospace;padding:8px;box-sizing:border-box;background:#f8f8f8}
+    textarea#export.unsaved{background:#fff3c4}
+
+    .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
+    .link{stroke:#555;stroke-width:1.5px;fill:none;marker-end:url(#arrow)}
+    .link.highlight{stroke:red;stroke-width:3px}
+    text{font-size:12px;pointer-events:none;fill:#000}
+    button{cursor:pointer}
+  </style>
+</head>
+<body>
+  <!-- top toolbar -->
+  <div id="topControls">
+    <button id="perturb">Perturb</button>
+    <label>Charge <input id="chargeRange" type="range" min="-1000" max="0" value="-300"></label>
+    <label>Link&nbsp;Dist <input id="linkRange" type="range" min="30" max="300" value="150"></label>
+  </div>
+
+  <!-- graph area -->
+  <div id="graph"></div>
+
+  <!-- bottom toolbar -->
+<div id="bottomControls">
+  <label>Add Node
+    <input id="newNodeName" type="text" placeholder="Name">
+    <button id="addNodeBtn">Add</button>
+  </label>
+  <label>Add Edge from
+    <select id="edgeFrom"></select> to
+    <select id="edgeTo"></select> label
+    <input id="edgeLabel" type="text" placeholder="Label" list="presetLabels">
+    <button id="addEdgeBtn">Add</button>
+  </label>
+  <datalist id="presetLabels">
+    <option value="read">
+    <option value="liked">
+    <option value="inspired by">
+    <option value="friend">
+  </datalist>
+</div>
+
+  <!-- export area -->
+  <textarea id="export" readonly></textarea>
+
+<script>
+/* ---------- initial data ---------- */
+const nodes = [
+  { id: 6, name: "JRR tolkien" },
+  { id: 1, name: "CS lewis" },
+  { id: 2, name: "roald dahl" },
+  { id: 3, name: "lovecraft" },
+  { id: 4, name: "robert howard" },
+  { id: 5, name: "charles williams" }
+];
+
+const links = [
+  { id1: 6, id2: 1, label: "friend" },
+  { id1: 1, id2: 6, label: "supporter" },
+  { id1: 2, id2: 3, label: "fan" },
+  { id1: 4, id2: 3, label: "correspondence" },
+  { id1: 3, id2: 4, label: "correspondence" },
+  { id1: 2, id2: 1, label: "successor" },
+  { id1: 5, id2: 6, label: "drinking buddy" },
+  { id1: 5, id2: 1, label: "co-member of the inklings" }
+];
+
+const nodeById = new Map(nodes.map(n => [n.id, n]));
+let   nextNodeId = Math.max(...nodes.map(n => n.id)) + 1;
+
+function buildSimLinks() {
+  return links.map(e => ({
+    source : nodeById.get(e.id1),
+    target : nodeById.get(e.id2),
+    label  : e.label,
+    dir    : e.id1 < e.id2 ? 1 : -1    // A→B “up”, B→A “down”
+  }));
+}
+
+/* ---------- SVG & defs ---------- */
+const graphDiv = document.getElementById('graph');
+const width    = graphDiv.clientWidth;
+const height   = graphDiv.clientHeight;
+
+const svg = d3.select(graphDiv).append('svg')
+              .attr('width',width)
+              .attr('height',height);
+
+/* ---------- zoom & pan ---------- */
+const zoom = d3.zoom()
+  .scaleExtent([0.1, 4])                     // min / max zoom
+  .on('zoom', event => g.attr('transform', event.transform));
+
+svg.call(zoom);         
+
+svg.append('defs').append('marker')
+   .attr('id','arrow')
+   .attr('viewBox','0 -5 10 10')
+   .attr('refX',32).attr('refY',0) /* offset beyond circle */
+   .attr('markerWidth',8).attr('markerHeight',8)
+   .attr('orient','auto')
+   .append('path').attr('d','M0,-5L10,0L0,5').attr('fill','#555');
+
+const g = svg.append('g');
+const linkGroup = g.append('g').attr('class','links');
+let  linkSel  = linkGroup.selectAll('path');
+let  labelSel = linkGroup.selectAll('text.label');
+let  nodeSel  = g.selectAll('.node');
+
+/* ---------- D3 forces ---------- */
+const chargeInput = document.getElementById('chargeRange');
+const linkInput   = document.getElementById('linkRange');
+const exportArea  = document.getElementById('export');   // ← new
+
+const simulation = d3.forceSimulation(nodes)
+  .force('link',
+         d3.forceLink()                       // links injected later
+           .id(d => d.id)
+           .distance(() => +linkRange.value))
+  .force('charge',
+         d3.forceManyBody()
+           .strength(() => +chargeRange.value)        // live-updates with slider
+           .distanceMax(1_000000))                       // repulse across whole graph
+  .force('center', d3.forceCenter(width / 2, height / 2))
+  .force('collision', d3.forceCollide().radius(40))
+  .alphaDecay(0.001)                                  // cools more slowly → runs longer
+  .on('tick', ticked);
+
+function ticked(){
+  /* ---------- arrow path ---------- */
+  const r = 22;                        // node radius
+  linkSel.attr('d', d => {
+    const dx   = d.target.x - d.source.x,
+          dy   = d.target.y - d.source.y,
+          dist = Math.hypot(dx, dy) || 1,
+          tEnd = (dist - r) / dist;    // line ends at target circle
+    return `M${d.source.x},${d.source.y}L${d.source.x + dx*tEnd},${d.source.y + dy*tEnd}`;
+  });
+
+  /* keep nodes visible & movable */
+  nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+  
+	/* ---------- node name “radial-slot” positioning ---------- */
+// gather incident edge angles for each node this tick
+const incident = new Map();  // node.id → [angles]
+
+links.forEach(l => {
+  const src = nodeById.get(l.id1),
+        tgt = nodeById.get(l.id2);
+  if (!src || !tgt) return;
+
+  const a = Math.atan2(tgt.y - src.y, tgt.x - src.x);   // angle src→tgt
+  (incident.get(src.id) || incident.set(src.id, []).get(src.id)).push(a);
+  (incident.get(tgt.id) || incident.set(tgt.id, []).get(tgt.id)).push(a + Math.PI); // opposite at tgt
+});
+
+// eight slot angles (0°,45°,…)
+const slots       = Array.from({length:8}, (_,i)=>i*Math.PI/4);
+const labelRadius = 28;  // px from node center
+
+nodeSel.select('text').each(function(d){
+  const edges = incident.get(d.id) || [];
+  // choose slot farthest from every incident edge
+  let bestAng = 0, bestScore = -1;
+  slots.forEach(s => {
+    const score = edges.length
+      ? Math.min(...edges.map(e => Math.abs(Math.atan2(Math.sin(s-e), Math.cos(s-e)))))
+      : Math.PI;  // isolated node
+    if (score > bestScore){ bestScore = score; bestAng = s; }
+  });
+
+  const tx = Math.cos(bestAng)*labelRadius,
+        ty = Math.sin(bestAng)*labelRadius;
+
+  d3.select(this)
+    .attr('x', tx)
+    .attr('y', ty + 4)                 // +4 to center vertically
+    .attr('text-anchor',
+          Math.abs(Math.cos(bestAng)) < 0.3 ? 'middle' :
+          (Math.cos(bestAng) > 0 ? 'start' : 'end'));
+});
+	
+  /* ---------- label position ---------- */
+  const delta     = 10;   // perpendicular offset (px)
+  const fracToTgt = 0.65; // label sits 65 % toward target, just behind arrow
+
+  labelSel.each(function (d) {
+    /* use lower-ID → higher-ID to define perpendicular direction */
+    const forward = d.source.id < d.target.id;
+    const s       = forward ? d.source : d.target;
+    const t       = forward ? d.target : d.source;
+    const dx      = t.x - s.x,
+          dy      = t.y - s.y,
+          dist    = Math.hypot(dx, dy) || 1,
+          px      = -dy / dist,            // unit perpendicular
+          py      =  dx / dist,
+          dir     = forward ? 1 : -1;      // “up” or “down”
+
+    const lx = d.source.x + (d.target.x - d.source.x) * fracToTgt;
+    const ly = d.source.y + (d.target.y - d.source.y) * fracToTgt;
+
+    d.cx = lx + delta * px * dir;
+    d.cy = ly + delta * py * dir;
+  })
+  .attr('x', d => d.cx)
+  .attr('y', d => d.cy)
+  .attr('text-anchor', 'middle')
+  .attr('dominant-baseline', 'central')
+  .attr('transform', d => {
+    let ang = Math.atan2(d.target.y - d.source.y,
+                         d.target.x - d.source.x) * 180 / Math.PI;
+    if (ang > 90 || ang < -90) ang += 180;   // keep text upright
+    return `rotate(${ang},${d.cx},${d.cy})`;
+  });
+}
+
+/* ---------- helpers ---------- */
+
+function populateSelects() {
+  const opts = nodes
+    .map(n => `<option value="${n.id}">${n.name}</option>`)
+    .join('');
+  edgeFrom.innerHTML = opts;
+  edgeTo.innerHTML   = opts;
+}
+
+
+exportArea.addEventListener('click', () => {
+  navigator.clipboard.writeText(exportArea.value)
+    .then(() => exportArea.classList.remove('unsaved'));
+});
+
+function refreshExport() {
+  exportArea.value =
+    `const nodes = ${JSON.stringify(nodes.map(({id,name}) => ({id,name})), 2)};\n\n` +
+    `const links = ${JSON.stringify(links, 2)};`;
+  exportArea.classList.add('unsaved');
+}
+
+
+function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
+  const simLinks = buildSimLinks();
+
+  /* ---- links ---- */
+  linkSel = linkGroup.selectAll('path').data(simLinks, (d,i)=>i)
+	.join(
+		enter => enter.append('path')
+					  .attr('class','link')
+					  .attr('stroke','#555')
+					  .attr('stroke-width',1.5)
+					  .attr('marker-end','url(#arrow)'),
+		update => update
+					  .attr('stroke','#555')          // keep base look identical
+					  .attr('stroke-width',1.5)
+					  .attr('marker-end','url(#arrow)'),
+		exit   => exit.remove()
+	  );
+
+  labelSel = linkGroup.selectAll('text.label').data(simLinks, (d,i)=>i)
+  .join(
+    enter => enter.append('text')
+                  .attr('class','label')
+                  .text(d => d.label)
+                  /* dbl-click label edit */
+                  .on('dblclick', (event,d) => {
+                    const newLabel = prompt('Edit edge label:', d.label || '');
+                    if (newLabel === null) return;           // cancel
+                    d.label = newLabel;
+                    const idx = labelSel.nodes().indexOf(event.currentTarget);
+                    links[idx].label = newLabel;             // update data array
+                    refreshExport();
+                    d3.select(event.currentTarget).text(newLabel);
+                  }),
+    update => update.text(d => d.label),
+    exit   => exit.remove()
+  );
+
+  /* ---- nodes ---- */
+nodeSel = g.selectAll('.node').data(nodes, d => d.id)
+  .join(
+    enter => {
+      const nodeG = enter.append('g').attr('class', 'node')
+          .call(d3.drag().on('start', dragstarted)
+                        .on('drag',  dragged)
+                        .on('end',   dragended))
+          /* dbl-click name edit */
+          .on('dblclick', (event,d) => {
+            const newName = prompt('Rename node:', d.name || '');
+            if (!newName) return;
+            d.name = newName;
+            populateSelects();       // refresh dropdowns
+            refreshExport();         // update code block
+            d3.select(event.currentTarget).select('text').text(newName);
+          });
+
+      nodeG.append('circle').attr('r', 22);
+      nodeG.append('text').attr('dx', 26).attr('dy', 4).text(d => d.name);
+      return nodeG;
+    },
+    update => update,
+    exit   => exit.remove()
+  );
+
+  simulation.nodes(nodes);
+  simulation.force('link').links(simLinks);
+  simulation.alpha(0.6).restart();
+
+  if (!skipSelectUpdate) populateSelects();
+  if (highlightIdx !== null) {
+    linkSel.filter((d, i) => i === highlightIdx)
+           .classed('highlight', true)
+           .transition().delay(10000)
+           .on('end', function () { d3.select(this).classed('highlight', false); });
+  }
+  refreshExport();
+}
+
+
+/* ---------- drag handlers ---------- */
+function dragstarted(event,d){
+  if(!event.active) simulation.alphaTarget(0.3).restart();
+  d.fx=d.x; d.fy=d.y;
+}
+function dragged(event,d){
+  d.fx=event.x; d.fy=event.y;
+}
+function dragended(event,d){
+  if(!event.active) simulation.alphaTarget(0);
+  d.fx=null; d.fy=null;
+}
+
+/* ---------- UI events ---------- */
+document.getElementById('perturb').addEventListener('click',()=>{
+  nodes.forEach(n=>{
+    n.x += (Math.random()-0.5)*40;
+    n.y += (Math.random()-0.5)*40;
+  });
+  simulation.alpha(0.8).restart();
+});
+
+chargeInput.addEventListener('input', e=>{
+  simulation.force('charge').strength(+e.target.value);
+  simulation.alpha(0.8).restart();
+});
+
+linkInput.addEventListener('input', e=>{
+  simulation.force('link').distance(+e.target.value);
+  simulation.alpha(0.8).restart();
+});
+
+/* add node */
+document.getElementById('addNodeBtn').addEventListener('click', () => {
+  const inp  = document.getElementById('newNodeName');
+  const name = inp.value.trim();
+  if (!name) return;
+
+  const id = nextNodeId++;
+  nodes.push({ id, name });
+  nodeById.set(id, nodes[nodes.length - 1]);
+
+  inp.value = '';
+  updateGraph();          // refresh selects + layout
+});
+
+/* add edge */
+addEdgeBtn.addEventListener('click', () => {
+  const id1 = parseInt(edgeFrom.value, 10);
+  const id2 = parseInt(edgeTo.value,   10);
+  const lbl = edgeLabel.value.trim() || '';
+
+  if (isNaN(id1) || isNaN(id2) || id1 === id2) return;
+  const dup = links.some(e => e.id1 === id1 && e.id2 === id2);
+  if (dup) return;
+
+  links.push({ id1, id2, label: lbl });
+  edgeLabel.value = '';
+  updateGraph(true, links.length - 1);   // skip select refresh, highlight new link
+});
+
+/* ---------- initial render ---------- */
+populateSelects();
+updateGraph();
+</script>
+</body>
+</html>
