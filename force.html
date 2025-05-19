@@ -34,6 +34,7 @@
     #nodePopup input{width:120px;display:block;margin-top:4px}
     #nodePopup .actions{display:flex;gap:4px;margin-top:4px}
     #nodePopup .hint{font-style:italic;margin-top:4px;font-size:11px}
+    #nodePopupImage{display:none;margin-top:4px}
     
     /* bigger add buttons */
     #addNodeBtn,#addEdgeBtn{font-size:16px;padding:6px 12px}
@@ -104,6 +105,7 @@
       <button id="nodePopupClose">X</button>
     </div>
     <div class="hint">Paste an image while this popup is open</div>
+    <img id="nodePopupImage" />
   </div>
 
 <script>
@@ -200,6 +202,7 @@ const nodePopupYear   = document.getElementById('nodePopupYear');
 const nodePopupSave   = document.getElementById('nodePopupSave');
 const nodePopupDelete = document.getElementById('nodePopupDelete');
 const nodePopupClose  = document.getElementById('nodePopupClose');
+const nodePopupImage  = document.getElementById('nodePopupImage');
 let   nodePopupId     = null;
 
 const simulation = d3.forceSimulation(nodes)
@@ -548,6 +551,12 @@ function openNodePopup(id, x, y) {
   nodePopupId = id;
   nodePopupName.value = n.name || '';
   nodePopupYear.value = n.birth_year || '';
+  if (n.image) {
+    nodePopupImage.src = n.image;
+    nodePopupImage.style.display = 'block';
+  } else {
+    nodePopupImage.style.display = 'none';
+  }
   nodePopup.style.left = (x + 5) + 'px';
   nodePopup.style.top  = (y + 5) + 'px';
   nodePopup.style.display = 'block';
@@ -556,6 +565,7 @@ function openNodePopup(id, x, y) {
 
 function hideNodePopup() {
   nodePopup.style.display = 'none';
+  nodePopupImage.style.display = 'none';
   nodePopupId = null;
 }
 
@@ -684,6 +694,10 @@ function uploadImage(id, file){
       const n = nodeById.get(id);
       n.image = `images/${id}.png`;
       updateGraph();
+      if(nodePopupId === id){
+        nodePopupImage.src = n.image;
+        nodePopupImage.style.display = 'block';
+      }
     });
 }
 
