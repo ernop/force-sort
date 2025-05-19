@@ -163,6 +163,22 @@
     {
       "id": 41,
       "name": "Ursula K Le Guin"
+    },
+    {
+      "id": 42,
+      "name": "G.K. Chesterton"
+    },
+    {
+      "id": 43,
+      "name": "Edith Nesbit"
+    },
+    {
+      "id": 44,
+      "name": "Owen Barfield"
+    },
+    {
+      "id": 45,
+      "name": "Dorothy L. Sayers"
     }
   ],
   "links": [
@@ -319,27 +335,27 @@
     {
       "id1": 13,
       "id2": 25,
-      "label": "admired by"
+      "label": "Inspired"
     },
     {
-      "id1": 13,
-      "id2": 26,
-      "label": "admired by"
+      "id1": 26,
+      "id2": 13,
+      "label": "Inspired"
     },
     {
-      "id1": 13,
-      "id2": 7,
-      "label": "admired by"
+      "id1": 7,
+      "id2": 13,
+      "label": "Inspired"
     },
     {
-      "id1": 13,
-      "id2": 27,
-      "label": "admired by"
+      "id1": 27,
+      "id2": 13,
+      "label": "Inspired"
     },
     {
-      "id1": 13,
-      "id2": 28,
-      "label": "admired by"
+      "id1": 28,
+      "id2": 13,
+      "label": "Inspired"
     },
     {
       "id1": 9,
@@ -387,24 +403,44 @@
       "label": "influenced"
     },
     {
-      "id1": 6,
-      "id2": 38,
-      "label": "influenced by"
+      "id1": 38,
+      "id2": 6,
+      "label": "Inspired"
     },
     {
-      "id1": 6,
-      "id2": 39,
-      "label": "inspired by"
+      "id1": 39,
+      "id2": 6,
+      "label": "Inspired"
     },
     {
-      "id1": 6,
-      "id2": 25,
-      "label": "inspired by"
+      "id1": 25,
+      "id2": 6,
+      "label": "Inspired"
     },
     {
       "id1": 6,
       "id2": 40,
       "label": "admired"
+    },
+    {
+      "id1": 42,
+      "id2": 1,
+      "label": "Influenced"
+    },
+    {
+      "id1": 1,
+      "id2": 43,
+      "label": "admired"
+    },
+    {
+      "id1": 1,
+      "id2": 44,
+      "label": "\"The wisest and best of my unofficial teachers\""
+    },
+    {
+      "id1": 1,
+      "id2": 45,
+      "label": "Held in High Esteem"
     }
   ]
 }
