@@ -410,6 +410,7 @@ function refreshExport(markDirty = true) {
 }
 
 function computeTiers() {
+
   const lvl = new Map(nodes.map(n => [n.id, 0]));
   for (let iter = 0; iter < nodes.length; iter++) {
     let changed = false;
