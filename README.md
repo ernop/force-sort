@@ -25,8 +25,9 @@ http.server` will only provide read‑only access.
 * **Copy‑to‑save workflow.**  All changes are reflected in the data view in the
   bottom‑right corner.  The text area turns yellow whenever the data differs
   from what you've copied.  Click the area to copy the JSON to your clipboard
-  and it turns white again.  Saving the clipboard contents back to
-  `data.json` is manual to avoid accidental loss.
+  and it turns white again.  The page now also sends the data to
+  `server.py` each time it changes so it is written to `data.json`
+  automatically.  Previous versions are stored in the `backups/` folder.
 * **Image support.**  Each node can hold multiple images.  Paste or upload
   pictures while the editor popup is open, rearrange or remove them, and
   identical uploads are detected automatically.

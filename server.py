@@ -1,16 +1,18 @@
 import json
 import os
 import hashlib
+import datetime
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import cgi
 
 DATA_FILE = 'data.json'
 IMAGE_DIR = 'images'
+BACKUP_DIR = 'backups'
 PORT = 8007
 
 class UploadHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
-        if self.path not in ('/upload', '/delete_image'):
+        if self.path not in ('/upload', '/delete_image', '/save_data'):
             self.send_response(404)
             self.end_headers()
             return
@@ -117,6 +119,32 @@ class UploadHandler(SimpleHTTPRequestHandler):
                 os.remove(image_path)
             except FileNotFoundError:
                 pass
+
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b'OK')
+
+        elif self.path == '/save_data':
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length).decode('utf-8')
+            try:
+                new_data = json.loads(body)
+            except Exception:
+                self.send_response(400)
+                self.end_headers()
+                return
+
+            # ensure backup directory exists
+            os.makedirs(BACKUP_DIR, exist_ok=True)
+            timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+            if os.path.exists(DATA_FILE):
+                backup_path = os.path.join(BACKUP_DIR, f'data_{timestamp}.json')
+                with open(DATA_FILE, 'r') as f:
+                    with open(backup_path, 'w') as b:
+                        b.write(f.read())
+
+            with open(DATA_FILE, 'w') as f:
+                json.dump(new_data, f, indent=2)
 
             self.send_response(200)
             self.end_headers()
