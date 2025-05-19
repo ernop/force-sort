@@ -198,7 +198,7 @@ const chargeInput = document.getElementById('chargeRange');
 const linkInput   = document.getElementById('linkRange');
 const layoutSelect= document.getElementById('layoutSelect');
 let   layoutMode  = layoutSelect.value;
-const tierSpacing = 100;
+const yearSpacing = 20;
 const exportArea  = document.getElementById('export');   // ← new
 const edgePopup       = document.getElementById('edgePopup');
 const edgePopupLabel  = document.getElementById('edgePopupLabel');
@@ -409,28 +409,36 @@ function refreshExport(markDirty = true) {
 }
 
 function computeTiers() {
-  const lvl = new Map(nodes.map(n => [n.id, 0]));
-  for (let iter = 0; iter < nodes.length; iter++) {
-    let changed = false;
-    links.forEach(l => {
-      const s = lvl.get(l.id1) || 0;
-      const t = lvl.get(l.id2) || 0;
-      if (t <= s) {
-        lvl.set(l.id2, s + 1);
-        changed = true;
-      }
-    });
-    if (!changed) break;
-  }
-  nodes.forEach(n => n.tier = lvl.get(n.id) || 0);
+  // determine minimum known birth year
+  let minYear = Infinity;
+  nodes.forEach(n => {
+    const y = parseInt(n.birth_year, 10);
+    if (!isNaN(y) && y < minYear) minYear = y;
+  });
+  if (!isFinite(minYear)) minYear = 0;
+
+  // assign tier based on birth year (earliest at tier 0)
+  nodes.forEach(n => {
+    const y = parseInt(n.birth_year, 10);
+    n.tier = isNaN(y) ? null : (y - minYear);
+  });
 }
 
 function applyLayoutForces() {
   if (layoutMode === 'tiers') {
     computeTiers();
-    simulation.force('tier', d3.forceY(d => d.tier * tierSpacing).strength(1));
+    simulation.force('tier', null); // vertical fixed by fy
+    nodes.forEach(n => {
+      if (n.tier !== null) {
+        n.fy = n.tier * yearSpacing;
+        n.y  = n.fy;
+      } else {
+        n.fy = null;
+      }
+    });
   } else {
     simulation.force('tier', null);
+    nodes.forEach(n => n.fy = null);
   }
 }
 
@@ -525,6 +533,9 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
   simulation.force('link').links(simLinks);
   applyLayoutForces();
   simulation.alpha(0.6).restart();
+  if (layoutMode === 'tiers') {
+    setTimeout(() => simulation.stop(), 1000);
+  }
 
   if (!skipSelectUpdate) populateSelects();
   if (highlightIdx !== null) {
@@ -650,14 +661,29 @@ document.body.addEventListener('click', e => {
 /* ---------- drag handlers ---------- */
 function dragstarted(event,d){
   if(!event.active) simulation.alphaTarget(0.3).restart();
-  d.fx=d.x; d.fy=d.y;
+  d.fx = event.x;
+  if (layoutMode === 'tiers' && d.tier !== null) {
+    d.fy = d.tier * yearSpacing;
+  } else {
+    d.fy = event.y;
+  }
 }
 function dragged(event,d){
-  d.fx=event.x; d.fy=event.y;
+  d.fx = event.x;
+  if (layoutMode === 'tiers' && d.tier !== null) {
+    d.fy = d.tier * yearSpacing;
+  } else {
+    d.fy = event.y;
+  }
 }
 function dragended(event,d){
   if(!event.active) simulation.alphaTarget(0);
-  d.fx=null; d.fy=null;
+  d.fx = null;
+  if (layoutMode === 'tiers' && d.tier !== null) {
+    d.fy = d.tier * yearSpacing;
+  } else {
+    d.fy = null;
+  }
 }
 
 /* ---------- UI events ---------- */
