@@ -199,6 +199,7 @@ const linkInput   = document.getElementById('linkRange');
 const layoutSelect= document.getElementById('layoutSelect');
 let   layoutMode  = layoutSelect.value;
 const tierSpacing = 100;
+const yearSpacing = 20;
 const exportArea  = document.getElementById('export');   // ← new
 const edgePopup       = document.getElementById('edgePopup');
 const edgePopupLabel  = document.getElementById('edgePopupLabel');
@@ -425,12 +426,44 @@ function computeTiers() {
   nodes.forEach(n => n.tier = lvl.get(n.id) || 0);
 }
 
+function computeYearLayout() {
+  const years = nodes
+    .map(n => parseInt(n.birth_year, 10))
+    .filter(y => !isNaN(y));
+  if (years.length === 0) return;
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+
+  const rows = new Map();
+  nodes.forEach(n => {
+    const y = parseInt(n.birth_year, 10);
+    const key = isNaN(y) ? 'unknown' : y;
+    if (!rows.has(key)) rows.set(key, []);
+    rows.get(key).push(n);
+  });
+
+  rows.forEach((row, key) => {
+    row.forEach((n, i) => {
+      const yr = parseInt(n.birth_year, 10);
+      const line = isNaN(yr) ? maxYear + 1 : yr;
+      n.x = 100 + i * 150;
+      n.y = (line - minYear) * yearSpacing + 40;
+    });
+  });
+}
+
 function applyLayoutForces() {
-  if (layoutMode === 'tiers') {
+  if (layoutMode === 'force') {
     computeTiers();
-    simulation.force('tier', d3.forceY(d => d.tier * tierSpacing).strength(1));
-  } else {
+    simulation
+      .force('tier', d3.forceY(d => d.tier * tierSpacing).strength(1))
+      .alpha(0.6)
+      .restart();
+  } else { // "tiers" mode
     simulation.force('tier', null);
+    simulation.stop();
+    computeYearLayout();
+    ticked();
   }
 }
 
@@ -524,7 +557,6 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
   simulation.nodes(nodes);
   simulation.force('link').links(simLinks);
   applyLayoutForces();
-  simulation.alpha(0.6).restart();
 
   if (!skipSelectUpdate) populateSelects();
   if (highlightIdx !== null) {
@@ -649,15 +681,26 @@ document.body.addEventListener('click', e => {
 
 /* ---------- drag handlers ---------- */
 function dragstarted(event,d){
-  if(!event.active) simulation.alphaTarget(0.3).restart();
-  d.fx=d.x; d.fy=d.y;
+  if(layoutMode === 'force'){
+    if(!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx=d.x; d.fy=d.y;
+  }
 }
 function dragged(event,d){
-  d.fx=event.x; d.fy=event.y;
+  if(layoutMode === 'force'){
+    d.fx=event.x; d.fy=event.y;
+  } else {
+    d.x = event.x; d.y = event.y;
+    ticked();
+  }
 }
 function dragended(event,d){
-  if(!event.active) simulation.alphaTarget(0);
-  d.fx=null; d.fy=null;
+  if(layoutMode === 'force'){
+    if(!event.active) simulation.alphaTarget(0);
+    d.fx=null; d.fy=null;
+  } else {
+    ticked();
+  }
 }
 
 /* ---------- UI events ---------- */
@@ -666,7 +709,11 @@ document.getElementById('perturb').addEventListener('click',()=>{
     n.x += (Math.random()-0.5)*40;
     n.y += (Math.random()-0.5)*40;
   });
-  simulation.alpha(0.8).restart();
+  if (layoutMode === 'force') {
+    simulation.alpha(0.8).restart();
+  } else {
+    ticked();
+  }
 });
 
 document.getElementById('dampen').addEventListener('click',()=>{
@@ -678,18 +725,25 @@ document.getElementById('dampen').addEventListener('click',()=>{
 
 chargeInput.addEventListener('input', e=>{
   simulation.force('charge').strength(+e.target.value);
-  simulation.alpha(0.8).restart();
+  if (layoutMode === 'force') {
+    simulation.alpha(0.8).restart();
+  } else {
+    ticked();
+  }
 });
 
 linkInput.addEventListener('input', e=>{
   simulation.force('link').distance(+e.target.value);
-  simulation.alpha(0.8).restart();
+  if (layoutMode === 'force') {
+    simulation.alpha(0.8).restart();
+  } else {
+    ticked();
+  }
 });
 
 layoutSelect.addEventListener('change', e => {
   layoutMode = e.target.value;
   applyLayoutForces();
-  simulation.alpha(0.8).restart();
 });
 
 document.addEventListener('paste', e => {
