@@ -32,8 +32,9 @@
     },
     {
       "id": 5,
-      "name": "charles williams",
-      "birth_year": "1886"
+      "name": "Charles Williams",
+      "birth_year": "1886",
+      "image": "images/5_1.png"
     },
     {
       "id": 7,
@@ -536,6 +537,21 @@
       "id": 98,
       "name": "Ted Chiang",
       "birth_year": "1967"
+    },
+    {
+      "id": 99,
+      "name": "Greg Egan",
+      "birth_year": "1961"
+    },
+    {
+      "id": 100,
+      "name": "James Tiptree, Jr",
+      "birth_year": "1915"
+    },
+    {
+      "id": 101,
+      "name": "Umberto Eco",
+      "birth_year": "1932"
     }
   ],
   "links": [
@@ -680,8 +696,8 @@
       "label": "influenced by"
     },
     {
-      "id1": 13,
-      "id2": 25,
+      "id1": 25,
+      "id2": 13,
       "label": "Inspired"
     },
     {
@@ -1182,6 +1198,31 @@
     {
       "id1": 78,
       "id2": 80,
+      "label": "influenced"
+    },
+    {
+      "id1": 99,
+      "id2": 98,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 98,
+      "label": ""
+    },
+    {
+      "id1": 87,
+      "id2": 98,
+      "label": ""
+    },
+    {
+      "id1": 54,
+      "id2": 98,
+      "label": ""
+    },
+    {
+      "id1": 101,
+      "id2": 98,
       "label": "influenced"
     }
   ]
