@@ -191,8 +191,8 @@ function ticked(){
     const dx   = d.target.x - d.source.x,
           dy   = d.target.y - d.source.y,
           dist = Math.hypot(dx, dy) || 1,
-          r1   = d.source.r || BASE_RADIUS / 3,
-          r2   = d.target.r || BASE_RADIUS / 3,
+          r1   = d.source.radius || BASE_RADIUS / 3,
+          r2   = d.target.radius || BASE_RADIUS / 3,
           tStart = r1 / dist,
           tEnd   = (dist - r2) / dist;    // line ends at target circle
     return `M${d.source.x + dx*tStart},${d.source.y + dy*tStart}L${d.source.x + dx*tEnd},${d.source.y + dy*tEnd}`;
