@@ -99,7 +99,8 @@
     },
     {
       "id": 18,
-      "name": "Robert Louis Stevenso",
+      "name": "Robert Louis Stevenson",
+      "birth_year": "1850",
       "images": [
         "images/18.png",
         "images/18_1.png"
@@ -221,7 +222,13 @@
     },
     {
       "id": 41,
-      "name": "Ursula K Le Guin"
+      "name": "Ursula K Le Guin",
+      "images": [
+        "images/41_1.png",
+        "images/41_0.png",
+        "images/41_2.png",
+        "images/41_3.png"
+      ]
     },
     {
       "id": 42,
@@ -258,7 +265,7 @@
     },
     {
       "id": 48,
-      "name": "Honoré de Balzac",
+      "name": "Honor\u00e9 de Balzac",
       "birth_year": "1799"
     },
     {
@@ -345,7 +352,8 @@
     {
       "id": 63,
       "name": "Isaac Asimov",
-      "birth_year": "1920"
+      "birth_year": "1920",
+      "image": "images/63_0.png"
     },
     {
       "id": 64,
@@ -384,7 +392,7 @@
     },
     {
       "id": 71,
-      "name": "E.E. “Doc” Smith",
+      "name": "E.E. \u201cDoc\u201d Smith",
       "birth_year": "1890"
     },
     {
@@ -442,7 +450,11 @@
     {
       "id": 82,
       "name": "William Gibson",
-      "birth_year": "1948"
+      "birth_year": "1948",
+      "images": [
+        "images/82_0.png",
+        "images/82_1.png"
+      ]
     },
     {
       "id": 83,
@@ -473,6 +485,57 @@
       "id": 88,
       "name": "Iain Banks",
       "birth_year": "1954"
+    },
+    {
+      "id": 89,
+      "name": "Thomas Disch",
+      "birth_year": "1940"
+    },
+    {
+      "id": 90,
+      "name": "Tim Powers",
+      "birth_year": "1952"
+    },
+    {
+      "id": 91,
+      "name": "Gene Wolfe",
+      "birth_year": "1931"
+    },
+    {
+      "id": 92,
+      "name": "Robert Heinlein",
+      "birth_year": "1907"
+    },
+    {
+      "id": 93,
+      "name": "Sinclar Lewis",
+      "birth_year": "1885"
+    },
+    {
+      "id": 94,
+      "name": "Ayn Rand",
+      "birth_year": "1905"
+    },
+    {
+      "id": 95,
+      "name": "Thomas Pynchon",
+      "birth_year": "1937"
+    },
+    {
+      "id": 96,
+      "name": "Dashiell Hammet",
+      "birth_year": "1894",
+      "image": "images/96_0.png"
+    },
+    {
+      "id": 97,
+      "name": "Franz Kafka",
+      "birth_year": "1883"
+    },
+    {
+      "id": 98,
+      "name": "Ted Chiang",
+      "birth_year": "1967"
     }
   ],
   "links": [
@@ -522,8 +585,8 @@
       "label": "Influenced By"
     },
     {
-      "id1": 2,
-      "id2": 9,
+      "id1": 9,
+      "id2": 2,
       "label": "Influenced By"
     },
     {
@@ -592,8 +655,8 @@
       "label": "Influenced"
     },
     {
-      "id1": 3,
-      "id2": 20,
+      "id1": 20,
+      "id2": 3,
       "label": "influenced by"
     },
     {
@@ -637,13 +700,13 @@
       "label": "Inspired"
     },
     {
-      "id1": 9,
-      "id2": 29,
+      "id1": 29,
+      "id2": 9,
       "label": "Influenced by"
     },
     {
-      "id1": 9,
-      "id2": 30,
+      "id1": 30,
+      "id2": 9,
       "label": "Influenced by"
     },
     {
@@ -652,8 +715,8 @@
       "label": "Follower of"
     },
     {
-      "id1": 3,
-      "id2": 32,
+      "id1": 32,
+      "id2": 3,
       "label": "Follower"
     },
     {
@@ -727,23 +790,23 @@
       "label": "influenced"
     },
     {
-      "id1": 46,
-      "id2": 9,
+      "id1": 9,
+      "id2": 46,
       "label": "influenced"
     },
     {
-      "id1": 46,
-      "id2": 48,
+      "id1": 48,
+      "id2": 46,
       "label": "was influenced by"
     },
     {
-      "id1": 46,
-      "id2": 49,
+      "id1": 49,
+      "id2": 46,
       "label": "influenced by"
     },
     {
-      "id1": 46,
-      "id2": 50,
+      "id1": 50,
+      "id2": 46,
       "label": "influenced"
     },
     {
@@ -752,8 +815,8 @@
       "label": "Influenced by"
     },
     {
-      "id1": 34,
-      "id2": 51,
+      "id1": 51,
+      "id2": 34,
       "label": "influenced by"
     },
     {
@@ -762,8 +825,8 @@
       "label": "influenced"
     },
     {
-      "id1": 34,
-      "id2": 53,
+      "id1": 53,
+      "id2": 34,
       "label": "influenced"
     },
     {
@@ -777,13 +840,13 @@
       "label": "influenced"
     },
     {
-      "id1": 34,
-      "id2": 55,
+      "id1": 55,
+      "id2": 34,
       "label": "influenced"
     },
     {
-      "id1": 34,
-      "id2": 56,
+      "id1": 56,
+      "id2": 34,
       "label": "influenced"
     },
     {
@@ -797,28 +860,28 @@
       "label": "influenced"
     },
     {
-      "id1": 55,
-      "id2": 58,
+      "id1": 58,
+      "id2": 55,
       "label": "influenced"
     },
     {
-      "id1": 55,
-      "id2": 59,
+      "id1": 59,
+      "id2": 55,
       "label": "influenced"
     },
     {
-      "id1": 55,
-      "id2": 60,
+      "id1": 60,
+      "id2": 55,
       "label": "influenced"
     },
     {
-      "id1": 55,
-      "id2": 61,
+      "id1": 61,
+      "id2": 55,
       "label": "influenced"
     },
     {
-      "id1": 55,
-      "id2": 62,
+      "id1": 62,
+      "id2": 55,
       "label": "influenced"
     },
     {
@@ -874,7 +937,7 @@
     {
       "id1": 71,
       "id2": 63,
-      "label": "E.E. “Doc” Smith"
+      "label": "E.E. \u201cDoc\u201d Smith"
     },
     {
       "id1": 72,
@@ -952,13 +1015,13 @@
       "label": "influenced"
     },
     {
-      "id1": 80,
-      "id2": 81,
+      "id1": 81,
+      "id2": 80,
       "label": "influenced"
     },
     {
-      "id1": 80,
-      "id2": 82,
+      "id1": 82,
+      "id2": 80,
       "label": "influenced"
     },
     {
@@ -977,13 +1040,13 @@
       "label": "influenced"
     },
     {
-      "id1": 80,
-      "id2": 83,
+      "id1": 83,
+      "id2": 80,
       "label": "influenced"
     },
     {
-      "id1": 80,
-      "id2": 84,
+      "id1": 84,
+      "id2": 80,
       "label": "influenced"
     },
     {
@@ -997,23 +1060,23 @@
       "label": "influenced"
     },
     {
-      "id1": 41,
-      "id2": 86,
+      "id1": 86,
+      "id2": 41,
       "label": "influenced"
     },
     {
-      "id1": 41,
-      "id2": 9,
+      "id1": 9,
+      "id2": 41,
       "label": "influenced"
     },
     {
-      "id1": 41,
-      "id2": 36,
+      "id1": 36,
+      "id2": 41,
       "label": "influenced"
     },
     {
-      "id1": 41,
-      "id2": 87,
+      "id1": 87,
+      "id2": 41,
       "label": "influenced"
     },
     {
@@ -1022,13 +1085,103 @@
       "label": "influenced"
     },
     {
-      "id1": 31,
-      "id2": 41,
+      "id1": 41,
+      "id2": 31,
       "label": "influenced"
     },
     {
       "id1": 41,
       "id2": 88,
+      "label": "influenced"
+    },
+    {
+      "id1": 89,
+      "id2": 34,
+      "label": "influenced by"
+    },
+    {
+      "id1": 90,
+      "id2": 34,
+      "label": "influenced by"
+    },
+    {
+      "id1": 91,
+      "id2": 34,
+      "label": "influenced by"
+    },
+    {
+      "id1": 11,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 66,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 65,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 19,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 68,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 64,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 93,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 8,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 94,
+      "label": "influenced"
+    },
+    {
+      "id1": 95,
+      "id2": 82,
+      "label": "influenced by"
+    },
+    {
+      "id1": 82,
+      "id2": 52,
+      "label": "influenced"
+    },
+    {
+      "id1": 82,
+      "id2": 54,
+      "label": "influenced"
+    },
+    {
+      "id1": 82,
+      "id2": 96,
+      "label": "influenced"
+    },
+    {
+      "id1": 97,
+      "id2": 54,
+      "label": "influenced"
+    },
+    {
+      "id1": 78,
+      "id2": 80,
       "label": "influenced"
     }
   ]
