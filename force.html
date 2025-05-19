@@ -152,7 +152,9 @@ let  linkHitSel  = linkGroup.selectAll('path.link-hit');
 let  labelSel    = linkGroup.selectAll('text.label');
 let  nodeSel     = g.selectAll('.node');
 
-const BASE_RADIUS = 22;  // radius for nodes with 3 edges
+const BASE_RADIUS     = 22;  // radius for nodes with 3 edges
+const BASE_COLLISION  = 40;  // default collision distance
+const LABEL_OFFSET    = 6;   // px text sits beyond circle
 
 /* ---------- D3 forces ---------- */
 const chargeInput = document.getElementById('chargeRange');
@@ -179,7 +181,7 @@ const simulation = d3.forceSimulation(nodes)
            .strength(() => +chargeRange.value)        // live-updates with slider
            .distanceMax(1_000000))                       // repulse across whole graph
   .force('center', d3.forceCenter(width / 2, height / 2))
-  .force('collision', d3.forceCollide().radius(d => (d.r || BASE_RADIUS/3) * 40 / BASE_RADIUS))
+  .force('collision', d3.forceCollide().radius(BASE_COLLISION))
   .alphaDecay(0.001)                                  // cools more slowly → runs longer
   .on('tick', ticked);
 
@@ -218,7 +220,6 @@ links.forEach(l => {
 
 // eight slot angles (0°,45°,…)
 const slots       = Array.from({length:8}, (_,i)=>i*Math.PI/4);
-const labelOffset = 6;  // px beyond circle
 
 nodeSel.select('text').each(function(d){
   const edges = incident.get(d.id) || [];
@@ -231,7 +232,7 @@ nodeSel.select('text').each(function(d){
     if (score > bestScore){ bestScore = score; bestAng = s; }
   });
 
-  const rLab = (d.r || BASE_RADIUS / 3) + labelOffset;
+  const rLab = (d.radius || BASE_RADIUS / 3) + LABEL_OFFSET;
   const tx = Math.cos(bestAng)*rLab,
         ty = Math.sin(bestAng)*rLab;
 
@@ -280,16 +281,19 @@ nodeSel.select('text').each(function(d){
 
 /* ---------- helpers ---------- */
 
-function updateNodeRadii() {
+function updateNodeSizes() {
   const counts = new Map(nodes.map(n => [n.id, 0]));
   links.forEach(l => {
     counts.set(l.id1, (counts.get(l.id1) || 0) + 1);
     counts.set(l.id2, (counts.get(l.id2) || 0) + 1);
   });
   nodes.forEach(n => {
-    const c = counts.get(n.id) || 0;
-    n.r = BASE_RADIUS * Math.max(c, 1) / 3;
+    const c     = counts.get(n.id) || 0;
+    const scale = Math.max(c, 1) / 3;
+    n.radius    = BASE_RADIUS * scale;
+    n.collision = BASE_COLLISION * scale;
   });
+  simulation.force('collision').radius(d => d.collision);
 }
 
 function formatNodeLabel(n){
@@ -395,7 +399,7 @@ function applyLayoutForces() {
 }
 
 function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
-  updateNodeRadii();
+  updateNodeSizes();
   const simLinks = buildSimLinks();
 
   /* ---- links ---- */
@@ -465,7 +469,7 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
             d3.select(event.currentTarget).select('text').text(formatNodeLabel(d));
           });
 
-      nodeG.append('circle').attr('r', d => d.r);
+      nodeG.append('circle').attr('r', d => d.radius);
       nodeG.append('text')
            .attr('dominant-baseline', 'central')
            .text(d => formatNodeLabel(d));
@@ -473,7 +477,7 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
     },
     update => {
       update.select('text').text(d => formatNodeLabel(d));
-      update.select('circle').attr('r', d => d.r);
+      update.select('circle').attr('r', d => d.radius);
     },
     exit   => exit.remove()
   );
