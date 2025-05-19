@@ -46,7 +46,11 @@
     #nodePopup input{width:120px;display:block;margin-top:4px}
     #nodePopup .actions{display:flex;gap:4px;margin-top:4px}
     #nodePopup .hint{font-style:italic;margin-top:4px;font-size:11px}
-    #nodePopupImage{display:none;margin-top:4px}
+    #nodePopupImages{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+    #nodePopupImages .item{position:relative}
+    #nodePopupImages img{width:44px;height:44px;border:1px solid #ccc}
+    #nodePopupImages .actions{position:absolute;top:0;right:0;display:flex;flex-direction:column}
+    #nodePopupImages button{padding:0 2px;font-size:10px;background:#fff;border:1px solid #ccc;cursor:pointer}
     
     /* bigger add buttons */
     #addNodeBtn,#addEdgeBtn{font-size:16px;padding:6px 12px}
@@ -117,7 +121,7 @@
       <button id="nodePopupClose">X</button>
     </div>
     <div class="hint">Paste an image while this popup is open</div>
-    <img id="nodePopupImage" />
+    <div id="nodePopupImages"></div>
   </div>
 
 <script>
@@ -143,7 +147,16 @@ function loadData(){
       nodes = data.nodes || [];
       links = data.links || [];
       nodes.forEach(n=>{
-        if(!('image' in n)) n.image = null;
+        if(Array.isArray(n.images)){
+          n.image = n.images[0] || null;
+        } else {
+          if('image' in n && n.image){
+            n.images = [n.image];
+          } else {
+            n.images = [];
+          }
+          n.image = n.images[0] || null;
+        }
         nodeById.set(n.id,n);
       });
       nextNodeId = Math.max(0,...nodes.map(n=>n.id)) + 1;
@@ -215,7 +228,7 @@ const nodePopupYear   = document.getElementById('nodePopupYear');
 const nodePopupSave   = document.getElementById('nodePopupSave');
 const nodePopupDelete = document.getElementById('nodePopupDelete');
 const nodePopupClose  = document.getElementById('nodePopupClose');
-const nodePopupImage  = document.getElementById('nodePopupImage');
+const nodePopupImages = document.getElementById('nodePopupImages');
 let   nodePopupId     = null;
 
 const simulation = d3.forceSimulation(nodes)
@@ -397,7 +410,8 @@ function refreshExport(markDirty = true) {
     nodes: nodes.map(n => {
       const obj = { id: n.id, name: n.name };
       if (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '') obj.birth_year = n.birth_year;
-      if (n.image) obj.image = n.image;
+      if (n.images && n.images.length === 1) obj.image = n.images[0];
+      else if (n.images && n.images.length > 1) obj.images = n.images.slice();
       return obj;
     }),
     links
@@ -603,18 +617,92 @@ function hideEdgePopup() {
   edgePopupIndex = null;
 }
 
+function deleteImageFile(id, path){
+  fetch('/delete_image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ node_id: id, image: path })
+  });
+}
+
+function renderNodeImages(n){
+  nodePopupImages.innerHTML = '';
+  (n.images || []).forEach((src, idx) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'item';
+    const img = document.createElement('img');
+    img.src = src;
+    wrap.appendChild(img);
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+    const left = document.createElement('button');
+    left.textContent = '\u25C0';
+    left.addEventListener('click', () => moveImage(idx,-1));
+    const right = document.createElement('button');
+    right.textContent = '\u25B6';
+    right.addEventListener('click', () => moveImage(idx,1));
+    const del = document.createElement('button');
+    del.textContent = 'X';
+    del.addEventListener('click', () => removeImage(idx));
+    actions.appendChild(left);
+    actions.appendChild(right);
+    actions.appendChild(del);
+    wrap.appendChild(actions);
+    nodePopupImages.appendChild(wrap);
+  });
+}
+
+function moveImage(idx, delta){
+  const n = nodeById.get(nodePopupId);
+  if(!n) return;
+  const imgs = n.images;
+  const newIdx = idx + delta;
+  if(newIdx < 0 || newIdx >= imgs.length) return;
+  [imgs[idx], imgs[newIdx]] = [imgs[newIdx], imgs[idx]];
+  n.image = imgs[0] || null;
+  renderNodeImages(n);
+  updateGraph();
+}
+
+function removeImage(idx){
+  const n = nodeById.get(nodePopupId);
+  if(!n) return;
+  const [img] = n.images.splice(idx,1);
+  deleteImageFile(n.id, img);
+  n.image = n.images[0] || null;
+  renderNodeImages(n);
+  updateGraph();
+}
+
+async function dedupeImages(n){
+  const hashes = new Map();
+  for(let i=0;i<n.images.length;i++){
+    const src = n.images[i];
+    try{
+      const ab = await fetch(src).then(r=>r.arrayBuffer());
+      const hashBuf = await crypto.subtle.digest('SHA-256', ab);
+      const hash = Array.from(new Uint8Array(hashBuf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+      if(hashes.has(hash)){
+        deleteImageFile(n.id, src);
+        n.images.splice(i,1);
+        i--;
+      }else{
+        hashes.set(hash, src);
+      }
+    }catch(e){console.error(e);}
+  }
+  n.image = n.images[0] || null;
+}
+
 function openNodePopup(id, x, y) {
   const n = nodeById.get(id);
   if (!n) return;
   nodePopupId = id;
   nodePopupName.value = n.name || '';
   nodePopupYear.value = n.birth_year || '';
-  if (n.image) {
-    nodePopupImage.src = n.image;
-    nodePopupImage.style.display = 'block';
-  } else {
-    nodePopupImage.style.display = 'none';
-  }
+  dedupeImages(n).then(()=>{
+    renderNodeImages(n);
+  });
   nodePopup.style.left = (x + 5) + 'px';
   nodePopup.style.top  = (y + 5) + 'px';
   nodePopup.style.display = 'block';
@@ -623,7 +711,6 @@ function openNodePopup(id, x, y) {
 
 function hideNodePopup() {
   nodePopup.style.display = 'none';
-  nodePopupImage.style.display = 'none';
   nodePopupId = null;
 }
 
@@ -770,14 +857,18 @@ function uploadImage(id, file){
   fd.append('image', file, file.name || 'clipboard.png');
   fetch('/upload', {method:'POST', body:fd})
     .then(r => r.ok ? r.text() : Promise.reject())
-    .then(() => {
+    .then(resp => {
+      if(resp === 'DUPLICATE') return;
       const n = nodeById.get(id);
-      n.image = `images/${id}.png`;
-      updateGraph();
-      if(nodePopupId === id){
-        nodePopupImage.src = n.image;
-        nodePopupImage.style.display = 'block';
-      }
+      if(!n.images) n.images = [];
+      n.images.push(`images/${resp}`);
+      n.image = n.images[0] || null;
+      dedupeImages(n).then(()=>{
+        updateGraph();
+        if(nodePopupId === id){
+          renderNodeImages(n);
+        }
+      });
     });
 }
 

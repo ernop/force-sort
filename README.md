@@ -27,8 +27,9 @@ http.server` will only provide read‑only access.
   from what you've copied.  Click the area to copy the JSON to your clipboard
   and it turns white again.  Saving the clipboard contents back to
   `data.json` is manual to avoid accidental loss.
-* **Image support.**  While a node editor popup is open you can paste an image.
-  It will be uploaded to the server and shown as the node's icon.
+* **Image support.**  Each node can hold multiple images.  Paste or upload
+  pictures while the editor popup is open, rearrange or remove them, and
+  identical uploads are detected automatically.
 * **Layout options.**  A "tiers" layout is available in addition to the default
   force simulation.
 
