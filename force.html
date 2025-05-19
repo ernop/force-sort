@@ -18,10 +18,15 @@
     textarea#export.unsaved{background:#fff3c4}
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
+    
     .link{stroke:#555;stroke-width:1.5px;fill:none;marker-end:url(#arrow)}
     .link.highlight{stroke:red;stroke-width:3px}
     text{font-size:12px;pointer-events:none;fill:#000}
     button{cursor:pointer}
+    #edgePopup{position:absolute;background:#ffffe0;border:1px solid #aaa;border-radius:4px;padding:4px;font-size:12px;box-shadow:0 2px 4px rgba(0,0,0,0.2);display:none}
+    #edgePopup input{width:120px}
+    #edgePopup .actions{display:flex;gap:4px;margin-top:4px}
+    
     /* bigger add buttons */
     #addNodeBtn,#addEdgeBtn{font-size:16px;padding:6px 12px}
   </style>
@@ -60,11 +65,22 @@
   <!-- export area -->
   <textarea id="export" readonly></textarea>
 
+  <!-- edge action popup -->
+  <div id="edgePopup">
+    <input id="edgePopupLabel" type="text">
+    <div class="actions">
+      <button id="edgePopupSave">Save</button>
+      <button id="edgePopupReverse">Reverse</button>
+      <button id="edgePopupDelete">Delete</button>
+      <button id="edgePopupClose">X</button>
+    </div>
+  </div>
+
 <script>
 /* ---------- initial data ---------- */
-const nodes = [{"id":6,"name":"JRR tolkien"},{"id":1,"name":"CS Lewis"},{"id":2,"name":"Roald Dahl"},{"id":3,"name":"HP Lovecraft"},{"id":4,"name":"robert howard"},{"id":5,"name":"charles williams"},{"id":7,"name":"Edgar Allan Poe"},{"id":8,"name":"Rudyard Kipling"},{"id":9,"name":"Charles Dickens"},{"id":10,"name":"Harold Lamb"},{"id":11,"name":"Jack London"},{"id":12,"name":"Sax Rohmer"},{"id":13,"name":"Lord Dunsany"},{"id":14,"name":"Thomas Bulfinch"},{"id":15,"name":"H Rider Haggard"},{"id":16,"name":"Edgar Rice Burroughs"},{"id":17,"name":"Robert Armitage Sterndale"},{"id":18,"name":"Robert Louis Stevenso"},{"id":19,"name":"Mark Twain"},{"id":20,"name":"Friedrich Nietzsche"},{"id":21,"name":"William Hope Hodgson"},{"id":22,"name":"Algernon Blackwood"},{"id":23,"name":"M.R. James"},{"id":24,"name":"Arthur Machen"},{"id":25,"name":"William Morris"},{"id":26,"name":"Brothers Grimm"},{"id":27,"name":"Algernon Charles Swinburne"},{"id":28,"name":"Samuel Taylor Coleridge"},{"id":29,"name":"William Shakespeare"},{"id":30,"name":"Washington Irving"},{"id":31,"name":"Neil Gaiman"},{"id":32,"name":"Henry Kuttner"},{"id":33,"name":"Stephen King"},{"id":34,"name":"China Mieville"},{"id":35,"name":"Clive Barker"},{"id":36,"name":"Borges"},{"id":37,"name":"Alan Moore"},{"id":38,"name":"The Kalevala"},{"id":39,"name":"Andrew Liang"},{"id":40,"name":"Beowulf"}];
+const nodes = [{"id":6,"name":"JRR Tolkien"},{"id":1,"name":"CS Lewis"},{"id":2,"name":"Roald Dahl"},{"id":3,"name":"HP Lovecraft"},{"id":4,"name":"robert howard"},{"id":5,"name":"charles williams"},{"id":7,"name":"Edgar Allan Poe"},{"id":8,"name":"Rudyard Kipling"},{"id":9,"name":"Charles Dickens"},{"id":10,"name":"Harold Lamb"},{"id":11,"name":"Jack London"},{"id":12,"name":"Sax Rohmer"},{"id":13,"name":"Lord Dunsany"},{"id":14,"name":"Thomas Bulfinch"},{"id":15,"name":"H Rider Haggard"},{"id":16,"name":"Edgar Rice Burroughs"},{"id":17,"name":"Robert Armitage Sterndale"},{"id":18,"name":"Robert Louis Stevenso"},{"id":19,"name":"Mark Twain"},{"id":20,"name":"Friedrich Nietzsche"},{"id":21,"name":"William Hope Hodgson"},{"id":22,"name":"Algernon Blackwood"},{"id":23,"name":"M.R. James"},{"id":24,"name":"Arthur Machen"},{"id":25,"name":"William Morris"},{"id":26,"name":"Brothers Grimm"},{"id":27,"name":"Algernon Charles Swinburne"},{"id":28,"name":"Samuel Taylor Coleridge"},{"id":29,"name":"William Shakespeare"},{"id":30,"name":"Washington Irving"},{"id":31,"name":"Neil Gaiman"},{"id":32,"name":"Henry Kuttner"},{"id":33,"name":"Stephen King"},{"id":34,"name":"China Mieville"},{"id":35,"name":"Clive Barker"},{"id":36,"name":"Borges"},{"id":37,"name":"Alan Moore"},{"id":38,"name":"The Kalevala"},{"id":39,"name":"Andrew Liang"},{"id":40,"name":"Beowulf"},{"id":41,"name":"Robert Heinlein"},{"id":42,"name":"Isaac Asimov"},{"id":43,"name":"Arthur C. Clarke"}];
 
-const links = [{"id1":6,"id2":1,"label":"friend"},{"id1":1,"id2":6,"label":"supporter"},{"id1":2,"id2":3,"label":"fan"},{"id1":4,"id2":3,"label":"correspondence"},{"id1":3,"id2":4,"label":"correspondence"},{"id1":2,"id2":1,"label":"successor"},{"id1":5,"id2":6,"label":"drinking buddy"},{"id1":5,"id2":1,"label":"co-member of the inklings"},{"id1":2,"id2":7,"label":"Recommended to aspiring writers"},{"id1":2,"id2":8,"label":"Influenced By"},{"id1":2,"id2":9,"label":"Influenced By"},{"id1":4,"id2":10,"label":"admired"},{"id1":4,"id2":11,"label":"Influenced"},{"id1":4,"id2":8,"label":"influenced"},{"id1":4,"id2":12,"label":"captivated"},{"id1":4,"id2":13,"label":"left a mark on"},{"id1":4,"id2":14,"label":"Adapted"},{"id1":4,"id2":15,"label":"influenced"},{"id1":4,"id2":16,"label":"influenced"},{"id1":8,"id2":17,"label":"influenced"},{"id1":8,"id2":18,"label":"influenced"},{"id1":8,"id2":19,"label":"influenved by"},{"id1":8,"id2":15,"label":"influenced by"},{"id1":3,"id2":13,"label":"influenced by"},{"id1":3,"id2":7,"label":"influenced by"},{"id1":3,"id2":20,"label":"influenced by"},{"id1":3,"id2":21,"label":"influenced by"},{"id1":3,"id2":22,"label":"influenced by"},{"id1":3,"id2":23,"label":"influenced by"},{"id1":3,"id2":24,"label":"influenced by"},{"id1":13,"id2":25,"label":"admired by"},{"id1":13,"id2":26,"label":"admired by"},{"id1":13,"id2":7,"label":"admired by"},{"id1":13,"id2":27,"label":"admired by"},{"id1":13,"id2":28,"label":"admired by"},{"id1":9,"id2":29,"label":"Influenced by"},{"id1":9,"id2":30,"label":"Influenced by"},{"id1":3,"id2":31,"label":"Follower of"},{"id1":3,"id2":32,"label":"Follower"},{"id1":3,"id2":33,"label":"influence"},{"id1":3,"id2":34,"label":"influenced"},{"id1":3,"id2":35,"label":"influenced"},{"id1":3,"id2":36,"label":"influenced"},{"id1":3,"id2":37,"label":"influenced"},{"id1":6,"id2":38,"label":"influenced by"},{"id1":6,"id2":39,"label":"inspired by"},{"id1":6,"id2":25,"label":"inspired by"},{"id1":6,"id2":40,"label":"admired"}];
+const links = [{"id1":6,"id2":1,"label":"friend"},{"id1":1,"id2":6,"label":"supporter"},{"id1":2,"id2":3,"label":"fan"},{"id1":4,"id2":3,"label":"correspondence"},{"id1":3,"id2":4,"label":"correspondence"},{"id1":2,"id2":1,"label":"successor"},{"id1":5,"id2":6,"label":"drinking buddy"},{"id1":5,"id2":1,"label":"co-member of the inklings"},{"id1":2,"id2":7,"label":"Recommended to aspiring writers"},{"id1":2,"id2":8,"label":"Influenced By"},{"id1":2,"id2":9,"label":"Influenced By"},{"id1":4,"id2":10,"label":"admired"},{"id1":4,"id2":11,"label":"Influenced"},{"id1":4,"id2":8,"label":"influenced"},{"id1":4,"id2":12,"label":"captivated"},{"id1":4,"id2":13,"label":"left a mark on"},{"id1":4,"id2":14,"label":"Adapted"},{"id1":4,"id2":15,"label":"influenced"},{"id1":4,"id2":16,"label":"influenced"},{"id1":8,"id2":17,"label":"influenced"},{"id1":8,"id2":18,"label":"influenced"},{"id1":8,"id2":19,"label":"influenved by"},{"id1":8,"id2":15,"label":"influenced by"},{"id1":3,"id2":13,"label":"influenced by"},{"id1":3,"id2":7,"label":"influenced by"},{"id1":3,"id2":20,"label":"influenced by"},{"id1":3,"id2":21,"label":"influenced by"},{"id1":3,"id2":22,"label":"influenced by"},{"id1":3,"id2":23,"label":"influenced by"},{"id1":3,"id2":24,"label":"influenced by"},{"id1":13,"id2":25,"label":"admired by"},{"id1":13,"id2":26,"label":"admired by"},{"id1":13,"id2":7,"label":"admired by"},{"id1":13,"id2":27,"label":"admired by"},{"id1":13,"id2":28,"label":"admired by"},{"id1":9,"id2":29,"label":"Influenced by"},{"id1":9,"id2":30,"label":"Influenced by"},{"id1":3,"id2":31,"label":"Follower of"},{"id1":3,"id2":32,"label":"Follower"},{"id1":3,"id2":33,"label":"influence"},{"id1":3,"id2":34,"label":"influenced"},{"id1":3,"id2":35,"label":"influenced"},{"id1":3,"id2":36,"label":"influenced"},{"id1":3,"id2":37,"label":"influenced"},{"id1":6,"id2":38,"label":"influenced by"},{"id1":6,"id2":39,"label":"inspired by"},{"id1":6,"id2":25,"label":"inspired by"},{"id1":6,"id2":40,"label":"admired"},{"id1":41,"id2":42,"label":"Contemporary"},{"id1":41,"id2":42,"label":""},{"id1":41,"id2":43,"label":"Comtemporary"}];
 
 const nodeById = new Map(nodes.map(n => [n.id, n]));
 let   nextNodeId = Math.max(...nodes.map(n => n.id)) + 1;
@@ -112,6 +128,13 @@ let  nodeSel  = g.selectAll('.node');
 const chargeInput = document.getElementById('chargeRange');
 const linkInput   = document.getElementById('linkRange');
 const exportArea  = document.getElementById('export');   // ← new
+const edgePopup       = document.getElementById('edgePopup');
+const edgePopupLabel  = document.getElementById('edgePopupLabel');
+const edgePopupSave   = document.getElementById('edgePopupSave');
+const edgePopupReverse= document.getElementById('edgePopupReverse');
+const edgePopupDelete = document.getElementById('edgePopupDelete');
+const edgePopupClose  = document.getElementById('edgePopupClose');
+let   edgePopupIndex  = null;
 
 const simulation = d3.forceSimulation(nodes)
   .force('link',
@@ -302,13 +325,10 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
                   .text(d => d.label)
                   /* dbl-click label edit */
                   .on('dblclick', (event,d) => {
-                    const newLabel = prompt('Edit edge label:', d.label || '');
-                    if (newLabel === null) return;           // cancel
-                    d.label = newLabel;
+                    event.stopPropagation();
                     const idx = labelSel.nodes().indexOf(event.currentTarget);
-                    links[idx].label = newLabel;             // update data array
-                    refreshExport();
-                    d3.select(event.currentTarget).text(newLabel);
+                    if (idx === -1) return;
+                    openEdgePopup(idx, event.pageX, event.pageY);
                   })
                   .on('click', edgeMenu),
     update => update.text(d => d.label),
@@ -358,29 +378,58 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
 }
 
 
+function openEdgePopup(idx, x, y) {
+  edgePopupIndex = idx;
+  edgePopupLabel.value = links[idx].label || '';
+  edgePopup.style.left = (x + 5) + 'px';
+  edgePopup.style.top  = (y + 5) + 'px';
+  edgePopup.style.display = 'block';
+}
+
 function edgeMenu(event, d) {
   if (event.detail > 1) return; // ignore double-click
+  event.stopPropagation();
   let idx = linkSel.nodes().indexOf(event.currentTarget);
   if (idx === -1) idx = labelSel.nodes().indexOf(event.currentTarget);
   if (idx === -1) return;
 
-  const choice = prompt('Edge actions:\n  e - edit label\n  r - reverse direction\n  d - delete', '');
-  if (!choice) return;
-  const action = choice.trim().toLowerCase()[0];
-  if (action === 'e') {
-    const newLabel = prompt('Edit edge label:', links[idx].label || '');
-    if (newLabel !== null) links[idx].label = newLabel;
-  } else if (action === 'r') {
-    const tmp = links[idx].id1;
-    links[idx].id1 = links[idx].id2;
-    links[idx].id2 = tmp;
-  } else if (action === 'd') {
-    links.splice(idx, 1);
-  } else {
-    return;
-  }
-  updateGraph();
+  openEdgePopup(idx, event.pageX, event.pageY);
 }
+
+function hideEdgePopup() {
+  edgePopup.style.display = 'none';
+  edgePopupIndex = null;
+}
+
+edgePopupSave.addEventListener('click', e => {
+  e.stopPropagation();
+  if (edgePopupIndex === null) return;
+  links[edgePopupIndex].label = edgePopupLabel.value;
+  hideEdgePopup();
+  updateGraph();
+});
+edgePopupReverse.addEventListener('click', e => {
+  e.stopPropagation();
+  if (edgePopupIndex === null) return;
+  const l = links[edgePopupIndex];
+  [l.id1, l.id2] = [l.id2, l.id1];
+  hideEdgePopup();
+  updateGraph();
+});
+edgePopupDelete.addEventListener('click', e => {
+  e.stopPropagation();
+  if (edgePopupIndex === null) return;
+  links.splice(edgePopupIndex, 1);
+  hideEdgePopup();
+  updateGraph();
+});
+edgePopupClose.addEventListener('click', e => {
+  e.stopPropagation();
+  hideEdgePopup();
+});
+document.body.addEventListener('click', e => {
+  if (!edgePopup.contains(e.target)) hideEdgePopup();
+});
 
 
 /* ---------- drag handlers ---------- */
