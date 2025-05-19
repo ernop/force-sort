@@ -18,6 +18,7 @@
     textarea#export.unsaved{background:#fff3c4}
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
+    
     .link{stroke:#555;stroke-width:1.5px;fill:none;marker-end:url(#arrow)}
     .link.highlight{stroke:red;stroke-width:3px}
     text{font-size:12px;pointer-events:none;fill:#000}
@@ -25,6 +26,9 @@
     #edgePopup{position:absolute;background:#ffffe0;border:1px solid #aaa;border-radius:4px;padding:4px;font-size:12px;box-shadow:0 2px 4px rgba(0,0,0,0.2);display:none}
     #edgePopup input{width:120px}
     #edgePopup .actions{display:flex;gap:4px;margin-top:4px}
+    
+    /* bigger add buttons */
+    #addNodeBtn,#addEdgeBtn{font-size:16px;padding:6px 12px}
   </style>
 </head>
 <body>
@@ -257,8 +261,13 @@ function populateSelects() {
     $(edgeTo).select2();
 
     // open dropdown on focus and autofocus search field
-    $(edgeFrom).off('focus').on('focus', () => $(edgeFrom).select2('open'));
-    $(edgeTo).off('focus').on('focus',   () => $(edgeTo).select2('open'));
+    $(edgeFrom).next('.select2').find('.select2-selection')
+      .off('focus.open')
+      .on('focus.open', () => $(edgeFrom).select2('open'));
+    $(edgeTo).next('.select2').find('.select2-selection')
+      .off('focus.open')
+      .on('focus.open',   () => $(edgeTo).select2('open'));
+
     $(edgeFrom)
       .off('select2:open')
       .on('select2:open', () =>
