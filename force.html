@@ -22,6 +22,8 @@
     .link.highlight{stroke:red;stroke-width:3px}
     text{font-size:12px;pointer-events:none;fill:#000}
     button{cursor:pointer}
+    /* bigger add buttons */
+    #addNodeBtn,#addEdgeBtn{font-size:16px;padding:6px 12px}
   </style>
 </head>
 <body>
@@ -236,8 +238,13 @@ function populateSelects() {
     $(edgeTo).select2();
 
     // open dropdown on focus and autofocus search field
-    $(edgeFrom).off('focus').on('focus', () => $(edgeFrom).select2('open'));
-    $(edgeTo).off('focus').on('focus',   () => $(edgeTo).select2('open'));
+    $(edgeFrom).next('.select2').find('.select2-selection')
+      .off('focus.open')
+      .on('focus.open', () => $(edgeFrom).select2('open'));
+    $(edgeTo).next('.select2').find('.select2-selection')
+      .off('focus.open')
+      .on('focus.open',   () => $(edgeTo).select2('open'));
+
     $(edgeFrom)
       .off('select2:open')
       .on('select2:open', () =>
