@@ -357,8 +357,17 @@ document.getElementById('addNodeBtn').addEventListener('click', () => {
   nodes.push({ id, name });
   nodeById.set(id, nodes[nodes.length - 1]);
 
+  const fromVal  = edgeFrom.value;   // preserve current "from" selection
+  const labelVal = edgeLabel.value;  // preserve label text
+
   inp.value = '';
-  updateGraph();          // refresh selects + layout
+
+  updateGraph(true);                 // refresh layout only
+  populateSelects();                 // now update dropdowns
+
+  edgeFrom.value = fromVal;          // restore previous "from" selection
+  edgeTo.value   = id;               // default "to" to newly added node
+  edgeLabel.value = labelVal;        // restore label text
 });
 
 /* add edge */
