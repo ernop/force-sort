@@ -31,6 +31,8 @@
     
     /* bigger add buttons */
     #addNodeBtn,#addEdgeBtn{font-size:16px;padding:6px 12px}
+
+    #layoutLabel{margin-left:auto}
   </style>
 </head>
 <body>
@@ -40,6 +42,12 @@
     <button id="dampen">Remove Momentum</button>
     <label>Charge <input id="chargeRange" type="range" min="-1000" max="0" value="-300"></label>
     <label>Link&nbsp;Dist <input id="linkRange" type="range" min="30" max="300" value="150"></label>
+    <label id="layoutLabel">Layout
+      <select id="layoutSelect">
+        <option value="force">Force</option>
+        <option value="tiers">Tiers</option>
+      </select>
+    </label>
   </div>
 
   <!-- graph area -->
@@ -146,6 +154,9 @@ let  nodeSel     = g.selectAll('.node');
 /* ---------- D3 forces ---------- */
 const chargeInput = document.getElementById('chargeRange');
 const linkInput   = document.getElementById('linkRange');
+const layoutSelect= document.getElementById('layoutSelect');
+let   layoutMode  = layoutSelect.value;
+const tierSpacing = 100;
 const exportArea  = document.getElementById('export');   // ← new
 const edgePopup       = document.getElementById('edgePopup');
 const edgePopupLabel  = document.getElementById('edgePopupLabel');
@@ -326,6 +337,32 @@ function refreshExport() {
   exportArea.classList.add("unsaved");
 }
 
+function computeTiers() {
+  const lvl = new Map(nodes.map(n => [n.id, 0]));
+  for (let iter = 0; iter < nodes.length; iter++) {
+    let changed = false;
+    links.forEach(l => {
+      const s = lvl.get(l.id1) || 0;
+      const t = lvl.get(l.id2) || 0;
+      if (t <= s) {
+        lvl.set(l.id2, s + 1);
+        changed = true;
+      }
+    });
+    if (!changed) break;
+  }
+  nodes.forEach(n => n.tier = lvl.get(n.id) || 0);
+}
+
+function applyLayoutForces() {
+  if (layoutMode === 'tiers') {
+    computeTiers();
+    simulation.force('tier', d3.forceY(d => d.tier * tierSpacing).strength(1));
+  } else {
+    simulation.force('tier', null);
+  }
+}
+
 
 function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
   const simLinks = buildSimLinks();
@@ -403,6 +440,7 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
 
   simulation.nodes(nodes);
   simulation.force('link').links(simLinks);
+  applyLayoutForces();
   simulation.alpha(0.6).restart();
 
   if (!skipSelectUpdate) populateSelects();
@@ -507,6 +545,12 @@ chargeInput.addEventListener('input', e=>{
 
 linkInput.addEventListener('input', e=>{
   simulation.force('link').distance(+e.target.value);
+  simulation.alpha(0.8).restart();
+});
+
+layoutSelect.addEventListener('change', e => {
+  layoutMode = e.target.value;
+  applyLayoutForces();
   simulation.alpha(0.8).restart();
 });
 
