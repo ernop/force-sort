@@ -188,13 +188,19 @@ const zoom = d3.zoom()
 
 svg.call(zoom).on('dblclick.zoom', null);     // disable dblclick-to-zoom
 
-svg.append('defs').append('marker')
+const defs = svg.append('defs');
+defs.append('marker')
    .attr('id','arrow')
    .attr('viewBox','0 -5 10 10')
    .attr('refX',32).attr('refY',0) /* offset beyond circle */
    .attr('markerWidth',8).attr('markerHeight',8)
    .attr('orient','auto')
    .append('path').attr('d','M0,-5L10,0L0,5').attr('fill','#555');
+
+defs.append('clipPath')
+    .attr('id','nodeClip')
+    .append('circle')
+    .attr('r',22);
 
 const g = svg.append('g');
 const linkGroup = g.append('g').attr('class','links');
@@ -548,6 +554,7 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
       nodeG.append('circle').attr('r', 22);
       nodeG.append('image')
            .attr('class','node-image')
+           .attr('clip-path','url(#nodeClip)')
            .attr('x',-22)
            .attr('y',-22)
            .attr('width',44)
@@ -568,7 +575,8 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
       n.select('text').text(formatNodeLabel(d));
       n.select('image.node-image')
         .attr('href', d.image || '')
-        .style('display', d.image ? null : 'none');
+        .style('display', d.image ? null : 'none')
+        .attr('clip-path','url(#nodeClip)');
     }),
     exit   => exit.remove()
   );
