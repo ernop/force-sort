@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <title>Force‑Directed People Graph</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
   <style>
     html,body{margin:0;height:100%;background:#fff;font-family:Arial,Helvetica,sans-serif}
     #topControls,#bottomControls{display:flex;gap:12px;padding:8px;flex-wrap:wrap}
@@ -214,11 +217,27 @@ nodeSel.select('text').each(function(d){
 /* ---------- helpers ---------- */
 
 function populateSelects() {
-  const opts = nodes
+  const sorted = nodes.slice().sort((a, b) => a.name.localeCompare(b.name));
+  const opts = sorted
     .map(n => `<option value="${n.id}">${n.name}</option>`)
     .join('');
-  edgeFrom.innerHTML = opts;
-  edgeTo.innerHTML   = opts;
+
+  const fromVal = edgeFrom.value;
+  const toVal   = edgeTo.value;
+
+  $(edgeFrom).html(opts);
+  $(edgeTo).html(opts);
+
+  $(edgeFrom).val(fromVal);
+  $(edgeTo).val(toVal);
+
+  if (!$(edgeFrom).hasClass('select2-hidden-accessible')) {
+    $(edgeFrom).select2();
+    $(edgeTo).select2();
+  } else {
+    $(edgeFrom).trigger('change.select2');
+    $(edgeTo).trigger('change.select2');
+  }
 }
 
 
