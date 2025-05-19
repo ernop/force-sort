@@ -411,6 +411,14 @@ exportArea.addEventListener('click', () => {
     .then(() => exportArea.classList.remove('unsaved'));
 });
 
+function saveDataToServer(text){
+  fetch('/save_data', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: text
+  });
+}
+
 function refreshExport(markDirty = true) {
   exportArea.value = JSON.stringify({
     nodes: nodes.map(n => {
@@ -424,6 +432,7 @@ function refreshExport(markDirty = true) {
   }, null, 2);
   if (markDirty) {
     exportArea.classList.add('unsaved');
+    saveDataToServer(exportArea.value);
   } else {
     exportArea.classList.remove('unsaved');
   }
