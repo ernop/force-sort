@@ -188,15 +188,14 @@ const simulation = d3.forceSimulation(nodes)
 function ticked(){
   /* ---------- arrow path ---------- */
 
-  const FIXED_R = BASE_RADIUS / 3;
-
   const pathD = d => {
     const dx   = d.target.x - d.source.x,
           dy   = d.target.y - d.source.y,
           dist = Math.hypot(dx, dy) || 1,
-
-          tStart = FIXED_R / dist,
-          tEnd   = (dist - FIXED_R) / dist;  // line ends at target circle
+          r1   = d.source.radius || BASE_RADIUS / 3,
+          r2   = d.target.radius || BASE_RADIUS / 3,
+          tStart = r1 / dist,
+          tEnd   = (dist - r2) / dist;  // line ends at target circle
 
     return `M${d.source.x + dx*tStart},${d.source.y + dy*tStart}L${d.source.x + dx*tEnd},${d.source.y + dy*tEnd}`;
   };
@@ -235,7 +234,7 @@ nodeSel.select('text').each(function(d){
     if (score > bestScore){ bestScore = score; bestAng = s; }
   });
 
-  const rLab = (BASE_RADIUS / 3) + LABEL_OFFSET;
+  const rLab = (d.radius || BASE_RADIUS / 3) + LABEL_OFFSET;
   const tx = Math.cos(bestAng) * rLab,
         ty = Math.sin(bestAng) * rLab;
 
