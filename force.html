@@ -57,25 +57,9 @@
 
 <script>
 /* ---------- initial data ---------- */
-const nodes = [
-  { id: 6, name: "JRR tolkien" },
-  { id: 1, name: "CS lewis" },
-  { id: 2, name: "roald dahl" },
-  { id: 3, name: "lovecraft" },
-  { id: 4, name: "robert howard" },
-  { id: 5, name: "charles williams" }
-];
+const nodes = [{"id":6,"name":"JRR tolkien"},{"id":1,"name":"CS Lewis"},{"id":2,"name":"roald dahl"},{"id":3,"name":"lovecraft"},{"id":4,"name":"robert howard"},{"id":5,"name":"charles williams"},{"id":7,"name":"Edgar Allan Poe"},{"id":8,"name":"Rudyard Kipling"},{"id":9,"name":"Charles Dickens"}];
 
-const links = [
-  { id1: 6, id2: 1, label: "friend" },
-  { id1: 1, id2: 6, label: "supporter" },
-  { id1: 2, id2: 3, label: "fan" },
-  { id1: 4, id2: 3, label: "correspondence" },
-  { id1: 3, id2: 4, label: "correspondence" },
-  { id1: 2, id2: 1, label: "successor" },
-  { id1: 5, id2: 6, label: "drinking buddy" },
-  { id1: 5, id2: 1, label: "co-member of the inklings" }
-];
+const links = [{"id1":6,"id2":1,"label":"friend"},{"id1":1,"id2":6,"label":"supporter"},{"id1":2,"id2":3,"label":"fan"},{"id1":4,"id2":3,"label":"correspondence"},{"id1":3,"id2":4,"label":"correspondence"},{"id1":2,"id2":1,"label":"successor"},{"id1":5,"id2":6,"label":"drinking buddy"},{"id1":5,"id2":1,"label":"co-member of the inklings"},{"id1":2,"id2":7,"label":"Recommended to aspiring writers"},{"id1":2,"id2":8,"label":"Influenced By"},{"id1":2,"id2":9,"label":"Influenced By"}];
 
 const nodeById = new Map(nodes.map(n => [n.id, n]));
 let   nextNodeId = Math.max(...nodes.map(n => n.id)) + 1;
