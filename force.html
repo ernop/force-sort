@@ -234,6 +234,20 @@ function populateSelects() {
   if (!$(edgeFrom).hasClass('select2-hidden-accessible')) {
     $(edgeFrom).select2();
     $(edgeTo).select2();
+
+    // open dropdown on focus and autofocus search field
+    $(edgeFrom).off('focus').on('focus', () => $(edgeFrom).select2('open'));
+    $(edgeTo).off('focus').on('focus',   () => $(edgeTo).select2('open'));
+    $(edgeFrom)
+      .off('select2:open')
+      .on('select2:open', () =>
+        $('.select2-container--open .select2-search__field').last().trigger('focus')
+      );
+    $(edgeTo)
+      .off('select2:open')
+      .on('select2:open', () =>
+        $('.select2-container--open .select2-search__field').last().trigger('focus')
+      );
   } else {
     $(edgeFrom).trigger('change.select2');
     $(edgeTo).trigger('change.select2');
@@ -395,7 +409,7 @@ linkInput.addEventListener('input', e=>{
 });
 
 /* add node */
-document.getElementById('addNodeBtn').addEventListener('click', () => {
+function addNode() {
   const inp  = document.getElementById('newNodeName');
   const name = inp.value.trim();
   if (!name) return;
@@ -415,6 +429,11 @@ document.getElementById('addNodeBtn').addEventListener('click', () => {
   edgeFrom.value = fromVal;          // restore previous "from" selection
   edgeTo.value   = id;               // default "to" to newly added node
   edgeLabel.value = labelVal;        // restore label text
+}
+
+document.getElementById('addNodeBtn').addEventListener('click', addNode);
+document.getElementById('newNodeName').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addNode();
 });
 
 /* add edge */
