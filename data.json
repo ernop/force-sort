@@ -21,7 +21,8 @@
     {
       "id": 3,
       "name": "HP Lovecraft",
-      "birth_year": "1890"
+      "birth_year": "1890",
+      "image": "images/3_0.png"
     },
     {
       "id": 4,
@@ -202,7 +203,8 @@
     {
       "id": 37,
       "name": "Alan Moore",
-      "birth_year": "1953"
+      "birth_year": "1953",
+      "image": "images/37_0.png"
     },
     {
       "id": 38,
@@ -278,7 +280,10 @@
       "id": 52,
       "name": "J. G. Ballard",
       "birth_year": "1930",
-      "image": "images/52.png"
+      "images": [
+        "images/52_1.png",
+        "images/52.png"
+      ]
     },
     {
       "id": 53,
@@ -294,7 +299,12 @@
     {
       "id": 55,
       "name": "Octavia E. Butler",
-      "birth_year": "1947"
+      "birth_year": "1947",
+      "images": [
+        "images/55_0.png",
+        "images/55_1.png",
+        "images/55_2.png"
+      ]
     },
     {
       "id": 56,
@@ -324,7 +334,8 @@
     {
       "id": 61,
       "name": "Harlan Ellison",
-      "birth_year": "1934"
+      "birth_year": "1934",
+      "image": "images/61_0.png"
     },
     {
       "id": 62,
@@ -389,7 +400,8 @@
     {
       "id": 74,
       "name": "William Golding",
-      "birth_year": "1911"
+      "birth_year": "1911",
+      "image": "images/74_0.png"
     },
     {
       "id": 75,
@@ -405,6 +417,42 @@
       "id": 77,
       "name": "Richard Matheson",
       "birth_year": "1926"
+    },
+    {
+      "id": 78,
+      "name": "Ray Bradbury",
+      "birth_year": "1920"
+    },
+    {
+      "id": 79,
+      "name": "Herman Melville",
+      "birth_year": "1819"
+    },
+    {
+      "id": 80,
+      "name": "Bruce Sterling",
+      "birth_year": "1954",
+      "image": "images/80_0.png"
+    },
+    {
+      "id": 81,
+      "name": "Vernor Vinge",
+      "birth_year": "1944"
+    },
+    {
+      "id": 82,
+      "name": "William Gibson",
+      "birth_year": "1948"
+    },
+    {
+      "id": 83,
+      "name": "Norman Spinrad",
+      "birth_year": "1940"
+    },
+    {
+      "id": 84,
+      "name": "Brian Aldiss",
+      "birth_year": "1925"
     }
   ],
   "links": [
@@ -839,11 +887,6 @@
       "label": "influenced"
     },
     {
-      "id1": 33,
-      "id2": 3,
-      "label": "influenced"
-    },
-    {
       "id1": 7,
       "id2": 33,
       "label": "influenced"
@@ -871,6 +914,56 @@
     {
       "id1": 33,
       "id2": 77,
+      "label": "influenced"
+    },
+    {
+      "id1": 33,
+      "id2": 80,
+      "label": "influenced"
+    },
+    {
+      "id1": 61,
+      "id2": 80,
+      "label": "influenced"
+    },
+    {
+      "id1": 73,
+      "id2": 80,
+      "label": "influenced"
+    },
+    {
+      "id1": 80,
+      "id2": 81,
+      "label": "influenced"
+    },
+    {
+      "id1": 80,
+      "id2": 82,
+      "label": "influenced"
+    },
+    {
+      "id1": 62,
+      "id2": 80,
+      "label": "influenced"
+    },
+    {
+      "id1": 52,
+      "id2": 80,
+      "label": ""
+    },
+    {
+      "id1": 53,
+      "id2": 80,
+      "label": "influenced"
+    },
+    {
+      "id1": 80,
+      "id2": 83,
+      "label": "influenced"
+    },
+    {
+      "id1": 80,
+      "id2": 84,
       "label": "influenced"
     }
   ]
