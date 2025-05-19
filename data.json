@@ -179,6 +179,31 @@
     {
       "id": 45,
       "name": "Dorothy L. Sayers"
+    },
+    {
+      "id": 46,
+      "name": "Joseph Conrad",
+      "birth_year": "1857"
+    },
+    {
+      "id": 47,
+      "name": "Fyodor Dostoevsky",
+      "birth_year": "1821"
+    },
+    {
+      "id": 48,
+      "name": "Honoré de Balzac",
+      "birth_year": "1799"
+    },
+    {
+      "id": 49,
+      "name": "Ivan Turgenev",
+      "birth_year": "1818"
+    },
+    {
+      "id": 50,
+      "name": "Henry James",
+      "birth_year": "1843"
     }
   ],
   "links": [
@@ -441,6 +466,31 @@
       "id1": 1,
       "id2": 45,
       "label": "Held in High Esteem"
+    },
+    {
+      "id1": 46,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 46,
+      "id2": 9,
+      "label": "influenced"
+    },
+    {
+      "id1": 46,
+      "id2": 48,
+      "label": "was influenced by"
+    },
+    {
+      "id1": 46,
+      "id2": 49,
+      "label": "influenced by"
+    },
+    {
+      "id1": 46,
+      "id2": 50,
+      "label": "influenced"
     }
   ]
 }

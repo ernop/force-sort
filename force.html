@@ -57,6 +57,7 @@
 <div id="bottomControls">
   <label>Add Node
     <input id="newNodeName" type="text" placeholder="Name">
+    <input id="newNodeYear" type="text" placeholder="Birth Year">
     <button id="addNodeBtn">Add</button>
   </label>
   <label>Add Edge from
@@ -597,18 +598,23 @@ layoutSelect.addEventListener('change', e => {
 
 /* add node */
 function addNode() {
-  const inp  = document.getElementById('newNodeName');
-  const name = inp.value.trim();
+  const inp      = document.getElementById('newNodeName');
+  const yearInp  = document.getElementById('newNodeYear');
+  const name     = inp.value.trim();
+  const year     = yearInp.value.trim();
   if (!name) return;
 
   const id = nextNodeId++;
-  nodes.push({ id, name });
+  const obj = { id, name };
+  if (year !== '') obj.birth_year = year;
+  nodes.push(obj);
   nodeById.set(id, nodes[nodes.length - 1]);
 
   const fromVal  = edgeFrom.value;   // preserve current "from" selection
   const labelVal = edgeLabel.value;  // preserve label text
 
   inp.value = '';
+  yearInp.value = '';
 
   updateGraph(true);                 // refresh layout only
   populateSelects();                 // now update dropdowns
@@ -620,6 +626,9 @@ function addNode() {
 
 document.getElementById('addNodeBtn').addEventListener('click', addNode);
 document.getElementById('newNodeName').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addNode();
+});
+document.getElementById('newNodeYear').addEventListener('keydown', e => {
   if (e.key === 'Enter') addNode();
 });
 
