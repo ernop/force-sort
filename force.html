@@ -454,13 +454,21 @@ function computeYearLayout() {
 }
 
 function applyLayoutForces() {
+  simulation.stop();
+
+  // Reset fixed positions
+  nodes.forEach(n => { n.fx = n.fy = null; });
+
   if (layoutMode === 'tiers') {
-    simulation.stop();
     computeYearLayout();
+    nodes.forEach(n => {
+      n.fx = n.x;
+      n.fy = n.y;
+    });
     ticked();
-  } else {
-    computeTiers();
-    simulation.force('tier', d3.forceY(d => d.tier * tierSpacing).strength(1));
+  } else if (layoutMode === 'force') {
+    simulation.force('tier', null); // Remove tier force if exists
+    simulation.alpha(1).restart();
   }
 }
 
@@ -746,11 +754,6 @@ linkInput.addEventListener('input', e=>{
 layoutSelect.addEventListener('change', e => {
   layoutMode = e.target.value;
   applyLayoutForces();
-  if (layoutMode === 'force') {
-    simulation.alpha(0.8).restart();
-  } else {
-    ticked();
-  }
 });
 
 document.addEventListener('paste', e => {
