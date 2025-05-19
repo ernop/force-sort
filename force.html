@@ -35,6 +35,7 @@
   <!-- top toolbar -->
   <div id="topControls">
     <button id="perturb">Perturb</button>
+    <button id="dampen">Remove Momentum</button>
     <label>Charge <input id="chargeRange" type="range" min="-1000" max="0" value="-300"></label>
     <label>Link&nbsp;Dist <input id="linkRange" type="range" min="30" max="300" value="150"></label>
   </div>
@@ -123,7 +124,7 @@ const zoom = d3.zoom()
   .scaleExtent([0.1, 4])                     // min / max zoom
   .on('zoom', event => g.attr('transform', event.transform));
 
-svg.call(zoom);         
+svg.call(zoom).on('dblclick.zoom', null);     // disable dblclick-to-zoom
 
 svg.append('defs').append('marker')
    .attr('id','arrow')
@@ -465,6 +466,13 @@ document.getElementById('perturb').addEventListener('click',()=>{
     n.y += (Math.random()-0.5)*40;
   });
   simulation.alpha(0.8).restart();
+});
+
+document.getElementById('dampen').addEventListener('click',()=>{
+  nodes.forEach(n=>{
+    n.vx = (n.vx || 0) * 0.5;
+    n.vy = (n.vy || 0) * 0.5;
+  });
 });
 
 chargeInput.addEventListener('input', e=>{
