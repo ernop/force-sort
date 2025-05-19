@@ -14,6 +14,10 @@ This script extends `http.server` so the page can upload images. The old
 `python -m http.server 8007` command will still serve the page read-only.
 Then open `http://localhost:8007/force.html` in your browser.
 
+After making changes in the page, copy the contents of the small data view in
+the lower-right corner.  It turns yellow when your edits are newer than the
+last copied text.
+
 ## Status
 
 Development is active. The repository now also contains:

@@ -12,9 +12,21 @@
     #topControls,#bottomControls{display:flex;gap:12px;padding:8px;flex-wrap:wrap}
     #topControls{border-bottom:1px solid #ddd}
     #bottomControls{border-top:1px solid #ddd}
-    #graph{width:100%;height:calc(100% - 260px)} /* two control bars + export */
+    #graph{width:100%;height:calc(100% - 120px)} /* two control bars */
 
-    textarea#export{position:fixed;bottom:0;left:0;width:100%;height:140px;border:none;resize:none;font-family:monospace;padding:8px;box-sizing:border-box;background:#f8f8f8}
+    textarea#export{
+      position:fixed;
+      bottom:10px;
+      right:10px;
+      width:240px;
+      height:160px;
+      border:1px solid #ccc;
+      resize:none;
+      font-family:monospace;
+      padding:6px;
+      box-sizing:border-box;
+      background:#fff;
+    }
     textarea#export.unsaved{background:#fff3c4}
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
@@ -379,7 +391,7 @@ exportArea.addEventListener('click', () => {
     .then(() => exportArea.classList.remove('unsaved'));
 });
 
-function refreshExport() {
+function refreshExport(markDirty = true) {
   exportArea.value = JSON.stringify({
     nodes: nodes.map(n => {
       const obj = { id: n.id, name: n.name };
@@ -389,7 +401,11 @@ function refreshExport() {
     }),
     links
   }, null, 2);
-  exportArea.classList.add("unsaved");
+  if (markDirty) {
+    exportArea.classList.add('unsaved');
+  } else {
+    exportArea.classList.remove('unsaved');
+  }
 }
 
 function computeTiers() {
@@ -418,7 +434,7 @@ function applyLayoutForces() {
   }
 }
 
-function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
+function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = true) {
   const simLinks = buildSimLinks();
 
   /* ---- links ---- */
@@ -517,7 +533,7 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
            .transition().delay(10000)
            .on('end', function () { d3.select(this).classed('highlight', false); });
   }
-  refreshExport();
+  refreshExport(markDirty);
 }
 
 
@@ -752,7 +768,7 @@ addEdgeBtn.addEventListener('click', () => {
 /* ---------- initial render ---------- */
 loadData().then(() => {
   populateSelects();
-  updateGraph();
+  updateGraph(false, null, false);
 });
 </script>
 </body>
