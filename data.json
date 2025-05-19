@@ -2,71 +2,93 @@
   "nodes": [
     {
       "id": 6,
-      "name": "JRR tolkien"
+      "name": "JRR Tolkien",
+      "birth_year": "1892"
     },
     {
       "id": 1,
-      "name": "CS Lewis"
+      "name": "CS Lewis",
+      "birth_year": "1898"
     },
     {
       "id": 2,
-      "name": "Roald Dahl"
+      "name": "Roald Dahl",
+      "birth_year": "1916",
+      "image": "images/2.png"
     },
     {
       "id": 3,
-      "name": "HP Lovecraft"
+      "name": "HP Lovecraft",
+      "birth_year": "1890"
     },
     {
       "id": 4,
-      "name": "robert howard"
+      "name": "robert howard",
+      "birth_year": "1906"
     },
     {
       "id": 5,
-      "name": "charles williams"
+      "name": "charles williams",
+      "birth_year": "1886"
     },
     {
       "id": 7,
-      "name": "Edgar Allan Poe"
+      "name": "Edgar Allan Poe",
+      "birth_year": "1809",
+      "image": "images/7.png"
     },
     {
       "id": 8,
-      "name": "Rudyard Kipling"
+      "name": "Rudyard Kipling",
+      "birth_year": "1865"
     },
     {
       "id": 9,
-      "name": "Charles Dickens"
+      "name": "Charles Dickens",
+      "birth_year": "1812"
     },
     {
       "id": 10,
-      "name": "Harold Lamb"
+      "name": "Harold Lamb",
+      "birth_year": "1892"
     },
     {
       "id": 11,
-      "name": "Jack London"
+      "name": "Jack London",
+      "birth_year": "1876",
+      "image": "images/11.png"
     },
     {
       "id": 12,
-      "name": "Sax Rohmer"
+      "name": "Sax Rohmer",
+      "birth_year": "1883"
     },
     {
       "id": 13,
-      "name": "Lord Dunsany"
+      "name": "Lord Dunsany",
+      "birth_year": "1878",
+      "image": "images/13.png"
     },
     {
       "id": 14,
-      "name": "Thomas Bulfinch"
+      "name": "Thomas Bulfinch",
+      "birth_year": "1796"
     },
     {
       "id": 15,
-      "name": "H Rider Haggard"
+      "name": "H Rider Haggard",
+      "birth_year": "1856"
     },
     {
       "id": 16,
-      "name": "Edgar Rice Burroughs"
+      "name": "Edgar Rice Burroughs",
+      "birth_year": "1875"
     },
     {
       "id": 17,
-      "name": "Robert Armitage Sterndale"
+      "name": "Robert Armitage Sterndale",
+      "birth_year": "1839",
+      "image": "images/17.png"
     },
     {
       "id": 18,
@@ -74,31 +96,38 @@
     },
     {
       "id": 19,
-      "name": "Mark Twain"
+      "name": "Mark Twain",
+      "birth_year": "1835"
     },
     {
       "id": 20,
-      "name": "Friedrich Nietzsche"
+      "name": "Friedrich Nietzsche",
+      "birth_year": "1844"
     },
     {
       "id": 21,
-      "name": "William Hope Hodgson"
+      "name": "William Hope Hodgson",
+      "birth_year": "1877"
     },
     {
       "id": 22,
-      "name": "Algernon Blackwood"
+      "name": "Algernon Blackwood",
+      "birth_year": "1869"
     },
     {
       "id": 23,
-      "name": "M.R. James"
+      "name": "M.R. James",
+      "birth_year": "1862"
     },
     {
       "id": 24,
-      "name": "Arthur Machen"
+      "name": "Arthur Machen",
+      "birth_year": "1863"
     },
     {
       "id": 25,
-      "name": "William Morris"
+      "name": "William Morris",
+      "birth_year": "1834"
     },
     {
       "id": 26,
@@ -106,47 +135,61 @@
     },
     {
       "id": 27,
-      "name": "Algernon Charles Swinburne"
+      "name": "Algernon Charles Swinburne",
+      "birth_year": "1837"
     },
     {
       "id": 28,
-      "name": "Samuel Taylor Coleridge"
+      "name": "Samuel Taylor Coleridge",
+      "birth_year": "1772"
     },
     {
       "id": 29,
-      "name": "William Shakespeare"
+      "name": "William Shakespeare",
+      "birth_year": "1564"
     },
     {
       "id": 30,
-      "name": "Washington Irving"
+      "name": "Washington Irving",
+      "birth_year": "1783"
     },
     {
       "id": 31,
-      "name": "Neil Gaiman"
+      "name": "Neil Gaiman",
+      "birth_year": "1960",
+      "image": "images/31.png"
     },
     {
       "id": 32,
-      "name": "Henry Kuttner"
+      "name": "Henry Kuttner",
+      "birth_year": "1915"
     },
     {
       "id": 33,
-      "name": "Stephen King"
+      "name": "Stephen King",
+      "birth_year": "1947"
     },
     {
       "id": 34,
-      "name": "China Mieville"
+      "name": "China Mieville",
+      "birth_year": "1972",
+      "image": "images/34.png"
     },
     {
       "id": 35,
-      "name": "Clive Barker"
+      "name": "Clive Barker",
+      "birth_year": "1952"
     },
     {
       "id": 36,
-      "name": "Borges"
+      "name": "Jorge Luis Borges",
+      "birth_year": "1899",
+      "image": "images/36.png"
     },
     {
       "id": 37,
-      "name": "Alan Moore"
+      "name": "Alan Moore",
+      "birth_year": "1953"
     },
     {
       "id": 38,
@@ -154,7 +197,8 @@
     },
     {
       "id": 39,
-      "name": "Andrew Liang"
+      "name": "Andrew Liang",
+      "birth_year": "1844"
     },
     {
       "id": 40,
@@ -166,19 +210,23 @@
     },
     {
       "id": 42,
-      "name": "G.K. Chesterton"
+      "name": "G.K. Chesterton",
+      "birth_year": "1874"
     },
     {
       "id": 43,
-      "name": "Edith Nesbit"
+      "name": "Edith Nesbit",
+      "birth_year": "1858"
     },
     {
       "id": 44,
-      "name": "Owen Barfield"
+      "name": "Owen Barfield",
+      "birth_year": "1898"
     },
     {
       "id": 45,
-      "name": "Dorothy L. Sayers"
+      "name": "Dorothy L. Sayers",
+      "birth_year": "1893"
     },
     {
       "id": 46,
@@ -192,7 +240,7 @@
     },
     {
       "id": 48,
-      "name": "Honoré de Balzac",
+      "name": "Honor\u00e9 de Balzac",
       "birth_year": "1799"
     },
     {
@@ -204,6 +252,37 @@
       "id": 50,
       "name": "Henry James",
       "birth_year": "1843"
+    },
+    {
+      "id": 51,
+      "name": "Mervyn Peake",
+      "birth_year": "1911"
+    },
+    {
+      "id": 52,
+      "name": "J. G. Ballard",
+      "birth_year": "1930",
+      "image": "images/52.png"
+    },
+    {
+      "id": 53,
+      "name": "Michael Moorcock",
+      "birth_year": "1939"
+    },
+    {
+      "id": 54,
+      "name": "Philip K. Dick",
+      "birth_year": "1928"
+    },
+    {
+      "id": 55,
+      "name": "Octavia E. Butler",
+      "birth_year": "1947"
+    },
+    {
+      "id": 56,
+      "name": "Thomas Ligotti",
+      "birth_year": "1953"
     }
   ],
   "links": [
@@ -216,11 +295,6 @@
       "id1": 1,
       "id2": 6,
       "label": "supporter"
-    },
-    {
-      "id1": 2,
-      "id2": 3,
-      "label": "fan"
     },
     {
       "id1": 4,
@@ -268,8 +342,8 @@
       "label": "admired"
     },
     {
-      "id1": 4,
-      "id2": 11,
+      "id1": 11,
+      "id2": 4,
       "label": "Influenced"
     },
     {
@@ -293,13 +367,13 @@
       "label": "Adapted"
     },
     {
-      "id1": 4,
-      "id2": 15,
+      "id1": 15,
+      "id2": 4,
       "label": "influenced"
     },
     {
-      "id1": 4,
-      "id2": 16,
+      "id1": 16,
+      "id2": 4,
       "label": "influenced"
     },
     {
@@ -325,11 +399,6 @@
     {
       "id1": 3,
       "id2": 13,
-      "label": "influenced by"
-    },
-    {
-      "id1": 3,
-      "id2": 7,
       "label": "influenced by"
     },
     {
@@ -364,11 +433,6 @@
     },
     {
       "id1": 26,
-      "id2": 13,
-      "label": "Inspired"
-    },
-    {
-      "id1": 7,
       "id2": 13,
       "label": "Inspired"
     },
@@ -490,6 +554,46 @@
     {
       "id1": 46,
       "id2": 50,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 3,
+      "label": "Influenced by"
+    },
+    {
+      "id1": 34,
+      "id2": 51,
+      "label": "influenced by"
+    },
+    {
+      "id1": 34,
+      "id2": 52,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 53,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 54,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 41,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 55,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 56,
       "label": "influenced"
     }
   ]
