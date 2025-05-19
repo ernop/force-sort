@@ -22,6 +22,9 @@
     .link.highlight{stroke:red;stroke-width:3px}
     text{font-size:12px;pointer-events:none;fill:#000}
     button{cursor:pointer}
+    #edgePopup{position:absolute;background:#ffffe0;border:1px solid #aaa;border-radius:4px;padding:4px;font-size:12px;box-shadow:0 2px 4px rgba(0,0,0,0.2);display:none}
+    #edgePopup input{width:120px}
+    #edgePopup .actions{display:flex;gap:4px;margin-top:4px}
   </style>
 </head>
 <body>
@@ -57,6 +60,17 @@
 
   <!-- export area -->
   <textarea id="export" readonly></textarea>
+
+  <!-- edge action popup -->
+  <div id="edgePopup">
+    <input id="edgePopupLabel" type="text">
+    <div class="actions">
+      <button id="edgePopupSave">Save</button>
+      <button id="edgePopupReverse">Reverse</button>
+      <button id="edgePopupDelete">Delete</button>
+      <button id="edgePopupClose">X</button>
+    </div>
+  </div>
 
 <script>
 /* ---------- initial data ---------- */
@@ -110,6 +124,13 @@ let  nodeSel  = g.selectAll('.node');
 const chargeInput = document.getElementById('chargeRange');
 const linkInput   = document.getElementById('linkRange');
 const exportArea  = document.getElementById('export');   // ← new
+const edgePopup       = document.getElementById('edgePopup');
+const edgePopupLabel  = document.getElementById('edgePopupLabel');
+const edgePopupSave   = document.getElementById('edgePopupSave');
+const edgePopupReverse= document.getElementById('edgePopupReverse');
+const edgePopupDelete = document.getElementById('edgePopupDelete');
+const edgePopupClose  = document.getElementById('edgePopupClose');
+let   edgePopupIndex  = null;
 
 const simulation = d3.forceSimulation(nodes)
   .force('link',
@@ -295,13 +316,10 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
                   .text(d => d.label)
                   /* dbl-click label edit */
                   .on('dblclick', (event,d) => {
-                    const newLabel = prompt('Edit edge label:', d.label || '');
-                    if (newLabel === null) return;           // cancel
-                    d.label = newLabel;
+                    event.stopPropagation();
                     const idx = labelSel.nodes().indexOf(event.currentTarget);
-                    links[idx].label = newLabel;             // update data array
-                    refreshExport();
-                    d3.select(event.currentTarget).text(newLabel);
+                    if (idx === -1) return;
+                    openEdgePopup(idx, event.pageX, event.pageY);
                   })
                   .on('click', edgeMenu),
     update => update.text(d => d.label),
@@ -351,29 +369,58 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
 }
 
 
+function openEdgePopup(idx, x, y) {
+  edgePopupIndex = idx;
+  edgePopupLabel.value = links[idx].label || '';
+  edgePopup.style.left = (x + 5) + 'px';
+  edgePopup.style.top  = (y + 5) + 'px';
+  edgePopup.style.display = 'block';
+}
+
 function edgeMenu(event, d) {
   if (event.detail > 1) return; // ignore double-click
+  event.stopPropagation();
   let idx = linkSel.nodes().indexOf(event.currentTarget);
   if (idx === -1) idx = labelSel.nodes().indexOf(event.currentTarget);
   if (idx === -1) return;
 
-  const choice = prompt('Edge actions:\n  e - edit label\n  r - reverse direction\n  d - delete', '');
-  if (!choice) return;
-  const action = choice.trim().toLowerCase()[0];
-  if (action === 'e') {
-    const newLabel = prompt('Edit edge label:', links[idx].label || '');
-    if (newLabel !== null) links[idx].label = newLabel;
-  } else if (action === 'r') {
-    const tmp = links[idx].id1;
-    links[idx].id1 = links[idx].id2;
-    links[idx].id2 = tmp;
-  } else if (action === 'd') {
-    links.splice(idx, 1);
-  } else {
-    return;
-  }
-  updateGraph();
+  openEdgePopup(idx, event.pageX, event.pageY);
 }
+
+function hideEdgePopup() {
+  edgePopup.style.display = 'none';
+  edgePopupIndex = null;
+}
+
+edgePopupSave.addEventListener('click', e => {
+  e.stopPropagation();
+  if (edgePopupIndex === null) return;
+  links[edgePopupIndex].label = edgePopupLabel.value;
+  hideEdgePopup();
+  updateGraph();
+});
+edgePopupReverse.addEventListener('click', e => {
+  e.stopPropagation();
+  if (edgePopupIndex === null) return;
+  const l = links[edgePopupIndex];
+  [l.id1, l.id2] = [l.id2, l.id1];
+  hideEdgePopup();
+  updateGraph();
+});
+edgePopupDelete.addEventListener('click', e => {
+  e.stopPropagation();
+  if (edgePopupIndex === null) return;
+  links.splice(edgePopupIndex, 1);
+  hideEdgePopup();
+  updateGraph();
+});
+edgePopupClose.addEventListener('click', e => {
+  e.stopPropagation();
+  hideEdgePopup();
+});
+document.body.addEventListener('click', e => {
+  if (!edgePopup.contains(e.target)) hideEdgePopup();
+});
 
 
 /* ---------- drag handlers ---------- */
