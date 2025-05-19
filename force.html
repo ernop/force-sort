@@ -263,10 +263,16 @@ nodeSel.select('text').each(function(d){
 
 /* ---------- helpers ---------- */
 
+function formatNodeLabel(n){
+  return (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '')
+         ? `${n.name} (${n.birth_year})`
+         : n.name;
+}
+
 function populateSelects() {
   const sorted = nodes.slice().sort((a, b) => a.name.localeCompare(b.name));
   const opts = sorted
-    .map(n => `<option value="${n.id}">${n.name}</option>`)
+    .map(n => `<option value="${n.id}">${formatNodeLabel(n)}</option>`)
     .join('');
 
   const fromVal = edgeFrom.value;
@@ -313,7 +319,14 @@ exportArea.addEventListener('click', () => {
 });
 
 function refreshExport() {
-  exportArea.value = JSON.stringify({ nodes: nodes.map(({id,name}) => ({id,name})), links }, null, 2);
+  exportArea.value = JSON.stringify({
+    nodes: nodes.map(n => {
+      const obj = { id: n.id, name: n.name };
+      if (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '') obj.birth_year = n.birth_year;
+      return obj;
+    }),
+    links
+  }, null, 2);
   exportArea.classList.add("unsaved");
 }
 
@@ -376,19 +389,25 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
           .on('dblclick', (event,d) => {
             const newName = prompt('Rename node:', d.name || '');
             if (!newName) return;
+            const newYear = prompt('Birth year (optional):', d.birth_year ?? '');
             d.name = newName;
+            if (newYear === null || newYear.trim() === '') {
+              delete d.birth_year;
+            } else {
+              d.birth_year = newYear.trim();
+            }
             populateSelects();       // refresh dropdowns
             refreshExport();         // update code block
-            d3.select(event.currentTarget).select('text').text(newName);
+            d3.select(event.currentTarget).select('text').text(formatNodeLabel(d));
           });
 
       nodeG.append('circle').attr('r', 22);
       nodeG.append('text')
            .attr('dominant-baseline', 'central')
-           .text(d => d.name);
+           .text(d => formatNodeLabel(d));
       return nodeG;
     },
-    update => update,
+    update => update.select('text').text(d => formatNodeLabel(d)),
     exit   => exit.remove()
   );
 
