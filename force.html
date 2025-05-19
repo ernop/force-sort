@@ -282,24 +282,33 @@ function populateSelects() {
     $(edgeFrom).select2();
     $(edgeTo).select2();
 
-    // open dropdown on focus and autofocus search field
+    // open dropdown on focus for both keyboard and mouse
     $(edgeFrom).next('.select2').find('.select2-selection')
       .off('focus.open')
       .on('focus.open', () => $(edgeFrom).select2('open'));
     $(edgeTo).next('.select2').find('.select2-selection')
       .off('focus.open')
-      .on('focus.open',   () => $(edgeTo).select2('open'));
+      .on('focus.open', () => $(edgeTo).select2('open'));
+
+    $(edgeFrom)
+      .off('focus.open')
+      .on('focus.open', () => $(edgeFrom).select2('open'));
+    $(edgeTo)
+      .off('focus.open')
+      .on('focus.open', () => $(edgeTo).select2('open'));
+
+    // autofocus search field when dropdown opens
+    const focusSearch = () =>
+      setTimeout(() => {
+        $('.select2-container--open .select2-search__field').last().trigger('focus');
+      }, 0);
 
     $(edgeFrom)
       .off('select2:open')
-      .on('select2:open', () =>
-        $('.select2-container--open .select2-search__field').last().trigger('focus')
-      );
+      .on('select2:open', focusSearch);
     $(edgeTo)
       .off('select2:open')
-      .on('select2:open', () =>
-        $('.select2-container--open .select2-search__field').last().trigger('focus')
-      );
+      .on('select2:open', focusSearch);
   } else {
     $(edgeFrom).trigger('change.select2');
     $(edgeTo).trigger('change.select2');
