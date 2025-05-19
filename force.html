@@ -186,7 +186,8 @@ nodeSel.select('text').each(function(d){
 
   d3.select(this)
     .attr('x', tx)
-    .attr('y', ty + 4)                 // +4 to center vertically
+    .attr('y', ty)
+    .attr('dominant-baseline', 'central')
     .attr('text-anchor',
           Math.abs(Math.cos(bestAng)) < 0.3 ? 'middle' :
           (Math.cos(bestAng) > 0 ? 'start' : 'end'));
@@ -306,7 +307,9 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
           });
 
       nodeG.append('circle').attr('r', 22);
-      nodeG.append('text').attr('dx', 26).attr('dy', 4).text(d => d.name);
+      nodeG.append('text')
+           .attr('dominant-baseline', 'central')
+           .text(d => d.name);
       return nodeG;
     },
     update => update,
