@@ -259,18 +259,20 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
 
   /* ---- links ---- */
   linkSel = linkGroup.selectAll('path').data(simLinks, (d,i)=>i)
-	.join(
-		enter => enter.append('path')
-					  .attr('class','link')
-					  .attr('stroke','#555')
-					  .attr('stroke-width',1.5)
-					  .attr('marker-end','url(#arrow)'),
-		update => update
-					  .attr('stroke','#555')          // keep base look identical
-					  .attr('stroke-width',1.5)
-					  .attr('marker-end','url(#arrow)'),
-		exit   => exit.remove()
-	  );
+        .join(
+                enter => enter.append('path')
+                                          .attr('class','link')
+                                          .attr('stroke','#555')
+                                          .attr('stroke-width',1.5)
+                                          .attr('marker-end','url(#arrow)')
+                                          .on('click', edgeMenu),
+                update => update
+                                          .attr('stroke','#555')          // keep base look identical
+                                          .attr('stroke-width',1.5)
+                                          .attr('marker-end','url(#arrow)')
+                                          .on('click', edgeMenu),
+                exit   => exit.remove()
+          );
 
   labelSel = linkGroup.selectAll('text.label').data(simLinks, (d,i)=>i)
   .join(
@@ -286,7 +288,8 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
                     links[idx].label = newLabel;             // update data array
                     refreshExport();
                     d3.select(event.currentTarget).text(newLabel);
-                  }),
+                  })
+                  .on('click', edgeMenu),
     update => update.text(d => d.label),
     exit   => exit.remove()
   );
@@ -331,6 +334,31 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
            .on('end', function () { d3.select(this).classed('highlight', false); });
   }
   refreshExport();
+}
+
+
+function edgeMenu(event, d) {
+  if (event.detail > 1) return; // ignore double-click
+  let idx = linkSel.nodes().indexOf(event.currentTarget);
+  if (idx === -1) idx = labelSel.nodes().indexOf(event.currentTarget);
+  if (idx === -1) return;
+
+  const choice = prompt('Edge actions:\n  e - edit label\n  r - reverse direction\n  d - delete', '');
+  if (!choice) return;
+  const action = choice.trim().toLowerCase()[0];
+  if (action === 'e') {
+    const newLabel = prompt('Edit edge label:', links[idx].label || '');
+    if (newLabel !== null) links[idx].label = newLabel;
+  } else if (action === 'r') {
+    const tmp = links[idx].id1;
+    links[idx].id1 = links[idx].id2;
+    links[idx].id2 = tmp;
+  } else if (action === 'd') {
+    links.splice(idx, 1);
+  } else {
+    return;
+  }
+  updateGraph();
 }
 
 
@@ -396,9 +424,6 @@ addEdgeBtn.addEventListener('click', () => {
   const lbl = edgeLabel.value.trim() || '';
 
   if (isNaN(id1) || isNaN(id2) || id1 === id2) return;
-  const dup = links.some(e => e.id1 === id1 && e.id2 === id2);
-  if (dup) return;
-
   links.push({ id1, id2, label: lbl });
   edgeLabel.value = '';
   updateGraph(true, links.length - 1);   // skip select refresh, highlight new link
