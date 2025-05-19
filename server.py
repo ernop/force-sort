@@ -1,5 +1,6 @@
 import json
 import os
+import hashlib
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import cgi
 
@@ -9,44 +10,117 @@ PORT = 8007
 
 class UploadHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
-        if self.path != '/upload':
+        if self.path not in ('/upload', '/delete_image'):
             self.send_response(404)
             self.end_headers()
             return
-        form = cgi.FieldStorage(
-            fp=self.rfile,
-            headers=self.headers,
-            environ={'REQUEST_METHOD': 'POST',
-                     'CONTENT_TYPE': self.headers.get('Content-Type')})
-        if 'image' not in form or 'node_id' not in form:
-            self.send_response(400)
-            self.end_headers()
-            return
-        file_item = form['image']
-        node_id = form['node_id'].value
-        if not file_item.file:
-            self.send_response(400)
-            self.end_headers()
-            return
-        os.makedirs(IMAGE_DIR, exist_ok=True)
-        filename = f"{node_id}.png"
-        path = os.path.join(IMAGE_DIR, filename)
-        with open(path, 'wb') as f:
-            f.write(file_item.file.read())
 
-        # update data.json
-        with open(DATA_FILE, 'r') as f:
-            data = json.load(f)
-        for n in data.get('nodes', []):
-            if n.get('id') == int(node_id):
-                n['image'] = f"{IMAGE_DIR}/{filename}"
-                break
-        with open(DATA_FILE, 'w') as f:
-            json.dump(data, f, indent=2)
+        if self.path == '/upload':
+            form = cgi.FieldStorage(
+                fp=self.rfile,
+                headers=self.headers,
+                environ={'REQUEST_METHOD': 'POST',
+                         'CONTENT_TYPE': self.headers.get('Content-Type')})
+            if 'image' not in form or 'node_id' not in form:
+                self.send_response(400)
+                self.end_headers()
+                return
+            file_item = form['image']
+            node_id = int(form['node_id'].value)
+            if not file_item.file:
+                self.send_response(400)
+                self.end_headers()
+                return
 
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b'OK')
+            file_data = file_item.file.read()
+            file_hash = hashlib.md5(file_data).hexdigest()
+
+            os.makedirs(IMAGE_DIR, exist_ok=True)
+
+            with open(DATA_FILE, 'r') as f:
+                data = json.load(f)
+
+            node = None
+            for n in data.get('nodes', []):
+                if n.get('id') == node_id:
+                    node = n
+                    break
+            if node is None:
+                self.send_response(400)
+                self.end_headers()
+                return
+
+            images = node.get('images')
+            if images is None:
+                images = []
+                if 'image' in node:
+                    images.append(node['image'])
+                    node.pop('image', None)
+
+            # check for duplicates by hash
+            for img_path in images:
+                try:
+                    with open(img_path, 'rb') as f:
+                        if hashlib.md5(f.read()).hexdigest() == file_hash:
+                            self.send_response(200)
+                            self.end_headers()
+                            self.wfile.write(b'DUPLICATE')
+                            return
+                except FileNotFoundError:
+                    pass
+
+            filename = f"{node_id}_{len(images)}.png"
+            path = os.path.join(IMAGE_DIR, filename)
+            with open(path, 'wb') as f:
+                f.write(file_data)
+
+            images.append(f"{IMAGE_DIR}/{filename}")
+            node['images'] = images
+
+            with open(DATA_FILE, 'w') as f:
+                json.dump(data, f, indent=2)
+
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(filename.encode())
+
+        elif self.path == '/delete_image':
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length).decode('utf-8')
+            try:
+                payload = json.loads(body)
+                node_id = int(payload.get('node_id'))
+                image_path = payload.get('image')
+            except Exception:
+                self.send_response(400)
+                self.end_headers()
+                return
+
+            with open(DATA_FILE, 'r') as f:
+                data = json.load(f)
+
+            for n in data.get('nodes', []):
+                if n.get('id') == node_id:
+                    imgs = n.get('images') or []
+                    if 'image' in n and n['image'] in imgs:
+                        imgs.remove(n['image'])
+                        n.pop('image', None)
+                    if image_path in imgs:
+                        imgs.remove(image_path)
+                    n['images'] = imgs
+                    break
+
+            with open(DATA_FILE, 'w') as f:
+                json.dump(data, f, indent=2)
+
+            try:
+                os.remove(image_path)
+            except FileNotFoundError:
+                pass
+
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b'OK')
 
 def run():
     server = HTTPServer(('', PORT), UploadHandler)
