@@ -180,23 +180,20 @@ const simulation = d3.forceSimulation(nodes)
            .strength(() => +chargeRange.value)        // live-updates with slider
            .distanceMax(1_000000))                       // repulse across whole graph
   .force('center', d3.forceCenter(width / 2, height / 2))
-  .force('collision', d3.forceCollide().radius(BASE_COLLISION))
+  .force('collision', d3.forceCollide().radius(40))
   .alphaDecay(0.001)                                  // cools more slowly → runs longer
   .on('tick', ticked);
 
 function ticked(){
   /* ---------- arrow path ---------- */
-
+  const r = 22;
   const pathD = d => {
     const dx   = d.target.x - d.source.x,
           dy   = d.target.y - d.source.y,
           dist = Math.hypot(dx, dy) || 1,
-          r1   = d.source.radius,
-          r2   = d.target.radius,
-          tStart = r1 / dist,
-          tEnd   = (dist - r2) / dist;  // line ends at target circle
+          tEnd   = (dist - r) / dist;  // line ends at target circle
 
-    return `M${d.source.x + dx*tStart},${d.source.y + dy*tStart}L${d.source.x + dx*tEnd},${d.source.y + dy*tEnd}`;
+    return `M${d.source.x},${d.source.y}L${d.source.x + dx*tEnd},${d.source.y + dy*tEnd}`;
   };
 
   linkSel.attr('d', pathD);
@@ -221,6 +218,8 @@ links.forEach(l => {
 
 // eight slot angles (0°,45°,…)
 const slots       = Array.from({length:8}, (_,i)=>i*Math.PI/4);
+const labelRadius = 28; // px from node center
+const labelOffset = 6; // px beyond circle
 
 nodeSel.select('text').each(function(d){
   const edges = incident.get(d.id) || [];
@@ -233,9 +232,8 @@ nodeSel.select('text').each(function(d){
     if (score > bestScore){ bestScore = score; bestAng = s; }
   });
 
-  const rLab = (d.radius) + LABEL_OFFSET;
-  const tx = Math.cos(bestAng) * rLab,
-        ty = Math.sin(bestAng) * rLab;
+  const tx = Math.cos(bestAng) * labelRadius,
+        ty = Math.sin(bestAng) * labelRadius;
 
   d3.select(this)
     .attr('x', tx)
@@ -281,19 +279,6 @@ nodeSel.select('text').each(function(d){
 }
 
 /* ---------- helpers ---------- */
-
-function updateNodeSizes() {
-  const counts = new Map(nodes.map(n => [n.id, 0]));
-  links.forEach(l => {
-    counts.set(l.id1, (counts.get(l.id1) || 0) + 1);
-    counts.set(l.id2, (counts.get(l.id2) || 0) + 1);
-  });
-  nodes.forEach(n => {
-    n.radius    = 3;
-    n.collision = BASE_COLLISION;
-  });
-  simulation.force('collision').radius(d => d.collision);
-}
 
 function formatNodeLabel(n){
   return (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '')
@@ -398,7 +383,6 @@ function applyLayoutForces() {
 }
 
 function updateGraph(skipSelectUpdate = false, highlightIdx = null) {
-  updateNodeSizes();
   const simLinks = buildSimLinks();
 
   /* ---- links ---- */
@@ -468,16 +452,13 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
             d3.select(event.currentTarget).select('text').text(formatNodeLabel(d));
           });
 
-      nodeG.append('circle').attr('r', d => d.radius);
+      nodeG.append('circle').attr('r', 22);
       nodeG.append('text')
            .attr('dominant-baseline', 'central')
            .text(d => formatNodeLabel(d));
       return nodeG;
     },
-    update => {
-      update.select('text').text(d => formatNodeLabel(d));
-      update.select('circle').attr('r', d => d.radius);
-    },
+    update => update.select('text').text(d => formatNodeLabel(d)),
     exit   => exit.remove()
   );
 
