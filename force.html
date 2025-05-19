@@ -292,14 +292,16 @@ function populateSelects() {
 
     $(edgeFrom)
       .off('select2:open')
-      .on('select2:open', () =>
-        $('.select2-container--open .select2-search__field').last().trigger('focus')
-      );
+      .on('select2:open', e => {
+        const field = $(e.target).data('select2').dropdown.$search;
+        setTimeout(() => field.trigger('focus'), 0);
+      });
     $(edgeTo)
       .off('select2:open')
-      .on('select2:open', () =>
-        $('.select2-container--open .select2-search__field').last().trigger('focus')
-      );
+      .on('select2:open', e => {
+        const field = $(e.target).data('select2').dropdown.$search;
+        setTimeout(() => field.trigger('focus'), 0);
+      });
   } else {
     $(edgeFrom).trigger('change.select2');
     $(edgeTo).trigger('change.select2');
