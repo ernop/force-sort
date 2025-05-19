@@ -453,6 +453,26 @@
       "id": 84,
       "name": "Brian Aldiss",
       "birth_year": "1925"
+    },
+    {
+      "id": 85,
+      "name": "Virginia Woolf",
+      "birth_year": "1882"
+    },
+    {
+      "id": 86,
+      "name": "Leo Tolstoy",
+      "birth_year": "1828"
+    },
+    {
+      "id": 87,
+      "name": "Italo Calvino",
+      "birth_year": "1923"
+    },
+    {
+      "id": 88,
+      "name": "Iain Banks",
+      "birth_year": "1954"
     }
   ],
   "links": [
@@ -752,8 +772,8 @@
       "label": "influenced"
     },
     {
-      "id1": 34,
-      "id2": 41,
+      "id1": 41,
+      "id2": 34,
       "label": "influenced"
     },
     {
@@ -964,6 +984,51 @@
     {
       "id1": 80,
       "id2": 84,
+      "label": "influenced"
+    },
+    {
+      "id1": 85,
+      "id2": 41,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 6,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 86,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 9,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 36,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 87,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 8,
+      "label": "influenced"
+    },
+    {
+      "id1": 31,
+      "id2": 41,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 88,
       "label": "influenced"
     }
   ]
