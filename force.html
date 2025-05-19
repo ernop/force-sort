@@ -18,6 +18,7 @@
     textarea#export.unsaved{background:#fff3c4}
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
+    .node-image{pointer-events:none}
     
     .link{stroke:#555;stroke-width:1.5px;fill:none;marker-end:url(#arrow)}
     .link.highlight{stroke:red;stroke-width:3px}
@@ -28,6 +29,11 @@
     #edgePopup{position:absolute;background:#ffffe0;border:1px solid #aaa;border-radius:4px;padding:4px;font-size:12px;box-shadow:0 2px 4px rgba(0,0,0,0.2);display:none}
     #edgePopup input{width:120px}
     #edgePopup .actions{display:flex;gap:4px;margin-top:4px}
+
+    #nodePopup{position:absolute;background:#ffffe0;border:1px solid #aaa;border-radius:4px;padding:4px;font-size:12px;box-shadow:0 2px 4px rgba(0,0,0,0.2);display:none}
+    #nodePopup input{width:120px;display:block;margin-top:4px}
+    #nodePopup .actions{display:flex;gap:4px;margin-top:4px}
+    #nodePopup .hint{font-style:italic;margin-top:4px;font-size:11px}
     
     /* bigger add buttons */
     #addNodeBtn,#addEdgeBtn{font-size:16px;padding:6px 12px}
@@ -88,14 +94,29 @@
     </div>
   </div>
 
+  <!-- node action popup -->
+  <div id="nodePopup">
+    <input id="nodePopupName" type="text" placeholder="Name">
+    <input id="nodePopupYear" type="text" placeholder="Birth Year">
+    <div class="actions">
+      <button id="nodePopupSave">Save</button>
+      <button id="nodePopupDelete">Delete</button>
+      <button id="nodePopupClose">X</button>
+    </div>
+    <div class="hint">Paste an image while this popup is open</div>
+  </div>
+
 <script>
 /* ---------- data loading ---------- */
 /*
   data.json format:
   {
-    "nodes": [{"id":1,"name":"Name"}],
+    "nodes": [
+      {"id":1,"name":"Name","birth_year":"1879","image":"images/1.png"}
+    ],
     "links": [{"id1":1,"id2":2,"label":"label"}]
   }
+  birth_year and image are optional per node.
 */
 let nodes = [];
 let links = [];
@@ -107,7 +128,10 @@ function loadData(){
     .then(data=>{
       nodes = data.nodes || [];
       links = data.links || [];
-      nodes.forEach(n=>nodeById.set(n.id,n));
+      nodes.forEach(n=>{
+        if(!('image' in n)) n.image = null;
+        nodeById.set(n.id,n);
+      });
       nextNodeId = Math.max(0,...nodes.map(n=>n.id)) + 1;
     });
 }
@@ -169,6 +193,14 @@ const edgePopupReverse= document.getElementById('edgePopupReverse');
 const edgePopupDelete = document.getElementById('edgePopupDelete');
 const edgePopupClose  = document.getElementById('edgePopupClose');
 let   edgePopupIndex  = null;
+
+const nodePopup       = document.getElementById('nodePopup');
+const nodePopupName   = document.getElementById('nodePopupName');
+const nodePopupYear   = document.getElementById('nodePopupYear');
+const nodePopupSave   = document.getElementById('nodePopupSave');
+const nodePopupDelete = document.getElementById('nodePopupDelete');
+const nodePopupClose  = document.getElementById('nodePopupClose');
+let   nodePopupId     = null;
 
 const simulation = d3.forceSimulation(nodes)
   .force('link',
@@ -349,6 +381,7 @@ function refreshExport() {
     nodes: nodes.map(n => {
       const obj = { id: n.id, name: n.name };
       if (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '') obj.birth_year = n.birth_year;
+      if (n.image) obj.image = n.image;
       return obj;
     }),
     links
@@ -433,32 +466,39 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
   .join(
     enter => {
       const nodeG = enter.append('g').attr('class', 'node')
+          .on('click', (event,d) => {
+            event.stopPropagation();
+            openNodePopup(d.id, event.pageX, event.pageY);
+          })
           .call(d3.drag().on('start', dragstarted)
                         .on('drag',  dragged)
-                        .on('end',   dragended))
-          /* dbl-click name edit */
-          .on('dblclick', (event,d) => {
-            const newName = prompt('Rename node:', d.name || '');
-            if (!newName) return;
-            const newYear = prompt('Birth year (optional):', d.birth_year ?? '');
-            d.name = newName;
-            if (newYear === null || newYear.trim() === '') {
-              delete d.birth_year;
-            } else {
-              d.birth_year = newYear.trim();
-            }
-            populateSelects();       // refresh dropdowns
-            refreshExport();         // update code block
-            d3.select(event.currentTarget).select('text').text(formatNodeLabel(d));
-          });
+                        .on('end',   dragended));
 
       nodeG.append('circle').attr('r', 22);
+      nodeG.append('image')
+           .attr('class','node-image')
+           .attr('x',-22)
+           .attr('y',-22)
+           .attr('width',44)
+           .attr('height',44)
+           .attr('href', d => d.image || '')
+           .style('display', d => d.image ? null : 'none');
       nodeG.append('text')
            .attr('dominant-baseline', 'central')
            .text(d => formatNodeLabel(d));
       return nodeG;
     },
-    update => update.select('text').text(d => formatNodeLabel(d)),
+    update => update.each(function(d){
+      const n = d3.select(this);
+      n.on('click', (event)=>{
+        event.stopPropagation();
+        openNodePopup(d.id, event.pageX, event.pageY);
+      });
+      n.select('text').text(formatNodeLabel(d));
+      n.select('image.node-image')
+        .attr('href', d.image || '')
+        .style('display', d.image ? null : 'none');
+    }),
     exit   => exit.remove()
   );
 
@@ -502,6 +542,53 @@ function hideEdgePopup() {
   edgePopupIndex = null;
 }
 
+function openNodePopup(id, x, y) {
+  const n = nodeById.get(id);
+  if (!n) return;
+  nodePopupId = id;
+  nodePopupName.value = n.name || '';
+  nodePopupYear.value = n.birth_year || '';
+  nodePopup.style.left = (x + 5) + 'px';
+  nodePopup.style.top  = (y + 5) + 'px';
+  nodePopup.style.display = 'block';
+  nodePopupName.focus();
+}
+
+function hideNodePopup() {
+  nodePopup.style.display = 'none';
+  nodePopupId = null;
+}
+
+nodePopupSave.addEventListener('click', e => {
+  e.stopPropagation();
+  if (nodePopupId === null) return;
+  const n = nodeById.get(nodePopupId);
+  n.name = nodePopupName.value.trim() || n.name;
+  const year = nodePopupYear.value.trim();
+  if (year === '') delete n.birth_year; else n.birth_year = year;
+  hideNodePopup();
+  populateSelects();
+  updateGraph();
+});
+
+nodePopupDelete.addEventListener('click', e => {
+  e.stopPropagation();
+  if (nodePopupId === null) return;
+  const id = nodePopupId;
+  const idx = nodes.findIndex(n=>n.id===id);
+  if (idx !== -1) nodes.splice(idx,1);
+  links = links.filter(l=>l.id1!==id && l.id2!==id);
+  nodeById.delete(id);
+  hideNodePopup();
+  populateSelects();
+  updateGraph();
+});
+
+nodePopupClose.addEventListener('click', e => {
+  e.stopPropagation();
+  hideNodePopup();
+});
+
 edgePopupSave.addEventListener('click', e => {
   e.stopPropagation();
   if (edgePopupIndex === null) return;
@@ -530,6 +617,7 @@ edgePopupClose.addEventListener('click', e => {
 });
 document.body.addEventListener('click', e => {
   if (!edgePopup.contains(e.target)) hideEdgePopup();
+  if (!nodePopup.contains(e.target)) hideNodePopup();
 });
 
 
@@ -577,6 +665,27 @@ layoutSelect.addEventListener('change', e => {
   applyLayoutForces();
   simulation.alpha(0.8).restart();
 });
+
+document.addEventListener('paste', e => {
+  if(nodePopupId === null) return;
+  const item = Array.from(e.clipboardData.items).find(i=>i.type.startsWith('image/'));
+  if(!item) return;
+  const file = item.getAsFile();
+  uploadImage(nodePopupId, file);
+});
+
+function uploadImage(id, file){
+  const fd = new FormData();
+  fd.append('node_id', id);
+  fd.append('image', file, file.name || 'clipboard.png');
+  fetch('/upload', {method:'POST', body:fd})
+    .then(r => r.ok ? r.text() : Promise.reject())
+    .then(() => {
+      const n = nodeById.get(id);
+      n.image = `images/${id}.png`;
+      updateGraph();
+    });
+}
 
 /* add node */
 function addNode() {
