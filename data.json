@@ -3,12 +3,14 @@
     {
       "id": 6,
       "name": "JRR Tolkien",
-      "birth_year": "1892"
+      "birth_year": "1892",
+      "image": "images/6.png"
     },
     {
       "id": 1,
       "name": "CS Lewis",
-      "birth_year": "1898"
+      "birth_year": "1898",
+      "image": "images/1.png"
     },
     {
       "id": 2,
@@ -23,8 +25,9 @@
     },
     {
       "id": 4,
-      "name": "robert howard",
-      "birth_year": "1906"
+      "name": "Robert Howard",
+      "birth_year": "1906",
+      "image": "images/4.png"
     },
     {
       "id": 5,
@@ -72,7 +75,8 @@
     {
       "id": 14,
       "name": "Thomas Bulfinch",
-      "birth_year": "1796"
+      "birth_year": "1796",
+      "image": "images/14.png"
     },
     {
       "id": 15,
@@ -83,7 +87,8 @@
     {
       "id": 16,
       "name": "Edgar Rice Burroughs",
-      "birth_year": "1875"
+      "birth_year": "1875",
+      "image": "images/16.png"
     },
     {
       "id": 17,
@@ -93,12 +98,17 @@
     },
     {
       "id": 18,
-      "name": "Robert Louis Stevenso"
+      "name": "Robert Louis Stevenso",
+      "images": [
+        "images/18.png",
+        "images/18_1.png"
+      ]
     },
     {
       "id": 19,
       "name": "Mark Twain",
-      "birth_year": "1835"
+      "birth_year": "1835",
+      "image": "images/19.png"
     },
     {
       "id": 20,
@@ -108,7 +118,8 @@
     {
       "id": 21,
       "name": "William Hope Hodgson",
-      "birth_year": "1877"
+      "birth_year": "1877",
+      "image": "images/21.png"
     },
     {
       "id": 22,
@@ -168,7 +179,8 @@
     {
       "id": 33,
       "name": "Stephen King",
-      "birth_year": "1947"
+      "birth_year": "1947",
+      "image": "images/33_0.png"
     },
     {
       "id": 34,
@@ -212,17 +224,20 @@
     {
       "id": 42,
       "name": "G.K. Chesterton",
-      "birth_year": "1874"
+      "birth_year": "1874",
+      "image": "images/42.png"
     },
     {
       "id": 43,
       "name": "Edith Nesbit",
-      "birth_year": "1858"
+      "birth_year": "1858",
+      "image": "images/43.png"
     },
     {
       "id": 44,
       "name": "Owen Barfield",
-      "birth_year": "1898"
+      "birth_year": "1898",
+      "image": "images/44.png"
     },
     {
       "id": 45,
@@ -241,7 +256,7 @@
     },
     {
       "id": 48,
-      "name": "Honor\u00e9 de Balzac",
+      "name": "Honoré de Balzac",
       "birth_year": "1799"
     },
     {
@@ -268,7 +283,8 @@
     {
       "id": 53,
       "name": "Michael Moorcock",
-      "birth_year": "1939"
+      "birth_year": "1939",
+      "image": "images/53_0.png"
     },
     {
       "id": 54,
@@ -284,6 +300,111 @@
       "id": 56,
       "name": "Thomas Ligotti",
       "birth_year": "1953"
+    },
+    {
+      "id": 57,
+      "name": "Frank Herbert",
+      "birth_year": "1920"
+    },
+    {
+      "id": 58,
+      "name": "John Brunner",
+      "birth_year": "1934"
+    },
+    {
+      "id": 59,
+      "name": "Zenna Henderson",
+      "birth_year": "1917"
+    },
+    {
+      "id": 60,
+      "name": "Theodore Sturgeon",
+      "birth_year": "1918"
+    },
+    {
+      "id": 61,
+      "name": "Harlan Ellison",
+      "birth_year": "1934"
+    },
+    {
+      "id": 62,
+      "name": "Samuel R. Delany",
+      "birth_year": "1942"
+    },
+    {
+      "id": 63,
+      "name": "Isaac Asimov",
+      "birth_year": "1920"
+    },
+    {
+      "id": 64,
+      "name": "Alfred Korzybski",
+      "birth_year": "1879"
+    },
+    {
+      "id": 65,
+      "name": "H.G. Wells",
+      "birth_year": "1866"
+    },
+    {
+      "id": 66,
+      "name": "Jules Verne",
+      "birth_year": "1828"
+    },
+    {
+      "id": 67,
+      "name": "Clifford D. Simak",
+      "birth_year": "1904"
+    },
+    {
+      "id": 68,
+      "name": "John W. Campbell",
+      "birth_year": "1910"
+    },
+    {
+      "id": 69,
+      "name": "Jack Williamson",
+      "birth_year": "1908"
+    },
+    {
+      "id": 70,
+      "name": "Stanley G. Weinbaum",
+      "birth_year": "1902"
+    },
+    {
+      "id": 71,
+      "name": "E.E. “Doc” Smith",
+      "birth_year": "1890"
+    },
+    {
+      "id": 72,
+      "name": "P.G. Wodehouse",
+      "birth_year": "1881"
+    },
+    {
+      "id": 73,
+      "name": "Olaf Stapledon",
+      "birth_year": "1886"
+    },
+    {
+      "id": 74,
+      "name": "William Golding",
+      "birth_year": "1911"
+    },
+    {
+      "id": 75,
+      "name": "Bram Stoker",
+      "birth_year": "1847"
+    },
+    {
+      "id": 76,
+      "name": "Robert Bloch",
+      "birth_year": "1917"
+    },
+    {
+      "id": 77,
+      "name": "Richard Matheson",
+      "birth_year": "1926"
     }
   ],
   "links": [
@@ -398,9 +519,9 @@
       "label": "influenced by"
     },
     {
-      "id1": 3,
-      "id2": 13,
-      "label": "influenced by"
+      "id1": 13,
+      "id2": 3,
+      "label": "Influenced"
     },
     {
       "id1": 3,
@@ -488,4 +609,269 @@
       "label": "influenced"
     },
     {
-      
+      "id1": 3,
+      "id2": 37,
+      "label": "influenced"
+    },
+    {
+      "id1": 38,
+      "id2": 6,
+      "label": "Inspired"
+    },
+    {
+      "id1": 39,
+      "id2": 6,
+      "label": "Inspired"
+    },
+    {
+      "id1": 25,
+      "id2": 6,
+      "label": "Inspired"
+    },
+    {
+      "id1": 6,
+      "id2": 40,
+      "label": "admired"
+    },
+    {
+      "id1": 42,
+      "id2": 1,
+      "label": "Influenced"
+    },
+    {
+      "id1": 1,
+      "id2": 43,
+      "label": "admired"
+    },
+    {
+      "id1": 1,
+      "id2": 44,
+      "label": "\"The wisest and best of my unofficial teachers\""
+    },
+    {
+      "id1": 1,
+      "id2": 45,
+      "label": "Held in High Esteem"
+    },
+    {
+      "id1": 46,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 46,
+      "id2": 9,
+      "label": "influenced"
+    },
+    {
+      "id1": 46,
+      "id2": 48,
+      "label": "was influenced by"
+    },
+    {
+      "id1": 46,
+      "id2": 49,
+      "label": "influenced by"
+    },
+    {
+      "id1": 46,
+      "id2": 50,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 3,
+      "label": "Influenced by"
+    },
+    {
+      "id1": 34,
+      "id2": 51,
+      "label": "influenced by"
+    },
+    {
+      "id1": 34,
+      "id2": 52,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 53,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 54,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 41,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 55,
+      "label": "influenced"
+    },
+    {
+      "id1": 34,
+      "id2": 56,
+      "label": "influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 41,
+      "label": "Influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 57,
+      "label": "influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 58,
+      "label": "influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 59,
+      "label": "influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 60,
+      "label": "influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 61,
+      "label": "influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 62,
+      "label": "influenced"
+    },
+    {
+      "id1": 63,
+      "id2": 57,
+      "label": "influenced by"
+    },
+    {
+      "id1": 64,
+      "id2": 57,
+      "label": "influenced"
+    },
+    {
+      "id1": 57,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 57,
+      "id2": 52,
+      "label": "influenced"
+    },
+    {
+      "id1": 65,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 66,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 67,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 68,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 69,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 70,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 71,
+      "id2": 63,
+      "label": "E.E. “Doc” Smith"
+    },
+    {
+      "id1": 72,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 65,
+      "id2": 67,
+      "label": "influenced"
+    },
+    {
+      "id1": 67,
+      "id2": 16,
+      "label": "influenced"
+    },
+    {
+      "id1": 67,
+      "id2": 73,
+      "label": "influenced"
+    },
+    {
+      "id1": 67,
+      "id2": 19,
+      "label": "influenced"
+    },
+    {
+      "id1": 67,
+      "id2": 68,
+      "label": "influenced"
+    },
+    {
+      "id1": 33,
+      "id2": 3,
+      "label": "influenced"
+    },
+    {
+      "id1": 7,
+      "id2": 33,
+      "label": "influenced"
+    },
+    {
+      "id1": 6,
+      "id2": 33,
+      "label": ""
+    },
+    {
+      "id1": 33,
+      "id2": 74,
+      "label": "influenced"
+    },
+    {
+      "id1": 33,
+      "id2": 75,
+      "label": "influenced"
+    },
+    {
+      "id1": 33,
+      "id2": 76,
+      "label": "influenced"
+    },
+    {
+      "id1": 33,
+      "id2": 77,
+      "label": "influenced"
+    }
+  ]
+}
