@@ -4,20 +4,21 @@ This repository contains a small web project displaying a D3 force-directed grap
 
 ## Usage
 
-Run a simple webserver from the repository root:
+Run the custom webserver from the repository root:
 
 ```
-python -m http.server 8007
+python server.py
 ```
 
+This script extends `http.server` so the page can upload images. The old
+`python -m http.server 8007` command will still serve the page read-only.
 Then open `http://localhost:8007/force.html` in your browser.
 
 ## Status
 
-Development is active. At the moment the UI is broken and the graph layout looks bad due to a prior commit. Fixing this is the current focus.
+Development is active. The repository now also contains:
 
-Only two files exist:
-
+- `server.py` – simple HTTP server that accepts image uploads.
+- `images/` – uploaded image files.
 - `force.html` – the main page with inline JS and CSS.
 - `data.json` – the dataset consumed by the page.
-
