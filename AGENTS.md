@@ -29,6 +29,65 @@ Development is active. The repository now also contains:
 - Node editor popup now clears old images when switching between people so
   the interface always shows the correct pictures.
 
+## Repository Overview
+This section summarizes the purpose of each file and folder in the project.
+
+- `README.md` – high level overview and instructions.
+- `AGENTS.md` – contributor notes (this file).
+- `server.py` – python server that saves `data.json` and accepts image uploads.
+- `force.html` – browser-based graph editor with inline CSS and JS.
+- `data.json` – graph dataset of nodes and links.
+- `images/` – uploaded pictures referenced from nodes, ignored by Git.
+- `backups/` – automatic copies of `data.json` made by the server.
+- `.gitignore` – excludes transient folders from version control.
+
+### `data.json` format
+The dataset is a single JSON object with two arrays:
+
+```
+{
+  "nodes": [ ... ],
+  "links": [ ... ]
+}
+```
+
+Each **node** has at least:
+
+- `id` – unique integer.
+- `name` – author name.
+
+Optional fields are:
+
+- `birth_year` – year of birth as a string.
+- `image` – path to a single picture.
+- `images` – array of picture paths when multiple images exist.
+
+When `images` is present, it holds all pictures for the node and may also include the `image` path for compatibility.
+
+Each **link** describes a relationship:
+
+- `id1` – source node id.
+- `id2` – target node id.
+- `label` – text describing the connection.
+
+Example snippet:
+
+```
+{
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Example Author",
+      "birth_year": "1900",
+      "images": ["images/1.png"]
+    }
+  ],
+  "links": [
+    { "id1": 1, "id2": 2, "label": "influenced" }
+  ]
+}
+```
+
 ## Contribution Guidelines
 
 To avoid churn from inconsistent line endings, use **CRLF** (`\r\n`) line
