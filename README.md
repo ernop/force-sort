@@ -31,6 +31,8 @@ http.server` will only provide read‑only access.
 * **Image support.**  Each node can hold multiple images.  Paste or upload
   pictures while the editor popup is open, rearrange or remove them, and
   identical uploads are detected automatically.
+  The popup now reliably resets when switching between nodes so you never
+  see another person's pictures by mistake.
 * **Layout options.**  A "tiers" layout is available in addition to the default
   force simulation.
 

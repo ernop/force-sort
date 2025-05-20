@@ -725,10 +725,14 @@ function openNodePopup(id, x, y) {
   const n = nodeById.get(id);
   if (!n) return;
   nodePopupId = id;
+  nodePopupImages.innerHTML = '';
   nodePopupName.value = n.name || '';
   nodePopupYear.value = n.birth_year || '';
+  const curId = id;
   dedupeImages(n).then(()=>{
-    renderNodeImages(n);
+    if(nodePopupId === curId){
+      renderNodeImages(n);
+    }
   });
   nodePopup.style.left = (x + 5) + 'px';
   nodePopup.style.top  = (y + 5) + 'px';
