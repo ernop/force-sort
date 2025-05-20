@@ -612,6 +612,46 @@
       "id": 113,
       "name": "Th\u00e9ophile Gautier",
       "birth_year": "1811"
+    },
+    {
+      "id": 114,
+      "name": "Jeff VanderMeer",
+      "birth_year": "1968"
+    },
+    {
+      "id": 115,
+      "name": "Carlos Fuentes",
+      "birth_year": "1928"
+    },
+    {
+      "id": 116,
+      "name": "Paul Auster",
+      "birth_year": "1947"
+    },
+    {
+      "id": 117,
+      "name": "Salman Rushdie",
+      "birth_year": "1947"
+    },
+    {
+      "id": 118,
+      "name": "Julio Cort\u00e1zar",
+      "birth_year": "1914"
+    },
+    {
+      "id": 119,
+      "name": "Mario Vargas Llosa",
+      "birth_year": "1936"
+    },
+    {
+      "id": 120,
+      "name": "Roberto Bola\u00f1o",
+      "birth_year": "1953"
+    },
+    {
+      "id": 121,
+      "name": "Lucius Shepard",
+      "birth_year": "1943"
     }
   ],
   "links": [
@@ -1373,6 +1413,76 @@
     {
       "id1": 113,
       "id2": 109,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 91,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 87,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 101,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 34,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 114,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 31,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 120,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 115,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 119,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 118,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 116,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 117,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 33,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 121,
       "label": "influenced"
     }
   ]
