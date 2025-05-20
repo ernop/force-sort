@@ -28,3 +28,10 @@ Development is active. The repository now also contains:
 - `data.json` – the dataset consumed by the page.
 - Node editor popup now clears old images when switching between people so
   the interface always shows the correct pictures.
+
+## Contribution Guidelines
+
+To avoid churn from inconsistent line endings, use **CRLF** (`\r\n`) line
+terminators for all files in this repository. Configure your editor to save
+files with Windows line endings and do not convert them to plain `\r` or
+other styles.

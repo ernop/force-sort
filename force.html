@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <title>Force‑Directed People Graph</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
   <style>
     html,body{margin:0;height:100%;background:#fff;font-family:Arial,Helvetica,sans-serif}
     #topControls,#bottomControls{display:flex;gap:12px;padding:8px;flex-wrap:wrap}
@@ -14,27 +16,34 @@
     #bottomControls{border-top:1px solid #ddd}
     #graph{width:100%;height:calc(100% - 120px)} /* two control bars */
 
-    textarea#export{
+    textarea#export{display:none}
+    textarea#export.unsaved{background:#fff3c4}
+
+    #searchBox{
       position:fixed;
       bottom:10px;
       right:10px;
-      width:240px;
-      height:160px;
-      border:1px solid #ccc;
-      resize:none;
-      font-family:monospace;
-      padding:6px;
-      box-sizing:border-box;
+      width:200px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
       background:#fff;
+      border:1px solid #ccc;
+      padding:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);
+      border-radius:4px;
     }
-    textarea#export.unsaved{background:#fff3c4}
+    #searchBox input{padding:4px;}
+    .node.search-match circle{stroke:#ff5722;stroke-width:4px;}
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
     .node-image{pointer-events:none}
     .year-labels text{font-size:12px;fill:#888}
     
     .link{stroke:#555;stroke-width:1.5px;fill:none;marker-end:url(#arrow)}
-    .link.highlight{stroke:red;stroke-width:3px}
+    /* highlight lines thicker so search hits stand out */
+    .link.highlight{stroke:red;stroke-width:6px}
+    
     text{font-size:12px;pointer-events:none;fill:#000}
     .label{pointer-events:all;cursor:pointer}
     .link-hit{stroke:transparent;stroke-width:14px;fill:none;cursor:pointer}
@@ -97,8 +106,13 @@
     <option value="liked">
     <option value="inspired by">
     <option value="friend">
-  </datalist>
+    </datalist>
 </div>
+
+  <div id="searchBox">
+    <input id="searchInput" type="text" placeholder="search">
+    <div id="yearSlider"></div>
+  </div>
 
   <!-- export area -->
   <textarea id="export" readonly></textarea>
@@ -225,6 +239,8 @@ let   layoutMode  = layoutSelect.value;
 const tierSpacing = 100;
 const yearSpacing = 20;
 const exportArea  = document.getElementById('export');   // ← new
+const searchInput  = document.getElementById('searchInput');
+const yearSlider   = document.getElementById('yearSlider');
 const edgePopup       = document.getElementById('edgePopup');
 const edgePopupLabel  = document.getElementById('edgePopupLabel');
 const edgePopupSave   = document.getElementById('edgePopupSave');
@@ -529,6 +545,8 @@ function computeYearLayout() {
 function applyLayoutForces() {
   simulation.stop();
 
+
+
   // Reset fixed positions
   nodes.forEach(n => { n.fx = n.fy = null; });
 
@@ -545,6 +563,63 @@ function applyLayoutForces() {
     yearLabelGroup.style('display', 'none');
     simulation.alpha(1).restart();
   }
+}
+
+
+function highlightSearch(){
+  const term = searchInput.value.trim().toLowerCase();
+  nodeSel.classed('search-match', d => term !== '' && d.name.toLowerCase().includes(term));
+}
+
+function applyYearFilter(){
+  if(!yearSlider.noUiSlider) return;
+  const [minYear, maxYear] = yearSlider.noUiSlider.get().map(v => parseInt(v));
+  nodeSel.style('display', d => {
+    const y = parseInt(d.birth_year, 10);
+    if (isNaN(y)) return null;
+    return (y >= minYear && y <= maxYear) ? null : 'none';
+  });
+  linkSel.style('display', d => {
+    const y1 = parseInt(nodeById.get(d.id1).birth_year, 10);
+    const y2 = parseInt(nodeById.get(d.id2).birth_year, 10);
+    const vis1 = isNaN(y1) || (y1 >= minYear && y1 <= maxYear);
+    const vis2 = isNaN(y2) || (y2 >= minYear && y2 <= maxYear);
+    return (vis1 && vis2) ? null : 'none';
+  });
+  labelSel.style('display', d => {
+    const y1 = parseInt(nodeById.get(d.id1).birth_year, 10);
+    const y2 = parseInt(nodeById.get(d.id2).birth_year, 10);
+    const vis1 = isNaN(y1) || (y1 >= minYear && y1 <= maxYear);
+    const vis2 = isNaN(y2) || (y2 >= minYear && y2 <= maxYear);
+    return (vis1 && vis2) ? null : 'none';
+  });
+  linkHitSel.style('display', d => {
+    const y1 = parseInt(nodeById.get(d.id1).birth_year, 10);
+    const y2 = parseInt(nodeById.get(d.id2).birth_year, 10);
+    const vis1 = isNaN(y1) || (y1 >= minYear && y1 <= maxYear);
+    const vis2 = isNaN(y2) || (y2 >= minYear && y2 <= maxYear);
+    return (vis1 && vis2) ? null : 'none';
+  });
+}
+
+function setupSearchAndFilter(){
+  const years = nodes.map(n => parseInt(n.birth_year, 10)).filter(y => !isNaN(y));
+  if(years.length){
+    const minY = Math.min(...years);
+    const maxY = Math.max(...years);
+    noUiSlider.create(yearSlider, {
+      start:[minY, maxY],
+      connect:true,
+      step:1,
+      range:{min:minY, max:maxY},
+      tooltips:true,
+      format:{to:v=>Math.round(v), from:v=>+v}
+    });
+    yearSlider.noUiSlider.on('update', applyYearFilter);
+  } else {
+    yearSlider.style.display = 'none';
+  }
+  searchInput.addEventListener('input', highlightSearch);
 }
 
 function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = true) {
@@ -653,6 +728,8 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
            .on('end', function () { d3.select(this).classed('highlight', false); });
   }
   refreshExport(markDirty);
+  applyYearFilter();
+  highlightSearch();
 }
 
 
@@ -990,6 +1067,7 @@ addEdgeBtn.addEventListener('click', () => {
 /* ---------- initial render ---------- */
 loadData().then(() => {
   populateSelects();
+  setupSearchAndFilter();
   updateGraph(false, null, false);
 });
 </script>
