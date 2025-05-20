@@ -552,6 +552,65 @@
       "id": 101,
       "name": "Umberto Eco",
       "birth_year": "1932"
+    },
+    {
+      "id": 102,
+      "name": "Mary Shelly",
+      "birth_year": "1979"
+    },
+    {
+      "id": 103,
+      "name": "Vonda N. McIntyre",
+      "birth_year": "1948"
+    },
+    {
+      "id": 104,
+      "name": "James Branch Cabell",
+      "birth_year": "1879"
+    },
+    {
+      "id": 105,
+      "name": "Anne McCaffrey",
+      "birth_year": "1926"
+    },
+    {
+      "id": 106,
+      "name": "Kate Wilhelm",
+      "birth_year": "1928"
+    },
+    {
+      "id": 107,
+      "name": "Andre Norton",
+      "birth_year": "1912"
+    },
+    {
+      "id": 108,
+      "name": "Joanna Russ",
+      "birth_year": "1937"
+    },
+    {
+      "id": 109,
+      "name": "Robert W Chambers",
+      "birth_year": "1865"
+    },
+    {
+      "id": 110,
+      "name": "James Blish",
+      "birth_year": "1921"
+    },
+    {
+      "id": 111,
+      "name": "Ambrose Bierce",
+      "birth_year": "1842"
+    },
+    {
+      "id": 112,
+      "name": "Oscar Wilde"
+    },
+    {
+      "id": 113,
+      "name": "Th\u00e9ophile Gautier",
+      "birth_year": "1811"
     }
   ],
   "links": [
@@ -596,8 +655,8 @@
       "label": "Recommended to aspiring writers"
     },
     {
-      "id1": 2,
-      "id2": 8,
+      "id1": 8,
+      "id2": 2,
       "label": "Influenced By"
     },
     {
@@ -656,8 +715,8 @@
       "label": "influenced"
     },
     {
-      "id1": 8,
-      "id2": 19,
+      "id1": 19,
+      "id2": 8,
       "label": "influenved by"
     },
     {
@@ -676,23 +735,23 @@
       "label": "influenced by"
     },
     {
-      "id1": 3,
-      "id2": 21,
+      "id1": 21,
+      "id2": 3,
       "label": "influenced by"
     },
     {
-      "id1": 3,
-      "id2": 22,
+      "id1": 22,
+      "id2": 3,
       "label": "influenced by"
     },
     {
-      "id1": 3,
-      "id2": 23,
+      "id1": 23,
+      "id2": 3,
       "label": "influenced by"
     },
     {
-      "id1": 3,
-      "id2": 24,
+      "id1": 24,
+      "id2": 3,
       "label": "influenced by"
     },
     {
@@ -746,8 +805,8 @@
       "label": "influenced"
     },
     {
-      "id1": 3,
-      "id2": 35,
+      "id1": 35,
+      "id2": 3,
       "label": "influenced"
     },
     {
@@ -966,8 +1025,8 @@
       "label": "influenced"
     },
     {
-      "id1": 67,
-      "id2": 16,
+      "id1": 16,
+      "id2": 67,
       "label": "influenced"
     },
     {
@@ -996,23 +1055,23 @@
       "label": ""
     },
     {
-      "id1": 33,
-      "id2": 74,
+      "id1": 74,
+      "id2": 33,
       "label": "influenced"
     },
     {
-      "id1": 33,
-      "id2": 75,
+      "id1": 75,
+      "id2": 33,
       "label": "influenced"
     },
     {
-      "id1": 33,
-      "id2": 76,
+      "id1": 76,
+      "id2": 33,
       "label": "influenced"
     },
     {
-      "id1": 33,
-      "id2": 77,
+      "id1": 77,
+      "id2": 33,
       "label": "influenced"
     },
     {
@@ -1161,8 +1220,8 @@
       "label": "influenced"
     },
     {
-      "id1": 92,
-      "id2": 8,
+      "id1": 8,
+      "id2": 92,
       "label": "influenced"
     },
     {
@@ -1223,6 +1282,101 @@
     {
       "id1": 101,
       "id2": 98,
+      "label": "influenced"
+    },
+    {
+      "id1": 65,
+      "id2": 41,
+      "label": "influenced"
+    },
+    {
+      "id1": 29,
+      "id2": 41,
+      "label": ""
+    },
+    {
+      "id1": 54,
+      "id2": 41,
+      "label": "influenced"
+    },
+    {
+      "id1": 73,
+      "id2": 41,
+      "label": "influenced"
+    },
+    {
+      "id1": 102,
+      "id2": 35,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 100,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 108,
+      "id2": 103,
+      "label": ""
+    },
+    {
+      "id1": 107,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 106,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 105,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 104,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 109,
+      "id2": 3,
+      "label": "influenced"
+    },
+    {
+      "id1": 109,
+      "id2": 33,
+      "label": "influenced"
+    },
+    {
+      "id1": 7,
+      "id2": 109,
+      "label": "influenced"
+    },
+    {
+      "id1": 112,
+      "id2": 109,
+      "label": "influenced"
+    },
+    {
+      "id1": 111,
+      "id2": 109,
+      "label": "influenced"
+    },
+    {
+      "id1": 113,
+      "id2": 109,
       "label": "influenced"
     }
   ]

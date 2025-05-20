@@ -360,71 +360,58 @@ function populateSelects() {
     .join('');
 
   const fromVal = edgeFrom.value;
-  const toVal   = edgeTo.value;
+  const toVal = edgeTo.value;
 
-  // Remove all event handlers from the document related to Select2
-  $(document).off('select2:open');
-  
-  // Clean up any existing Select2 instances
+  // Destroy existing Select2 instances to prevent event duplication
   if ($(edgeFrom).hasClass('select2-hidden-accessible')) {
     $(edgeFrom).select2('destroy');
   }
   if ($(edgeTo).hasClass('select2-hidden-accessible')) {
     $(edgeTo).select2('destroy');
   }
-  
-  // Remove any lingering event handlers from the select elements
-  $(edgeFrom).off();
-  $(edgeTo).off();
-  
-  // Update the options
-  $(edgeFrom).html(opts);
-  $(edgeTo).html(opts);
-  
-  // Set selected values
+
+  // Update options
+  edgeFrom.innerHTML = opts;
+  edgeTo.innerHTML = opts;
+
+  // Restore selected values
   $(edgeFrom).val(fromVal);
   $(edgeTo).val(toVal);
-  
-  // Initialize Select2 with appropriate options
-  $(edgeFrom).select2({
-    // Open dropdown when the select gets focus
-    selectOnClose: true
+
+  // Initialize Select2 with enhanced options
+  const select2Options = {
+    width: '200px', // Adjust width as needed for your layout
+    minimumResultsForSearch: 0, // Always show search box
+    dropdownAutoWidth: true
+  };
+
+  $(edgeFrom).select2(select2Options);
+  $(edgeTo).select2(select2Options);
+
+  // Open dropdown and focus search on focus event
+  [edgeFrom, edgeTo].forEach(select => {
+    $(select).on('focus', function() {
+      $(this).select2('open');
+    });
+
+    // Handle click on Select2 container
+    $(select).next('.select2-container').on('click', function(e) {
+      const $select = $(select);
+      if (!$select.data('select2').isOpen()) {
+        e.preventDefault();
+        $select.select2('open');
+      }
+    });
   });
-  
-  $(edgeTo).select2({
-    selectOnClose: true
-  });
-  
-  // Add global handler to focus search field when any dropdown opens
-  $(document).on('select2:open', function() {
-    // Use a short delay to ensure DOM is fully rendered
-    setTimeout(function() {
-      $('.select2-search__field:visible').focus();
-    }, 0);
-  });
-  
-  // The key fix: Handle focus on the original select elements correctly
-  $(edgeFrom).on('focus', function() {
-    $(this).select2('open');
-  });
-  
-  $(edgeTo).on('focus', function() {
-    $(this).select2('open');
-  });
-  
-  // Handle click on the Select2 container as well to ensure it works via mouse
-  $('#edgeFrom').next('.select2-container').on('click', function(e) {
-    if (!$('#edgeFrom').data('select2').isOpen()) {
-      e.preventDefault();
-      $('#edgeFrom').select2('open');
-    }
-  });
-  
-  $('#edgeTo').next('.select2-container').on('click', function(e) {
-    if (!$('#edgeTo').data('select2').isOpen()) {
-      e.preventDefault();
-      $('#edgeTo').select2('open');
-    }
+
+  // Focus search input when dropdown opens
+  $(document).on('select2:open', function(e) {
+    setTimeout(() => {
+      const searchField = $(e.target).data('select2').$dropdown.find('.select2-search__field');
+      if (searchField.length) {
+        searchField[0].focus();
+      }
+    }, 50); // Small delay to ensure dropdown is rendered
   });
 }
 
