@@ -31,6 +31,7 @@
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
     .node-image{pointer-events:none}
+    .year-labels text{font-size:12px;fill:#888}
     
     .link{stroke:#555;stroke-width:1.5px;fill:none;marker-end:url(#arrow)}
     .link.highlight{stroke:red;stroke-width:3px}
@@ -38,6 +39,8 @@
     .label{pointer-events:all;cursor:pointer}
     .link-hit{stroke:transparent;stroke-width:14px;fill:none;cursor:pointer}
     button{cursor:pointer}
+    /* keep year group headers visible without covering search field */
+    .select2-results__group{position:sticky;bottom:0;background:#fff;margin-top:4px}
     #edgePopup{position:absolute;background:#ffffe0;border:1px solid #aaa;border-radius:4px;padding:4px;font-size:12px;box-shadow:0 2px 4px rgba(0,0,0,0.2);display:none}
     #edgePopup input{width:120px}
     #edgePopup .actions{display:flex;gap:4px;margin-top:4px}
@@ -207,6 +210,8 @@ const linkGroup = g.append('g').attr('class','links');
 let  linkSel     = linkGroup.selectAll('path.link');
 let  linkHitSel  = linkGroup.selectAll('path.link-hit');
 let  labelSel    = linkGroup.selectAll('text.label');
+const yearLabelGroup = g.append('g').attr('class','year-labels').style('display','none');
+let  yearLabelSel = yearLabelGroup.selectAll('text');
 let  nodeSel     = g.selectAll('.node');
 
 const BASE_COLLISION  = 40;  // default collision distance
@@ -354,10 +359,24 @@ function formatNodeLabel(n){
 }
 
 function populateSelects() {
-  const sorted = nodes.slice().sort((a, b) => a.name.localeCompare(b.name));
-  const opts = sorted
-    .map(n => `<option value="${n.id}">${formatNodeLabel(n)}</option>`)
-    .join('');
+  const groups = new Map();
+  nodes.forEach(n => {
+    const key = n.birth_year && n.birth_year !== '' ? n.birth_year : 'Unknown';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(n);
+  });
+  const sortedYears = Array.from(groups.keys()).sort((a, b) => {
+    const ay = a === 'Unknown' ? Infinity : parseInt(a, 10);
+    const by = b === 'Unknown' ? Infinity : parseInt(b, 10);
+    return ay - by;
+  });
+
+  const opts = sortedYears.map(y => {
+    const items = groups.get(y).sort((a,b)=>a.name.localeCompare(b.name))
+      .map(n => `<option value="${n.id}">${formatNodeLabel(n)}</option>`)
+      .join('');
+    return `<optgroup label="${y}">${items}</optgroup>`;
+  }).join('');
 
   const fromVal = edgeFrom.value;
   const toVal = edgeTo.value;
@@ -470,9 +489,13 @@ function computeYearLayout() {
   const years = nodes
     .map(n => parseInt(n.birth_year, 10))
     .filter(y => !isNaN(y));
-  if (years.length === 0) return;
-  const minYear = Math.min(...years);
-  const maxYear = Math.max(...years);
+  let minYear, maxYear;
+  if (years.length === 0) {
+    minYear = maxYear = new Date().getFullYear();
+  } else {
+    minYear = Math.min(...years);
+    maxYear = Math.max(...years);
+  }
 
   const rows = new Map();
   nodes.forEach(n => {
@@ -490,6 +513,17 @@ function computeYearLayout() {
       n.y = (line - minYear) * yearSpacing + 40;
     });
   });
+
+  const labelData = Array.from(rows.keys()).map(k => ({
+    key: k,
+    line: isNaN(parseInt(k,10)) ? maxYear + 1 : parseInt(k,10)
+  }));
+  yearLabelSel = yearLabelGroup.selectAll('text').data(labelData, d=>d.key)
+    .join('text')
+      .text(d => d.key === 'unknown' ? 'Unknown' : d.key)
+      .attr('text-anchor','end');
+  yearLabelSel.attr('x', 80)
+             .attr('y', d => (d.line - minYear) * yearSpacing + 55);
 }
 
 function applyLayoutForces() {
@@ -500,6 +534,7 @@ function applyLayoutForces() {
 
   if (layoutMode === 'tiers') {
     computeYearLayout();
+    yearLabelGroup.style('display', null);
     nodes.forEach(n => {
       n.fx = n.x;
       n.fy = n.y;
@@ -507,6 +542,7 @@ function applyLayoutForces() {
     ticked();
   } else if (layoutMode === 'force') {
     simulation.force('tier', null); // Remove tier force if exists
+    yearLabelGroup.style('display', 'none');
     simulation.alpha(1).restart();
   }
 }
