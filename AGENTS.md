@@ -26,3 +26,5 @@ Development is active. The repository now also contains:
 - `images/` – uploaded image files.
 - `force.html` – the main page with inline JS and CSS.
 - `data.json` – the dataset consumed by the page.
+- Node editor popup now clears old images when switching between people so
+  the interface always shows the correct pictures.
