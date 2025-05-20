@@ -156,7 +156,8 @@
     {
       "id": 28,
       "name": "Samuel Taylor Coleridge",
-      "birth_year": "1772"
+      "birth_year": "1772",
+      "image": "images/28_0.png"
     },
     {
       "id": 29,
@@ -633,11 +634,6 @@
       "id1": 3,
       "id2": 4,
       "label": "correspondence"
-    },
-    {
-      "id1": 2,
-      "id2": 1,
-      "label": "successor"
     },
     {
       "id1": 5,
