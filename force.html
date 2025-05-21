@@ -49,6 +49,7 @@
       border-radius:4px;
     }
     .node.search-match circle{stroke:#ff5722;stroke-width:4px;}
+    .node.focus-node circle{stroke:#0a0;stroke-width:4px;}
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
     .node-image{pointer-events:none}
@@ -611,6 +612,7 @@ function updateHash(){
 function applyFocusFilter(restartSim = true){
   if(focusNodeId === null){
     nodeSel.style('display', null);
+    nodeSel.classed('focus-node', false);
     visibleLinks = links.slice();
     refreshLinks(restartSim);
     linkSel.classed('focus-edge', false);
@@ -636,6 +638,7 @@ function applyFocusFilter(restartSim = true){
     frontier = next;
   }
   nodeSel.style('display', d => vis.has(d.id) ? null : 'none');
+  nodeSel.classed('focus-node', d => d.id === focusNodeId);
   visibleLinks = links.filter(l => vis.has(l.id1) && vis.has(l.id2));
   refreshLinks(restartSim);
   linkSel.classed('focus-edge', d => d.id1===focusNodeId || d.id2===focusNodeId);
