@@ -37,6 +37,9 @@ The popup now reliably resets when switching between nodes so you never
 * **Layout options.**  A "tiers" layout is available in addition to the default
   force simulation. A new "force+direction" mode keeps edges mostly pointing
   downward while still using forces.
+* **Filter persistence.**  Active focus or year filters stay applied while you
+  edit nodes or edges. The selected filters only change when you interact with
+  the filter controls themselves.
 
 ## Data Format
 

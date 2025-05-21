@@ -652,7 +652,12 @@ function setupSearchAndFilter(){
       tooltips:true,
       format:{to:v=>Math.round(v), from:v=>+v}
     });
-    yearSlider.noUiSlider.on('update', applyYearFilter);
+    yearSlider.noUiSlider.on('update', () => {
+      applyYearFilter();
+      if(focusNodeId !== null){
+        applyFocusFilter();
+      }
+    });
   } else {
     yearSlider.style.display = 'none';
   }
@@ -756,7 +761,12 @@ function setupSearchAndFilter(){
       tooltips:true,
       format:{to:v=>Math.round(v), from:v=>+v}
     });
-    yearSlider.noUiSlider.on('update', applyYearFilter);
+    yearSlider.noUiSlider.on('update', () => {
+      applyYearFilter();
+      if(focusNodeId !== null){
+        applyFocusFilter();
+      }
+    });
   } else {
     yearSlider.style.display = 'none';
   }
@@ -864,8 +874,8 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
            .on('end', function () { d3.select(this).classed('highlight', false); });
   }
   refreshExport(markDirty);
-  applyFocusFilter();
   applyYearFilter();
+  applyFocusFilter();
   highlightSearch();
 }
 

@@ -28,6 +28,8 @@ Development is active. The repository now also contains:
 - `data.json` – the dataset consumed by the page.
 - Node editor popup now clears old images when switching between people so
   the interface always shows the correct pictures.
+- Focus and year filters persist through node or edge updates. These states only
+  change when the filter controls themselves are used.
 
 ## Repository Overview
 This section summarizes the purpose of each file and folder in the project.
