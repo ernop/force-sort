@@ -34,6 +34,20 @@
       border-radius:4px;
     }
     #searchBox input{padding:4px;}
+    #focusBox{
+      position:fixed;
+      bottom:10px;
+      right:220px;
+      width:200px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      background:#fff;
+      border:1px solid #ccc;
+      padding:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);
+      border-radius:4px;
+    }
     .node.search-match circle{stroke:#ff5722;stroke-width:4px;}
 
     .node circle{fill:#a7d3ff;stroke:#fff;stroke-width:2px;cursor:grab}
@@ -113,6 +127,10 @@
     <input id="searchInput" type="text" placeholder="search">
     <div id="yearSlider"></div>
   </div>
+  <div id="focusBox" style="display:none">
+    <div id="focusLabel"></div>
+    <input id="focusRange" type="range" min="1" max="5" value="1">
+  </div>
 
   <!-- export area -->
   <textarea id="export" readonly></textarea>
@@ -158,6 +176,8 @@ let links = [];
 let visibleLinks = [];
 const nodeById = new Map();
 let nextNodeId = 1;
+let focusNodeId = null;
+let focusDepth = 1;
 function loadData(){
   return fetch("data.json")
     .then(r=>r.json())
@@ -258,6 +278,9 @@ const nodePopupSave   = document.getElementById('nodePopupSave');
 const nodePopupDelete = document.getElementById('nodePopupDelete');
 const nodePopupClose  = document.getElementById('nodePopupClose');
 const nodePopupImages = document.getElementById('nodePopupImages');
+const focusBox        = document.getElementById('focusBox');
+const focusLabel      = document.getElementById('focusLabel');
+const focusRange      = document.getElementById('focusRange');
 let   nodePopupId     = null;
 
 const simulation = d3.forceSimulation(nodes)
@@ -595,6 +618,50 @@ function applyYearFilter(){
   updateHiddenEdges();
 }
 
+function updateHash(){
+  const params = new URLSearchParams(location.hash.slice(1));
+  if(focusNodeId !== null){
+    params.set('focus', focusNodeId);
+    params.set('depth', focusDepth);
+  } else {
+    params.delete('focus');
+    params.delete('depth');
+  }
+  history.replaceState(null, '', '#'+params.toString());
+}
+
+function applyFocusFilter(){
+  if(focusNodeId === null){
+    nodeSel.style('display', null);
+    visibleLinks = links.slice();
+    refreshLinks();
+    updateHiddenEdges();
+    return;
+  }
+  const depth = focusDepth;
+  const vis = new Set([focusNodeId]);
+  let frontier = [focusNodeId];
+  for(let i=0;i<depth;i++){
+    const next = [];
+    frontier.forEach(id => {
+      links.forEach(l => {
+        if(l.id1===id || l.id2===id){
+          const other = l.id1===id ? l.id2 : l.id1;
+          if(!vis.has(other)){
+            vis.add(other);
+            next.push(other);
+          }
+        }
+      });
+    });
+    frontier = next;
+  }
+  nodeSel.style('display', d => vis.has(d.id) ? null : 'none');
+  visibleLinks = links.filter(l => vis.has(l.id1) && vis.has(l.id2));
+  refreshLinks();
+  updateHiddenEdges();
+}
+
 function setupSearchAndFilter(){
   const years = nodes.map(n => parseInt(n.birth_year, 10)).filter(y => !isNaN(y));
   if(years.length){
@@ -613,6 +680,13 @@ function setupSearchAndFilter(){
     yearSlider.style.display = 'none';
   }
   searchInput.addEventListener('input', highlightSearch);
+  focusRange.addEventListener('input', () => {
+    focusDepth = parseInt(focusRange.value,10);
+    if(focusNodeId !== null){
+      applyFocusFilter();
+      updateHash();
+    }
+  });
 }
 
 function refreshLinks(){
@@ -707,6 +781,13 @@ function setupSearchAndFilter(){
     yearSlider.style.display = 'none';
   }
   searchInput.addEventListener('input', highlightSearch);
+  focusRange.addEventListener('input', () => {
+    focusDepth = parseInt(focusRange.value,10);
+    if(focusNodeId !== null){
+      applyFocusFilter();
+      updateHash();
+    }
+  });
 }
 
 function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = true) {
@@ -721,6 +802,19 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
           .on('click', (event,d) => {
             event.stopPropagation();
             openNodePopup(d.id, event.pageX, event.pageY);
+          })
+          .on('dblclick', (event,d)=>{
+            event.stopPropagation();
+            if(focusNodeId === d.id){
+              focusNodeId = null;
+              focusBox.style.display = 'none';
+            }else{
+              focusNodeId = d.id;
+              focusLabel.textContent = 'Focus: '+d.name;
+              focusBox.style.display = 'flex';
+            }
+            applyFocusFilter();
+            updateHash();
           })
           .call(d3.drag().on('start', dragstarted)
                         .on('drag',  dragged)
@@ -746,6 +840,19 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
       n.on('click', (event)=>{
         event.stopPropagation();
         openNodePopup(d.id, event.pageX, event.pageY);
+      })
+      .on('dblclick', (event)=>{
+        event.stopPropagation();
+        if(focusNodeId === d.id){
+          focusNodeId = null;
+          focusBox.style.display = 'none';
+        }else{
+          focusNodeId = d.id;
+          focusLabel.textContent = 'Focus: '+d.name;
+          focusBox.style.display = 'flex';
+        }
+        applyFocusFilter();
+        updateHash();
       });
       n.select('text').text(formatNodeLabel(d));
       n.select('image.node-image')
@@ -772,6 +879,7 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
            .on('end', function () { d3.select(this).classed('highlight', false); });
   }
   refreshExport(markDirty);
+  applyFocusFilter();
   applyYearFilter();
   highlightSearch();
 }
@@ -1110,9 +1218,23 @@ addEdgeBtn.addEventListener('click', () => {
 
 /* ---------- initial render ---------- */
 loadData().then(() => {
+  const params = new URLSearchParams(location.hash.slice(1));
+  if(params.has('focus')){
+    focusNodeId = parseInt(params.get('focus'),10);
+    focusDepth = parseInt(params.get('depth') || '1',10);
+    focusRange.value = focusDepth;
+    const n = nodeById.get(focusNodeId);
+    if(n){
+      focusLabel.textContent = 'Focus: ' + n.name;
+      focusBox.style.display = 'flex';
+    }
+  }
   populateSelects();
   setupSearchAndFilter();
   updateGraph(false, null, false);
+  if(focusNodeId !== null){
+    applyFocusFilter();
+  }
 });
 </script>
 </body>
