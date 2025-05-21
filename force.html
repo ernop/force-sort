@@ -441,38 +441,11 @@ function populateSelects() {
   // Initialize Select2 with enhanced options
   const select2Options = {
     width: '200px', // Adjust width as needed for your layout
-    minimumResultsForSearch: 0, // Always show search box
-    dropdownAutoWidth: true
+    minimumResultsForSearch: 0 // Always show search box
   };
 
   $(edgeFrom).select2(select2Options);
   $(edgeTo).select2(select2Options);
-
-  // Open dropdown and focus search on focus event
-  [edgeFrom, edgeTo].forEach(select => {
-    $(select).on('focus', function() {
-      $(this).select2('open');
-    });
-
-    // Handle click on Select2 container
-    $(select).next('.select2-container').on('click', function(e) {
-      const $select = $(select);
-      if (!$select.data('select2').isOpen()) {
-        e.preventDefault();
-        $select.select2('open');
-      }
-    });
-  });
-
-  // Focus search input when dropdown opens
-  $(document).on('select2:open', function(e) {
-    setTimeout(() => {
-      const searchField = $(e.target).data('select2').$dropdown.find('.select2-search__field');
-      if (searchField.length) {
-        searchField[0].focus();
-      }
-    }, 50); // Small delay to ensure dropdown is rendered
-  });
 }
 
 
@@ -1235,6 +1208,12 @@ loadData().then(() => {
   if(focusNodeId !== null){
     applyFocusFilter();
   }
+});
+
+// Add this code AFTER populateSelects() is called in your initialization
+// This is the simple, standard way to focus the search field when dropdown opens
+$(document).on('select2:open', function() {
+  document.querySelector('.select2-container--open .select2-search__field').focus();
 });
 </script>
 </body>

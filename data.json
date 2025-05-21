@@ -677,8 +677,8 @@
       "label": "friend"
     },
     {
-      "id1": 1,
-      "id2": 6,
+      "id1": 6,
+      "id2": 1,
       "label": "supporter"
     },
     {
@@ -692,8 +692,8 @@
       "label": "correspondence"
     },
     {
-      "id1": 5,
-      "id2": 6,
+      "id1": 6,
+      "id2": 5,
       "label": "drinking buddy"
     },
     {
@@ -702,8 +702,8 @@
       "label": "co-member of the inklings"
     },
     {
-      "id1": 2,
-      "id2": 7,
+      "id1": 7,
+      "id2": 2,
       "label": "Recommended to aspiring writers"
     },
     {
@@ -717,8 +717,8 @@
       "label": "Influenced By"
     },
     {
-      "id1": 4,
-      "id2": 10,
+      "id1": 10,
+      "id2": 4,
       "label": "admired"
     },
     {
@@ -977,8 +977,8 @@
       "label": "influenced"
     },
     {
-      "id1": 55,
-      "id2": 41,
+      "id1": 41,
+      "id2": 55,
       "label": "Influenced"
     },
     {
@@ -1207,8 +1207,8 @@
       "label": "influenced"
     },
     {
-      "id1": 41,
-      "id2": 8,
+      "id1": 8,
+      "id2": 41,
       "label": "influenced"
     },
     {
