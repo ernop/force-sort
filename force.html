@@ -155,6 +155,7 @@
 */
 let nodes = [];
 let links = [];
+let visibleLinks = [];
 const nodeById = new Map();
 let nextNodeId = 1;
 function loadData(){
@@ -163,6 +164,7 @@ function loadData(){
     .then(data=>{
       nodes = data.nodes || [];
       links = data.links || [];
+      visibleLinks = links.slice();
       nodes.forEach(n=>{
         if(Array.isArray(n.images)){
           n.image = n.images[0] || null;
@@ -180,8 +182,8 @@ function loadData(){
     });
 }
 
-function buildSimLinks() {
-  return links.map(e => ({
+function buildSimLinks(arr) {
+  return arr.map(e => ({
     source : nodeById.get(e.id1),
     target : nodeById.get(e.id2),
     label  : e.label,
@@ -294,7 +296,7 @@ function ticked(){
 // gather incident edge angles for each node this tick
 const incident = new Map();  // node.id → [angles]
 
-links.forEach(l => {
+visibleLinks.forEach(l => {
   const src = nodeById.get(l.id1),
         tgt = nodeById.get(l.id2);
   if (!src || !tgt) return;
@@ -613,10 +615,7 @@ function setupSearchAndFilter(){
   searchInput.addEventListener('input', highlightSearch);
 }
 
-function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = true) {
-  const simLinks = buildSimLinks();
 
-  /* ---- links ---- */
   linkSel = linkGroup.selectAll('path.link').data(simLinks, (d,i)=>i)
         .join(
                 enter => enter.append('path')
@@ -658,6 +657,59 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = 
     update => update.text(d => d.label),
     exit   => exit.remove()
   );
+
+  simulation.force('link').links(simLinks);
+  applyLayoutForces();
+  if (layoutMode === 'force') {
+    simulation.alpha(0.6).restart();
+  } else {
+    ticked();
+  }
+}
+
+function updateHiddenEdges(){
+  const disp = new Map();
+  nodeSel.each(function(d){
+    disp.set(d.id, this.style.display === 'none');
+  });
+  visibleLinks = links.filter(l => !disp.get(l.id1) && !disp.get(l.id2));
+  refreshLinks();
+}
+
+function applyYearFilter(){
+  if(!yearSlider.noUiSlider) return;
+  const [minYear, maxYear] = yearSlider.noUiSlider.get().map(v => parseInt(v));
+  nodeSel.style('display', d => {
+    const y = parseInt(d.birth_year, 10);
+    if (isNaN(y)) return null;
+    return (y >= minYear && y <= maxYear) ? null : 'none';
+  });
+  updateHiddenEdges();
+}
+
+function setupSearchAndFilter(){
+  const years = nodes.map(n => parseInt(n.birth_year, 10)).filter(y => !isNaN(y));
+  if(years.length){
+    const minY = Math.min(...years);
+    const maxY = Math.max(...years);
+    noUiSlider.create(yearSlider, {
+      start:[minY, maxY],
+      connect:true,
+      step:1,
+      range:{min:minY, max:maxY},
+      tooltips:true,
+      format:{to:v=>Math.round(v), from:v=>+v}
+    });
+    yearSlider.noUiSlider.on('update', applyYearFilter);
+  } else {
+    yearSlider.style.display = 'none';
+  }
+  searchInput.addEventListener('input', highlightSearch);
+}
+
+function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = true) {
+  visibleLinks = links.slice();
+  refreshLinks();
 
   /* ---- nodes ---- */
 nodeSel = g.selectAll('.node').data(nodes, d => d.id)
@@ -703,7 +755,6 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
   );
 
   simulation.nodes(nodes);
-  simulation.force('link').links(simLinks);
   applyLayoutForces();
   if (layoutMode === 'force') {
     simulation.alpha(0.6).restart();
