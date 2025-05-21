@@ -615,6 +615,8 @@ function setupSearchAndFilter(){
   searchInput.addEventListener('input', highlightSearch);
 }
 
+function refreshLinks(){
+  const simLinks = buildSimLinks(visibleLinks);
 
   linkSel = linkGroup.selectAll('path.link').data(simLinks, (d,i)=>i)
         .join(

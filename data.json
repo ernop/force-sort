@@ -225,6 +225,7 @@
     {
       "id": 41,
       "name": "Ursula K Le Guin",
+      "birth_year": "1929",
       "images": [
         "images/41_1.png",
         "images/41_0.png",
@@ -652,6 +653,21 @@
       "id": 121,
       "name": "Lucius Shepard",
       "birth_year": "1943"
+    },
+    {
+      "id": 122,
+      "name": "Jack Vance",
+      "birth_year": "1916"
+    },
+    {
+      "id": 123,
+      "name": "Lafciado Hearn",
+      "birth_year": "1850"
+    },
+    {
+      "id": 124,
+      "name": "ALain Robbe-Grillet",
+      "birth_year": "1922"
     }
   ],
   "links": [
@@ -1478,6 +1494,36 @@
     {
       "id1": 36,
       "id2": 33,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 121,
+      "label": "influenced"
+    },
+    {
+      "id1": 122,
+      "id2": 121,
+      "label": "influenced"
+    },
+    {
+      "id1": 121,
+      "id2": 123,
+      "label": "influenced"
+    },
+    {
+      "id1": 124,
+      "id2": 121,
+      "label": "influenced"
+    },
+    {
+      "id1": 122,
+      "id2": 121,
+      "label": "influenced"
+    },
+    {
+      "id1": 46,
+      "id2": 121,
       "label": "influenced"
     },
     {
