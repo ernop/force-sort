@@ -571,6 +571,25 @@ function highlightSearch(){
   nodeSel.classed('search-match', d => term !== '' && d.name.toLowerCase().includes(term));
 }
 
+function updateHiddenEdges(){
+  const disp = new Map();
+  nodeSel.each(function(d){
+    disp.set(d.id, this.style.display);
+  });
+  const hidden = d => (disp.get(d.id1)==='none' || disp.get(d.id2)==='none');
+  linkSel.style('display', d => hidden(d) ? 'none' : null);
+  labelSel.style('display', d => hidden(d) ? 'none' : null);
+  linkHitSel.style('display', d => hidden(d) ? 'none' : null);
+
+  const visible = buildSimLinks().filter(l => !hidden({id1:l.source.id, id2:l.target.id}));
+  simulation.force('link').links(visible);
+  if (layoutMode === 'force') {
+    simulation.alpha(0.3).restart();
+  } else {
+    ticked();
+  }
+}
+
 function applyYearFilter(){
   if(!yearSlider.noUiSlider) return;
   const [minYear, maxYear] = yearSlider.noUiSlider.get().map(v => parseInt(v));
@@ -579,27 +598,7 @@ function applyYearFilter(){
     if (isNaN(y)) return null;
     return (y >= minYear && y <= maxYear) ? null : 'none';
   });
-  linkSel.style('display', d => {
-    const y1 = parseInt(nodeById.get(d.id1).birth_year, 10);
-    const y2 = parseInt(nodeById.get(d.id2).birth_year, 10);
-    const vis1 = isNaN(y1) || (y1 >= minYear && y1 <= maxYear);
-    const vis2 = isNaN(y2) || (y2 >= minYear && y2 <= maxYear);
-    return (vis1 && vis2) ? null : 'none';
-  });
-  labelSel.style('display', d => {
-    const y1 = parseInt(nodeById.get(d.id1).birth_year, 10);
-    const y2 = parseInt(nodeById.get(d.id2).birth_year, 10);
-    const vis1 = isNaN(y1) || (y1 >= minYear && y1 <= maxYear);
-    const vis2 = isNaN(y2) || (y2 >= minYear && y2 <= maxYear);
-    return (vis1 && vis2) ? null : 'none';
-  });
-  linkHitSel.style('display', d => {
-    const y1 = parseInt(nodeById.get(d.id1).birth_year, 10);
-    const y2 = parseInt(nodeById.get(d.id2).birth_year, 10);
-    const vis1 = isNaN(y1) || (y1 >= minYear && y1 <= maxYear);
-    const vis2 = isNaN(y2) || (y2 >= minYear && y2 <= maxYear);
-    return (vis1 && vis2) ? null : 'none';
-  });
+  updateHiddenEdges();
 }
 
 function setupSearchAndFilter(){
