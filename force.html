@@ -1063,23 +1063,28 @@ document.body.addEventListener('click', e => {
 /* ---------- drag handlers ---------- */
 function dragstarted(event,d){
   if(layoutMode === 'force'){
+    if(d.id === focusNodeId) return;  // keep focus node immovable
     if(!event.active) simulation.alphaTarget(0.3).restart();
     d.fx=d.x; d.fy=d.y;
   }
 }
 function dragged(event,d){
   if(layoutMode === 'force'){
+    if(d.id === focusNodeId) return;  // ignore drags on focus node
     d.fx=event.x; d.fy=event.y;
   } else {
+    if(d.id === focusNodeId) return;
     d.x = event.x; d.y = event.y;
     ticked();
   }
 }
 function dragended(event,d){
   if(layoutMode === 'force'){
+    if(d.id === focusNodeId) return;  // remain fixed when focused
     if(!event.active) simulation.alphaTarget(0);
     d.fx=null; d.fy=null;
   } else {
+    if(d.id === focusNodeId) return;
     ticked();
   }
 }
