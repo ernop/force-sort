@@ -34,7 +34,9 @@ http.server` will only provide read‑only access.
   The popup now reliably resets when switching between nodes so you never
   see another person's pictures by mistake.
 * **Layout options.**  A "tiers" layout is available in addition to the default
-  force simulation.
+  force simulation. A new "force+direction" mode keeps edges mostly pointing
+  downward while still using forces.
+
 
 The application aims to remain single‑page and self‑contained.  Styling is kept
 minimal and everything is bundled inside `force.html` for easy hosting.
