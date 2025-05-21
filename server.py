@@ -55,9 +55,7 @@ class UploadHandler(SimpleHTTPRequestHandler):
             images = node.get('images')
             if images is None:
                 images = []
-                if 'image' in node:
-                    images.append(node['image'])
-                    node.pop('image', None)
+                node['images'] = images
 
             # check for duplicates by hash
             for img_path in images:
@@ -104,9 +102,6 @@ class UploadHandler(SimpleHTTPRequestHandler):
             for n in data.get('nodes', []):
                 if n.get('id') == node_id:
                     imgs = n.get('images') or []
-                    if 'image' in n and n['image'] in imgs:
-                        imgs.remove(n['image'])
-                        n.pop('image', None)
                     if image_path in imgs:
                         imgs.remove(image_path)
                     n['images'] = imgs

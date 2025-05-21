@@ -30,12 +30,20 @@ http.server` will only provide read‑only access.
   automatically.  Previous versions are stored in the `backups/` folder.
 * **Image support.**  Each node can hold multiple images.  Paste or upload
   pictures while the editor popup is open, rearrange or remove them, and
-  identical uploads are detected automatically.
-  The popup now reliably resets when switching between nodes so you never
+  identical uploads are detected automatically. Image paths are stored in an
+  `images` array on each node.
+The popup now reliably resets when switching between nodes so you never
   see another person's pictures by mistake.
 * **Layout options.**  A "tiers" layout is available in addition to the default
   force simulation. A new "force+direction" mode keeps edges mostly pointing
   downward while still using forces.
+
+## Data Format
+
+The `data.json` file contains two arrays: `nodes` and `links`. Each node holds
+an `id`, a `name`, an optional `birth_year`, and an `images` array. The
+`images` array may be empty or contain multiple file paths. Links store `id1`,
+`id2` and a `label` describing the connection.
 
 
 The application aims to remain single‑page and self‑contained.  Styling is kept

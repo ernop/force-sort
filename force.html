@@ -170,11 +170,11 @@
   data.json format:
   {
     "nodes": [
-      {"id":1,"name":"Name","birth_year":"1879","image":"images/1.png"}
+      {"id":1,"name":"Name","birth_year":"1879","images":["images/1.png"]}
     ],
     "links": [{"id1":1,"id2":2,"label":"label"}]
   }
-  birth_year and image are optional per node.
+  birth_year is optional. Each node always has an "images" array which may be empty.
 */
 let nodes = [];
 let links = [];
@@ -191,16 +191,8 @@ function loadData(){
       links = data.links || [];
       visibleLinks = links.slice();
       nodes.forEach(n=>{
-        if(Array.isArray(n.images)){
-          n.image = n.images[0] || null;
-        } else {
-          if('image' in n && n.image){
-            n.images = [n.image];
-          } else {
-            n.images = [];
-          }
-          n.image = n.images[0] || null;
-        }
+        n.images = Array.isArray(n.images) ? n.images : [];
+        n.image = n.images[0] || null;
         nodeById.set(n.id,n);
       });
       nextNodeId = Math.max(0,...nodes.map(n=>n.id)) + 1;
@@ -473,8 +465,7 @@ function refreshExport(markDirty = true) {
     nodes: nodes.map(n => {
       const obj = { id: n.id, name: n.name };
       if (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '') obj.birth_year = n.birth_year;
-      if (n.images && n.images.length === 1) obj.image = n.images[0];
-      else if (n.images && n.images.length > 1) obj.images = n.images.slice();
+      obj.images = n.images.slice();
       return obj;
     }),
     links
