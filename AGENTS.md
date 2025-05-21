@@ -92,4 +92,6 @@ Example snippet:
 To avoid churn from inconsistent line endings, use **CRLF** (`\r\n`) line
 terminators for all files in this repository. Configure your editor to save
 files with Windows line endings and do not convert them to plain `\r` or
-other styles.
+other styles. Line endings are automatically enforced by the repository's
+`.gitattributes` and `.editorconfig` files so most editors will handle them
+correctly without extra setup.

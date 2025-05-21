@@ -52,3 +52,9 @@ an `id`, a `name`, an optional `birth_year`, and an `images` array. The
 The application aims to remain single‑page and self‑contained.  Styling is kept
 minimal and everything is bundled inside `force.html` for easy hosting.
 
+## Line Endings
+
+All text files use **CRLF** (`\r\n`) line terminators. The repository includes
+`.gitattributes` and `.editorconfig` files so Git and common editors enforce this
+automatically. No additional setup is required.
+
