@@ -59,10 +59,7 @@ Each **node** has at least:
 Optional fields are:
 
 - `birth_year` – year of birth as a string.
-- `image` – path to a single picture.
-- `images` – array of picture paths when multiple images exist.
-
-When `images` is present, it holds all pictures for the node and may also include the `image` path for compatibility.
+- `images` – array of picture paths. The array may be empty.
 
 Each **link** describes a relationship:
 
