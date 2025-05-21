@@ -402,13 +402,17 @@
       "id": 57,
       "name": "Frank Herbert",
       "birth_year": "1920",
-      "images": []
+      "images": [
+        "images/57_0.png"
+      ]
     },
     {
       "id": 58,
       "name": "John Brunner",
       "birth_year": "1934",
-      "images": []
+      "images": [
+        "images/58_0.png"
+      ]
     },
     {
       "id": 59,
@@ -454,7 +458,9 @@
       "id": 65,
       "name": "H.G. Wells",
       "birth_year": "1866",
-      "images": []
+      "images": [
+        "images/65_0.png"
+      ]
     },
     {
       "id": 66,
@@ -496,7 +502,9 @@
       "id": 72,
       "name": "P.G. Wodehouse",
       "birth_year": "1881",
-      "images": []
+      "images": [
+        "images/72_0.png"
+      ]
     },
     {
       "id": 73,
@@ -958,7 +966,7 @@
     {
       "id1": 29,
       "id2": 9,
-      "label": "Influenced by"
+      "label": "influenced"
     },
     {
       "id1": 30,
@@ -968,7 +976,7 @@
     {
       "id1": 3,
       "id2": 31,
-      "label": "Follower of"
+      "label": "influenced"
     },
     {
       "id1": 32,
@@ -1111,8 +1119,8 @@
       "label": "Influenced"
     },
     {
-      "id1": 55,
-      "id2": 57,
+      "id1": 57,
+      "id2": 55,
       "label": "influenced"
     },
     {
