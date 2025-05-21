@@ -57,6 +57,7 @@
     .link{stroke:#555;stroke-width:1.5px;fill:none;marker-end:url(#arrow)}
     /* highlight lines thicker so search hits stand out */
     .link.highlight{stroke:red;stroke-width:6px}
+    .link.focus-edge{stroke:#0a0;stroke-width:3px}
     
     text{font-size:12px;pointer-events:none;fill:#000}
     .label{pointer-events:all;cursor:pointer}
@@ -129,7 +130,10 @@
   </div>
   <div id="focusBox" style="display:none">
     <div id="focusLabel"></div>
-    <input id="focusRange" type="range" min="1" max="5" value="1">
+    <label>How far from focus to show:
+      <input id="focusRange" type="range" min="1" max="5" value="1">
+      <span id="focusNum">1</span>
+    </label>
   </div>
 
   <!-- export area -->
@@ -281,6 +285,7 @@ const nodePopupImages = document.getElementById('nodePopupImages');
 const focusBox        = document.getElementById('focusBox');
 const focusLabel      = document.getElementById('focusLabel');
 const focusRange      = document.getElementById('focusRange');
+const focusNum        = document.getElementById('focusNum');
 let   nodePopupId     = null;
 
 const simulation = d3.forceSimulation(nodes)
@@ -573,7 +578,7 @@ function applyLayoutForces() {
 
 
   // Reset fixed positions
-  nodes.forEach(n => { n.fx = n.fy = null; });
+  nodes.forEach(n => { if(n.id !== focusNodeId){ n.fx = n.fy = null; } });
 
   if (layoutMode === 'tiers') {
     computeYearLayout();
@@ -630,11 +635,12 @@ function updateHash(){
   history.replaceState(null, '', '#'+params.toString());
 }
 
-function applyFocusFilter(){
+function applyFocusFilter(restartSim = true){
   if(focusNodeId === null){
     nodeSel.style('display', null);
     visibleLinks = links.slice();
-    refreshLinks();
+    refreshLinks(restartSim);
+    linkSel.classed('focus-edge', false);
     updateHiddenEdges();
     return;
   }
@@ -658,7 +664,8 @@ function applyFocusFilter(){
   }
   nodeSel.style('display', d => vis.has(d.id) ? null : 'none');
   visibleLinks = links.filter(l => vis.has(l.id1) && vis.has(l.id2));
-  refreshLinks();
+  refreshLinks(restartSim);
+  linkSel.classed('focus-edge', d => d.id1===focusNodeId || d.id2===focusNodeId);
   updateHiddenEdges();
 }
 
@@ -682,6 +689,7 @@ function setupSearchAndFilter(){
   searchInput.addEventListener('input', highlightSearch);
   focusRange.addEventListener('input', () => {
     focusDepth = parseInt(focusRange.value,10);
+    focusNum.textContent = focusRange.value;
     if(focusNodeId !== null){
       applyFocusFilter();
       updateHash();
@@ -689,7 +697,7 @@ function setupSearchAndFilter(){
   });
 }
 
-function refreshLinks(){
+function refreshLinks(restartSim = true){
   const simLinks = buildSimLinks(visibleLinks);
 
   linkSel = linkGroup.selectAll('path.link').data(simLinks, (d,i)=>i)
@@ -735,9 +743,13 @@ function refreshLinks(){
   );
 
   simulation.force('link').links(simLinks);
-  applyLayoutForces();
-  if (layoutMode === 'force') {
-    simulation.alpha(0.6).restart();
+  if (restartSim) {
+    applyLayoutForces();
+    if (layoutMode === 'force') {
+      simulation.alpha(0.6).restart();
+    } else {
+      ticked();
+    }
   } else {
     ticked();
   }
@@ -783,6 +795,7 @@ function setupSearchAndFilter(){
   searchInput.addEventListener('input', highlightSearch);
   focusRange.addEventListener('input', () => {
     focusDepth = parseInt(focusRange.value,10);
+    focusNum.textContent = focusRange.value;
     if(focusNodeId !== null){
       applyFocusFilter();
       updateHash();
@@ -808,10 +821,12 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
             if(focusNodeId === d.id){
               focusNodeId = null;
               focusBox.style.display = 'none';
+              d.fx = null; d.fy = null;
             }else{
               focusNodeId = d.id;
               focusLabel.textContent = 'Focus: '+d.name;
               focusBox.style.display = 'flex';
+              d.fx = d.x; d.fy = d.y;
             }
             applyFocusFilter();
             updateHash();
@@ -846,10 +861,12 @@ nodeSel = g.selectAll('.node').data(nodes, d => d.id)
         if(focusNodeId === d.id){
           focusNodeId = null;
           focusBox.style.display = 'none';
+          d.fx = null; d.fy = null;
         }else{
           focusNodeId = d.id;
           focusLabel.textContent = 'Focus: '+d.name;
           focusBox.style.display = 'flex';
+          d.fx = d.x; d.fy = d.y;
         }
         applyFocusFilter();
         updateHash();
@@ -1053,7 +1070,13 @@ edgePopupReverse.addEventListener('click', e => {
   const l = links[edgePopupIndex];
   [l.id1, l.id2] = [l.id2, l.id1];
   hideEdgePopup();
-  updateGraph();
+  if(focusNodeId !== null){
+    applyFocusFilter(false);
+  }else{
+    refreshLinks(false);
+    updateHiddenEdges();
+  }
+  refreshExport();
 });
 edgePopupDelete.addEventListener('click', e => {
   e.stopPropagation();
@@ -1223,6 +1246,7 @@ loadData().then(() => {
     focusNodeId = parseInt(params.get('focus'),10);
     focusDepth = parseInt(params.get('depth') || '1',10);
     focusRange.value = focusDepth;
+    focusNum.textContent = focusDepth;
     const n = nodeById.get(focusNodeId);
     if(n){
       focusLabel.textContent = 'Focus: ' + n.name;
