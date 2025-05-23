@@ -825,6 +825,60 @@
       "name": "ALain Robbe-Grillet",
       "birth_year": "1922",
       "images": []
+    },
+    {
+      "id": 125,
+      "name": "E.T.A. Hoffmann",
+      "birth_year": "1776",
+      "images": []
+    },
+    {
+      "id": 126,
+      "name": "Nikolai Gogol",
+      "birth_year": "1809",
+      "images": []
+    },
+    {
+      "id": 127,
+      "name": "Alexander Pushkin",
+      "birth_year": "1799",
+      "images": []
+    },
+    {
+      "id": 128,
+      "name": "George Sand",
+      "birth_year": "1804",
+      "images": []
+    },
+    {
+      "id": 129,
+      "name": "Eug\u00e8ne Sue",
+      "birth_year": "1804",
+      "images": []
+    },
+    {
+      "id": 130,
+      "name": "Ernest Hemingway",
+      "birth_year": "1899",
+      "images": []
+    },
+    {
+      "id": 131,
+      "name": "William Faulkner",
+      "birth_year": "1897",
+      "images": []
+    },
+    {
+      "id": 132,
+      "name": "Herman Hesse",
+      "birth_year": "1877",
+      "images": []
+    },
+    {
+      "id": 133,
+      "name": "Gabriel Garc\u00eda M\u00e1rquez",
+      "birth_year": "1927",
+      "images": []
     }
   ],
   "links": [
@@ -1159,8 +1213,8 @@
       "label": "influenced"
     },
     {
-      "id1": 57,
-      "id2": 47,
+      "id1": 47,
+      "id2": 57,
       "label": "influenced"
     },
     {
@@ -1666,6 +1720,66 @@
     {
       "id1": 36,
       "id2": 121,
+      "label": "influenced"
+    },
+    {
+      "id1": 125,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 126,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 127,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 9,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 128,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 129,
+      "id2": 47,
+      "label": "influenced"
+    },
+    {
+      "id1": 47,
+      "id2": 97,
+      "label": "influenced"
+    },
+    {
+      "id1": 47,
+      "id2": 20,
+      "label": "influenced"
+    },
+    {
+      "id1": 47,
+      "id2": 130,
+      "label": "influenced"
+    },
+    {
+      "id1": 47,
+      "id2": 131,
+      "label": "influenced"
+    },
+    {
+      "id1": 47,
+      "id2": 132,
+      "label": "influenced"
+    },
+    {
+      "id1": 47,
+      "id2": 133,
       "label": "influenced"
     }
   ]

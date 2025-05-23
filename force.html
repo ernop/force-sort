@@ -32,7 +32,7 @@
       padding:8px;
       box-shadow:0 2px 6px rgba(0,0,0,0.2);
       border-radius:4px;
-    }
+     }
     #searchBox input{padding:4px;}
     #focusBox{
       position:fixed;
@@ -47,7 +47,7 @@
       padding:8px;
       box-shadow:0 2px 6px rgba(0,0,0,0.2);
       border-radius:4px;
-    }
+     }
     .node.search-match circle{stroke:#ff5722;stroke-width:4px;}
     .node.focus-node circle{stroke:#0a0;stroke-width:4px;}
 
@@ -87,7 +87,6 @@
   </style>
 </head>
 <body>
-  <!-- top toolbar -->
   <div id="topControls">
     <button id="perturb">Perturb</button>
     <button id="dampen">Remove Momentum</button>
@@ -101,11 +100,9 @@
     </label>
   </div>
 
-  <!-- graph area -->
   <div id="graph"></div>
 
-  <!-- bottom toolbar -->
-<div id="bottomControls">
+  <div id="bottomControls">
   <label>Add Node
     <input id="newNodeName" type="text" placeholder="Name">
     <input id="newNodeYear" type="text" placeholder="Birth Year">
@@ -137,10 +134,8 @@
     </label>
   </div>
 
-  <!-- export area -->
   <textarea id="export" readonly></textarea>
 
-  <!-- edge action popup -->
   <div id="edgePopup">
     <input id="edgePopupLabel" type="text">
     <div class="actions">
@@ -151,7 +146,6 @@
     </div>
   </div>
 
-  <!-- node action popup -->
   <div id="nodePopup">
     <input id="nodePopupName" type="text" placeholder="Name">
     <input id="nodePopupYear" type="text" placeholder="Birth Year">
@@ -166,30 +160,28 @@
 
 <script>
 /* ---------- data loading ---------- */
-/*
-  data.json format:
-  {
-    "nodes": [
-      {"id":1,"name":"Name","birth_year":"1879","images":["images/1.png"]}
-    ],
-    "links": [{"id1":1,"id2":2,"label":"label"}]
-  }
-  birth_year is optional. Each node always has an "images" array which may be empty.
-*/
 let nodes = [];
 let links = [];
-let visibleLinks = [];
+let visibleLinks = []; // This will be dynamically set by applyAllFiltersAndRefresh
 const nodeById = new Map();
 let nextNodeId = 1;
-let focusNodeId = null;
-let focusDepth = 1;
+// let focusNodeId = null; // REPLACED by currentFilters.focus.nodeId
+// let focusDepth = 1; // REPLACED by currentFilters.focus.depth
+
+// Centralized filter state
+let currentFilters = {
+    year: { min: null, max: null },
+    focus: { nodeId: null, depth: 1 },
+    searchTerm: ''
+};
+
 function loadData(){
   return fetch("data.json")
     .then(r=>r.json())
     .then(data=>{
       nodes = data.nodes || [];
       links = data.links || [];
-      visibleLinks = links.slice();
+      // visibleLinks = links.slice(); // No longer initialized here
       nodes.forEach(n=>{
         n.images = Array.isArray(n.images) ? n.images : [];
         n.image = n.images[0] || null;
@@ -204,8 +196,8 @@ function buildSimLinks(arr) {
     source : nodeById.get(e.id1),
     target : nodeById.get(e.id2),
     label  : e.label,
-    dir    : e.id1 < e.id2 ? 1 : -1,   // A→B “up”, B→A “down”
-    link   : e                          // reference to original data
+    dir    : e.id1 < e.id2 ? 1 : -1,
+    link   : e
   }));
 }
 
@@ -220,19 +212,19 @@ const svg = d3.select(graphDiv).append('svg')
 
 /* ---------- zoom & pan ---------- */
 const zoom = d3.zoom()
-  .scaleExtent([0.1, 4])                     
+  .scaleExtent([0.1, 4])             
   .on('zoom', event => g.attr('transform', event.transform));
 
-svg.call(zoom).on('dblclick.zoom', null);     // disable dblclick-to-zoom
+svg.call(zoom).on('dblclick.zoom', null);    // disable dblclick-to-zoom
 
 const defs = svg.append('defs');
 defs.append('marker')
-   .attr('id','arrow')
-   .attr('viewBox','0 -5 10 10')
-   .attr('refX',32).attr('refY',0) /* offset beyond circle */
-   .attr('markerWidth',8).attr('markerHeight',8)
-   .attr('orient','auto')
-   .append('path').attr('d','M0,-5L10,0L0,5').attr('fill','#555');
+  .attr('id','arrow')
+  .attr('viewBox','0 -5 10 10')
+  .attr('refX',32).attr('refY',0) /* offset beyond circle */
+  .attr('markerWidth',8).attr('markerHeight',8)
+  .attr('orient','auto')
+  .append('path').attr('d','M0,-5L10,0L0,5').attr('fill','#555');
 
 defs.append('clipPath')
     .attr('id','nodeClip')
@@ -248,8 +240,8 @@ const yearLabelGroup = g.append('g').attr('class','year-labels').style('display'
 let  yearLabelSel = yearLabelGroup.selectAll('text');
 let  nodeSel     = g.selectAll('.node');
 
-const BASE_COLLISION  = 40;  // default collision distance
-const LABEL_OFFSET    = 6;   // px text sits beyond circle
+const BASE_COLLISION  = 40;
+const LABEL_OFFSET    = 6;
 
 /* ---------- D3 forces ---------- */
 const chargeInput = document.getElementById('chargeRange');
@@ -258,21 +250,21 @@ const layoutSelect= document.getElementById('layoutSelect');
 let   layoutMode  = layoutSelect.value;
 const tierSpacing = 100;
 const yearSpacing = 20;
-const exportArea  = document.getElementById('export');   // ← new
+const exportArea  = document.getElementById('export');
 const searchInput  = document.getElementById('searchInput');
 const yearSlider   = document.getElementById('yearSlider');
-const edgePopup       = document.getElementById('edgePopup');
-const edgePopupLabel  = document.getElementById('edgePopupLabel');
-const edgePopupSave   = document.getElementById('edgePopupSave');
+const edgePopup      = document.getElementById('edgePopup');
+const edgePopupLabel = document.getElementById('edgePopupLabel');
+const edgePopupSave  = document.getElementById('edgePopupSave');
 const edgePopupReverse= document.getElementById('edgePopupReverse');
 const edgePopupDelete = document.getElementById('edgePopupDelete');
 const edgePopupClose  = document.getElementById('edgePopupClose');
 let   edgePopupLink   = null;
 
-const nodePopup       = document.getElementById('nodePopup');
-const nodePopupName   = document.getElementById('nodePopupName');
-const nodePopupYear   = document.getElementById('nodePopupYear');
-const nodePopupSave   = document.getElementById('nodePopupSave');
+const nodePopup      = document.getElementById('nodePopup');
+const nodePopupName  = document.getElementById('nodePopupName');
+const nodePopupYear  = document.getElementById('nodePopupYear');
+const nodePopupSave  = document.getElementById('nodePopupSave');
 const nodePopupDelete = document.getElementById('nodePopupDelete');
 const nodePopupClose  = document.getElementById('nodePopupClose');
 const nodePopupImages = document.getElementById('nodePopupImages');
@@ -284,63 +276,53 @@ let   nodePopupId     = null;
 
 const simulation = d3.forceSimulation(nodes)
   .force('link',
-         d3.forceLink()                       // links injected later
+         d3.forceLink()
            .id(d => d.id)
            .distance(() => +linkRange.value))
   .force('charge',
          d3.forceManyBody()
-           .strength(() => +chargeRange.value)        // live-updates with slider
-           .distanceMax(1_000000))                       // repulse across whole graph
+           .strength(() => +chargeRange.value)
+           .distanceMax(1_000000))
   .force('center', d3.forceCenter(width / 2, height / 2))
   .force('collision', d3.forceCollide().radius(40))
-  .alphaDecay(0.001)                                  // cools more slowly → runs longer
+  .alphaDecay(0.001)
   .on('tick', ticked);
 
 function ticked(){
-  /* ---------- arrow path ---------- */
   const r = 22;
   const pathD = d => {
     const dx   = d.target.x - d.source.x,
           dy   = d.target.y - d.source.y,
           dist = Math.hypot(dx, dy) || 1,
-          tEnd   = (dist - r) / dist;  // line ends at target circle
-
+          tEnd   = (dist - r) / dist;
     return `M${d.source.x},${d.source.y}L${d.source.x + dx*tEnd},${d.source.y + dy*tEnd}`;
   };
 
   linkSel.attr('d', pathD);
   linkHitSel.attr('d', pathD);
-
-  /* keep nodes visible & movable */
   nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
   
-	/* ---------- node name “radial-slot” positioning ---------- */
-// gather incident edge angles for each node this tick
-const incident = new Map();  // node.id → [angles]
-
-visibleLinks.forEach(l => {
+const incident = new Map();
+(visibleLinks || []).forEach(l => { // Use global visibleLinks
   const src = nodeById.get(l.id1),
         tgt = nodeById.get(l.id2);
-  if (!src || !tgt) return;
+  if (!src || !tgt || !src.x || !tgt.x) return; // Ensure nodes and positions exist
 
-  const a = Math.atan2(tgt.y - src.y, tgt.x - src.x);   // angle src→tgt
+  const a = Math.atan2(tgt.y - src.y, tgt.x - src.x);
   (incident.get(src.id) || incident.set(src.id, []).get(src.id)).push(a);
-  (incident.get(tgt.id) || incident.set(tgt.id, []).get(tgt.id)).push(a + Math.PI); // opposite at tgt
+  (incident.get(tgt.id) || incident.set(tgt.id, []).get(tgt.id)).push(a + Math.PI);
 });
 
-// eight slot angles (0°,45°,…)
 const slots       = Array.from({length:8}, (_,i)=>i*Math.PI/4);
-const labelRadius = 28; // px from node center
-const labelOffset = 6; // px beyond circle
+const labelRadius = 28;
 
 nodeSel.select('text').each(function(d){
   const edges = incident.get(d.id) || [];
-  // choose slot farthest from every incident edge
   let bestAng = 0, bestScore = -1;
   slots.forEach(s => {
     const score = edges.length
       ? Math.min(...edges.map(e => Math.abs(Math.atan2(Math.sin(s-e), Math.cos(s-e)))))
-      : Math.PI;  // isolated node
+      : Math.PI;
     if (score > bestScore){ bestScore = score; bestAng = s; }
   });
 
@@ -355,22 +337,21 @@ nodeSel.select('text').each(function(d){
           Math.abs(Math.cos(bestAng)) < 0.3 ? 'middle' :
           (Math.cos(bestAng) > 0 ? 'start' : 'end'));
 });
-	
-  /* ---------- label position ---------- */
-  const delta     = 10;   // perpendicular offset (px)
-  const fracToTgt = 0.65; // label sits 65 % toward target, just behind arrow
+    
+  const delta     = 10;
+  const fracToTgt = 0.65;
 
   labelSel.each(function (d) {
-    /* use lower-ID → higher-ID to define perpendicular direction */
+    if (!d.source || !d.target || typeof d.source.x === 'undefined' || typeof d.target.x === 'undefined') return;
     const forward = d.source.id < d.target.id;
     const s       = forward ? d.source : d.target;
     const t       = forward ? d.target : d.source;
     const dx      = t.x - s.x,
           dy      = t.y - s.y,
           dist    = Math.hypot(dx, dy) || 1,
-          px      = -dy / dist,            // unit perpendicular
+          px      = -dy / dist,
           py      =  dx / dist,
-          dir     = forward ? 1 : -1;      // “up” or “down”
+          dir     = forward ? 1 : -1;
 
     const lx = d.source.x + (d.target.x - d.source.x) * fracToTgt;
     const ly = d.source.y + (d.target.y - d.source.y) * fracToTgt;
@@ -383,15 +364,15 @@ nodeSel.select('text').each(function(d){
   .attr('text-anchor', 'middle')
   .attr('dominant-baseline', 'central')
   .attr('transform', d => {
+    if (!d.source || !d.target || typeof d.source.x === 'undefined' || typeof d.target.x === 'undefined') return '';
     let ang = Math.atan2(d.target.y - d.source.y,
                          d.target.x - d.source.x) * 180 / Math.PI;
-    if (ang > 90 || ang < -90) ang += 180;   // keep text upright
+    if (ang > 90 || ang < -90) ang += 180;
     return `rotate(${ang},${d.cx},${d.cy})`;
   });
 }
 
 /* ---------- helpers ---------- */
-
 function formatNodeLabel(n){
   return (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '')
          ? `${n.name} (${n.birth_year})`
@@ -421,32 +402,18 @@ function populateSelects() {
   const fromVal = edgeFrom.value;
   const toVal = edgeTo.value;
 
-  // Destroy existing Select2 instances to prevent event duplication
-  if ($(edgeFrom).hasClass('select2-hidden-accessible')) {
-    $(edgeFrom).select2('destroy');
-  }
-  if ($(edgeTo).hasClass('select2-hidden-accessible')) {
-    $(edgeTo).select2('destroy');
-  }
+  if ($(edgeFrom).hasClass('select2-hidden-accessible')) $(edgeFrom).select2('destroy');
+  if ($(edgeTo).hasClass('select2-hidden-accessible')) $(edgeTo).select2('destroy');
 
-  // Update options
   edgeFrom.innerHTML = opts;
   edgeTo.innerHTML = opts;
-
-  // Restore selected values
   $(edgeFrom).val(fromVal);
   $(edgeTo).val(toVal);
 
-  // Initialize Select2 with enhanced options
-  const select2Options = {
-    width: '200px', // Adjust width as needed for your layout
-    minimumResultsForSearch: 0 // Always show search box
-  };
-
+  const select2Options = { width: '200px', minimumResultsForSearch: 0 };
   $(edgeFrom).select2(select2Options);
   $(edgeTo).select2(select2Options);
 }
-
 
 exportArea.addEventListener('click', () => {
   navigator.clipboard.writeText(exportArea.value)
@@ -466,7 +433,7 @@ function refreshExport(markDirty = true) {
     nodes: nodes.map(n => {
       const obj = { id: n.id, name: n.name };
       if (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '') obj.birth_year = n.birth_year;
-      obj.images = n.images.slice();
+      obj.images = n.images ? n.images.slice() : [];
       return obj;
     }),
     links
@@ -477,24 +444,6 @@ function refreshExport(markDirty = true) {
   } else {
     exportArea.classList.remove('unsaved');
   }
-}
-
-function computeTiers() {
-
-  const lvl = new Map(nodes.map(n => [n.id, 0]));
-  for (let iter = 0; iter < nodes.length; iter++) {
-    let changed = false;
-    links.forEach(l => {
-      const s = lvl.get(l.id1) || 0;
-      const t = lvl.get(l.id2) || 0;
-      if (t <= s) {
-        lvl.set(l.id2, s + 1);
-        changed = true;
-      }
-    });
-    if (!changed) break;
-  }
-  nodes.forEach(n => n.tier = lvl.get(n.id) || 0);
 }
 
 function computeYearLayout() {
@@ -521,8 +470,8 @@ function computeYearLayout() {
     row.forEach((n, i) => {
       const yr = parseInt(n.birth_year, 10);
       const line = isNaN(yr) ? maxYear + 1 : yr;
-      n.x = 100 + i * 150;
-      n.y = (line - minYear) * yearSpacing + 40;
+      n.x = 100 + i * 150; // Preserve original x for tiers calculation
+      n.y = (line - minYear) * yearSpacing + 40; // Preserve original y
     });
   });
 
@@ -535,65 +484,47 @@ function computeYearLayout() {
       .text(d => d.key === 'unknown' ? 'Unknown' : d.key)
       .attr('text-anchor','end');
   yearLabelSel.attr('x', 80)
-             .attr('y', d => (d.line - minYear) * yearSpacing + 55);
+              .attr('y', d => (d.line - minYear) * yearSpacing + 55);
 }
 
-function applyLayoutForces() {
-  simulation.stop();
-
-
-
-  // Reset fixed positions
-  nodes.forEach(n => { if(n.id !== focusNodeId){ n.fx = n.fy = null; } });
-
-  if (layoutMode === 'tiers') {
-    computeYearLayout();
-    yearLabelGroup.style('display', null);
+function applyLayoutForces(restartAlpha = true) {
+    simulation.stop();
     nodes.forEach(n => {
-      n.fx = n.x;
-      n.fy = n.y;
+        if (layoutMode === 'force') { // only unpin if not focused in force mode
+            if (!currentFilters.focus.nodeId || n.id !== currentFilters.focus.nodeId) {
+                n.fx = n.fy = null;
+            }
+        } else { // For tiers, fx/fy are determined by computeYearLayout
+            n.fx = n.fy = null; 
+        }
     });
-    ticked();
-  } else if (layoutMode === 'force') {
-    simulation.force('tier', null); // Remove tier force if exists
-    yearLabelGroup.style('display', 'none');
-    simulation.alpha(1).restart();
-  }
-}
 
+    if (layoutMode === 'tiers') {
+        computeYearLayout();
+        yearLabelGroup.style('display', null);
+        nodes.forEach(n => {
+            n.fx = n.x; // Use computed x,y from computeYearLayout
+            n.fy = n.y;
+        });
+        ticked(); // Update positions immediately
+    } else if (layoutMode === 'force') {
+        simulation.force('tier', null);
+        yearLabelGroup.style('display', 'none');
+        if (restartAlpha) simulation.alpha(1).restart();
+        else if (simulation.alpha() < 0.1) simulation.alphaTarget(0.1).restart(); // Gentle reheat if cooled
+    }
+}
 
 function highlightSearch(){
-  const term = searchInput.value.trim().toLowerCase();
+  const term = currentFilters.searchTerm;
   nodeSel.classed('search-match', d => term !== '' && d.name.toLowerCase().includes(term));
-}
-
-function updateHiddenEdges(){
-  const disp = new Map();
-  nodeSel.each(function(d){
-    disp.set(d.id, this.style.display);
-  });
-  const vis = d => (disp.get(d.id1)==='none' || disp.get(d.id2)==='none') ? 'none' : null;
-  linkSel.style('display', vis);
-  labelSel.style('display', vis);
-  linkHitSel.style('display', vis);
-}
-
-function applyYearFilter(){
-  if(!yearSlider.noUiSlider) return;
-  const [minYear, maxYear] = yearSlider.noUiSlider.get().map(v => parseInt(v));
-  nodeSel.style('display', d => {
-    const y = parseInt(d.birth_year, 10);
-    if (isNaN(y)) return null;
-    return (y >= minYear && y <= maxYear) ? null : 'none';
-  });
-  updateHiddenEdges();
 }
 
 function updateHash(){
   const params = new URLSearchParams(location.hash.slice(1));
-  if(focusNodeId !== null){
-    params.set('focus', focusNodeId);
-    params.set('depth', focusDepth);
+  if(currentFilters.focus.nodeId !== null){
+    params.set('focus', currentFilters.focus.nodeId);
+    params.set('depth', currentFilters.focus.depth);
   } else {
     params.delete('focus');
     params.delete('depth');
@@ -601,43 +532,135 @@ function updateHash(){
   history.replaceState(null, '', '#'+params.toString());
 }
 
-function applyFocusFilter(restartSim = true){
-  if(focusNodeId === null){
-    nodeSel.style('display', null);
-    nodeSel.classed('focus-node', false);
-    visibleLinks = links.slice();
-    refreshLinks(restartSim);
-    linkSel.classed('focus-edge', false);
-    updateHiddenEdges();
-    return;
-  }
-  const depth = focusDepth;
-  const vis = new Set([focusNodeId]);
-  let frontier = [focusNodeId];
-  for(let i=0;i<depth;i++){
-    const next = [];
-    frontier.forEach(id => {
-      links.forEach(l => {
-        if(l.id1===id || l.id2===id){
-          const other = l.id1===id ? l.id2 : l.id1;
-          if(!vis.has(other)){
-            vis.add(other);
-            next.push(other);
-          }
+
+function setFocus(nodeId, depth) {
+    const oldFocusNodeId = currentFilters.focus.nodeId;
+    if (oldFocusNodeId && nodeById.has(oldFocusNodeId)) {
+        const oldNode = nodeById.get(oldFocusNodeId);
+        if (oldNode) { // Unpin previous focus
+             oldNode.fx = null;
+             oldNode.fy = null;
         }
-      });
-    });
-    frontier = next;
-  }
-  nodeSel.style('display', d => vis.has(d.id) ? null : 'none');
-  nodeSel.classed('focus-node', d => d.id === focusNodeId);
-  visibleLinks = links.filter(l => vis.has(l.id1) && vis.has(l.id2));
-  refreshLinks(restartSim);
-  linkSel.classed('focus-edge', d => d.id1===focusNodeId || d.id2===focusNodeId);
-  updateHiddenEdges();
-  focusRange.value = depth;
-  focusNum.textContent = depth;
+    }
+
+    currentFilters.focus.nodeId = nodeId;
+    currentFilters.focus.depth = nodeId === null ? 1 : parseInt(depth, 10);
+
+    if (nodeId !== null) {
+        const node = nodeById.get(nodeId);
+        if (node) {
+            focusLabel.textContent = 'Focus: ' + node.name;
+            focusBox.style.display = 'flex';
+            focusRange.value = currentFilters.focus.depth;
+            focusNum.textContent = currentFilters.focus.depth;
+            // Pinning is handled by applyAllFiltersAndRefresh
+        } else { 
+            currentFilters.focus.nodeId = null; 
+            focusBox.style.display = 'none';
+        }
+    } else {
+        focusBox.style.display = 'none';
+    }
+    updateHash(); 
+    applyAllFiltersAndRefresh(); 
 }
+
+
+function applyAllFiltersAndRefresh(restartSimForcefully = false) {
+    let visibleNodeIds = new Set(nodes.map(n => n.id)); // Start with all nodes
+
+    // 1. Apply Year Filter
+    if (yearSlider.noUiSlider && currentFilters.year.min !== null && currentFilters.year.max !== null) {
+        const [minY, maxY] = [currentFilters.year.min, currentFilters.year.max];
+        let yearFilteredNodes = new Set();
+        nodes.forEach(n => {
+            const y = parseInt(n.birth_year, 10);
+            if (isNaN(y) || (y >= minY && y <= maxY)) { // Keep nodes with no year or within range
+                yearFilteredNodes.add(n.id);
+            }
+        });
+        visibleNodeIds = yearFilteredNodes;
+    }
+
+    // 2. Apply Focus Filter
+    let isFocusActive = false;
+    let finalVisibleNodeIds = new Set(visibleNodeIds); // Copy before focus potentially reduces it
+
+    if (currentFilters.focus.nodeId !== null && nodeById.has(currentFilters.focus.nodeId)) {
+        const focusNodeObject = nodeById.get(currentFilters.focus.nodeId);
+        if (visibleNodeIds.has(currentFilters.focus.nodeId)) { // Only apply focus if the focus node itself is year-visible
+            isFocusActive = true;
+            const focusNeighborhood = new Set([currentFilters.focus.nodeId]);
+            let frontier = [currentFilters.focus.nodeId];
+            const allNodeIdsInData = new Set(nodes.map(n => n.id));
+
+            for (let i = 0; i < currentFilters.focus.depth; i++) {
+                const nextFrontier = [];
+                frontier.forEach(id => {
+                    links.forEach(l => {
+                        if (l.id1 === id || l.id2 === id) {
+                            const other = (l.id1 === id) ? l.id2 : l.id1;
+                            if (allNodeIdsInData.has(other) && !focusNeighborhood.has(other)) {
+                                focusNeighborhood.add(other);
+                                nextFrontier.push(other);
+                            }
+                        }
+                    });
+                });
+                frontier = nextFrontier;
+            }
+            // Intersect year-visible nodes with focus neighborhood
+            finalVisibleNodeIds = new Set([...visibleNodeIds].filter(id => focusNeighborhood.has(id)));
+        } else {
+             // Focused node is not year-visible, so treat as no effective focus for display
+             // but keep currentFilters.focus.nodeId so focus box remains
+        }
+    }
+    
+    // Unpin all nodes first, then pin the focus node if active and visible
+    nodes.forEach(n => {
+        if (layoutMode === 'force') { // Only manage fx/fy for force layout here
+             n.fx = null; n.fy = null;
+        }
+    });
+
+    if (isFocusActive && finalVisibleNodeIds.has(currentFilters.focus.nodeId)) {
+        const focusNodeObject = nodeById.get(currentFilters.focus.nodeId);
+        if (focusNodeObject && (layoutMode === 'force')) {
+            focusNodeObject.fx = focusNodeObject.x; 
+            focusNodeObject.fy = focusNodeObject.y;
+        }
+    }
+
+
+    // 3. Update Node Selections and Styles
+    nodeSel.style('display', d => finalVisibleNodeIds.has(d.id) ? null : 'none');
+    nodeSel.classed('focus-node', d => isFocusActive && d.id === currentFilters.focus.nodeId && finalVisibleNodeIds.has(d.id));
+
+    // 4. Determine Global `visibleLinks`
+    visibleLinks = links.filter(l => finalVisibleNodeIds.has(l.id1) && finalVisibleNodeIds.has(l.id2));
+
+    // 5. Refresh Link Selections (and potentially simulation)
+    // Determine if simulation needs a strong restart based on filter changes or explicit request
+    let needsStrongRestart = restartSimForcefully || (layoutMode === 'force' && (isFocusActive || currentFilters.focus.nodeId === null));
+    refreshLinks(needsStrongRestart); 
+
+    // 6. Style Focused Edges
+    linkSel.classed('focus-edge', false); 
+    if (isFocusActive && finalVisibleNodeIds.has(currentFilters.focus.nodeId)) {
+        linkSel.filter(d_sim => d_sim.link && (d_sim.link.id1 === currentFilters.focus.nodeId || d_sim.link.id2 === currentFilters.focus.nodeId))
+               .classed('focus-edge', true);
+    }
+
+    // 7. Apply search term highlighting
+    highlightSearch();
+
+    // 8. If layout is static and sim wasn't restarted, ensure positions are updated
+    if (!needsStrongRestart && layoutMode === 'tiers') {
+        ticked();
+    }
+}
+
 
 function setupSearchAndFilter(){
   const years = nodes.map(n => parseInt(n.birth_year, 10)).filter(y => !isNaN(y));
@@ -645,29 +668,36 @@ function setupSearchAndFilter(){
     const minY = Math.min(...years);
     const maxY = Math.max(...years);
     noUiSlider.create(yearSlider, {
-      start:[minY, maxY],
-      connect:true,
-      step:1,
-      range:{min:minY, max:maxY},
-      tooltips:true,
+      start:[minY, maxY], connect:true, step:1,
+      range:{min:minY, max:maxY}, tooltips:true,
       format:{to:v=>Math.round(v), from:v=>+v}
     });
-    yearSlider.noUiSlider.on('update', () => {
-      applyYearFilter();
-      if(focusNodeId !== null){
-        applyFocusFilter();
-      }
+    // Initialize currentFilters.year
+    currentFilters.year.min = minY;
+    currentFilters.year.max = maxY;
+
+    yearSlider.noUiSlider.on('update', (values) => {
+      currentFilters.year.min = parseInt(values[0], 10);
+      currentFilters.year.max = parseInt(values[1], 10);
+      applyAllFiltersAndRefresh();
     });
   } else {
     yearSlider.style.display = 'none';
   }
-  searchInput.addEventListener('input', highlightSearch);
+
+  searchInput.addEventListener('input', () => {
+    currentFilters.searchTerm = searchInput.value.trim().toLowerCase();
+    applyAllFiltersAndRefresh(false); // Search is visual, no need to forcefully restart sim
+  });
+
   focusRange.addEventListener('input', () => {
-    focusDepth = parseInt(focusRange.value,10);
-    focusNum.textContent = focusRange.value;
-    if(focusNodeId !== null){
-      applyFocusFilter();
-      updateHash();
+    const newDepth = parseInt(focusRange.value,10);
+    if(currentFilters.focus.nodeId !== null){
+      // Call setFocus to update depth and refresh, it will also update focusNum
+      setFocus(currentFilters.focus.nodeId, newDepth);
+    } else { // Update UI even if no node is focused, for next time
+        currentFilters.focus.depth = newDepth;
+        focusNum.textContent = newDepth;
     }
   });
 }
@@ -676,36 +706,26 @@ function refreshLinks(restartSim = true){
   const simLinks = buildSimLinks(visibleLinks);
 
   linkSel = linkGroup.selectAll('path.link').data(simLinks, d => links.indexOf(d.link))
-        .join(
-                enter => enter.append('path')
-                                          .attr('class','link')
-                                          .attr('stroke','#555')
-                                          .attr('stroke-width',1.5)
-                                          .attr('marker-end','url(#arrow)')
-                                          .on('click', edgeMenu),
-                update => update
-                                          .attr('stroke','#555')          // keep base look identical
-                                          .attr('stroke-width',1.5)
-                                          .attr('marker-end','url(#arrow)')
-                                          .on('click', edgeMenu),
-                exit   => exit.remove()
-          );
+    .join(
+      enter => enter.append('path').attr('class','link')
+                   .attr('stroke','#555').attr('stroke-width',1.5)
+                   .attr('marker-end','url(#arrow)')
+                   .on('click', edgeMenu),
+      update => update, // No need to re-apply static attributes if not changed
+      exit   => exit.remove()
+    );
 
   linkHitSel = linkGroup.selectAll('path.link-hit').data(simLinks, d => links.indexOf(d.link))
-        .join(
-                enter => enter.append('path')
-                                          .attr('class','link-hit')
-                                          .on('click', edgeMenu),
-                update => update.on('click', edgeMenu),
-                exit   => exit.remove()
-          );
+    .join(
+      enter => enter.append('path').attr('class','link-hit').on('click', edgeMenu),
+      update => update,
+      exit   => exit.remove()
+    );
 
   labelSel = linkGroup.selectAll('text.label').data(simLinks, d => links.indexOf(d.link))
   .join(
-    enter => enter.append('text')
-                  .attr('class','label')
+    enter => enter.append('text').attr('class','label')
                   .text(d => d.label)
-                  /* dbl-click label edit */
                   .on('dblclick', (event,d) => {
                     event.stopPropagation();
                     openEdgePopup(d.link, event.pageX, event.pageY);
@@ -717,166 +737,83 @@ function refreshLinks(restartSim = true){
 
   simulation.force('link').links(simLinks);
   if (restartSim) {
-    applyLayoutForces();
-    if (layoutMode === 'force') {
-      simulation.alpha(0.6).restart();
-    } else {
-      ticked();
-    }
+    applyLayoutForces(true); // true for full alpha restart
   } else {
-    ticked();
+    if (layoutMode === 'force' && simulation.alpha() < 0.05) { // If cooled down too much
+        simulation.alphaTarget(0.1).restart(); // Gentle reheat
+    }
+    ticked(); // Always update positions
   }
 }
 
-function updateHiddenEdges(){
-  const disp = new Map();
-  nodeSel.each(function(d){
-    disp.set(d.id, this.style.display === 'none');
-  });
-  visibleLinks = links.filter(l => !disp.get(l.id1) && !disp.get(l.id2));
-  refreshLinks();
-}
-
-function applyYearFilter(){
-  if(!yearSlider.noUiSlider) return;
-  const [minYear, maxYear] = yearSlider.noUiSlider.get().map(v => parseInt(v));
-  nodeSel.style('display', d => {
-    const y = parseInt(d.birth_year, 10);
-    if (isNaN(y)) return null;
-    return (y >= minYear && y <= maxYear) ? null : 'none';
-  });
-  updateHiddenEdges();
-}
-
-function setupSearchAndFilter(){
-  const years = nodes.map(n => parseInt(n.birth_year, 10)).filter(y => !isNaN(y));
-  if(years.length){
-    const minY = Math.min(...years);
-    const maxY = Math.max(...years);
-    noUiSlider.create(yearSlider, {
-      start:[minY, maxY],
-      connect:true,
-      step:1,
-      range:{min:minY, max:maxY},
-      tooltips:true,
-      format:{to:v=>Math.round(v), from:v=>+v}
-    });
-    yearSlider.noUiSlider.on('update', () => {
-      applyYearFilter();
-      if(focusNodeId !== null){
-        applyFocusFilter();
-      }
-    });
-  } else {
-    yearSlider.style.display = 'none';
-  }
-  searchInput.addEventListener('input', highlightSearch);
-  focusRange.addEventListener('input', () => {
-    focusDepth = parseInt(focusRange.value,10);
-    focusNum.textContent = focusRange.value;
-    if(focusNodeId !== null){
-      applyFocusFilter();
-      updateHash();
-    }
-  });
-}
 
 function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = true) {
-  visibleLinks = links.slice();
-  refreshLinks();
-
-  /* ---- nodes ---- */
-nodeSel = g.selectAll('.node').data(nodes, d => d.id)
-  .join(
-    enter => {
-      const nodeG = enter.append('g').attr('class', 'node')
+  nodeSel = g.selectAll('.node').data(nodes, d => d.id)
+    .join(
+      enter => {
+        const nodeG = enter.append('g').attr('class', 'node')
           .on('click', (event,d) => {
             event.stopPropagation();
             openNodePopup(d.id, event.pageX, event.pageY);
           })
           .on('dblclick', (event,d)=>{
             event.stopPropagation();
-            if(focusNodeId === d.id){
-              focusNodeId = null;
-              focusBox.style.display = 'none';
-              d.fx = null; d.fy = null;
-            }else{
-              focusNodeId = d.id;
-              focusLabel.textContent = 'Focus: '+d.name;
-              focusBox.style.display = 'flex';
-              d.fx = d.x; d.fy = d.y;
+            if(currentFilters.focus.nodeId === d.id){
+              setFocus(null, 1); // Unfocus
+            } else {
+              setFocus(d.id, currentFilters.focus.depth); // Focus
             }
-            applyFocusFilter();
-            updateHash();
           })
           .call(d3.drag().on('start', dragstarted)
-                        .on('drag',  dragged)
-                        .on('end',   dragended));
+                       .on('drag',  dragged)
+                       .on('end',   dragended));
 
-      nodeG.append('circle').attr('r', 22);
-      nodeG.append('image')
-           .attr('class','node-image')
-           .attr('clip-path','url(#nodeClip)')
-           .attr('x',-22)
-           .attr('y',-22)
-           .attr('width',44)
-           .attr('height',44)
-           .attr('href', d => d.image || '')
-           .style('display', d => d.image ? null : 'none');
-      nodeG.append('text')
-           .attr('dominant-baseline', 'central')
-           .text(d => formatNodeLabel(d));
-      return nodeG;
-    },
-    update => update.each(function(d){
-      const n = d3.select(this);
-      n.on('click', (event)=>{
-        event.stopPropagation();
-        openNodePopup(d.id, event.pageX, event.pageY);
-      })
-      .on('dblclick', (event)=>{
-        event.stopPropagation();
-        if(focusNodeId === d.id){
-          focusNodeId = null;
-          focusBox.style.display = 'none';
-          d.fx = null; d.fy = null;
-        }else{
-          focusNodeId = d.id;
-          focusLabel.textContent = 'Focus: '+d.name;
-          focusBox.style.display = 'flex';
-          d.fx = d.x; d.fy = d.y;
-        }
-        applyFocusFilter();
-        updateHash();
-      });
-      n.select('text').text(formatNodeLabel(d));
-      n.select('image.node-image')
-        .attr('href', d.image || '')
-        .style('display', d.image ? null : 'none')
-        .attr('clip-path','url(#nodeClip)');
-    }),
-    exit   => exit.remove()
-  );
+        nodeG.append('circle').attr('r', 22);
+        nodeG.append('image').attr('class','node-image')
+             .attr('clip-path','url(#nodeClip)')
+             .attr('x',-22).attr('y',-22)
+             .attr('width',44).attr('height',44)
+             .attr('href', d => d.image || '')
+             .style('display', d => d.image ? null : 'none');
+        nodeG.append('text').attr('dominant-baseline', 'central')
+             .text(d => formatNodeLabel(d));
+        return nodeG;
+      },
+      update => update.each(function(d){
+        const n = d3.select(this);
+        n.on('click', (event)=>{ // Rebind for existing nodes
+          event.stopPropagation();
+          openNodePopup(d.id, event.pageX, event.pageY);
+        })
+        .on('dblclick', (event)=>{ // Rebind for existing nodes
+          event.stopPropagation();
+          if(currentFilters.focus.nodeId === d.id){
+            setFocus(null, 1);
+          } else {
+            setFocus(d.id, currentFilters.focus.depth);
+          }
+        });
+        n.select('text').text(formatNodeLabel(d));
+        n.select('image.node-image')
+         .attr('href', d.image || '')
+         .style('display', d.image ? null : 'none');
+      }),
+      exit   => exit.remove()
+    );
 
-  simulation.nodes(nodes);
-  applyLayoutForces();
-  if (layoutMode === 'force') {
-    simulation.alpha(0.6).restart();
-  } else {
-    ticked();
-  }
+  simulation.nodes(nodes); 
 
   if (!skipSelectUpdate) populateSelects();
+  refreshExport(markDirty);
+  
+  applyAllFiltersAndRefresh(true); // Forcefully refresh and restart sim for new data
+
   if (highlightIdx !== null) {
-    linkSel.filter(d => links.indexOf(d.link) === highlightIdx)
+    linkSel.filter(d_sim => links.indexOf(d_sim.link) === highlightIdx)
            .classed('highlight', true)
            .transition().delay(10000)
            .on('end', function () { d3.select(this).classed('highlight', false); });
   }
-  refreshExport(markDirty);
-  applyYearFilter();
-  applyFocusFilter();
-  highlightSearch();
 }
 
 
@@ -889,7 +826,7 @@ function openEdgePopup(linkObj, x, y) {
 }
 
 function edgeMenu(event, d) {
-  if (event.detail > 1) return; // ignore double-click
+  if (event.detail > 1) return; 
   event.stopPropagation();
   if (!d || !d.link) return;
   openEdgePopup(d.link, event.pageX, event.pageY);
@@ -911,53 +848,41 @@ function deleteImageFile(id, path){
 function renderNodeImages(n){
   nodePopupImages.innerHTML = '';
   (n.images || []).forEach((src, idx) => {
-    const wrap = document.createElement('div');
-    wrap.className = 'item';
-    const img = document.createElement('img');
-    img.src = src;
+    const wrap = document.createElement('div'); wrap.className = 'item';
+    const img = document.createElement('img'); img.src = src;
     wrap.appendChild(img);
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-    const left = document.createElement('button');
-    left.textContent = '\u25C0';
+    const actions = document.createElement('div'); actions.className = 'actions';
+    const left = document.createElement('button'); left.textContent = '\u25C0';
     left.addEventListener('click', () => moveImage(idx,-1));
-    const right = document.createElement('button');
-    right.textContent = '\u25B6';
+    const right = document.createElement('button'); right.textContent = '\u25B6';
     right.addEventListener('click', () => moveImage(idx,1));
-    const del = document.createElement('button');
-    del.textContent = 'X';
+    const del = document.createElement('button'); del.textContent = 'X';
     del.addEventListener('click', () => removeImage(idx));
-    actions.appendChild(left);
-    actions.appendChild(right);
-    actions.appendChild(del);
+    actions.appendChild(left); actions.appendChild(right); actions.appendChild(del);
     wrap.appendChild(actions);
     nodePopupImages.appendChild(wrap);
   });
 }
 
 function moveImage(idx, delta){
-  const n = nodeById.get(nodePopupId);
-  if(!n) return;
-  const imgs = n.images;
-  const newIdx = idx + delta;
+  const n = nodeById.get(nodePopupId); if(!n) return;
+  const imgs = n.images; const newIdx = idx + delta;
   if(newIdx < 0 || newIdx >= imgs.length) return;
   [imgs[idx], imgs[newIdx]] = [imgs[newIdx], imgs[idx]];
   n.image = imgs[0] || null;
-  renderNodeImages(n);
-  updateGraph();
+  renderNodeImages(n); updateGraph();
 }
 
 function removeImage(idx){
-  const n = nodeById.get(nodePopupId);
-  if(!n) return;
+  const n = nodeById.get(nodePopupId); if(!n) return;
   const [img] = n.images.splice(idx,1);
   deleteImageFile(n.id, img);
   n.image = n.images[0] || null;
-  renderNodeImages(n);
-  updateGraph();
+  renderNodeImages(n); updateGraph();
 }
 
 async function dedupeImages(n){
+  if (!n || !n.images || n.images.length === 0) return;
   const hashes = new Map();
   for(let i=0;i<n.images.length;i++){
     const src = n.images[i];
@@ -967,29 +892,21 @@ async function dedupeImages(n){
       const hash = Array.from(new Uint8Array(hashBuf)).map(b=>b.toString(16).padStart(2,'0')).join('');
       if(hashes.has(hash)){
         deleteImageFile(n.id, src);
-        n.images.splice(i,1);
-        i--;
-      }else{
-        hashes.set(hash, src);
-      }
+        n.images.splice(i,1); i--;
+      }else{ hashes.set(hash, src); }
     }catch(e){console.error(e);}
   }
   n.image = n.images[0] || null;
 }
 
 function openNodePopup(id, x, y) {
-  const n = nodeById.get(id);
-  if (!n) return;
+  const n = nodeById.get(id); if (!n) return;
   nodePopupId = id;
-  nodePopupImages.innerHTML = '';
+  nodePopupImages.innerHTML = ''; 
   nodePopupName.value = n.name || '';
   nodePopupYear.value = n.birth_year || '';
   const curId = id;
-  dedupeImages(n).then(()=>{
-    if(nodePopupId === curId){
-      renderNodeImages(n);
-    }
-  });
+  dedupeImages(n).then(()=>{ if(nodePopupId === curId) renderNodeImages(n); });
   nodePopup.style.left = (x + 5) + 'px';
   nodePopup.style.top  = (y + 5) + 'px';
   nodePopup.style.display = 'block';
@@ -1002,68 +919,51 @@ function hideNodePopup() {
 }
 
 nodePopupSave.addEventListener('click', e => {
-  e.stopPropagation();
-  if (nodePopupId === null) return;
+  e.stopPropagation(); if (nodePopupId === null) return;
   const n = nodeById.get(nodePopupId);
   n.name = nodePopupName.value.trim() || n.name;
   const year = nodePopupYear.value.trim();
   if (year === '') delete n.birth_year; else n.birth_year = year;
   hideNodePopup();
-  populateSelects();
+  // populateSelects(); // updateGraph will call this via applyAllFiltersAndRefresh->populateSelects
   updateGraph();
 });
 
 nodePopupDelete.addEventListener('click', e => {
-  e.stopPropagation();
-  if (nodePopupId === null) return;
+  e.stopPropagation(); if (nodePopupId === null) return;
   const id = nodePopupId;
   const idx = nodes.findIndex(n=>n.id===id);
   if (idx !== -1) nodes.splice(idx,1);
   links = links.filter(l=>l.id1!==id && l.id2!==id);
   nodeById.delete(id);
+  if (currentFilters.focus.nodeId === id) { // If deleted node was focused
+    setFocus(null, 1); // Unfocus
+  }
   hideNodePopup();
-  populateSelects();
   updateGraph();
 });
 
-nodePopupClose.addEventListener('click', e => {
-  e.stopPropagation();
-  hideNodePopup();
-});
+nodePopupClose.addEventListener('click', e => { e.stopPropagation(); hideNodePopup(); });
 
 edgePopupSave.addEventListener('click', e => {
-  e.stopPropagation();
-  if (!edgePopupLink) return;
+  e.stopPropagation(); if (!edgePopupLink) return;
   edgePopupLink.label = edgePopupLabel.value;
-  hideEdgePopup();
-  updateGraph();
+  hideEdgePopup(); updateGraph();
 });
 edgePopupReverse.addEventListener('click', e => {
-  e.stopPropagation();
-  if (!edgePopupLink) return;
-  const l = edgePopupLink;
-  [l.id1, l.id2] = [l.id2, l.id1];
+  e.stopPropagation(); if (!edgePopupLink) return;
+  const l = edgePopupLink; [l.id1, l.id2] = [l.id2, l.id1];
   hideEdgePopup();
-  if(focusNodeId !== null){
-    applyFocusFilter(false);
-  }else{
-    refreshLinks(false);
-    updateHiddenEdges();
-  }
+  applyAllFiltersAndRefresh(false); // No need for full sim restart, just update links
   refreshExport();
 });
 edgePopupDelete.addEventListener('click', e => {
-  e.stopPropagation();
-  if (!edgePopupLink) return;
+  e.stopPropagation(); if (!edgePopupLink) return;
   const idx = links.indexOf(edgePopupLink);
   if (idx !== -1) links.splice(idx, 1);
-  hideEdgePopup();
-  updateGraph();
+  hideEdgePopup(); updateGraph();
 });
-edgePopupClose.addEventListener('click', e => {
-  e.stopPropagation();
-  hideEdgePopup();
-});
+edgePopupClose.addEventListener('click', e => { e.stopPropagation(); hideEdgePopup(); });
 document.body.addEventListener('click', e => {
   if (!edgePopup.contains(e.target)) hideEdgePopup();
   if (!nodePopup.contains(e.target)) hideNodePopup();
@@ -1073,29 +973,39 @@ document.body.addEventListener('click', e => {
 /* ---------- drag handlers ---------- */
 function dragstarted(event,d){
   if(layoutMode === 'force'){
-    if(d.id === focusNodeId) return;  // keep focus node immovable
+    if(d.id === currentFilters.focus.nodeId && finalVisibleNodeIds.has(d.id)) return; // Prevent drag on visible focused node
     if(!event.active) simulation.alphaTarget(0.3).restart();
     d.fx=d.x; d.fy=d.y;
   }
 }
 function dragged(event,d){
   if(layoutMode === 'force'){
-    if(d.id === focusNodeId) return;  // ignore drags on focus node
+    if(d.id === currentFilters.focus.nodeId && finalVisibleNodeIds.has(d.id)) return;
     d.fx=event.x; d.fy=event.y;
-  } else {
-    if(d.id === focusNodeId) return;
+  } else { // Tiers mode - allow dragging, but it won't stick unless focus logic re-pins
+    if(d.id === currentFilters.focus.nodeId && finalVisibleNodeIds.has(d.id)) return; // Still prevent if focused for consistency
     d.x = event.x; d.y = event.y;
-    ticked();
+    ticked(); // Manually update positions in tiers mode during drag
   }
 }
 function dragended(event,d){
   if(layoutMode === 'force'){
-    if(d.id === focusNodeId) return;  // remain fixed when focused
+    if(d.id === currentFilters.focus.nodeId && finalVisibleNodeIds.has(d.id)) return; // Remain fixed if focused
     if(!event.active) simulation.alphaTarget(0);
-    d.fx=null; d.fy=null;
-  } else {
-    if(d.id === focusNodeId) return;
-    ticked();
+    // Do not nullify fx, fy if it's the focused node.
+    // applyAllFiltersAndRefresh handles fx/fy for the focused node.
+    if (d.id !== currentFilters.focus.nodeId) {
+        d.fx=null; d.fy=null;
+    }
+  } else { // Tiers mode
+      // If it was the focused node, re-apply its fixed position from layout
+      if (d.id === currentFilters.focus.nodeId && finalVisibleNodeIds.has(d.id)) {
+          const focusedNode = nodeById.get(d.id);
+          computeYearLayout(); // Recompute to get its theoretical position
+          d.fx = focusedNode.x; // Re-pin to its tier position
+          d.fy = focusedNode.y;
+      }
+    ticked(); // Update positions
   }
 }
 
@@ -1105,11 +1015,8 @@ document.getElementById('perturb').addEventListener('click',()=>{
     n.x += (Math.random()-0.5)*40;
     n.y += (Math.random()-0.5)*40;
   });
-  if (layoutMode === 'force') {
-    simulation.alpha(0.8).restart();
-  } else {
-    ticked();
-  }
+  if (layoutMode === 'force') simulation.alpha(0.8).restart();
+  else ticked();
 });
 
 document.getElementById('dampen').addEventListener('click',()=>{
@@ -1121,25 +1028,18 @@ document.getElementById('dampen').addEventListener('click',()=>{
 
 chargeInput.addEventListener('input', e=>{
   simulation.force('charge').strength(+e.target.value);
-  if (layoutMode === 'force') {
-    simulation.alpha(0.8).restart();
-  } else {
-    ticked();
-  }
+  if (layoutMode === 'force') simulation.alpha(0.8).restart(); else ticked();
 });
 
 linkInput.addEventListener('input', e=>{
   simulation.force('link').distance(+e.target.value);
-  if (layoutMode === 'force') {
-    simulation.alpha(0.8).restart();
-  } else {
-    ticked();
-  }
+  if (layoutMode === 'force') simulation.alpha(0.8).restart(); else ticked();
 });
 
 layoutSelect.addEventListener('change', e => {
   layoutMode = e.target.value;
-  applyLayoutForces();
+  applyLayoutForces(); // This sets up fx/fy for tiers or clears for force
+  applyAllFiltersAndRefresh(true); // Re-apply filters and ensure pinning is correct for new layout
 });
 
 document.addEventListener('paste', e => {
@@ -1163,10 +1063,8 @@ function uploadImage(id, file){
       n.images.push(`images/${resp}`);
       n.image = n.images[0] || null;
       dedupeImages(n).then(()=>{
-        updateGraph();
-        if(nodePopupId === id){
-          renderNodeImages(n);
-        }
+        updateGraph(); // This will refresh node visuals and call applyAllFiltersAndRefresh
+        if(nodePopupId === id) renderNodeImages(n);
       });
     });
 }
@@ -1180,32 +1078,31 @@ function addNode() {
   if (!name) return;
 
   const id = nextNodeId++;
-  const obj = { id, name };
-  if (year !== '') obj.birth_year = year;
-  nodes.push(obj);
+  const newNodeData = { id, name, images: [] }; // Ensure images array exists
+  if (year !== '') newNodeData.birth_year = year;
+  nodes.push(newNodeData);
   nodeById.set(id, nodes[nodes.length - 1]);
 
-  const fromVal  = edgeFrom.value;   // preserve current "from" selection
-  const labelVal = edgeLabel.value;  // preserve label text
+  const fromVal  = edgeFrom.value;
+  const labelVal = edgeLabel.value;
+  inp.value = ''; yearInp.value = '';
 
-  inp.value = '';
-  yearInp.value = '';
+  updateGraph(true); // Refresh graph with new node, skip select update for now
 
-  updateGraph(true);                 // refresh layout only
-  populateSelects();                 // now update dropdowns
+  // updateGraph calls populateSelects indirectly via applyAllFiltersAndRefresh
+  // So, we can set edgeTo and edgeFrom *after* updateGraph completes its full cycle if needed,
+  // but populateSelects() inside updateGraph should handle new node.
+  // For now, direct populateSelects is fine if updateGraph's internal one is too late.
+  populateSelects(); 
 
-  edgeFrom.value = fromVal;          // restore previous "from" selection
-  edgeTo.value   = id;               // default "to" to newly added node
-  edgeLabel.value = labelVal;        // restore label text
+  edgeFrom.value = fromVal;
+  $(edgeTo).val(id).trigger('change'); // Set new node as 'to' and trigger select2 update
+  edgeLabel.value = labelVal;
 }
 
 document.getElementById('addNodeBtn').addEventListener('click', addNode);
-document.getElementById('newNodeName').addEventListener('keydown', e => {
-  if (e.key === 'Enter') addNode();
-});
-document.getElementById('newNodeYear').addEventListener('keydown', e => {
-  if (e.key === 'Enter') addNode();
-});
+document.getElementById('newNodeName').addEventListener('keydown', e => { if (e.key === 'Enter') addNode(); });
+document.getElementById('newNodeYear').addEventListener('keydown', e => { if (e.key === 'Enter') addNode(); });
 
 /* add edge */
 addEdgeBtn.addEventListener('click', () => {
@@ -1216,33 +1113,33 @@ addEdgeBtn.addEventListener('click', () => {
   if (isNaN(id1) || isNaN(id2) || id1 === id2) return;
   links.push({ id1, id2, label: lbl });
   edgeLabel.value = '';
-  updateGraph(true, links.length - 1);   // skip select refresh, highlight new link
+  updateGraph(true, links.length - 1);
 });
 
 /* ---------- initial render ---------- */
 loadData().then(() => {
+  populateSelects(); // Initial population before setupSearchAndFilter
+  setupSearchAndFilter(); // Initializes year slider and sets currentFilters.year
+
+  updateGraph(false, null, false); // Initial graph draw, calls applyAllFiltersAndRefresh internally
+
+  // Parse URL hash for focus after initial graph setup
   const params = new URLSearchParams(location.hash.slice(1));
-  if(params.has('focus')){
-    focusNodeId = parseInt(params.get('focus'),10);
-    focusDepth = parseInt(params.get('depth') || '1',10);
-    focusRange.value = focusDepth;
-    focusNum.textContent = focusDepth;
-    const n = nodeById.get(focusNodeId);
-    if(n){
-      focusLabel.textContent = 'Focus: ' + n.name;
-      focusBox.style.display = 'flex';
-    }
+  let initialFocusNodeId = null;
+  let initialFocusDepth = 1;
+
+  if (params.has('focus')) {
+    initialFocusNodeId = parseInt(params.get('focus'), 10);
+    initialFocusDepth = parseInt(params.get('depth') || '1', 10);
   }
-  populateSelects();
-  setupSearchAndFilter();
-  updateGraph(false, null, false);
-  if(focusNodeId !== null){
-    applyFocusFilter();
+
+  if (initialFocusNodeId !== null && nodeById.has(initialFocusNodeId)) {
+      setFocus(initialFocusNodeId, initialFocusDepth); // This will trigger applyAllFiltersAndRefresh
+  } else {
+      applyAllFiltersAndRefresh(false); // Apply default filters (e.g., year) if no URL focus
   }
 });
 
-// Add this code AFTER populateSelects() is called in your initialization
-// This is the simple, standard way to focus the search field when dropdown opens
 $(document).on('select2:open', function() {
   document.querySelector('.select2-container--open .select2-search__field').focus();
 });
