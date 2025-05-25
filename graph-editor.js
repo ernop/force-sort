@@ -574,6 +574,15 @@ function moveImage(idx, delta) {
 function removeImage(idx) {
   const n = nodeById.get(nodePopupId);
   if(!n) return;
+  
+  // Delete image from server
+  const imagePath = n.images[idx];
+  fetch('/delete_image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ node_id: n.id, image: imagePath })
+  });
+  
   n.images.splice(idx, 1);
   n.image = n.images[0] || null;
   renderNodeImages(n);
@@ -786,24 +795,42 @@ document.body.addEventListener('click', e => {
 });
 
 // Paste image handling
-document.addEventListener('paste', e => {
+document.addEventListener('paste', async e => {
   if(nodePopupId === null) return;
   const item = Array.from(e.clipboardData.items).find(i => i.type.startsWith('image/'));
   if(!item) return;
   const file = item.getAsFile();
   
-  // In a real app, this would upload to server
-  // For demo, we'll just create a data URL
-  const reader = new FileReader();
-  reader.onload = function(event) {
-    const n = nodeById.get(nodePopupId);
-    if(!n.images) n.images = [];
-    n.images.push(event.target.result);
-    n.image = n.images[0] || null;
-    renderNodeImages(n);
-    updateGraph();
-  };
-  reader.readAsDataURL(file);
+  // Upload to server
+  const formData = new FormData();
+  formData.append('image', file);
+  formData.append('node_id', nodePopupId);
+  
+  try {
+    const response = await fetch('/upload', {
+      method: 'POST',
+      body: formData
+    });
+    
+    if (response.ok) {
+      const result = await response.text();
+      if (result !== 'DUPLICATE') {
+        // Reload data to get the updated image path
+        const dataResponse = await fetch('data.json');
+        const data = await dataResponse.json();
+        const updatedNode = data.nodes.find(n => n.id === nodePopupId);
+        if (updatedNode) {
+          const n = nodeById.get(nodePopupId);
+          n.images = updatedNode.images;
+          n.image = n.images[0] || null;
+          renderNodeImages(n);
+          updateGraph();
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Upload failed:', error);
+  }
 });
 
 // Responsive sidebar toggle
@@ -1149,54 +1176,14 @@ function initialize() {
     setTimeout(handleResize, 100);
   }).catch(error => {
     console.error('Failed to load data:', error);
-    
-    // If data.json doesn't exist, use sample data
-    console.log('Using sample data instead');
-    
-    // Sample data for demo purposes
-    const sampleData = {
-      "nodes": [
-        {"id": 1, "name": "J.R.R. Tolkien", "birth_year": "1892", "images": []},
-        {"id": 2, "name": "C.S. Lewis", "birth_year": "1898", "images": []},
-        {"id": 3, "name": "Neil Gaiman", "birth_year": "1960", "images": []},
-        {"id": 4, "name": "Terry Pratchett", "birth_year": "1948", "images": []},
-        {"id": 5, "name": "Ursula K. Le Guin", "birth_year": "1929", "images": []},
-        {"id": 6, "name": "Isaac Asimov", "birth_year": "1920", "images": []},
-        {"id": 7, "name": "Philip K. Dick", "birth_year": "1928", "images": []},
-        {"id": 8, "name": "Frank Herbert", "birth_year": "1920", "images": []},
-        {"id": 9, "name": "Ray Bradbury", "birth_year": "1920", "images": []},
-        {"id": 10, "name": "H.P. Lovecraft", "birth_year": "1890", "images": []}
-      ],
-      "links": [
-        {"id1": 1, "id2": 2, "label": "close friend"},
-        {"id1": 2, "id2": 1, "label": "co-member inklings"},
-        {"id1": 1, "id2": 3, "label": "influenced"},
-        {"id1": 3, "id2": 4, "label": "collaborated with"},
-        {"id1": 5, "id2": 3, "label": "influenced"},
-        {"id1": 6, "id2": 7, "label": "influenced"},
-        {"id1": 6, "id2": 8, "label": "influenced"},
-        {"id1": 9, "id2": 3, "label": "influenced"},
-        {"id1": 10, "id2": 3, "label": "influenced"},
-        {"id1": 10, "id2": 9, "label": "influenced"}
-      ]
-    };
-    
-    nodes = sampleData.nodes || [];
-    links = sampleData.links || [];
-    
-    nodes.forEach(n => {
-      n.images = Array.isArray(n.images) ? n.images : [];
-      n.image = n.images[0] || null;
-      nodeById.set(n.id, n);
-    });
-    nextNodeId = Math.max(0, ...nodes.map(n => n.id)) + 1;
-    
+    // Remove loading state
     graphDiv.removeChild(loadingDiv);
-    populateSelects();
-    setupSearchAndFilter();
-    updateGraph(false, null, false);
-    applyAllFiltersAndRefresh(false);
-    setTimeout(handleResize, 100);
+    
+    // Show error message
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'loading';
+    errorDiv.innerHTML = `<div style="color: var(--danger-color);">Error: Failed to load data.json<br><small>${error.message}</small></div>`;
+    graphDiv.appendChild(errorDiv);
   });
 }
 
@@ -1221,3 +1208,40 @@ window.graphEditor = {
   simulation
 };
 
+// Add styles for image actions dynamically if not present
+if (!document.querySelector('#image-actions-style')) {
+  const style = document.createElement('style');
+  style.id = 'image-actions-style';
+  style.textContent = `
+    .image-actions {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .image-item:hover .image-actions {
+      opacity: 1;
+    }
+    .image-actions button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 2px;
+      font-size: 12px;
+      transition: background 0.2s ease;
+    }
+    .image-actions button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .image-actions button:last-child {
+      color: #ff4444;
+    }
+  `;
+  document.head.appendChild(style);
+}

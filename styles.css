@@ -284,13 +284,13 @@ html, body {
 /* Graph styles */
 .node circle {
   fill: var(--bg-primary);
-  stroke: var(--border-color);
+  stroke: #000000;
   stroke-width: 2px;
   cursor: grab;
 }
 
 .node:hover circle {
-  stroke: var(--primary-color);
+  stroke: #000000;
   stroke-width: 3px;
 }
 
@@ -612,13 +612,14 @@ html, body {
 
 .relationship-controls {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 12px;
 }
 
 .relationship-controls select {
-  flex: 1;
+  flex: 1 1 calc(50% - 20px);
+  min-width: 0;
   margin-bottom: 0;
 }
 
@@ -630,7 +631,7 @@ html, body {
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s ease;
-  min-width: 40px;
+  flex: 0 0 40px;
 }
 
 .flip-btn:hover {
