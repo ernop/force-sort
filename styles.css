@@ -646,3 +646,51 @@ html, body {
   z-index: 1;
   position: relative;
 }
+
+/* Edge creation mode */
+.node.edge-source {
+  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.8));
+}
+
+.node.edge-target-valid {
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.8));
+}
+
+.node.edge-target-invalid {
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8));
+}
+
+.temp-edge {
+  stroke: #2563eb;
+  stroke-width: 2;
+  stroke-dasharray: 5,5;
+  fill: none;
+  pointer-events: none;
+}
+
+/* Visual hint for Ctrl key */
+.edge-creation-hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.edge-creation-hint.visible {
+  opacity: 1;
+}
+
+.link.highlight {
+  stroke: #2563eb !important;
+  stroke-width: 3px !important;
+  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.8));
+}

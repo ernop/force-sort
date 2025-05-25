@@ -161,7 +161,9 @@ function ticked() {
   const delta = 10;
   const fracToTgt = 0.65;
 
-  labelSel.each(function (d) {
+  labelSel.each(function(d) {
+    const g = d3.select(this);
+    const text = g.select('text');
     if (!d.source || !d.target || typeof d.source.x === 'undefined' || typeof d.target.x === 'undefined') return;
     const forward = d.source.id < d.target.id;
     const s = forward ? d.source : d.target;
@@ -178,18 +180,165 @@ function ticked() {
 
     d.cx = lx + delta * px * dir;
     d.cy = ly + delta * py * dir;
-  })
-  .attr('x', d => d.cx)
-  .attr('y', d => d.cy)
-  .attr('text-anchor', 'middle')
-  .attr('dominant-baseline', 'central')
-  .attr('transform', d => {
-    if (!d.source || !d.target || typeof d.source.x === 'undefined' || typeof d.target.x === 'undefined') return '';
-    let ang = Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x) * 180 / Math.PI;
-    if (ang > 90 || ang < -90) ang += 180;
-    return `rotate(${ang},${d.cx},${d.cy})`;
+	// Position the group
+    g.attr('transform', `translate(${d.cx},${d.cy})`);
+    
+    // Rotate the text
+    text.attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'central')
+        .attr('transform', () => {
+          let ang = Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x) * 180 / Math.PI;
+          if (ang > 90 || ang < -90) ang += 180;
+          return `rotate(${ang})`;
+        });
   });
 }
+
+/* ---------- Edge Creation Mode ---------- */
+let edgeCreationMode = {
+  active: false,
+  sourceNode: null,
+  tempLine: null
+};
+
+function handleEdgeCreation(node) {
+  if (!edgeCreationMode.active) {
+    // Start edge creation
+    edgeCreationMode.active = true;
+    edgeCreationMode.sourceNode = node;
+    
+    // Visual feedback
+    nodeSel.classed('edge-source', d => d.id === node.id);
+    
+    // Create temporary edge line
+    edgeCreationMode.tempLine = g.append('line')
+      .attr('class', 'temp-edge')
+      .attr('x1', node.x || 0)
+      .attr('y1', node.y || 0)
+      .attr('x2', node.x || 0)
+      .attr('y2', node.y || 0);
+    
+    // Show hint
+    showEdgeCreationHint('Click on target node to create edge (Esc to cancel)');
+    
+  } else if (edgeCreationMode.active && edgeCreationMode.sourceNode && edgeCreationMode.sourceNode.id !== node.id) {
+    // Complete edge creation
+    const sourceId = edgeCreationMode.sourceNode.id;
+    const targetId = node.id;
+    
+    // Check if edge already exists
+    const existingEdge = links.find(l => 
+      (l.id1 === sourceId && l.id2 === targetId) || 
+      (l.id1 === targetId && l.id2 === sourceId)
+    );
+    
+    if (!existingEdge) {
+      // Create new edge with default label
+      links.push({ 
+        id1: sourceId, 
+        id2: targetId, 
+        label: 'connected to' 
+      });
+      
+      // Flash success
+      nodeSel.filter(d => d.id === targetId)
+        .classed('edge-target-valid', true)
+        .transition().duration(500)
+        .on('end', function() { d3.select(this).classed('edge-target-valid', false); });
+      
+      updateGraph();
+	  
+	  // Dampen the graph to reduce swinging	  
+	  nodes.forEach(n => {
+        n.vx = 0;
+        n.vy = 0;
+      });
+      
+      // Open edge popup to edit the label - capture node positions before updateGraph()
+      const sourceX = edgeCreationMode.sourceNode.x;
+      const sourceY = edgeCreationMode.sourceNode.y;
+      const targetX = node.x;
+      const targetY = node.y;
+      
+      const newLink = links[links.length - 1];
+      requestAnimationFrame(() => {
+        const linkD3 = linkSel.filter(d => d.link === newLink);
+        if (!linkD3.empty()) {
+          const d = linkD3.datum();
+          // Calculate midpoint between source and target nodes
+          const midX = (sourceX + targetX) / 2;
+          const midY = (sourceY + targetY) / 2;
+          // Convert to page coordinates
+          const transform = d3.zoomTransform(svg.node());
+          const pageX = midX * transform.k + transform.x;
+          const pageY = midY * transform.k + transform.y;
+          openEdgePopup(newLink, pageX + graphDiv.offsetLeft, pageY + graphDiv.offsetTop);
+        }
+      });
+    } else {
+      // Edge already exists - flash warning
+      nodeSel.filter(d => d.id === targetId)
+        .classed('edge-target-invalid', true)
+        .transition().duration(500)
+        .on('end', function() { d3.select(this).classed('edge-target-invalid', false); });
+    }
+    
+    cancelEdgeCreation();
+  }
+}
+
+function cancelEdgeCreation() {
+  if (edgeCreationMode.active) {
+    edgeCreationMode.active = false;
+    edgeCreationMode.sourceNode = null;
+    
+    // Remove temporary line
+    if (edgeCreationMode.tempLine) {
+      edgeCreationMode.tempLine.remove();
+      edgeCreationMode.tempLine = null;
+    }
+   
+    // Remove visual feedback
+    nodeSel.classed('edge-source', false);
+    hideEdgeCreationHint();
+  }
+}
+
+function showEdgeCreationHint(text) {
+  let hint = d3.select('.edge-creation-hint');
+  if (hint.empty()) {
+    hint = d3.select('body').append('div')
+      .attr('class', 'edge-creation-hint');
+  }
+  hint.text(text).classed('visible', true);
+}
+
+function hideEdgeCreationHint() {
+  d3.select('.edge-creation-hint').classed('visible', false);
+}
+
+// Update temp line position on mouse move
+svg.on('mousemove', (event) => {
+  if (edgeCreationMode.active && edgeCreationMode.tempLine && edgeCreationMode.sourceNode) {
+    const [mx, my] = d3.pointer(event, g.node());
+    edgeCreationMode.tempLine
+      .attr('x2', mx)
+      .attr('y2', my);
+    
+    // Highlight potential target
+    const target = d3.select(event.target);
+    if (target.classed('node') || target.node().parentNode?.classList?.contains('node')) {
+      const nodeEl = target.classed('node') ? target : d3.select(target.node().parentNode);
+      const nodeData = nodeEl.datum();
+      if (nodeData && nodeData.id !== edgeCreationMode.sourceNode.id) {
+        nodeSel.classed('edge-target-valid', d => d.id === nodeData.id);
+      }
+    } else {
+      nodeSel.classed('edge-target-valid', false);
+    }
+  }
+});
+
 
 /* ---------- Helper Functions ---------- */
 function formatNodeLabel(n) {
@@ -364,8 +513,15 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = 
       enter => {
         const nodeG = enter.append('g').attr('class', 'node')
           .on('click', (event,d) => {
-            event.stopPropagation();
-            openNodePopup(d.id, event.pageX, event.pageY);
+            if (event.ctrlKey || event.metaKey) {
+			  event.stopPropagation();
+              if (d && typeof d.x !== 'undefined' && typeof d.y !== 'undefined') {
+                handleEdgeCreation(d);
+              }
+            } else {
+              event.stopPropagation();
+              openNodePopup(d.id, event.pageX, event.pageY);
+            }
           })
           .on('dblclick', (event,d) => {
             event.stopPropagation();
@@ -387,19 +543,37 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = 
              .attr('href', d => d.image || '')
              .style('display', d => d.image ? null : 'none');
         nodeG.append('text').attr('dominant-baseline', 'central')
+		.on('mouseenter', function(event, d) {
+               if (edgeCreationMode.active && edgeCreationMode.sourceNode && d.id !== edgeCreationMode.sourceNode.id) {
+                 d3.select(this.parentNode).classed('edge-target-valid', true);
+               }
+             })
+             .on('mouseleave', function(event, d) {
+               if (edgeCreationMode.active) {
+                 d3.select(this.parentNode).classed('edge-target-valid', false);
+               }
+            })
 			 .text(d => formatNodeLabel(d))
 			 .style('cursor', 'pointer')
 			 .on('click', (event, d) => {
 			   event.stopPropagation();
 			   openNodePopup(d.id, event.pageX, event.pageY);
 			 });
+			 
         return nodeG;
       },
       update => update.each(function(d) {
         const n = d3.select(this);
         n.on('click', (event) => {
-          event.stopPropagation();
-          openNodePopup(d.id, event.pageX, event.pageY);
+          if (event.ctrlKey || event.metaKey) {
+            event.stopPropagation();
+            if (d && typeof d.x !== 'undefined' && typeof d.y !== 'undefined') {
+              handleEdgeCreation(d);
+            }
+          } else {
+            event.stopPropagation();
+            openNodePopup(d.id, event.pageX, event.pageY);
+          }
         })
         .on('dblclick', (event) => {
           event.stopPropagation();
@@ -427,7 +601,13 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = 
   if (highlightIdx !== null) {
     linkSel.filter(d_sim => links.indexOf(d_sim.link) === highlightIdx)
            .classed('highlight', true)
-           .transition().delay(10000)
+           .style('stroke', '#2563eb')
+           .style('stroke-width', '3px')
+           .style('filter', 'drop-shadow(0 0 4px rgba(37, 99, 235, 0.6))')
+           .transition().duration(3000)
+           .style('stroke', null)
+           .style('stroke-width', null)
+           .style('filter', null)
            .on('end', function () { d3.select(this).classed('highlight', false); });
   }
 }
@@ -665,12 +845,7 @@ document.getElementById('flipRelationship').addEventListener('click', () => {
 
 // Clear focus button
 document.getElementById('clearFocus').addEventListener('click', () => {
-  focusedNodeId = null;
-  focusedConnections = [];
-  document.getElementById('focusLabel').textContent = 'No author focused';
-  document.getElementById('clearFocus').style.display = 'none';
-  document.getElementById('focusBox').style.display = 'none';
-  updateGraph();
+  setFocus(null, 1);
 });
 
 // Add node functionality
@@ -897,7 +1072,22 @@ document.addEventListener('keydown', e => {
     case 'Escape':
       hideEdgePopup();
       hideNodePopup();
+	  cancelEdgeCreation();
       break;
+  }
+});
+
+// Show hint when Ctrl is pressed
+document.addEventListener('keyup', e => {
+  if (!e.ctrlKey && !e.metaKey && !edgeCreationMode.active) {
+    hideEdgeCreationHint();
+  }
+});
+
+// Show hint when Ctrl is pressed
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && !edgeCreationMode.active) {
+    showEdgeCreationHint('Ctrl+Click on a node to start creating an edge');
   }
 });
 
@@ -907,17 +1097,7 @@ function highlightSearch() {
   nodeSel.classed('search-match', d => term !== '' && d.name.toLowerCase().includes(term));
 }
 
-function updateHash() {
-  const params = new URLSearchParams(location.hash.slice(1));
-  if(currentFilters.focus.nodeId !== null) {
-    params.set('focus', currentFilters.focus.nodeId);
-    params.set('depth', currentFilters.focus.depth);
-  } else {
-    params.delete('focus');
-    params.delete('depth');
-  }
-  history.replaceState(null, '', '#'+params.toString());
-}
+
 
 function setFocus(nodeId, depth) {
   const oldFocusNodeId = currentFilters.focus.nodeId;
@@ -936,6 +1116,7 @@ function setFocus(nodeId, depth) {
   const focusLabel = document.getElementById('focusLabel');
   const focusRange = document.getElementById('focusRange');
   const focusNum = document.getElementById('focusNum');
+  const clearFocus = document.getElementById('clearFocus');
 
   if (nodeId !== null) {
     const node = nodeById.get(nodeId);
@@ -944,15 +1125,32 @@ function setFocus(nodeId, depth) {
       focusBox.style.display = 'block';
       focusRange.value = currentFilters.focus.depth;
       focusNum.textContent = currentFilters.focus.depth;
+      clearFocus.style.display = 'inline';
     } else { 
       currentFilters.focus.nodeId = null; 
       focusBox.style.display = 'none';
+      clearFocus.style.display = 'none';
     }
   } else {
     focusLabel.textContent = 'No author focused';
     focusBox.style.display = 'none';
+    clearFocus.style.display = 'none';
   }
-  updateHash(); 
+  
+  // Use history API for back/forward support
+  const params = new URLSearchParams(location.hash.slice(1));
+  if(nodeId !== null) {
+    params.set('focus', nodeId);
+    params.set('depth', currentFilters.focus.depth);
+  } else {
+    params.delete('focus');
+    params.delete('depth');
+  }
+  const newHash = '#' + params.toString();
+  if (location.hash !== newHash) {
+    history.pushState({focus: nodeId, depth: currentFilters.focus.depth}, '', newHash);
+  }
+  
   applyAllFiltersAndRefresh(); 
 }
 
@@ -1089,9 +1287,26 @@ function setupSearchAndFilter() {
   }
 
   const searchInput = document.getElementById('searchInput');
+  const searchResults = createSearchResults();
+  
   searchInput.addEventListener('input', () => {
-    currentFilters.searchTerm = searchInput.value.trim().toLowerCase();
+    const term = searchInput.value.trim().toLowerCase();
+    currentFilters.searchTerm = term;
+    
+    if (term.length > 0) {
+      showSearchResults(term, searchResults);
+    } else {
+      hideSearchResults(searchResults);
+    }
+    
     applyAllFiltersAndRefresh(false);
+  });
+  
+  // Hide search results when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+      hideSearchResults(searchResults);
+    }
   });
 
   const focusRange = document.getElementById('focusRange');
@@ -1104,6 +1319,102 @@ function setupSearchAndFilter() {
       document.getElementById('focusNum').textContent = newDepth;
     }
   });
+}
+
+function createSearchResults() {
+  const resultsDiv = document.createElement('div');
+  resultsDiv.className = 'search-results';
+  resultsDiv.style.cssText = `
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: var(--shadow-lg);
+  `;
+  
+  document.getElementById('searchInput').parentNode.appendChild(resultsDiv);
+  document.getElementById('searchInput').style.position = 'relative';
+  return resultsDiv;
+}
+
+function showSearchResults(term, resultsDiv) {
+  const matchingNodes = nodes.filter(n => 
+    n.name.toLowerCase().includes(term)
+  ).sort((a, b) => a.name.localeCompare(b.name));
+  
+  if (matchingNodes.length === 0) {
+    resultsDiv.innerHTML = '<div style="padding: 12px; color: var(--text-secondary);">No authors found</div>';
+  } else {
+    resultsDiv.innerHTML = matchingNodes.map(node => {
+      const name = node.name;
+      const year = node.birth_year || '';
+      const image = node.image || '';
+      
+      // Highlight matching text
+      const regex = new RegExp(`(${term})`, 'gi');
+      const highlightedName = name.replace(regex, '<mark>$1</mark>');
+      
+      return `
+        <div class="search-result-item" data-node-id="${node.id}" style="
+          display: flex;
+          align-items: center;
+          padding: 8px 12px;
+          cursor: pointer;
+          border-bottom: 1px solid var(--border-color);
+          transition: background 0.2s ease;
+        ">
+          <div style="
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            margin-right: 12px;
+            flex-shrink: 0;
+            overflow: hidden;
+          ">
+            ${image ? `<img src="${image}" style="width: 100%; height: 100%; object-fit: cover;">` : ''}
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-weight: 500; color: var(--text-primary);">${highlightedName}</div>
+            ${year ? `<div style="font-size: 12px; color: var(--text-secondary);">${year}</div>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+  
+  resultsDiv.style.display = 'block';
+  
+  // Add click handlers
+  resultsDiv.querySelectorAll('.search-result-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      item.style.background = 'var(--bg-tertiary)';
+    });
+    item.addEventListener('mouseleave', () => {
+      item.style.background = 'transparent';
+    });
+    item.addEventListener('click', () => {
+      const nodeId = parseInt(item.dataset.nodeId, 10);
+      setFocus(nodeId, currentFilters.focus.depth);
+      hideSearchResults(resultsDiv);
+      document.getElementById('searchInput').value = '';
+      currentFilters.searchTerm = '';
+      applyAllFiltersAndRefresh(false);
+    });
+  });
+}
+
+function hideSearchResults(resultsDiv) {
+  resultsDiv.style.display = 'none';
 }
 
 function refreshLinks(restartSim = true) {
@@ -1126,7 +1437,7 @@ function refreshLinks(restartSim = true) {
       exit => exit.remove()
     );
 
-  labelSel = linkGroup.selectAll('text.label').data(simLinks, d => links.indexOf(d.link))
+  labelSel = linkGroup.selectAll('g.label-group').data(simLinks, d => links.indexOf(d.link))
   .join(
     enter => {
       const g = enter.append('g').attr('class', 'label-group');
@@ -1282,15 +1593,17 @@ $(document).ready(() => {
     width: '100%',
     placeholder: 'Relationship type',
     data: [
-      'influenced by',
-      'inspired by',
-      'mentored by',
+      'influenced',
+      'inspired',
       'mentored',
       'collaborated with',
       'friend of',
       'contemporary of',
       'studied under',
       'rival of',
+	  'edited',
+	  'married',
+	  
       'corresponded with'
     ],
     createTag: function(params) {
@@ -1301,6 +1614,50 @@ $(document).ready(() => {
       };
     }
   });
+  
+  // Handle browser back/forward
+	window.addEventListener('popstate', (event) => {
+	  if (event.state) {
+		const focusNodeId = event.state.focus || null;
+		const focusDepth = event.state.depth || 1;
+		
+		// Update focus without pushing to history again
+		const oldFocusNodeId = currentFilters.focus.nodeId;
+		if (oldFocusNodeId && nodeById.has(oldFocusNodeId)) {
+		  const oldNode = nodeById.get(oldFocusNodeId);
+		  if (oldNode) {
+			 oldNode.fx = null;
+			 oldNode.fy = null;
+		  }
+		}
+
+		currentFilters.focus.nodeId = focusNodeId;
+		currentFilters.focus.depth = focusDepth;
+
+		const focusBox = document.getElementById('focusBox');
+		const focusLabel = document.getElementById('focusLabel');
+		const focusRange = document.getElementById('focusRange');
+		const focusNum = document.getElementById('focusNum');
+		const clearFocus = document.getElementById('clearFocus');
+
+		if (focusNodeId !== null) {
+		  const node = nodeById.get(focusNodeId);
+		  if (node) {
+			focusLabel.textContent = `Focused: ${node.name}`;
+			focusBox.style.display = 'block';
+			focusRange.value = focusDepth;
+			focusNum.textContent = focusDepth;
+			clearFocus.style.display = 'inline';
+		  }
+		} else {
+		  focusLabel.textContent = 'No author focused';
+		  focusBox.style.display = 'none';
+		  clearFocus.style.display = 'none';
+		}
+		
+		applyAllFiltersAndRefresh();
+	  }
+	});
   
   initialize();
 });

@@ -273,19 +273,9 @@
       ]
     },
     {
-      "id": 38,
-      "name": "The Kalevala",
-      "images": []
-    },
-    {
       "id": 39,
       "name": "Andrew Liang",
       "birth_year": "1844",
-      "images": []
-    },
-    {
-      "id": 40,
-      "name": "Beowulf",
       "images": []
     },
     {
@@ -1018,6 +1008,134 @@
       "name": "Arthur C. Clarke",
       "birth_year": "1917",
       "images": []
+    },
+    {
+      "id": 154,
+      "name": "George MacDonald",
+      "birth_year": "1824",
+      "images": []
+    },
+    {
+      "id": 155,
+      "name": "J.K. Rowling",
+      "birth_year": "1965",
+      "images": []
+    },
+    {
+      "id": 156,
+      "name": "Christopher Paolini",
+      "birth_year": "1983",
+      "images": [
+        "images/156_0.png"
+      ]
+    },
+    {
+      "id": 157,
+      "name": "David Eddings",
+      "birth_year": "1931",
+      "images": []
+    },
+    {
+      "id": 158,
+      "name": "Robert Jordan",
+      "birth_year": "1948",
+      "images": []
+    },
+    {
+      "id": 159,
+      "name": "A.E. van Vogt",
+      "birth_year": "1912",
+      "images": []
+    },
+    {
+      "id": 160,
+      "name": "L. Sprague de Camp",
+      "birth_year": "1907",
+      "images": []
+    },
+    {
+      "id": 161,
+      "name": "Poul Anderson",
+      "birth_year": "1926",
+      "images": []
+    },
+    {
+      "id": 162,
+      "name": "Gordon R. Dickson",
+      "birth_year": "1923",
+      "images": []
+    },
+    {
+      "id": 163,
+      "name": "Kurt Vonnegut",
+      "birth_year": "1922",
+      "images": []
+    },
+    {
+      "id": 164,
+      "name": "Margaret Atwood",
+      "birth_year": "1939",
+      "images": []
+    },
+    {
+      "id": 165,
+      "name": "Stanis\u0142aw Lem",
+      "birth_year": "1921",
+      "images": []
+    },
+    {
+      "id": 166,
+      "name": "Kim Stanley Robinson",
+      "birth_year": "1952",
+      "images": []
+    },
+    {
+      "id": 167,
+      "name": "Alastair Reynolds",
+      "birth_year": "1966",
+      "images": []
+    },
+    {
+      "id": 168,
+      "name": "Liu Cixin",
+      "birth_year": "1963",
+      "images": []
+    },
+    {
+      "id": 169,
+      "name": "Andy Weir",
+      "birth_year": "1972",
+      "images": []
+    },
+    {
+      "id": 170,
+      "name": "Aldous Huxley",
+      "birth_year": "1894",
+      "images": []
+    },
+    {
+      "id": 171,
+      "name": "George Orwell",
+      "birth_year": "1903",
+      "images": []
+    },
+    {
+      "id": 172,
+      "name": "Douglas Adams",
+      "birth_year": "1952",
+      "images": []
+    },
+    {
+      "id": 173,
+      "name": "Terry Pratchett",
+      "birth_year": "1948",
+      "images": []
+    },
+    {
+      "id": 174,
+      "name": "Ken Liu",
+      "birth_year": "1976",
+      "images": []
     }
   ],
   "links": [
@@ -1062,8 +1180,8 @@
       "label": "influenced"
     },
     {
-      "id1": 4,
-      "id2": 12,
+      "id1": 12,
+      "id2": 4,
       "label": "captivated"
     },
     {
@@ -1072,8 +1190,8 @@
       "label": "left a mark on"
     },
     {
-      "id1": 4,
-      "id2": 14,
+      "id1": 14,
+      "id2": 4,
       "label": "Adapted"
     },
     {
@@ -1197,11 +1315,6 @@
       "label": "influenced"
     },
     {
-      "id1": 38,
-      "id2": 6,
-      "label": "Inspired"
-    },
-    {
       "id1": 39,
       "id2": 6,
       "label": "Inspired"
@@ -1210,11 +1323,6 @@
       "id1": 25,
       "id2": 6,
       "label": "Inspired"
-    },
-    {
-      "id1": 6,
-      "id2": 40,
-      "label": "admired"
     },
     {
       "id1": 42,
@@ -1622,11 +1730,6 @@
       "label": "influenced"
     },
     {
-      "id1": 82,
-      "id2": 96,
-      "label": "influenced"
-    },
-    {
       "id1": 97,
       "id2": 54,
       "label": "influenced"
@@ -1689,7 +1792,7 @@
     {
       "id1": 41,
       "id2": 103,
-      "label": "influenced"
+      "label": "influenced, friends"
     },
     {
       "id1": 92,
@@ -2079,7 +2182,7 @@
     {
       "id1": 20,
       "id2": 4,
-      "label": ""
+      "label": "influenced"
     },
     {
       "id1": 20,
@@ -2135,6 +2238,496 @@
       "id1": 142,
       "id2": 33,
       "label": "Declared Heinlein as \"not only America's premier writer of speculative fiction, but the greatest writer of such fiction in the world\""
+    },
+    {
+      "id1": 13,
+      "id2": 6,
+      "label": "influenced"
+    },
+    {
+      "id1": 154,
+      "id2": 6,
+      "label": "influenced"
+    },
+    {
+      "id1": 15,
+      "id2": 6,
+      "label": "influenced"
+    },
+    {
+      "id1": 1,
+      "id2": 6,
+      "label": "influenced"
+    },
+    {
+      "id1": 6,
+      "id2": 1,
+      "label": "influenced"
+    },
+    {
+      "id1": 6,
+      "id2": 155,
+      "label": "influenced"
+    },
+    {
+      "id1": 6,
+      "id2": 157,
+      "label": "influenced"
+    },
+    {
+      "id1": 6,
+      "id2": 158,
+      "label": "influenced"
+    },
+    {
+      "id1": 55,
+      "id2": 103,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 104,
+      "label": "connected to"
+    },
+    {
+      "id1": 104,
+      "id2": 41,
+      "label": "connected to"
+    },
+    {
+      "id1": 108,
+      "id2": 92,
+      "label": "connected to"
+    },
+    {
+      "id1": 157,
+      "id2": 154,
+      "label": "connected to"
+    },
+    {
+      "id1": 6,
+      "id2": 156,
+      "label": "influenced"
+    },
+    {
+      "id1": 159,
+      "id2": 54,
+      "label": "major influence"
+    },
+    {
+      "id1": 159,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 160,
+      "id2": 92,
+      "label": "close friend"
+    },
+    {
+      "id1": 160,
+      "id2": 63,
+      "label": "close friend"
+    },
+    {
+      "id1": 92,
+      "id2": 161,
+      "label": "influenced"
+    },
+    {
+      "id1": 161,
+      "id2": 162,
+      "label": "close friend and collaborator"
+    },
+    {
+      "id1": 65,
+      "id2": 163,
+      "label": "influenced"
+    },
+    {
+      "id1": 163,
+      "id2": 164,
+      "label": "influenced"
+    },
+    {
+      "id1": 171,
+      "id2": 164,
+      "label": "influenced"
+    },
+    {
+      "id1": 170,
+      "id2": 164,
+      "label": "influenced"
+    },
+    {
+      "id1": 165,
+      "id2": 54,
+      "label": "influenced"
+    },
+    {
+      "id1": 41,
+      "id2": 166,
+      "label": "influenced"
+    },
+    {
+      "id1": 166,
+      "id2": 114,
+      "label": "influenced"
+    },
+    {
+      "id1": 153,
+      "id2": 167,
+      "label": "influenced"
+    },
+    {
+      "id1": 63,
+      "id2": 167,
+      "label": "influenced"
+    },
+    {
+      "id1": 153,
+      "id2": 168,
+      "label": "influenced"
+    },
+    {
+      "id1": 63,
+      "id2": 168,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 169,
+      "label": "influenced"
+    },
+    {
+      "id1": 153,
+      "id2": 169,
+      "label": "influenced"
+    },
+    {
+      "id1": 65,
+      "id2": 170,
+      "label": "influenced"
+    },
+    {
+      "id1": 65,
+      "id2": 171,
+      "label": "influenced"
+    },
+    {
+      "id1": 172,
+      "id2": 31,
+      "label": "influenced"
+    },
+    {
+      "id1": 172,
+      "id2": 173,
+      "label": "friend and mutual influence"
+    },
+    {
+      "id1": 6,
+      "id2": 172,
+      "label": "influenced"
+    },
+    {
+      "id1": 6,
+      "id2": 173,
+      "label": "influenced"
+    },
+    {
+      "id1": 71,
+      "id2": 63,
+      "label": "influenced"
+    },
+    {
+      "id1": 68,
+      "id2": 159,
+      "label": "published and influenced"
+    },
+    {
+      "id1": 82,
+      "id2": 114,
+      "label": "influenced"
+    },
+    {
+      "id1": 36,
+      "id2": 166,
+      "label": "influenced"
+    },
+    {
+      "id1": 82,
+      "id2": 168,
+      "label": "cyberpunk influence"
+    },
+    {
+      "id1": 36,
+      "id2": 168,
+      "label": "cyberpunk influence"
+    },
+    {
+      "id1": 168,
+      "id2": 174,
+      "label": "translated by"
+    },
+    {
+      "id1": 174,
+      "id2": 168,
+      "label": "champion and translator"
+    },
+    {
+      "id1": 63,
+      "id2": 168,
+      "label": "influenced (Foundation series admiration)"
+    },
+    {
+      "id1": 153,
+      "id2": 168,
+      "label": "influenced (hard SF tradition)"
+    },
+    {
+      "id1": 92,
+      "id2": 168,
+      "label": "influenced (engineering mindset)"
+    },
+    {
+      "id1": 168,
+      "id2": 31,
+      "label": "influenced (dark fairy tale elements)"
+    },
+    {
+      "id1": 168,
+      "id2": 98,
+      "label": "influenced (philosophical SF)"
+    },
+    {
+      "id1": 65,
+      "id2": 168,
+      "label": "influenced (time machine concepts)"
+    },
+    {
+      "id1": 57,
+      "id2": 168,
+      "label": "influenced (ecological themes)"
+    },
+    {
+      "id1": 36,
+      "id2": 174,
+      "label": "influenced (literary techniques)"
+    },
+    {
+      "id1": 87,
+      "id2": 174,
+      "label": "influenced (magical realism)"
+    },
+    {
+      "id1": 98,
+      "id2": 174,
+      "label": "influenced (philosophical depth)"
+    },
+    {
+      "id1": 41,
+      "id2": 174,
+      "label": "influenced (social consciousness)"
+    },
+    {
+      "id1": 174,
+      "id2": 114,
+      "label": "influenced (weird fiction revival)"
+    },
+    {
+      "id1": 85,
+      "id2": 164,
+      "label": "influenced (feminist modernism)"
+    },
+    {
+      "id1": 9,
+      "id2": 164,
+      "label": "influenced (social critique)"
+    },
+    {
+      "id1": 47,
+      "id2": 164,
+      "label": "influenced (psychological depth)"
+    },
+    {
+      "id1": 50,
+      "id2": 164,
+      "label": "influenced (literary technique)"
+    },
+    {
+      "id1": 86,
+      "id2": 164,
+      "label": "influenced (moral complexity)"
+    },
+    {
+      "id1": 164,
+      "id2": 31,
+      "label": "influenced (dystopian themes)"
+    },
+    {
+      "id1": 164,
+      "id2": 114,
+      "label": "influenced (climate fiction)"
+    },
+    {
+      "id1": 164,
+      "id2": 166,
+      "label": "influenced (speculative fiction)"
+    },
+    {
+      "id1": 164,
+      "id2": 117,
+      "label": "influenced (postcolonial themes)"
+    },
+    {
+      "id1": 108,
+      "id2": 164,
+      "label": "feminist SF predecessor"
+    },
+    {
+      "id1": 41,
+      "id2": 108,
+      "label": "influenced (feminist themes)"
+    },
+    {
+      "id1": 85,
+      "id2": 108,
+      "label": "influenced (modernist techniques)"
+    },
+    {
+      "id1": 100,
+      "id2": 108,
+      "label": "influenced (gender themes)"
+    },
+    {
+      "id1": 108,
+      "id2": 55,
+      "label": "influenced (feminist SF)"
+    },
+    {
+      "id1": 108,
+      "id2": 103,
+      "label": "influenced (women in SF)"
+    },
+    {
+      "id1": 108,
+      "id2": 164,
+      "label": "influenced (feminist dystopia)"
+    },
+    {
+      "id1": 92,
+      "id2": 108,
+      "label": "critiqued (militaristic themes)"
+    },
+    {
+      "id1": 108,
+      "id2": 41,
+      "label": "critiqued and influenced"
+    },
+    {
+      "id1": 62,
+      "id2": 108,
+      "label": "friend and ally"
+    },
+    {
+      "id1": 61,
+      "id2": 108,
+      "label": "complex relationship"
+    },
+    {
+      "id1": 54,
+      "id2": 82,
+      "label": "major influence (paranoia and reality)"
+    },
+    {
+      "id1": 78,
+      "id2": 82,
+      "label": "influenced (dystopian imagery)"
+    },
+    {
+      "id1": 16,
+      "id2": 82,
+      "label": "influenced (pulp adventure structure)"
+    },
+    {
+      "id1": 77,
+      "id2": 82,
+      "label": "influenced (paranoid horror)"
+    },
+    {
+      "id1": 52,
+      "id2": 82,
+      "label": "influenced (experimental fiction)"
+    },
+    {
+      "id1": 36,
+      "id2": 82,
+      "label": "influenced (labyrinthine narratives)"
+    },
+    {
+      "id1": 95,
+      "id2": 82,
+      "label": "influenced (postmodern techniques)"
+    },
+    {
+      "id1": 46,
+      "id2": 82,
+      "label": "influenced (atmosphere and alienation)"
+    },
+    {
+      "id1": 82,
+      "id2": 34,
+      "label": "influenced (weird urban fiction)"
+    },
+    {
+      "id1": 82,
+      "id2": 31,
+      "label": "influenced (dark fantasy tech)"
+    },
+    {
+      "id1": 82,
+      "id2": 146,
+      "label": "influenced (cyberpunk horror)"
+    },
+    {
+      "id1": 82,
+      "id2": 90,
+      "label": "influenced (tech-occult blend)"
+    },
+    {
+      "id1": 82,
+      "id2": 37,
+      "label": "influenced (dystopian comics)"
+    },
+    {
+      "id1": 82,
+      "id2": 148,
+      "label": "influenced (transhumanist themes)"
+    },
+    {
+      "id1": 82,
+      "id2": 149,
+      "label": "influenced (tech activism)"
+    },
+    {
+      "id1": 82,
+      "id2": 116,
+      "label": "influenced (postmodern narrative)"
+    },
+    {
+      "id1": 82,
+      "id2": 174,
+      "label": "influenced (tech alienation themes)"
+    },
+    {
+      "id1": 82,
+      "id2": 117,
+      "label": "influenced (globalized fiction)"
+    },
+    {
+      "id1": 96,
+      "id2": 82,
+      "label": "influenced (noir atmosphere)"
     }
   ]
 }
