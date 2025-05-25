@@ -451,7 +451,7 @@
     },
     {
       "id": 48,
-      "name": "Honoré de Balzac",
+      "name": "Honor\u00e9 de Balzac",
       "birth_year": "1799",
       "images": [],
       "sfsfss_has_read": false,
@@ -525,7 +525,7 @@
       "sfsfss_has_read": true,
       "story_links": [
         "https://xpressenglish.com/our-stories/amnesty-butler/",
-		"http://future-lives.com/wp-content/uploads/2014/11/speech_sounds.pdf",
+        "http://future-lives.com/wp-content/uploads/2014/11/speech_sounds.pdf",
         "http://www.baen.com/Chapters/9781625791191/9781625791191___1.htm",
         "stories2/24.2butler.pdf"
       ]
@@ -678,7 +678,7 @@
     },
     {
       "id": 71,
-      "name": "E.E. “Doc” Smith",
+      "name": "E.E. \u201cDoc\u201d Smith",
       "birth_year": "1890",
       "images": [],
       "sfsfss_has_read": false,
@@ -1087,7 +1087,7 @@
     },
     {
       "id": 113,
-      "name": "Théophile Gautier",
+      "name": "Th\u00e9ophile Gautier",
       "birth_year": "1811",
       "images": [],
       "sfsfss_has_read": false,
@@ -1127,7 +1127,7 @@
     },
     {
       "id": 118,
-      "name": "Julio Cortázar",
+      "name": "Julio Cort\u00e1zar",
       "birth_year": "1914",
       "images": [],
       "sfsfss_has_read": false,
@@ -1143,7 +1143,7 @@
     },
     {
       "id": 120,
-      "name": "Roberto Bolaño",
+      "name": "Roberto Bola\u00f1o",
       "birth_year": "1953",
       "images": [],
       "sfsfss_has_read": false,
@@ -1218,7 +1218,7 @@
     },
     {
       "id": 129,
-      "name": "Eugène Sue",
+      "name": "Eug\u00e8ne Sue",
       "birth_year": "1804",
       "images": [],
       "sfsfss_has_read": false,
@@ -1253,7 +1253,7 @@
     },
     {
       "id": 133,
-      "name": "Gabriel García Márquez",
+      "name": "Gabriel Garc\u00eda M\u00e1rquez",
       "birth_year": "1927",
       "images": [],
       "sfsfss_has_read": false,
@@ -1523,7 +1523,7 @@
     },
     {
       "id": 165,
-      "name": "Stanisław Lem",
+      "name": "Stanis\u0142aw Lem",
       "birth_year": "1921",
       "images": [],
       "sfsfss_has_read": true,
@@ -1940,7 +1940,6 @@
       "name": "C.L. Moore",
       "birth_year": "1911",
       "images": [],
-      "notes": "Catherine Lucille Moore, pioneering female SF/fantasy writer, married to Henry Kuttner",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -1949,7 +1948,6 @@
       "name": "Joy Davidman",
       "birth_year": "1915",
       "images": [],
-      "notes": "American writer, C.S. Lewis's wife, influenced his later works",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -1958,7 +1956,6 @@
       "name": "Edith Tolkien",
       "birth_year": "1889",
       "images": [],
-      "notes": "Edith Bratt, J.R.R. Tolkien's wife and inspiration for Lúthien",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -1967,7 +1964,6 @@
       "name": "Hugo Gernsback",
       "birth_year": "1884",
       "images": [],
-      "notes": "Father of Science Fiction, founded Amazing Stories in 1926",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -1976,7 +1972,6 @@
       "name": "Walter M. Miller Jr.",
       "birth_year": "1923",
       "images": [],
-      "notes": "Author of A Canticle for Leibowitz",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -1985,7 +1980,6 @@
       "name": "Hal Clement",
       "birth_year": "1922",
       "images": [],
-      "notes": "Hard SF master, Mission of Gravity",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -1994,7 +1988,6 @@
       "name": "Fritz Leiber",
       "birth_year": "1910",
       "images": [],
-      "notes": "Fantasy and SF writer, sword and sorcery pioneer",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2003,7 +1996,6 @@
       "name": "Eric Frank Russell",
       "birth_year": "1905",
       "images": [],
-      "notes": "British SF writer, Astounding contributor",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2012,7 +2004,6 @@
       "name": "Murray Leinster",
       "birth_year": "1896",
       "images": [],
-      "notes": "Will F. Jenkins, Dean of Science Fiction",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2021,7 +2012,6 @@
       "name": "Gardner Dozois",
       "birth_year": "1947",
       "images": [],
-      "notes": "Editor who popularized term 'cyberpunk'",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2030,7 +2020,6 @@
       "name": "Cordwainer Smith",
       "birth_year": "1913",
       "images": [],
-      "notes": "Paul Linebarger, Instrumentality of Mankind",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2039,7 +2028,6 @@
       "name": "Alfred Bester",
       "birth_year": "1913",
       "images": [],
-      "notes": "The Stars My Destination, The Demolished Man",
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories2/Bester,%20Alfred%20-%20Fondly%20Fahrenheit%20v1.0.htm"
@@ -2050,7 +2038,6 @@
       "name": "Cyril M. Kornbluth",
       "birth_year": "1923",
       "images": [],
-      "notes": "Collaborated with Frederik Pohl",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2059,7 +2046,6 @@
       "name": "Rudy Rucker",
       "birth_year": "1946",
       "images": [],
-      "notes": "Cyberpunk founder, mathematician",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2068,7 +2054,6 @@
       "name": "Pat Cadigan",
       "birth_year": "1953",
       "images": [],
-      "notes": "Queen of Cyberpunk",
       "sfsfss_has_read": true,
       "story_links": [
         "http://clarkesworldmagazine.com/cadigan_02_18_reprint/"
@@ -2079,7 +2064,6 @@
       "name": "John Shirley",
       "birth_year": "1953",
       "images": [],
-      "notes": "Cyberpunk founder",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2088,7 +2072,6 @@
       "name": "Lewis Shiner",
       "birth_year": "1950",
       "images": [],
-      "notes": "Cyberpunk founder",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2097,7 +2080,6 @@
       "name": "Jack Womack",
       "birth_year": "1956",
       "images": [],
-      "notes": "Second-generation cyberpunk",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2106,7 +2088,6 @@
       "name": "John Sladek",
       "birth_year": "1937",
       "images": [],
-      "notes": "Satirical SF, New Wave contributor",
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -2115,19 +2096,20 @@
       "name": "Bruce Bethke",
       "birth_year": "1955",
       "images": [],
-      "notes": "Coined the term 'cyberpunk' in 1983",
       "sfsfss_has_read": false,
       "story_links": []
     },
     {
       "id": 235,
       "name": "Terry Gilliam",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 236,
       "name": "Vladimir Nabokov",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://biblioklept.org/2020/07/21/read-details-of-a-sunset-a-short-story-by-vladimir-nabokov/"
@@ -2136,6 +2118,7 @@
     {
       "id": 237,
       "name": "Joe Haldeman",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://shortstoryproject.com/stories/none-so-blind/",
@@ -2145,6 +2128,7 @@
     {
       "id": 238,
       "name": "Tyler Alterman",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories/cognitive-security.html"
@@ -2153,6 +2137,7 @@
     {
       "id": 239,
       "name": "Nibedita Sen",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.nightmare-magazine.com/fiction/ten-excerpts-from-an-annotated-bibliography-on-the-cannibal-women-of-ratnabar-island/"
@@ -2161,6 +2146,7 @@
     {
       "id": 240,
       "name": "Minsoo Kang",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.lightspeedmagazine.com/fiction/the-virtue-of-unfaithful-translations/"
@@ -2169,6 +2155,7 @@
     {
       "id": 241,
       "name": "H.P. Lovecraft",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.hplovecraft.com/writings/texts/fiction/cc.aspx",
@@ -2180,6 +2167,7 @@
     {
       "id": 243,
       "name": "Laurence Raab",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://exceptindreams.livejournal.com/230188.html"
@@ -2188,6 +2176,7 @@
     {
       "id": 245,
       "name": "George Eliot",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.gutenberg.org/files/10762/10762-h/10762-h.htm"
@@ -2196,12 +2185,14 @@
     {
       "id": 246,
       "name": "Bong Joon-ho",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 247,
       "name": "Rokeya Sakhawat Hossain",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://digital.library.upenn.edu/women/sultana/dream/dream.html"
@@ -2210,6 +2201,7 @@
     {
       "id": 248,
       "name": "Christina Rosetti",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.poetryfoundation.org/poems/44996/goblin-market"
@@ -2218,6 +2210,7 @@
     {
       "id": 249,
       "name": "exurb1a",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.youtube.com/watch?v=o1OsDWT_DUc&t=58s"
@@ -2226,6 +2219,7 @@
     {
       "id": 250,
       "name": "Marc Stiegler",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.skyhunter.com/marcs/GentleSeduction.html"
@@ -2234,6 +2228,7 @@
     {
       "id": 251,
       "name": "Richard Ngo",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.asimov.press/p/gentle-romance",
@@ -2247,6 +2242,7 @@
     {
       "id": 252,
       "name": "Rational Animations",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.youtube.com/watch?v=KUkHhVYv3jU"
@@ -2255,6 +2251,7 @@
     {
       "id": 253,
       "name": "William Tenn",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/Tenn,%20William%20-%20Bernie%20the%20Faust.html",
@@ -2265,6 +2262,7 @@
     {
       "id": 254,
       "name": "Steve Bowers",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.orionsarm.com/page/478",
@@ -2274,6 +2272,7 @@
     {
       "id": 255,
       "name": "Arula Ratnakar",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/ratnakar_10_24"
@@ -2282,6 +2281,7 @@
     {
       "id": 256,
       "name": "Alexander Wales",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://alexanderwales.com/glimwarden-prologue/",
@@ -2292,6 +2292,7 @@
     {
       "id": 257,
       "name": "Fiona Moore",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/moore_10_24"
@@ -2299,7 +2300,8 @@
     },
     {
       "id": 258,
-      "name": "Damián Neri",
+      "name": "Dami\u00e1n Neri",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/neri_10_24"
@@ -2308,6 +2310,7 @@
     {
       "id": 259,
       "name": "Mike Robinson",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/robinson_10_24"
@@ -2316,6 +2319,7 @@
     {
       "id": 260,
       "name": "John Varley",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://fuseki.net/sfgroup/equinoctal.html",
@@ -2328,6 +2332,7 @@
     {
       "id": 261,
       "name": "Louis Inglis Hall",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/hall_10_24"
@@ -2336,6 +2341,7 @@
     {
       "id": 262,
       "name": "Peter F Hamilton",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.infinityplus.co.uk/stories/softsin.htm",
@@ -2345,6 +2351,7 @@
     {
       "id": 263,
       "name": "RA Lafferty",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.gutenberg.org/cache/epub/31663/pg31663-images.html",
@@ -2354,6 +2361,7 @@
     {
       "id": 264,
       "name": "R Scott Bakker",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://rsbakker.wordpress.com/stories/the-false-sun"
@@ -2362,6 +2370,7 @@
     {
       "id": 265,
       "name": "Hao Jingfang",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.uncannymagazine.com/article/folding-beijing-2/"
@@ -2370,6 +2379,7 @@
     {
       "id": 266,
       "name": "John Scalzi",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/the-tale-of-the-wicked.html",
@@ -2379,6 +2389,7 @@
     {
       "id": 267,
       "name": "Tennessee Williams",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://en.wikisource.org/wiki/Weird_Tales/Volume_12/Issue_2/The_Vengeance_of_Nitocris"
@@ -2387,6 +2398,7 @@
     {
       "id": 268,
       "name": "Tanith Lee",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/AllTheBirdsOfHell.html",
@@ -2396,6 +2408,7 @@
     {
       "id": 269,
       "name": "Robin Hanson",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://ageofem.com/AoE-FreeSample.pdf"
@@ -2404,6 +2417,7 @@
     {
       "id": 270,
       "name": "Anne Rice",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories2/rampling-gate.html|.html"
@@ -2412,6 +2426,7 @@
     {
       "id": 271,
       "name": "James H Schmitz",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories2/grandpa.html"
@@ -2420,12 +2435,14 @@
     {
       "id": 272,
       "name": "Daisuke Ashihara",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 273,
       "name": "Daniel Abraham",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.lightspeedmagazine.com/fiction/the-cambist-and-lord-iron-a-fairy-tale-of-economics"
@@ -2434,6 +2451,7 @@
     {
       "id": 274,
       "name": "Peter Watts",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://clarkesworldmagazine.com/watts_01_10/",
@@ -2445,6 +2463,7 @@
     {
       "id": 275,
       "name": "Frank Belknap Long",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://bruces.medium.com/the-hounds-of-tindalos-by-frank-belknap-long-1929-97e5636fe7a2"
@@ -2453,6 +2472,7 @@
     {
       "id": 276,
       "name": "u/solguard",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.reddit.com/r/HFY/comments/lom9cb/kindness_to_kin"
@@ -2461,6 +2481,7 @@
     {
       "id": 277,
       "name": "Jackdaws love my big sphinx of quartz",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://web.archive.org/web/20121008025245/http://squid314.livejournal.com/332946.html"
@@ -2469,6 +2490,7 @@
     {
       "id": 278,
       "name": "Jeffrey Ford",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/night-whiskey.html",
@@ -2478,6 +2500,7 @@
     {
       "id": 279,
       "name": "David Langford",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories2/BLIT.htm"
@@ -2486,6 +2509,7 @@
     {
       "id": 280,
       "name": "Kurt Vonnegut, Jr.",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.tnellen.com/cybereng/harrison.html"
@@ -2494,6 +2518,7 @@
     {
       "id": 281,
       "name": "Max Harms",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://crystalbooks.ai/society/ChapterOne",
@@ -2504,6 +2529,7 @@
     {
       "id": 282,
       "name": "Maureen McHugh",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories2/Laika-Maureen-McHugh.html"
@@ -2512,12 +2538,14 @@
     {
       "id": 283,
       "name": "US!",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 284,
       "name": "Bud Sparhawk",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://sfsfss.com/stories2/The-Suit-Bud-Sparhawk.pdf"
@@ -2526,6 +2554,7 @@
     {
       "id": 285,
       "name": "Dan Peacock",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://littlebluemarble.ca/2023/08/11/the-smiling-virologist"
@@ -2534,6 +2563,7 @@
     {
       "id": 286,
       "name": "N.K. Jemisin",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.lightspeedmagazine.com/fiction/the-ones-who-stay-and-fight"
@@ -2542,6 +2572,7 @@
     {
       "id": 287,
       "name": "Aliette De Bodard",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/debodard_01_17_reprint"
@@ -2550,6 +2581,7 @@
     {
       "id": 288,
       "name": "P. Andrew Miller",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.youtube.com/watch?v=RDer_U-qeYg"
@@ -2558,6 +2590,7 @@
     {
       "id": 289,
       "name": "Charles Stross",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://will.tip.dhappy.org/blog/Porn%20Recommender/.../book/by/Charles%20Stross/Palimpsest/Charles%20Stross%20-%20Palimpsest.html",
@@ -2568,6 +2601,7 @@
     {
       "id": 290,
       "name": "Vitalik Buterin",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://vitalik.eth.limo/general/2023/11/27/techno_optimism.html"
@@ -2576,6 +2610,7 @@
     {
       "id": 291,
       "name": "James Thurber",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.newyorker.com/magazine/1939/03/18/the-secret-life-of-walter-mitty-james-thurber"
@@ -2584,6 +2619,7 @@
     {
       "id": 292,
       "name": "George Saunders",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.newyorker.com/magazine/2005/08/01/commcomm"
@@ -2592,6 +2628,7 @@
     {
       "id": 293,
       "name": "Joanna Rush",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.future-lives.com/wp-content/uploads/2014/09/When-It-Changed.pdf"
@@ -2600,6 +2637,7 @@
     {
       "id": 294,
       "name": "Walter Jon Williams",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/Walter_Jon_Williams_-_Incarnation_Day.htm",
@@ -2610,12 +2648,14 @@
     {
       "id": 295,
       "name": "Gareth Edwards",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 296,
       "name": "Fred Saberhagen",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/Fred_Saberhagen_-_Birthdays.htm",
@@ -2626,6 +2666,7 @@
     {
       "id": 297,
       "name": "qntm",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://qntm.org/frame",
@@ -2635,6 +2676,7 @@
     {
       "id": 298,
       "name": "Connie Willis",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories2/Willis, Connie - The Last of the Winnebagos.htm"
@@ -2643,6 +2685,7 @@
     {
       "id": 299,
       "name": "Nancy Kress",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.fcusd.org/cms/lib/CA01001934/Centricity/Domain/3762/Out%20of%20All%20Them%20Bright%20Stars.pdf",
@@ -2652,6 +2695,7 @@
     {
       "id": 300,
       "name": "Marie Vibbert",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/vibbert_06_22/"
@@ -2660,6 +2704,7 @@
     {
       "id": 301,
       "name": "David Weber",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.baen.com/Chapters/A9781481483971/A9781481483971___4.htm",
@@ -2669,6 +2714,7 @@
     {
       "id": 302,
       "name": "Mike Resnick",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://archive.is/E7pK9/"
@@ -2677,6 +2723,7 @@
     {
       "id": 303,
       "name": "Robert Reed",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://will.tip.dhappy.org/blog/Porn%20Recommender/.../book/by/Robert%20Reed/A%20Billion%20Eves/Robert%20Reed%20-%20A%20Billion%20Eves.html",
@@ -2689,6 +2736,7 @@
     {
       "id": 304,
       "name": "John McCarthy",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www-formal.stanford.edu/jmc/robotandbaby/robotandbaby.html"
@@ -2697,6 +2745,7 @@
     {
       "id": 305,
       "name": "Spencer Ellsworth",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.nightmare-magazine.com/fiction/the-ghost-eaters/"
@@ -2705,6 +2754,7 @@
     {
       "id": 306,
       "name": "Terry Bisson",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.terrybisson.com/theyre-made-out-of-meat-2/"
@@ -2713,6 +2763,7 @@
     {
       "id": 307,
       "name": "Caroline M. Yoachim",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.lightspeedmagazine.com/fiction/welcome-to-the-medical-clinic-at-the-interplanetary-relay-station/"
@@ -2721,6 +2772,7 @@
     {
       "id": 309,
       "name": "Angela Makholwa",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://upshot.riscura.com/last-shot/"
@@ -2729,6 +2781,7 @@
     {
       "id": 310,
       "name": "Alan E Nourse",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.youtube.com/watch?v=vfo-_J6arUk"
@@ -2737,6 +2790,7 @@
     {
       "id": 311,
       "name": "Charlie Jane Anders",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://kotaku.com/read-a-short-story-where-video-game-cats-save-peoples-s-1725041677",
@@ -2746,18 +2800,21 @@
     {
       "id": 312,
       "name": "Neal Stephenson",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 313,
       "name": "Daniels",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 314,
       "name": "Robert Charles Wilson",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.tor.com/2010/08/05/divided-by-infinity/"
@@ -2766,6 +2823,7 @@
     {
       "id": 315,
       "name": "George R.R. Martin",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories2/song.html",
@@ -2779,6 +2837,7 @@
     {
       "id": 316,
       "name": "EM Forster",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.cs.ucdavis.edu/~koehl/Teaching/ECS188/PDF_files/Machine_stops.pdf"
@@ -2787,6 +2846,7 @@
     {
       "id": 317,
       "name": "Naomi Kritzer",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://clarkesworldmagazine.com/kritzer_01_20/"
@@ -2795,12 +2855,14 @@
     {
       "id": 318,
       "name": "Denis Villeneuve",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 319,
       "name": "Michael Swanwick",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://will.tip.dhappy.org/blog/Compression%20Trees/.../book/by/Michael%20Swanwick/Legions%20In%20Time/Michael%20Swanwick%20-%20Legions%20In%20Time.html",
@@ -2810,6 +2872,7 @@
     {
       "id": 320,
       "name": "Paolo Bacigalupi",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/yellow-card-man.html",
@@ -2820,6 +2883,7 @@
     {
       "id": 321,
       "name": "David Lake",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories2/David-Lake-Creator.html"
@@ -2827,7 +2891,8 @@
     },
     {
       "id": 322,
-      "name": "AltShiftX & CM Kösemen",
+      "name": "AltShiftX & CM K\u00f6semen",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.youtube.com/watch?v=imNtSPM3-r4"
@@ -2836,6 +2901,7 @@
     {
       "id": 323,
       "name": "James Tiptree, Jr.",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.lightspeedmagazine.com/fiction/love-is-the-plan-the-plan-is-death/"
@@ -2844,6 +2910,7 @@
     {
       "id": 324,
       "name": "N. K. Jemisin",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://nkjemisin.com/2012/08/the-trojan-girl/"
@@ -2852,6 +2919,7 @@
     {
       "id": 325,
       "name": "Ian Duncan",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://docs.google.com/document/d/1SddGHeVfcVa5SCDHHTOA4RlKwnef-Q6IMw_Jqw9I0Mw/edit"
@@ -2860,6 +2928,7 @@
     {
       "id": 326,
       "name": "Jamie Wahls",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://strangehorizons.com/fiction/truth/",
@@ -2869,6 +2938,7 @@
     {
       "id": 327,
       "name": "Dennard Dayle",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://clarkesworldmagazine.com/dayle_06_20/"
@@ -2877,6 +2947,7 @@
     {
       "id": 328,
       "name": "Larry Niven",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories2/niven-madness2.html"
@@ -2885,6 +2956,7 @@
     {
       "id": 329,
       "name": "Robert J Sawyer",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://sfwriter.com/ststream.htm"
@@ -2893,6 +2965,7 @@
     {
       "id": 330,
       "name": "David Brin",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.davidbrin.com/fiction/givingplague.html",
@@ -2902,6 +2975,7 @@
     {
       "id": 331,
       "name": "Geoffrey A. Landis",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.baen.com/Chapters/0671878522/0671878522___1.htm"
@@ -2910,6 +2984,7 @@
     {
       "id": 332,
       "name": "Michael Shara & Jack Mcdevitt",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.baen.com/Chapters/1596061958/1596061958___8.htm",
@@ -2919,6 +2994,7 @@
     {
       "id": 333,
       "name": "Frederic Brown",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.ucs.louisiana.edu/~jjl5766/share/Arena.pdf",
@@ -2928,6 +3004,7 @@
     {
       "id": 334,
       "name": "Localroger",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://localroger.com/k5host/passhome.html"
@@ -2936,6 +3013,7 @@
     {
       "id": 335,
       "name": "Crispin Cooper",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://omnisplore.wordpress.com/2019/06/21/manifest-logic/"
@@ -2944,6 +3022,7 @@
     {
       "id": 336,
       "name": "Alistair Reynolds",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "stories2/zima blue.pdf"
@@ -2952,6 +3031,7 @@
     {
       "id": 337,
       "name": "Benedict_SC",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://archiveofourown.org/works/6178036/chapters/14574775"
@@ -2960,6 +3040,7 @@
     {
       "id": 338,
       "name": "Usman T. Malik",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://medium.com/@usmantm/the-vaporization-enthalpy-of-a-peculiar-pakistani-family-6362b08bbf2a"
@@ -2968,6 +3049,7 @@
     {
       "id": 339,
       "name": "Donald S. Crankshaw and Matthew Bailey",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.castofwonders.org/2019/09/cast-of-wonders-372-little-wonders-22-fantasyworldproblems/"
@@ -2976,12 +3058,14 @@
     {
       "id": 340,
       "name": "James Gray",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 341,
       "name": "Leo Szilard",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.fadedpage.com/showbook.php?pid=20190414#chap01"
@@ -2990,6 +3074,7 @@
     {
       "id": 342,
       "name": "S. L. Huang",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories2/the-woman-who-destroyed-us.html"
@@ -2998,6 +3083,7 @@
     {
       "id": 343,
       "name": "Rich Larson",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.tor.com/2018/06/06/meat-and-salt-and-sparks-rich-larson/"
@@ -3006,6 +3092,7 @@
     {
       "id": 344,
       "name": "Aimee Ogden",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.beneath-ceaseless-skies.com/stories/blood-bone-seed-spark/"
@@ -3014,6 +3101,7 @@
     {
       "id": 345,
       "name": "Robert E. Howard",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://gutenberg.net.au/ebooks06/0600741h.html"
@@ -3022,6 +3110,7 @@
     {
       "id": 346,
       "name": "SCP",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.scp-wiki.net/introductory-antimemetics"
@@ -3030,6 +3119,7 @@
     {
       "id": 347,
       "name": "Simone Heller",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://clarkesworldmagazine.com/heller_10_18/"
@@ -3038,6 +3128,7 @@
     {
       "id": 348,
       "name": "Wyman Guin",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.gutenberg.org/files/51842/51842-h/51842-h.htm"
@@ -3046,6 +3137,7 @@
     {
       "id": 349,
       "name": "Daniel Keyes",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.forum2.org/mellon/lj/flwrs.html"
@@ -3054,6 +3146,7 @@
     {
       "id": 350,
       "name": "John C Wright",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories2/guest-law.pdf",
@@ -3063,6 +3156,7 @@
     {
       "id": 351,
       "name": "Vonda McIntyre",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.boblyman.net/englt392/texts/Mountains%20of%20Sunset.pdf",
@@ -3073,6 +3167,7 @@
     {
       "id": 352,
       "name": "Stephen Baxter",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://will.tip.dhappy.org/revolution/Technoanarchist/plan/.../book/by/Stephen%20Baxter/On%20the%20Orion%20Line/Stephen%20Baxter%20-%20On%20the%20Orion%20Line.html"
@@ -3081,6 +3176,7 @@
     {
       "id": 353,
       "name": "Iain M Banks",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.youtube.com/watch?v=IRl9D_agLbU"
@@ -3089,6 +3185,7 @@
     {
       "id": 354,
       "name": "James Tiptree, Jr. aka Alice Sheldon",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://sfsfss.com/stories/HoustonHouston.html"
@@ -3097,6 +3194,7 @@
     {
       "id": 355,
       "name": "Jonathan Brazee",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.jonathanbrazee.com/WeaponizedMath.docx"
@@ -3105,6 +3203,7 @@
     {
       "id": 356,
       "name": "Sarah Pinkster",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://sarahpinsker.com.hostbaby.com/files/WindWillRove_Pinsker.pdf"
@@ -3113,6 +3212,7 @@
     {
       "id": 357,
       "name": "Spider Robinson",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/Spider_Robinson_-_Melancholy_Elephants.pdf"
@@ -3121,6 +3221,7 @@
     {
       "id": 358,
       "name": "Linda Nagata",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.tor.com/2017/07/19/the-martian-obelisk/"
@@ -3129,6 +3230,7 @@
     {
       "id": 359,
       "name": "Mary Robinette Kowal",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://maryrobinettekowal.com/journal/for-want-of-a-nail-is-a-hugo-nominee/"
@@ -3137,6 +3239,7 @@
     {
       "id": 360,
       "name": "David D Levine",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/Hugo_2006_Winner_Short_Story_-_David_D._Levine_-_Tk'tk'tk.htm"
@@ -3145,12 +3248,14 @@
     {
       "id": 361,
       "name": "Alex Garland",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": []
     },
     {
       "id": 362,
       "name": "Don A Stuart",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/forgetfulness%20-%20don%20a%20stuart.html"
@@ -3159,6 +3264,7 @@
     {
       "id": 363,
       "name": "Mark Clifton",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/What%20Have%20I%20Done%20-%20Mark%20Clifton.htm"
@@ -3167,6 +3273,7 @@
     {
       "id": 364,
       "name": "Blake Stone-Banks",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://epochemagazine.org/fiction-colosseum-1a887daf7255"
@@ -3175,6 +3282,7 @@
     {
       "id": 365,
       "name": "Greg Bear",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.baen.com/Chapters/9781625791153/9781625791153___2.htm"
@@ -3183,6 +3291,7 @@
     {
       "id": 366,
       "name": "Katherine MacLean & Charles V De Vet",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://www.sfsfss.com/stories/SecondGame.htm"
@@ -3191,6 +3300,7 @@
     {
       "id": 367,
       "name": "Nicky Case",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://blog.ncase.me/take-your-time/",
@@ -3200,6 +3310,7 @@
     {
       "id": 368,
       "name": "Cordwaiter Smith",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "https://www.baen.com/Chapters/9781625791207/9781625791207___3.htm"
@@ -3208,17 +3319,17 @@
     {
       "id": 369,
       "name": "Scott Alexander",
+      "images": [],
       "sfsfss_has_read": true,
       "story_links": [
         "http://slatestarcodex.com/2015/06/02/and-i-show-you-how-deep-the-rabbit-hole-goes/"
       ]
-	  
     },
-	{
+    {
       "id": 370,
       "name": "Ray Cummings",
       "birth_year": "1887",
-      "notes": "Early SF writer, worked with Thomas Edison, wrote time travel stories",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3226,7 +3337,7 @@
       "id": 371,
       "name": "Edmond Hamilton",
       "birth_year": "1904",
-      "notes": "World Wrecker, space opera pioneer, married to Leigh Brackett",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3234,7 +3345,7 @@
       "id": 372,
       "name": "Leigh Brackett",
       "birth_year": "1915",
-      "notes": "Queen of Space Opera, wrote Empire Strikes Back screenplay",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3242,7 +3353,7 @@
       "id": 373,
       "name": "Abraham Merritt",
       "birth_year": "1884",
-      "notes": "A. Merritt, fantasy/horror writer",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3250,7 +3361,7 @@
       "id": 374,
       "name": "Fletcher Pratt",
       "birth_year": "1897",
-      "notes": "Naval historian, fantasy writer, collaborator with L. Sprague de Camp",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3258,7 +3369,7 @@
       "id": 375,
       "name": "Donald Wollheim",
       "birth_year": "1914",
-      "notes": "Editor, publisher (DAW Books), Futurians member",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3266,7 +3377,7 @@
       "id": 376,
       "name": "Terry Carr",
       "birth_year": "1937",
-      "notes": "Editor who discovered many major SF writers",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3274,15 +3385,15 @@
       "id": 377,
       "name": "David Hartwell",
       "birth_year": "1941",
-      "notes": "Influential editor at Tor Books",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
-	{
+    {
       "id": 378,
       "name": "Groff Conklin",
       "birth_year": "1904",
-      "notes": "Anthologist who shaped SF canon",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3290,7 +3401,7 @@
       "id": 379,
       "name": "August Derleth",
       "birth_year": "1909",
-      "notes": "Lovecraft's literary executor, Arkham House founder",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3298,7 +3409,7 @@
       "id": 380,
       "name": "Lin Carter",
       "birth_year": "1930",
-      "notes": "Ballantine Adult Fantasy series editor",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3306,7 +3417,7 @@
       "id": 381,
       "name": "Betty Ballantine",
       "birth_year": "1919",
-      "notes": "Publisher who brought Tolkien to US",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3314,7 +3425,7 @@
       "id": 382,
       "name": "Judy-Lynn del Rey",
       "birth_year": "1943",
-      "notes": "Influential editor, married Lester del Rey",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3322,7 +3433,7 @@
       "id": 383,
       "name": "John Clute",
       "birth_year": "1940",
-      "notes": "SF critic and Encyclopedia of SF author",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3330,7 +3441,7 @@
       "id": 384,
       "name": "Gary Gygax",
       "birth_year": "1938",
-      "notes": "D&D creator, influenced by fantasy authors",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3338,7 +3449,7 @@
       "id": 385,
       "name": "Dave Arneson",
       "birth_year": "1947",
-      "notes": "D&D co-creator",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3346,7 +3457,7 @@
       "id": 386,
       "name": "Michael Whelan",
       "birth_year": "1950",
-      "notes": "SF/F cover artist",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3354,7 +3465,7 @@
       "id": 387,
       "name": "Frank Kelly Freas",
       "birth_year": "1922",
-      "notes": "Classic SF cover artist",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3362,7 +3473,7 @@
       "id": 388,
       "name": "Virgil Finlay",
       "birth_year": "1914",
-      "notes": "Pulp magazine illustrator",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3370,7 +3481,7 @@
       "id": 389,
       "name": "Margaret Brundage",
       "birth_year": "1900",
-      "notes": "Weird Tales cover artist",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3378,7 +3489,7 @@
       "id": 390,
       "name": "Farnsworth Wright",
       "birth_year": "1888",
-      "notes": "Weird Tales editor",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3386,7 +3497,7 @@
       "id": 391,
       "name": "Dorothy McIlwraith",
       "birth_year": "1891",
-      "notes": "Weird Tales editor after Wright",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3394,7 +3505,7 @@
       "id": 392,
       "name": "H.L. Gold",
       "birth_year": "1914",
-      "notes": "Galaxy Magazine founding editor",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3402,7 +3513,7 @@
       "id": 393,
       "name": "Anthony Boucher",
       "birth_year": "1911",
-      "notes": "F&SF founding editor, mystery writer",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3410,7 +3521,7 @@
       "id": 394,
       "name": "Forrest J Ackerman",
       "birth_year": "1916",
-      "notes": "SF fan #1, agent, Famous Monsters editor",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3418,7 +3529,7 @@
       "id": 395,
       "name": "Sam Moskowitz",
       "birth_year": "1920",
-      "notes": "SF historian and anthologist",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3426,7 +3537,7 @@
       "id": 396,
       "name": "James Gunn",
       "birth_year": "1923",
-      "notes": "SF writer and scholar",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     },
@@ -3434,7 +3545,7 @@
       "id": 397,
       "name": "Algis Budrys",
       "birth_year": "1931",
-      "notes": "SF writer and critic",
+      "images": [],
       "sfsfss_has_read": false,
       "story_links": []
     }
@@ -3793,7 +3904,7 @@
     {
       "id1": 71,
       "id2": 63,
-      "label": "E.E. “Doc” Smith"
+      "label": "E.E. \u201cDoc\u201d Smith"
     },
     {
       "id1": 72,
@@ -4371,11 +4482,6 @@
       "label": "mentor & editor"
     },
     {
-      "id1": 138,
-      "id2": 61,
-      "label": "editor & shaped early career"
-    },
-    {
       "id1": 61,
       "id2": 140,
       "label": "close friend"
@@ -4706,11 +4812,6 @@
       "label": "influenced"
     },
     {
-      "id1": 71,
-      "id2": 63,
-      "label": "influenced"
-    },
-    {
       "id1": 68,
       "id2": 159,
       "label": "published and influenced"
@@ -4744,16 +4845,6 @@
       "id1": 174,
       "id2": 168,
       "label": "champion and translator"
-    },
-    {
-      "id1": 63,
-      "id2": 168,
-      "label": "influenced (Foundation series admiration)"
-    },
-    {
-      "id1": 153,
-      "id2": 168,
-      "label": "influenced (hard SF tradition)"
     },
     {
       "id1": 92,
@@ -4876,16 +4967,6 @@
       "label": "influenced (feminist SF)"
     },
     {
-      "id1": 108,
-      "id2": 103,
-      "label": "influenced (women in SF)"
-    },
-    {
-      "id1": 108,
-      "id2": 164,
-      "label": "influenced (feminist dystopia)"
-    },
-    {
       "id1": 92,
       "id2": 108,
       "label": "critiqued (militaristic themes)"
@@ -4934,11 +5015,6 @@
       "id1": 36,
       "id2": 82,
       "label": "influenced (labyrinthine narratives)"
-    },
-    {
-      "id1": 95,
-      "id2": 82,
-      "label": "influenced (postmodern techniques)"
     },
     {
       "id1": 46,
@@ -5057,16 +5133,6 @@
     },
     {
       "id1": 134,
-      "id2": 137,
-      "label": "close friend"
-    },
-    {
-      "id1": 134,
-      "id2": 61,
-      "label": "friend and collaborator"
-    },
-    {
-      "id1": 134,
       "id2": 142,
       "label": "friend"
     },
@@ -5117,11 +5183,6 @@
     },
     {
       "id1": 107,
-      "id2": 103,
-      "label": "influenced (career guidance)"
-    },
-    {
-      "id1": 107,
       "id2": 155,
       "label": "influenced (young adult fantasy)"
     },
@@ -5149,11 +5210,6 @@
       "id1": 63,
       "id2": 107,
       "label": "colleague"
-    },
-    {
-      "id1": 85,
-      "id2": 108,
-      "label": "influenced (stream of consciousness)"
     },
     {
       "id1": 29,
@@ -5192,33 +5248,8 @@
     },
     {
       "id1": 108,
-      "id2": 55,
-      "label": "influenced (feminist themes)"
-    },
-    {
-      "id1": 108,
       "id2": 178,
       "label": "influenced (feminist fantasy)"
-    },
-    {
-      "id1": 100,
-      "id2": 108,
-      "label": "friend and mutual influence"
-    },
-    {
-      "id1": 61,
-      "id2": 108,
-      "label": "contentious relationship"
-    },
-    {
-      "id1": 92,
-      "id2": 108,
-      "label": "critiqued heavily"
-    },
-    {
-      "id1": 41,
-      "id2": 108,
-      "label": "complex influence (critiqued and learned from)"
     },
     {
       "id1": 46,
@@ -5249,11 +5280,6 @@
       "id1": 100,
       "id2": 55,
       "label": "influenced (gender themes)"
-    },
-    {
-      "id1": 100,
-      "id2": 103,
-      "label": "influenced (women in SF)"
     },
     {
       "id1": 100,
@@ -5296,11 +5322,6 @@
       "label": "influenced (hard SF elements)"
     },
     {
-      "id1": 107,
-      "id2": 105,
-      "label": "influenced (adventure structure)"
-    },
-    {
       "id1": 6,
       "id2": 105,
       "label": "influenced (dragon mythology)"
@@ -5309,11 +5330,6 @@
       "id1": 15,
       "id2": 105,
       "label": "influenced (adventure tales)"
-    },
-    {
-      "id1": 92,
-      "id2": 105,
-      "label": "encouraged her career"
     },
     {
       "id1": 63,
@@ -5339,11 +5355,6 @@
       "id1": 105,
       "id2": 156,
       "label": "influenced (dragon riders)"
-    },
-    {
-      "id1": 105,
-      "id2": 103,
-      "label": "colleague and friend"
     },
     {
       "id1": 105,
@@ -5546,11 +5557,6 @@
       "label": "influenced (whimsical children's stories)"
     },
     {
-      "id1": 8,
-      "id2": 2,
-      "label": "influenced (adventure tales)"
-    },
-    {
       "id1": 195,
       "id2": 2,
       "label": "illustrated many works"
@@ -5601,11 +5607,6 @@
       "label": "influenced (supernatural themes)"
     },
     {
-      "id1": 28,
-      "id2": 13,
-      "label": "influenced (romantic fantasy)"
-    },
-    {
       "id1": 199,
       "id2": 94,
       "label": "influenced (free market economics)"
@@ -5624,11 +5625,6 @@
       "id1": 20,
       "id2": 94,
       "label": "influenced (individualism)"
-    },
-    {
-      "id1": 92,
-      "id2": 94,
-      "label": "influenced (libertarian themes)"
     },
     {
       "id1": 94,
@@ -5739,11 +5735,6 @@
       "id1": 211,
       "id2": 39,
       "label": "influenced (Celtic fairy tales)"
-    },
-    {
-      "id1": 39,
-      "id2": 6,
-      "label": "influenced (fairy tale elements)"
     },
     {
       "id1": 39,
@@ -5868,7 +5859,7 @@
     {
       "id1": 6,
       "id2": 217,
-      "label": "married 1916, inspiration for Lúthien and other heroines"
+      "label": "married 1916, inspiration for L\u00fathien and other heroines"
     },
     {
       "id1": 22,
@@ -5891,11 +5882,6 @@
       "label": "influenced (classical mythology retelling)"
     },
     {
-      "id1": 39,
-      "id2": 155,
-      "label": "influenced (fairy tale collection methodology)"
-    },
-    {
       "id1": 218,
       "id2": 65,
       "label": "inspired (science fiction pioneer to scientific romance)"
@@ -5912,23 +5898,8 @@
     },
     {
       "id1": 68,
-      "id2": 63,
-      "label": "editor and mentor, developed Three Laws of Robotics together"
-    },
-    {
-      "id1": 68,
-      "id2": 92,
-      "label": "discovered and mentored, shaped libertarian themes"
-    },
-    {
-      "id1": 68,
       "id2": 60,
       "label": "editor and mentor, refined literary style"
-    },
-    {
-      "id1": 68,
-      "id2": 159,
-      "label": "published first stories, encouraged development"
     },
     {
       "id1": 68,
@@ -6032,11 +6003,6 @@
     },
     {
       "id1": 82,
-      "id2": 80,
-      "label": "cyberpunk co-founder and collaborator"
-    },
-    {
-      "id1": 82,
       "id2": 228,
       "label": "cyberpunk founder"
     },
@@ -6126,11 +6092,6 @@
       "label": "influenced postmodern SF themes"
     },
     {
-      "id1": 62,
-      "id2": 80,
-      "label": "influenced literary cyberpunk"
-    },
-    {
       "id1": 227,
       "id2": 139,
       "label": "regular collaborator on novels and stories"
@@ -6151,11 +6112,6 @@
       "label": "published and encouraged"
     },
     {
-      "id1": 32,
-      "id2": 215,
-      "label": "husband and writing partner"
-    },
-    {
       "id1": 215,
       "id2": 68,
       "label": "published in Astounding under multiple names"
@@ -6164,11 +6120,6 @@
       "id1": 215,
       "id2": 179,
       "label": "pioneering women SF writers"
-    },
-    {
-      "id1": 179,
-      "id2": 108,
-      "label": "mentor to next generation feminist SF"
     },
     {
       "id1": 179,
@@ -6280,7 +6231,7 @@
       "id2": 42,
       "label": "met socially through Tolkien circle"
     },
-	{
+    {
       "id1": 71,
       "id2": 370,
       "label": "contemporary pulp writers"
@@ -6721,11 +6672,6 @@
       "label": "fantasy contemporaries"
     },
     {
-      "id1": 185,
-      "id2": 79,
-      "label": "American romantic tradition"
-    },
-    {
       "id1": 186,
       "id2": 187,
       "label": "transcendentalist colleagues"
@@ -6744,11 +6690,6 @@
       "id1": 191,
       "id2": 18,
       "label": "Scottish literary tradition"
-    },
-    {
-      "id1": 195,
-      "id2": 2,
-      "label": "illustrated Dahl's works"
     },
     {
       "id1": 196,
@@ -6801,16 +6742,6 @@
       "label": "Brothers Grimm"
     },
     {
-      "id1": 210,
-      "id2": 39,
-      "label": "fairy tale collector"
-    },
-    {
-      "id1": 211,
-      "id2": 39,
-      "label": "fairy tale collector"
-    },
-    {
       "id1": 212,
       "id2": 137,
       "label": "epic fantasy contemporary"
@@ -6825,7 +6756,7 @@
       "id2": 158,
       "label": "completed Wheel of Time"
     },
-	{
+    {
       "id1": 378,
       "id2": 67,
       "label": "anthologized frequently"
@@ -7127,11 +7058,6 @@
     },
     {
       "id1": 56,
-      "id2": 34,
-      "label": "influenced weird horror"
-    },
-    {
-      "id1": 56,
       "id2": 95,
       "label": "influenced paranoid fiction"
     },
@@ -7202,11 +7128,6 @@
     },
     {
       "id1": 70,
-      "id2": 63,
-      "label": "admired by Asimov"
-    },
-    {
-      "id1": 70,
       "id2": 153,
       "label": "influenced alien perspectives"
     },
@@ -7247,18 +7168,8 @@
     },
     {
       "id1": 76,
-      "id2": 33,
-      "label": "influenced psychological horror"
-    },
-    {
-      "id1": 76,
       "id2": 379,
       "label": "Arkham House author"
-    },
-    {
-      "id1": 77,
-      "id2": 33,
-      "label": "adapted for film/TV"
     },
     {
       "id1": 77,
@@ -7386,11 +7297,6 @@
       "label": "labyrinthine narratives"
     },
     {
-      "id1": 101,
-      "id2": 87,
-      "label": "literary games"
-    },
-    {
       "id1": 102,
       "id2": 270,
       "label": "gothic romance tradition"
@@ -7399,11 +7305,6 @@
       "id1": 102,
       "id2": 164,
       "label": "feminist gothic"
-    },
-    {
-      "id1": 102,
-      "id2": 3,
-      "label": "birth year error (should be 1797)"
     },
     {
       "id1": 104,
@@ -7422,18 +7323,8 @@
     },
     {
       "id1": 106,
-      "id2": 138,
-      "label": "Milford co-founder"
-    },
-    {
-      "id1": 106,
       "id2": 89,
       "label": "mentored at Milford"
-    },
-    {
-      "id1": 106,
-      "id2": 103,
-      "label": "close friends"
     },
     {
       "id1": 107,
@@ -7442,18 +7333,8 @@
     },
     {
       "id1": 107,
-      "id2": 178,
-      "label": "mentored in fantasy"
-    },
-    {
-      "id1": 107,
       "id2": 183,
       "label": "influenced adventure fantasy"
-    },
-    {
-      "id1": 110,
-      "id2": 68,
-      "label": "Cities in Flight series"
     },
     {
       "id1": 110,
@@ -7469,11 +7350,6 @@
       "id1": 111,
       "id2": 7,
       "label": "American gothic tradition"
-    },
-    {
-      "id1": 111,
-      "id2": 36,
-      "label": "influenced reality games"
     },
     {
       "id1": 111,
@@ -7527,11 +7403,6 @@
     },
     {
       "id1": 116,
-      "id2": 190,
-      "label": "postmodern Americans"
-    },
-    {
-      "id1": 116,
       "id2": 117,
       "label": "metafiction masters"
     },
@@ -7557,11 +7428,6 @@
     },
     {
       "id1": 118,
-      "id2": 36,
-      "label": "game-playing fiction"
-    },
-    {
-      "id1": 118,
       "id2": 87,
       "label": "experimental structure"
     },
@@ -7569,11 +7435,6 @@
       "id1": 118,
       "id2": 120,
       "label": "Latin American peers"
-    },
-    {
-      "id1": 119,
-      "id2": 120,
-      "label": "literary rivalry"
     },
     {
       "id1": 119,
@@ -7607,11 +7468,6 @@
     },
     {
       "id1": 123,
-      "id2": 31,
-      "label": "folklore adaptation"
-    },
-    {
-      "id1": 123,
       "id2": 18,
       "label": "Victorian travel writers"
     },
@@ -7622,18 +7478,8 @@
     },
     {
       "id1": 124,
-      "id2": 87,
-      "label": "experimental fiction"
-    },
-    {
-      "id1": 124,
       "id2": 95,
       "label": "influenced paranoid style"
-    },
-    {
-      "id1": 125,
-      "id2": 126,
-      "label": "German fantastic tradition"
     },
     {
       "id1": 125,
@@ -7647,11 +7493,6 @@
     },
     {
       "id1": 126,
-      "id2": 47,
-      "label": "Russian masters"
-    },
-    {
-      "id1": 126,
       "id2": 36,
       "label": "influenced surreal"
     },
@@ -7662,28 +7503,8 @@
     },
     {
       "id1": 127,
-      "id2": 49,
-      "label": "Russian romantic"
-    },
-    {
-      "id1": 127,
-      "id2": 47,
-      "label": "influenced Dostoevsky"
-    },
-    {
-      "id1": 127,
       "id2": 198,
       "label": "romantic contemporaries"
-    },
-    {
-      "id1": 128,
-      "id2": 47,
-      "label": "read and discussed"
-    },
-    {
-      "id1": 128,
-      "id2": 48,
-      "label": "French contemporaries"
     },
     {
       "id1": 128,
@@ -7731,16 +7552,6 @@
       "label": "modernist peers"
     },
     {
-      "id1": 131,
-      "id2": 133,
-      "label": "influenced magical realism"
-    },
-    {
-      "id1": 132,
-      "id2": 165,
-      "label": "philosophical fiction"
-    },
-    {
       "id1": 132,
       "id2": 87,
       "label": "influenced spiritual themes"
@@ -7767,11 +7578,6 @@
     },
     {
       "id1": 135,
-      "id2": 61,
-      "label": "comedy influence"
-    },
-    {
-      "id1": 135,
       "id2": 172,
       "label": "comedy SF connection"
     },
@@ -7779,11 +7585,6 @@
       "id1": 135,
       "id2": 163,
       "label": "dark comedy influence"
-    },
-    {
-      "id1": 136,
-      "id2": 61,
-      "label": "Star Trek connection"
     },
     {
       "id1": 136,
@@ -7832,18 +7633,8 @@
     },
     {
       "id1": 140,
-      "id2": 163,
-      "label": "dark satire"
-    },
-    {
-      "id1": 140,
       "id2": 142,
       "label": "New Wave peers"
-    },
-    {
-      "id1": 141,
-      "id2": 163,
-      "label": "alienation themes"
     },
     {
       "id1": 141,
@@ -7877,11 +7668,6 @@
     },
     {
       "id1": 143,
-      "id2": 146,
-      "label": "published at Omni"
-    },
-    {
-      "id1": 143,
       "id2": 82,
       "label": "cyberpunk editor"
     },
@@ -7892,18 +7678,8 @@
     },
     {
       "id1": 144,
-      "id2": 375,
-      "label": "editorial contemporaries"
-    },
-    {
-      "id1": 144,
       "id2": 68,
       "label": "Campbell author"
-    },
-    {
-      "id1": 145,
-      "id2": 146,
-      "label": "horror contemporaries"
     },
     {
       "id1": 145,
@@ -7941,16 +7717,6 @@
       "label": "TV SF pioneers"
     },
     {
-      "id1": 147,
-      "id2": 53,
-      "label": "comics to TV"
-    },
-    {
-      "id1": 148,
-      "id2": 37,
-      "label": "British comics"
-    },
-    {
       "id1": 148,
       "id2": 31,
       "label": "dark fantasy comics"
@@ -7959,11 +7725,6 @@
       "id1": 148,
       "id2": 82,
       "label": "cyberpunk aesthetics"
-    },
-    {
-      "id1": 149,
-      "id2": 80,
-      "label": "post-cyberpunk"
     },
     {
       "id1": 149,
@@ -7981,21 +7742,6 @@
       "label": "Victorian contemporaries"
     },
     {
-      "id1": 150,
-      "id2": 65,
-      "label": "Victorian writers"
-    },
-    {
-      "id1": 150,
-      "id2": 92,
-      "label": "influenced social SF"
-    },
-    {
-      "id1": 152,
-      "id2": 92,
-      "label": "military fiction"
-    },
-    {
       "id1": 152,
       "id2": 301,
       "label": "techno-thriller peers"
@@ -8009,11 +7755,6 @@
       "id1": 154,
       "id2": 1,
       "label": "Christian fantasy influence"
-    },
-    {
-      "id1": 154,
-      "id2": 6,
-      "label": "fantasy predecessor"
     },
     {
       "id1": 154,
@@ -8046,16 +7787,6 @@
       "label": "dragon tradition"
     },
     {
-      "id1": 156,
-      "id2": 157,
-      "label": "epic fantasy peers"
-    },
-    {
-      "id1": 157,
-      "id2": 6,
-      "label": "quest fantasy"
-    },
-    {
       "id1": 157,
       "id2": 158,
       "label": "epic contemporaries"
@@ -8069,11 +7800,6 @@
       "id1": 158,
       "id2": 6,
       "label": "epic fantasy tradition"
-    },
-    {
-      "id1": 158,
-      "id2": 214,
-      "label": "Sanderson finished series"
     },
     {
       "id1": 158,
@@ -8097,11 +7823,6 @@
     },
     {
       "id1": 160,
-      "id2": 374,
-      "label": "collaborator"
-    },
-    {
-      "id1": 160,
       "id2": 4,
       "label": "completed Conan"
     },
@@ -8109,11 +7830,6 @@
       "id1": 160,
       "id2": 380,
       "label": "sword & sorcery peers"
-    },
-    {
-      "id1": 161,
-      "id2": 162,
-      "label": "collaborator"
     },
     {
       "id1": 161,
@@ -8129,11 +7845,6 @@
       "id1": 162,
       "id2": 161,
       "label": "frequent collaborator"
-    },
-    {
-      "id1": 162,
-      "id2": 178,
-      "label": "collaborated on fantasy"
     },
     {
       "id1": 162,
@@ -8154,11 +7865,6 @@
       "id1": 163,
       "id2": 233,
       "label": "satire contemporary"
-    },
-    {
-      "id1": 165,
-      "id2": 274,
-      "label": "philosophical SF"
     },
     {
       "id1": 165,
@@ -8187,11 +7893,6 @@
     },
     {
       "id1": 167,
-      "id2": 88,
-      "label": "British space opera"
-    },
-    {
-      "id1": 167,
       "id2": 274,
       "label": "hard SF British"
     },
@@ -8199,11 +7900,6 @@
       "id1": 167,
       "id2": 166,
       "label": "hard SF peers"
-    },
-    {
-      "id1": 168,
-      "id2": 174,
-      "label": "translator"
     },
     {
       "id1": 168,
@@ -8217,11 +7913,6 @@
     },
     {
       "id1": 169,
-      "id2": 214,
-      "label": "hard SF peers"
-    },
-    {
-      "id1": 169,
       "id2": 152,
       "label": "technical writers"
     },
@@ -8232,18 +7923,8 @@
     },
     {
       "id1": 170,
-      "id2": 171,
-      "label": "dystopian peers"
-    },
-    {
-      "id1": 170,
       "id2": 65,
       "label": "British SF tradition"
-    },
-    {
-      "id1": 170,
-      "id2": 164,
-      "label": "influenced dystopia"
     },
     {
       "id1": 171,
@@ -8256,44 +7937,14 @@
       "label": "influenced by Wells"
     },
     {
-      "id1": 171,
-      "id2": 164,
-      "label": "influenced Handmaid's"
-    },
-    {
-      "id1": 172,
-      "id2": 173,
-      "label": "British humor SF"
-    },
-    {
-      "id1": 172,
-      "id2": 163,
-      "label": "influenced by Vonnegut"
-    },
-    {
-      "id1": 172,
-      "id2": 31,
-      "label": "influenced Gaiman"
-    },
-    {
       "id1": 173,
       "id2": 172,
       "label": "British humor friends"
     },
     {
       "id1": 173,
-      "id2": 31,
-      "label": "Good Omens co-author"
-    },
-    {
-      "id1": 173,
       "id2": 72,
       "label": "British humor tradition"
-    },
-    {
-      "id1": 174,
-      "id2": 168,
-      "label": "translator and champion"
     },
     {
       "id1": 174,
@@ -8304,11 +7955,6 @@
       "id1": 174,
       "id2": 31,
       "label": "fantasy SF blend"
-    },
-    {
-      "id1": 175,
-      "id2": 163,
-      "label": "influenced absurdist"
     },
     {
       "id1": 175,
@@ -8327,18 +7973,8 @@
     },
     {
       "id1": 176,
-      "id2": 6,
-      "label": "influenced mythology"
-    },
-    {
-      "id1": 176,
       "id2": 36,
       "label": "influenced allusion"
-    },
-    {
-      "id1": 177,
-      "id2": 373,
-      "label": "same person"
     },
     {
       "id1": 178,
@@ -8372,11 +8008,6 @@
     },
     {
       "id1": 180,
-      "id2": 108,
-      "label": "feminist theory"
-    },
-    {
-      "id1": 180,
       "id2": 181,
       "label": "feminist SF influence"
     },
@@ -8392,11 +8023,6 @@
     },
     {
       "id1": 181,
-      "id2": 55,
-      "label": "feminist peers"
-    },
-    {
-      "id1": 181,
       "id2": 100,
       "label": "feminist SF tradition"
     },
@@ -8404,11 +8030,6 @@
       "id1": 183,
       "id2": 178,
       "label": "fantasy peers"
-    },
-    {
-      "id1": 183,
-      "id2": 184,
-      "label": "fantasy contemporaries"
     },
     {
       "id1": 183,
@@ -8432,21 +8053,11 @@
     },
     {
       "id1": 185,
-      "id2": 79,
-      "label": "American gothic"
-    },
-    {
-      "id1": 185,
       "id2": 7,
       "label": "dark romanticism"
     },
     {
       "id1": 185,
-      "id2": 187,
-      "label": "transcendentalist"
-    },
-    {
-      "id1": 186,
       "id2": 187,
       "label": "transcendentalist"
     },
@@ -8471,16 +8082,6 @@
       "label": "transcendentalist"
     },
     {
-      "id1": 187,
-      "id2": 79,
-      "label": "American renaissance"
-    },
-    {
-      "id1": 188,
-      "id2": 66,
-      "label": "adventure influence"
-    },
-    {
       "id1": 188,
       "id2": 18,
       "label": "adventure tradition"
@@ -8489,11 +8090,6 @@
       "id1": 188,
       "id2": 65,
       "label": "influenced SF"
-    },
-    {
-      "id1": 189,
-      "id2": 190,
-      "label": "dark Americans"
     },
     {
       "id1": 189,
@@ -8522,18 +8118,8 @@
     },
     {
       "id1": 191,
-      "id2": 18,
-      "label": "Scottish tradition"
-    },
-    {
-      "id1": 191,
       "id2": 6,
       "label": "influenced medieval"
-    },
-    {
-      "id1": 191,
-      "id2": 137,
-      "label": "historical influence"
     },
     {
       "id1": 192,
@@ -8544,11 +8130,6 @@
       "id1": 192,
       "id2": 194,
       "label": "British children's"
-    },
-    {
-      "id1": 192,
-      "id2": 2,
-      "label": "influenced Dahl"
     },
     {
       "id1": 193,
@@ -8576,39 +8157,9 @@
       "label": "British tradition"
     },
     {
-      "id1": 194,
-      "id2": 2,
-      "label": "influenced whimsy"
-    },
-    {
-      "id1": 195,
-      "id2": 2,
-      "label": "illustrated Dahl"
-    },
-    {
-      "id1": 196,
-      "id2": 29,
-      "label": "epic tradition"
-    },
-    {
-      "id1": 196,
-      "id2": 28,
-      "label": "influenced romantics"
-    },
-    {
       "id1": 196,
       "id2": 6,
       "label": "epic influence"
-    },
-    {
-      "id1": 197,
-      "id2": 198,
-      "label": "romantic peers"
-    },
-    {
-      "id1": 197,
-      "id2": 28,
-      "label": "lake poets"
     },
     {
       "id1": 197,
@@ -8622,33 +8173,13 @@
     },
     {
       "id1": 198,
-      "id2": 28,
-      "label": "romantic poets"
-    },
-    {
-      "id1": 198,
       "id2": 102,
       "label": "Villa Diodati"
     },
     {
       "id1": 199,
-      "id2": 200,
-      "label": "economic thought"
-    },
-    {
-      "id1": 199,
-      "id2": 94,
-      "label": "capitalism influence"
-    },
-    {
-      "id1": 199,
       "id2": 92,
       "label": "rational thought"
-    },
-    {
-      "id1": 200,
-      "id2": 94,
-      "label": "Austrian school"
     },
     {
       "id1": 200,
@@ -8662,23 +8193,8 @@
     },
     {
       "id1": 201,
-      "id2": 20,
-      "label": "philosophy tradition"
-    },
-    {
-      "id1": 201,
-      "id2": 94,
-      "label": "rational influence"
-    },
-    {
-      "id1": 201,
       "id2": 63,
       "label": "logic influence"
-    },
-    {
-      "id1": 202,
-      "id2": 190,
-      "label": "1980s excess"
     },
     {
       "id1": 202,
@@ -8692,23 +8208,8 @@
     },
     {
       "id1": 203,
-      "id2": 204,
-      "label": "frontier humor"
-    },
-    {
-      "id1": 203,
-      "id2": 19,
-      "label": "influenced Twain"
-    },
-    {
-      "id1": 203,
       "id2": 111,
       "label": "humor contemporary"
-    },
-    {
-      "id1": 204,
-      "id2": 19,
-      "label": "western humor"
     },
     {
       "id1": 204,
@@ -8722,16 +8223,6 @@
     },
     {
       "id1": 205,
-      "id2": 19,
-      "label": "realist friend"
-    },
-    {
-      "id1": 205,
-      "id2": 50,
-      "label": "realist tradition"
-    },
-    {
-      "id1": 205,
       "id2": 9,
       "label": "social realism"
     },
@@ -8742,18 +8233,8 @@
     },
     {
       "id1": 206,
-      "id2": 3,
-      "label": "Lovecraft Circle"
-    },
-    {
-      "id1": 206,
       "id2": 390,
       "label": "published by Wright"
-    },
-    {
-      "id1": 207,
-      "id2": 122,
-      "label": "Dying Earth writer"
     },
     {
       "id1": 207,
@@ -8767,16 +8248,6 @@
     },
     {
       "id1": 208,
-      "id2": 209,
-      "label": "brothers"
-    },
-    {
-      "id1": 208,
-      "id2": 39,
-      "label": "fairy tale tradition"
-    },
-    {
-      "id1": 208,
       "id2": 210,
       "label": "influenced by Perrault"
     },
@@ -8787,18 +8258,8 @@
     },
     {
       "id1": 209,
-      "id2": 39,
-      "label": "collected tales"
-    },
-    {
-      "id1": 209,
       "id2": 210,
       "label": "fairy tale tradition"
-    },
-    {
-      "id1": 210,
-      "id2": 39,
-      "label": "fairy tale pioneer"
     },
     {
       "id1": 210,
@@ -8812,11 +8273,6 @@
     },
     {
       "id1": 211,
-      "id2": 39,
-      "label": "English fairy tales"
-    },
-    {
-      "id1": 211,
       "id2": 8,
       "label": "folklore influence"
     },
@@ -8824,11 +8280,6 @@
       "id1": 211,
       "id2": 6,
       "label": "folklore scholar"
-    },
-    {
-      "id1": 212,
-      "id2": 137,
-      "label": "epic fantasy peers"
     },
     {
       "id1": 212,
@@ -8842,11 +8293,6 @@
     },
     {
       "id1": 213,
-      "id2": 137,
-      "label": "grimdark peers"
-    },
-    {
-      "id1": 213,
       "id2": 184,
       "label": "dark fantasy"
     },
@@ -8854,11 +8300,6 @@
       "id1": 213,
       "id2": 33,
       "label": "influenced by horror"
-    },
-    {
-      "id1": 214,
-      "id2": 158,
-      "label": "finished WoT"
     },
     {
       "id1": 214,
@@ -8870,7 +8311,7 @@
       "id2": 6,
       "label": "fantasy systems"
     },
-	{
+    {
       "id1": 361,
       "id2": 52,
       "label": "influenced by Ballard's psychological landscapes"
@@ -9035,7 +8476,7 @@
       "id2": 163,
       "label": "influenced by dark satirical SF"
     },
-	{
+    {
       "id1": 297,
       "id2": 279,
       "label": "influenced by BLIT/basilisk concepts"

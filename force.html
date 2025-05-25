@@ -107,9 +107,9 @@
 		<section class="sidebar-section">
 		  <h2 class="sidebar-title">Data Cleanup</h2>
 		  <div id="duplicateStatus" style="margin-bottom: 10px;">Checking...</div>
-		  <button onclick="window.graphEditor.removeDuplicateEdges()" class="control-button">
-			Remove Duplicate Edges
-		  </button>
+		  <button onclick="window.graphEditor.reviewAndRemoveDuplicateEdges()" class="control-button">
+        Remove Duplicate Edges
+        </button>
 		  <button onclick="window.graphEditor.mergeDuplicateNodes()" class="control-button">
 			Merge Duplicate Authors
 		  </button>
@@ -156,9 +156,10 @@
 
     <!-- Popups -->
     <div id="edgePopup" class="popup">
-	  <button class="popup-close" id="edgePopupClose">×</button>
-	  <div class="popup-header">Edit Relationship</div>
-	  <input id="edgePopupLabel" class="form-input" type="text" placeholder="Relationship type">
+      <button class="popup-close" id="edgePopupClose">×</button>
+      <div class="popup-header">Edit Relationship</div>
+      <div id="edgePopupDirection" class="popup-direction"></div>
+      <input id="edgePopupLabel" class="form-input" type="text" placeholder="Relationship type">
 	  <div class="popup-actions">
 		<button id="edgePopupSave" class="popup-btn popup-btn-primary">Save</button>
 		<button id="edgePopupReverse" class="popup-btn popup-btn-secondary">Reverse</button>
@@ -182,6 +183,206 @@
 
   <!-- Custom JavaScript -->
   <script src="duplicate-cleanup.js"></script>
+  <script>
+    /* ========== UNDO SYSTEM ========== */
+    let undoStack = [];
+    const MAX_UNDO_STACK = 20;
+
+    function createUndoSnapshot(action, data) {
+      const snapshot = {
+        action,
+        data,
+        timestamp: Date.now(),
+        nodes: JSON.parse(JSON.stringify(nodes)),
+        links: JSON.parse(JSON.stringify(links))
+      };
+      
+      undoStack.push(snapshot);
+      if (undoStack.length > MAX_UNDO_STACK) {
+        undoStack.shift();
+      }
+    }
+
+    function performUndo() {
+      if (undoStack.length === 0) return;
+      
+      const snapshot = undoStack.pop();
+      
+      // Restore data
+      nodes = snapshot.nodes;
+      links = snapshot.links;
+      
+      // Rebuild nodeById map
+      nodeById.clear();
+      nodes.forEach(n => nodeById.set(n.id, n));
+      
+      // Clear any active focus if the focused node was deleted
+      if (currentFilters.focus.nodeId && !nodeById.has(currentFilters.focus.nodeId)) {
+        currentFilters.focus.nodeId = null;
+        updateFocusUI();
+      }
+      
+      redrawGraph();
+  saveToServer();
+      hideNotification();
+      
+      showNotification(`Undid: ${snapshot.action}`, 'success');
+    }
+
+    /* ========== NOTIFICATION SYSTEM ========== */
+    let notificationTimeout = null;
+    let currentNotificationData = null;
+
+    function showNotification(message, type = 'info', undoData = null) {
+      // Clear existing notification
+      hideNotification();
+      
+      const notification = document.createElement('div');
+      notification.id = 'undoNotification';
+      notification.className = `notification notification-${type}`;
+      
+      const messageEl = document.createElement('span');
+      messageEl.textContent = message;
+      notification.appendChild(messageEl);
+      
+      if (undoData) {
+        const undoBtn = document.createElement('button');
+        undoBtn.className = 'notification-btn';
+        undoBtn.textContent = 'Undo';
+        undoBtn.onclick = (e) => {
+          e.stopPropagation();
+          performUndo();
+        };
+        notification.appendChild(undoBtn);
+        currentNotificationData = undoData;
+      }
+      
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'notification-close';
+      closeBtn.textContent = '×';
+      closeBtn.onclick = hideNotification;
+      notification.appendChild(closeBtn);
+      
+      document.body.appendChild(notification);
+      
+      // Trigger animation
+      requestAnimationFrame(() => {
+        notification.classList.add('notification-visible');
+      });
+      
+      // Auto-hide after 5 seconds
+      notificationTimeout = setTimeout(hideNotification, 5000);
+    }
+
+    function hideNotification() {
+      const notification = document.getElementById('undoNotification');
+      if (notification) {
+        notification.classList.remove('notification-visible');
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }
+      
+      if (notificationTimeout) {
+        clearTimeout(notificationTimeout);
+        notificationTimeout = null;
+      }
+      currentNotificationData = null;
+    }
+
+    /* ========== CSS STYLES FOR NOTIFICATIONS ========== */
+    const notificationStyles = `
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 1050;
+      min-width: 300px;
+      max-width: 500px;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .notification-visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .notification-success {
+      border-color: var(--success-color);
+      background: #f0fdf4;
+      color: var(--success-color);
+    }
+
+    .notification-info {
+      border-color: var(--primary-color);
+      background: #eff6ff;
+      color: var(--primary-color);
+    }
+
+    .notification-warning {
+      border-color: var(--warning-color);
+      background: #fefce8;
+      color: var(--warning-color);
+    }
+
+    .notification-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .notification-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .notification-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      margin-left: auto;
+    }
+
+    .notification-close:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: var(--text-primary);
+    }
+    `;
+
+    // Inject notification styles
+    if (!document.querySelector('#notification-styles')) {
+      const styleEl = document.createElement('style');
+      styleEl.id = 'notification-styles';
+      styleEl.textContent = notificationStyles;
+      document.head.appendChild(styleEl);
+    }
+  </script>
   <script src="graph-editor.js"></script>
 </body>
 </html>

@@ -5,9 +5,13 @@ import datetime
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import cgi
 
-DATA_FILE = 'data/data.json'
-IMAGE_DIR = 'images'
-BACKUP_DIR = 'backups'
+import os
+
+# Use absolute paths to ensure consistency
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FILE = os.path.join(BASE_DIR, 'data', 'data.json')
+IMAGE_DIR = os.path.join(BASE_DIR, 'images')
+BACKUP_DIR = os.path.join(BASE_DIR, 'backups')
 PORT = 8007
 
 class UploadHandler(SimpleHTTPRequestHandler):
@@ -74,7 +78,8 @@ class UploadHandler(SimpleHTTPRequestHandler):
             with open(path, 'wb') as f:
                 f.write(file_data)
 
-            images.append(f"{IMAGE_DIR}/{filename}")
+            # Store relative path for web access
+            images.append(f"images/{filename}")
             node['images'] = images
 
             with open(DATA_FILE, 'w') as f:

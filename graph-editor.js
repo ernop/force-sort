@@ -162,15 +162,48 @@ function loadData() {
     });
 }
 
-function saveDataToServer(text) {
+function saveToServer() {
+  const exportData = JSON.stringify({
+    nodes: nodes.map(n => {
+      const obj = { id: n.id, name: n.name };
+      if (n.birth_year !== undefined && n.birth_year !== null && n.birth_year !== '') {
+        obj.birth_year = n.birth_year;
+      }
+      obj.images = n.images ? n.images.slice() : [];
+      // Preserve SFSFSS data
+      if (n.sfsfss_has_read !== undefined) obj.sfsfss_has_read = n.sfsfss_has_read;
+      if (n.story_links) obj.story_links = n.story_links;
+      return obj;
+    }),
+    links
+  }, null, 2);
+  
+  // Update export textarea
+  const exportArea = document.getElementById('export');
+  exportArea.value = exportData;
+  
+  // Update status UI
+  const saveStatus = document.getElementById('saveStatus');
+  exportArea.classList.add('unsaved');
+  saveStatus.className = 'status-indicator status-unsaved';
+  saveStatus.innerHTML = '⚠ Saving...';
+  
+  // Send to server
   fetch('/save_data', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: text
+    body: exportData
   });
+  
+  // Update UI after save
+  setTimeout(() => {
+    exportArea.classList.remove('unsaved');
+    saveStatus.className = 'status-indicator status-saved';
+    saveStatus.innerHTML = '✓ Saved';
+  }, 500);
 }
 
-function refreshExport(markDirty = true) {
+function updateExportDisplay() {
   const exportData = JSON.stringify({
     nodes: nodes.map(n => {
       const obj = { id: n.id, name: n.name };
@@ -187,28 +220,7 @@ function refreshExport(markDirty = true) {
   }, null, 2);
   
   const exportArea = document.getElementById('export');
-  const saveStatus = document.getElementById('saveStatus');
-  
   exportArea.value = exportData;
-  
-  if (markDirty) {
-    exportArea.classList.add('unsaved');
-    saveStatus.className = 'status-indicator status-unsaved';
-    saveStatus.innerHTML = '⚠ Saving...';
-    
-    if (typeof saveDataToServer === 'function') {
-      saveDataToServer(exportData);
-      setTimeout(() => {
-        exportArea.classList.remove('unsaved');
-        saveStatus.className = 'status-indicator status-saved';
-        saveStatus.innerHTML = '✓ Saved';
-      }, 500);
-    }
-  } else {
-    exportArea.classList.remove('unsaved');
-    saveStatus.className = 'status-indicator status-saved';
-    saveStatus.innerHTML = '✓ Saved';
-  }
 }
 
 function buildSimLinks(arr) {
@@ -419,7 +431,7 @@ function applyLayoutForces(restartAlpha = true) {
 }
 
 /* ========== GRAPH UPDATE & REFRESH ========== */
-function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = true) {
+function redrawGraph() {
   // Update node selections
   nodeSel = g.selectAll('.node').data(nodes, d => d.id)
     .join(
@@ -429,17 +441,7 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = 
     );
 
   simulation.nodes(nodes);
-
-  if (!skipSelectUpdate) populateSelects();
-  refreshExport(markDirty);
-  
-  // Don't force restart simulation when just updating node data
   applyAllFiltersAndRefresh(false);
-
-  // Highlight newly added edge if specified
-  if (highlightIdx !== null) {
-    highlightNewEdge(highlightIdx);
-  }
 }
 
 function createNodeElement(enter) {
@@ -779,7 +781,8 @@ function completeEdgeCreation(targetNode) {
         d3.select(this).classed('edge-target-valid', false); 
       });
     
-    updateGraph();
+      redrawGraph();
+      saveToServer();
     
     // Dampen motion
     nodes.forEach(n => {
@@ -870,9 +873,18 @@ function openEdgePopup(linkObj, x, y) {
   hideNodePopup();
   const popup = document.getElementById('edgePopup');
   const label = document.getElementById('edgePopupLabel');
+  const direction = document.getElementById('edgePopupDirection');
   
   edgePopupLink = linkObj;
   label.value = linkObj.label || '';
+  
+  // Show direction indicator
+  const fromNode = nodeById.get(linkObj.id1);
+  const toNode = nodeById.get(linkObj.id2);
+  const fromName = fromNode ? fromNode.name : 'Unknown';
+  const toName = toNode ? toNode.name : 'Unknown';
+  direction.textContent = `${fromName} ⇒ ${toName}`;
+  
   popup.style.left = (x + 5) + 'px';
   popup.style.top = (y + 5) + 'px';
   popup.style.display = 'block';
@@ -995,7 +1007,8 @@ function moveImage(idx, delta) {
   [imgs[idx], imgs[newIdx]] = [imgs[newIdx], imgs[idx]];
   n.image = imgs[0] || null;
   renderNodeImages(n);
-  updateGraph();
+  redrawGraph();
+  saveToServer();
 }
 
 function removeImage(idx) {
@@ -1013,7 +1026,8 @@ function removeImage(idx) {
   n.images.splice(idx, 1);
   n.image = n.images[0] || null;
   renderNodeImages(n);
-  updateGraph();
+  redrawGraph();
+  saveToServer();
 }
 
 /* ========== FILTERING SYSTEM ========== */
@@ -1168,7 +1182,7 @@ function setFocus(nodeId, depth) {
 
   updateFocusUI();
   updateURLFromFilters();
-  applyAllFiltersAndRefresh();
+  applyAllFiltersAndRefresh(true); // Force restart for focus changes
 }
 
 function positionNewlyVisibleNodes(focusNode, oldDepth) {
@@ -1249,8 +1263,13 @@ function setupYearSlider() {
       if (year >= minY && year <= maxY) tickValues.push(year);
     }
 
+    // Check if year filter was set from URL
+    const urlYearMin = currentFilters.year.min;
+    const urlYearMax = currentFilters.year.max;
+    const hasUrlYearFilter = urlYearMin !== null && urlYearMax !== null;
+    
     noUiSlider.create(yearSlider, {
-      start: [minY, maxY],
+      start: hasUrlYearFilter ? [urlYearMin, urlYearMax] : [minY, maxY],
       connect: true,
       step: 1,
       range: { min: minY, max: maxY },
@@ -1263,15 +1282,24 @@ function setupYearSlider() {
       }
     });
     
-    currentFilters.year.min = minY;
-    currentFilters.year.max = maxY;
+    // Only set default year range if not already set from URL
+    if (!hasUrlYearFilter) {
+      currentFilters.year.min = minY;
+      currentFilters.year.max = maxY;
+    }
 
+    let isInitializing = true;
     yearSlider.noUiSlider.on('update', (values) => {
       currentFilters.year.min = parseInt(values[0], 10);
       currentFilters.year.max = parseInt(values[1], 10);
       applyAllFiltersAndRefresh();
-      updateURLFromFilters();
+      // Don't update URL during initialization to preserve URL parameters
+      if (!isInitializing) {
+        updateURLFromFilters();
+      }
     });
+    // Mark initialization as complete after a tick
+    setTimeout(() => { isInitializing = false; }, 0);
   } else {
     yearSlider.style.display = 'none';
   }
@@ -1330,7 +1358,15 @@ function setupSearchInput() {
 
 function setupFocusControls() {
   const focusRange = document.getElementById('focusRange');
+  let isInitialized = false;
+  
   focusRange.addEventListener('input', () => {
+    // Skip the first input event that happens during initialization
+    if (!isInitialized) {
+      isInitialized = true;
+      return;
+    }
+    
     const newDepth = parseInt(focusRange.value, 10);
     if (currentFilters.focus.nodeId !== null) {
       setFocus(currentFilters.focus.nodeId, newDepth);
@@ -1609,7 +1645,10 @@ document.getElementById('addEdgeBtn').addEventListener('click', () => {
   if (isNaN(id1) || isNaN(id2) || id1 === id2) return;
   
   links.push({ id1, id2, label: lbl });
-  updateGraph(true, links.length - 1);
+  populateSelects();
+  redrawGraph();
+  saveToServer();
+  highlightNewEdge(links.length - 1);
 });
 
 document.getElementById('edgeLabel').addEventListener('keydown', (e) => {
@@ -1647,7 +1686,8 @@ document.getElementById('edgePopupSave').addEventListener('click', e => {
   if (!edgePopupLink) return;
   edgePopupLink.label = document.getElementById('edgePopupLabel').value;
   hideEdgePopup();
-  updateGraph();
+  redrawGraph();
+  saveToServer();
 });
 
 document.getElementById('edgePopupReverse').addEventListener('click', e => {
@@ -1657,16 +1697,39 @@ document.getElementById('edgePopupReverse').addEventListener('click', e => {
   [l.id1, l.id2] = [l.id2, l.id1];
   hideEdgePopup();
   applyAllFiltersAndRefresh(false);
-  refreshExport();
+  saveToServer();
 });
 
 document.getElementById('edgePopupDelete').addEventListener('click', e => {
   e.stopPropagation();
   if (!edgePopupLink) return;
-  const idx = links.indexOf(edgePopupLink);
-  if (idx !== -1) links.splice(idx, 1);
+  
+  const linkToDelete = edgePopupLink;
+  const fromNode = nodeById.get(linkToDelete.id1);
+  const toNode = nodeById.get(linkToDelete.id2);
+  
+  // Create undo snapshot before deletion
+  createUndoSnapshot(`Deleted relationship "${linkToDelete.label}"`, {
+    type: 'deleteEdge',
+    link: linkToDelete
+  });
+  
+  const idx = links.indexOf(linkToDelete);
+  if (idx !== -1) {
+    links.splice(idx, 1);
+  }
+  
   hideEdgePopup();
-  updateGraph();
+  redrawGraph();
+  saveToServer();
+  
+  // Show notification with undo option
+  const fromName = fromNode ? fromNode.name : 'Unknown';
+  const toName = toNode ? toNode.name : 'Unknown';
+  showNotification(`Deleted "${linkToDelete.label}" from ${fromName} to ${toName}`, 'info', {
+    type: 'deleteEdge',
+    link: linkToDelete
+  });
 });
 
 document.getElementById('edgePopupClose').addEventListener('click', e => {
@@ -1686,22 +1749,50 @@ document.getElementById('nodePopupSave').addEventListener('click', e => {
     n.birth_year = year;
   }
   hideNodePopup();
-  updateGraph();
+  redrawGraph();
+  saveToServer();
 });
 
 document.getElementById('nodePopupDelete').addEventListener('click', e => {
   e.stopPropagation();
   if (nodePopupId === null) return;
+  
   const id = nodePopupId;
-  const idx = nodes.findIndex(n => n.id === id);
-  if (idx !== -1) nodes.splice(idx, 1);
+  const nodeToDelete = nodeById.get(id);
+  if (!nodeToDelete) return;
+  
+  // Create undo snapshot before deletion
+  createUndoSnapshot(`Deleted author "${nodeToDelete.name}"`, {
+    type: 'deleteNode',
+    nodeId: id
+  });
+  
+  // Find and remove the node
+  const nodeIdx = nodes.findIndex(n => n.id === id);
+  if (nodeIdx !== -1) {
+    nodes.splice(nodeIdx, 1);
+  }
+  
+  // Remove all edges connected to this node
+  const removedEdges = links.filter(l => l.id1 === id || l.id2 === id);
   links = links.filter(l => l.id1 !== id && l.id2 !== id);
+  
+  // Remove from nodeById map
   nodeById.delete(id);
+  
+  // Clear focus if this was the focused node
   if (currentFilters.focus.nodeId === id) {
     setFocus(null, 1);
   }
+  
   hideNodePopup();
-  updateGraph();
+  redrawGraph();
+  saveToServer();
+  
+  // Show notification with undo option
+  const edgeCount = removedEdges.length;
+  const message = `Deleted "${nodeToDelete.name}"${edgeCount > 0 ? ` and ${edgeCount} relationship${edgeCount > 1 ? 's' : ''}` : ''}`;
+  showNotification(message, 'info', { type: 'deleteNode', nodeId: id });
 });
 
 document.getElementById('nodePopupClose').addEventListener('click', e => {
@@ -1741,10 +1832,17 @@ document.addEventListener('keydown', e => {
         document.getElementById('searchInput').focus();
       }
       break;
+    case 'z':
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        performUndo();
+      }
+      break;
     case 'Escape':
       hideEdgePopup();
       hideNodePopup();
       cancelEdgeCreation();
+      hideNotification();
       break;
   }
 });
@@ -1782,7 +1880,7 @@ document.addEventListener('paste', async e => {
     if (response.ok) {
       const result = await response.text();
       if (result !== 'DUPLICATE') {
-        const dataResponse = await fetch('data.json');
+        const dataResponse = await fetch('data/data.json');
         const data = await dataResponse.json();
         const updatedNode = data.nodes.find(n => n.id === nodePopupId);
         if (updatedNode) {
@@ -1790,7 +1888,8 @@ document.addEventListener('paste', async e => {
           n.images = updatedNode.images;
           n.image = n.images[0] || null;
           renderNodeImages(n);
-          updateGraph();
+          redrawGraph();
+  saveToServer();
         }
       }
     }
@@ -1857,8 +1956,9 @@ function addNode() {
   nameInput.value = '';
   yearInput.value = '';
 
-  updateGraph(true);
+  redrawGraph();
   populateSelects();
+  saveToServer();
 
   $('#edgeFrom').val(id).trigger('change');
   $('#edgeTo').val(toVal);
@@ -1911,11 +2011,13 @@ function updateURLFromFilters() {
     params.set('depth', currentFilters.focus.depth);
   }
   
+  // Only add year parameters if they've been explicitly set and differ from data bounds
   if (currentFilters.year.min !== null && currentFilters.year.max !== null) {
     const years = nodes.map(n => parseInt(n.birth_year, 10)).filter(y => !isNaN(y));
     if (years.length > 0) {
       const dataMin = Math.min(...years);
       const dataMax = Math.max(...years);
+      // Check if the year filter is actually different from the full range
       if (currentFilters.year.min !== dataMin || currentFilters.year.max !== dataMax) {
         params.set('yearMin', currentFilters.year.min);
         params.set('yearMax', currentFilters.year.max);
@@ -2001,13 +2103,11 @@ function initialize() {
     
     populateSelects();
     setupSearchAndFilter();
-    updateGraph(false, null, false);
-
+    
+    // Load URL filters BEFORE applying them
     const { focusNodeId: initialFocusNodeId, focusDepth: initialFocusDepth } = loadFiltersFromURL();
-
-    // Apply filters first to ensure SFSFSS filter works on load
-    applyAllFiltersAndRefresh(false);
-
+    
+    // Set focus first if specified in URL
     if (initialFocusNodeId !== null && nodeById.has(initialFocusNodeId)) {
       const focusNode = nodeById.get(initialFocusNodeId);
       if (focusNode) {
@@ -2016,8 +2116,19 @@ function initialize() {
         focusNode.fx = focusNode.x;
         focusNode.fy = focusNode.y;
       }
-      setFocus(initialFocusNodeId, initialFocusDepth);
+      // Set focus without triggering a full refresh yet
+      currentFilters.focus.nodeId = initialFocusNodeId;
+      currentFilters.focus.depth = initialFocusDepth;
+      updateFocusUI();
     }
+    
+    // Now update the graph with all filters applied
+    redrawGraph();
+    updateExportDisplay();
+    
+    // Apply all filters including the focus we just set
+    applyAllFiltersAndRefresh(true);
+    
     setTimeout(handleResize, 100);
   }).catch(error => {
     console.error('Failed to load data:', error);
@@ -2074,6 +2185,9 @@ window.graphEditor.nodes = nodes;
 window.graphEditor.links = links;
 window.graphEditor.currentFilters = currentFilters;
 window.graphEditor.simulation = simulation;
+window.graphEditor.performUndo = performUndo;
+window.graphEditor.showNotification = showNotification;
+window.graphEditor.hideNotification = hideNotification;
 
 /* ========== DYNAMIC STYLES ========== */
 if (!document.querySelector('#image-actions-style')) {

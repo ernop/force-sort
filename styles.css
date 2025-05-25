@@ -377,6 +377,18 @@ html, body {
   color: var(--text-primary);
 }
 
+.popup-direction {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
 .popup-actions {
   display: flex;
   gap: 8px;
