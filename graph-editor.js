@@ -18,8 +18,6 @@ const CONFIG = {
   
   // Physics constants
   PHYSICS: {
-    ALPHA_DECAY: 0.0228,      // D3 default
-    VELOCITY_DECAY: 0.4,      // D3 default
     COLLISION_RADIUS: 35,
     PERTURB_AMOUNT: 40,
     DAMPEN_FACTOR: 0.1
@@ -139,8 +137,6 @@ const simulation = d3.forceSimulation(nodes)
   .force('charge', d3.forceManyBody().strength(() => +chargeInput.value))
   .force('center', d3.forceCenter(width / 2, height / 2))
   .force('collision', d3.forceCollide().radius(CONFIG.PHYSICS.COLLISION_RADIUS))
-  .alphaDecay(CONFIG.PHYSICS.ALPHA_DECAY)
-  .velocityDecay(CONFIG.PHYSICS.VELOCITY_DECAY)
   .on('tick', ticked);
 
 /* ========== DATA MANAGEMENT ========== */
@@ -412,8 +408,11 @@ function applyLayoutForces(restartAlpha = true) {
     simulation.force('tier', null);
     yearLabelGroup.style('display', 'none');
     if (restartAlpha) {
+      // Only do a strong restart if explicitly requested
+      // For node saves, this should be false
       simulation.alpha(1).restart();
     } else if (simulation.alpha() < 0.1) {
+      // Gentle restart to ensure simulation continues if needed
       simulation.alphaTarget(0.1).restart();
     }
   }
@@ -434,7 +433,8 @@ function updateGraph(skipSelectUpdate = false, highlightIdx = null, markDirty = 
   if (!skipSelectUpdate) populateSelects();
   refreshExport(markDirty);
   
-  applyAllFiltersAndRefresh(true);
+  // Don't force restart simulation when just updating node data
+  applyAllFiltersAndRefresh(false);
 
   // Highlight newly added edge if specified
   if (highlightIdx !== null) {
@@ -1070,7 +1070,8 @@ function applyAllFiltersAndRefresh(restartSimForcefully = false) {
   visibleLinks = links.filter(l => finalVisibleNodeIds.has(l.id1) && finalVisibleNodeIds.has(l.id2));
 
   // Refresh rendering
-  let needsStrongRestart = restartSimForcefully || (layoutMode === 'force' && (isFocusActive || currentFilters.focus.nodeId === null));
+  // Only do a strong restart if explicitly requested or focus changes
+  let needsStrongRestart = restartSimForcefully && layoutMode === 'force';
   refreshLinks(needsStrongRestart);
 
   // Style focused edges
@@ -2004,6 +2005,9 @@ function initialize() {
 
     const { focusNodeId: initialFocusNodeId, focusDepth: initialFocusDepth } = loadFiltersFromURL();
 
+    // Apply filters first to ensure SFSFSS filter works on load
+    applyAllFiltersAndRefresh(false);
+
     if (initialFocusNodeId !== null && nodeById.has(initialFocusNodeId)) {
       const focusNode = nodeById.get(initialFocusNodeId);
       if (focusNode) {
@@ -2013,10 +2017,7 @@ function initialize() {
         focusNode.fy = focusNode.y;
       }
       setFocus(initialFocusNodeId, initialFocusDepth);
-    } else {
-      applyAllFiltersAndRefresh(false);
     }
-
     setTimeout(handleResize, 100);
   }).catch(error => {
     console.error('Failed to load data:', error);
