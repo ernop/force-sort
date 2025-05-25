@@ -101,7 +101,9 @@ const simulation = d3.forceSimulation(nodes)
   .force('center', d3.forceCenter(width / 2, height / 2))
   .force('collision', d3.forceCollide().radius(40))
   .alphaDecay(0.001)
+  .velocityDecay(0.4)
   .on('tick', ticked);
+
 
 /* ---------- Tick Function ---------- */
 function ticked() {
@@ -460,6 +462,8 @@ function dragended(event, d) {
     if(!event.active) simulation.alphaTarget(0);
     if (d.id !== currentFilters.focus.nodeId) {
       d.fx = null; d.fy = null;
+      // Clear velocity to stop momentum
+      d.vx = 0; d.vy = 0;
     }
   } else {
     if (d.id === currentFilters.focus.nodeId) {
@@ -607,13 +611,17 @@ document.getElementById('dampen').addEventListener('click', () => {
 });
 
 chargeInput.addEventListener('input', e => {
-  simulation.force('charge').strength(+e.target.value);
+  const value = +e.target.value;
+  simulation.force('charge').strength(value);
+  document.getElementById('chargeValue').textContent = value;
   if (layoutMode === 'force') simulation.alpha(0.8).restart(); 
   else ticked();
 });
 
 linkInput.addEventListener('input', e => {
-  simulation.force('link').distance(+e.target.value);
+  const value = +e.target.value;
+  simulation.force('link').distance(value);
+  document.getElementById('linkValue').textContent = value;
   if (layoutMode === 'force') simulation.alpha(0.8).restart(); 
   else ticked();
 });
@@ -1032,6 +1040,8 @@ function applyAllFiltersAndRefresh(restartSimForcefully = false) {
   // Apply search term highlighting
   highlightSearch();
 
+
+
   // If layout is static and sim wasn't restarted, ensure positions are updated
   if (!needsStrongRestart && layoutMode === 'tiers') {
     ticked();
@@ -1118,14 +1128,85 @@ function refreshLinks(restartSim = true) {
 
   labelSel = linkGroup.selectAll('text.label').data(simLinks, d => links.indexOf(d.link))
   .join(
-    enter => enter.append('text').attr('class','label')
-                  .text(d => d.label)
-                  .on('dblclick', (event,d) => {
-                    event.stopPropagation();
-                    openEdgePopup(d.link, event.pageX, event.pageY);
-                  })
-                  .on('click', edgeMenu),
-    update => update.text(d => d.label),
+    enter => {
+      const g = enter.append('g').attr('class', 'label-group');
+      
+      // Background rect for better readability on hover
+      g.append('rect')
+        .attr('class', 'label-bg')
+        .attr('rx', 4)
+        .attr('ry', 4)
+        .style('fill', 'white')
+        .style('fill-opacity', 0)
+        .style('stroke', 'none');
+      
+      // The actual text
+      const text = g.append('text')
+        .attr('class', 'label')
+        .text(d => {
+          const maxLength = 20; // Adjust as needed
+          return d.label.length > maxLength ? 
+            d.label.substring(0, maxLength) + '…' : 
+            d.label;
+        })
+        .attr('data-full-text', d => d.label)
+        .on('dblclick', (event,d) => {
+          event.stopPropagation();
+          openEdgePopup(d.link, event.pageX, event.pageY);
+        })
+        .on('click', edgeMenu);
+      
+      // Set up hover effects
+      g.on('mouseenter', function(event, d) {
+          const textEl = d3.select(this).select('text');
+          const bgEl = d3.select(this).select('rect');
+          
+          // Show full text
+          textEl.text(d.label);
+          
+          // Update background
+          const bbox = textEl.node().getBBox();
+          bgEl
+            .attr('x', bbox.x - 4)
+            .attr('y', bbox.y - 2)
+            .attr('width', bbox.width + 8)
+            .attr('height', bbox.height + 4)
+            .transition()
+            .duration(200)
+            .style('fill-opacity', 0.9)
+            .style('stroke', '#000')
+            .style('stroke-width', 0.5);
+        })
+        .on('mouseleave', function(event, d) {
+          const textEl = d3.select(this).select('text');
+          const bgEl = d3.select(this).select('rect');
+          
+          // Truncate again
+          const maxLength = 20;
+          textEl.text(d.label.length > maxLength ? 
+            d.label.substring(0, maxLength) + '…' : 
+            d.label);
+          
+          // Hide background
+          bgEl
+            .transition()
+            .duration(200)
+            .style('fill-opacity', 0)
+            .style('stroke', 'none');
+        });
+      
+      return g;
+    },
+    update => update.each(function(d) {
+      const g = d3.select(this);
+      const text = g.select('text');
+      const maxLength = 20;
+      text
+        .text(d.label.length > maxLength ? 
+          d.label.substring(0, maxLength) + '…' : 
+          d.label)
+        .attr('data-full-text', d.label);
+    }),
     exit => exit.remove()
   );
 
