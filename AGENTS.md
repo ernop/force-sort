@@ -15,8 +15,8 @@ Development is active. The repository contains:
 - `duplicate-cleanup.js` – Data cleanup utilities
 - `styles.css` – Complete styling system
 - `server.py` – HTTP server for image uploads and auto-saves
-- `data.json` – Graph dataset consumed by the page
-- `stories.json` – Optional SFSFSS reading history
+- `data/data.json` – Graph dataset consumed by the page
+- `data/schedule.json` – Optional SFSFSS reading history
 - `update_reading_data.py` – Script to sync reading data
 - `images/` – Uploaded image files (ignored by Git)
 - `backups/` – Automatic versioned backups of data.json
@@ -70,19 +70,23 @@ Development is active. The repository contains:
 }
 ```
 
-### stories.json Schema (Optional)
+### schedule.json Schema (Optional)
 ```typescript
 Array<{
-  number: string;         // Story number
+  number: string;         // Week number
+  weekId: number;         // Week ID
   date: string;           // Publication date
-  title: string;          // Story title
-  author: string;         // Author name
-  year: string;           // Story year
-  link: string;           // URL to story
-  linkText: string;       // Link type (HTML/PDF)
-  length: string;         // Word count
-  weekId: string;         // Week identifier
-  storyIndex: number;     // Story index in week
+  stories: Array<{
+    title: string;        // Story title
+    author: string;       // Author name
+    year: string;         // Story year
+    links: Array<{
+      url: string;        // URL to story
+      kind: string;       // Link type (html/pdf/movie)
+      length: string;     // Word count or duration
+    }>;
+    storyIndex: number;   // Story index in week
+  }>;
 }>
 ```
 

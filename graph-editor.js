@@ -9,12 +9,13 @@ let nextNodeId = 1;
 let currentFilters = {
     year: { min: null, max: null },
     focus: { nodeId: null, depth: 1 },
-    searchTerm: ''
+    searchTerm: '',
+    showSFSFSS: true  // Default to on
 };
 
 /* ---------- Initialize Data ---------- */
 function loadData() {
-  return fetch("data.json")
+  return fetch("data/data.json")
     .then(r => r.json())
     .then(data => {
       nodes = data.nodes || [];
@@ -716,9 +717,46 @@ function openNodePopup(id, x, y) {
   renderNodeImages(n);
   
   popup.style.left = (x + 5) + 'px';
-  popup.style.top = (y + 5) + 'px';
-  popup.style.display = 'block';
-  nameInput.focus();
+	popup.style.top = (y + 5) + 'px';
+	popup.style.display = 'block';
+	nameInput.focus();
+
+	// Add story links section if available and toggle is on
+	const container = document.getElementById('nodePopupImages');
+	const existingStoryLinks = container.parentNode.querySelector('.story-links');
+	if (existingStoryLinks) {
+	  existingStoryLinks.remove();
+	}
+
+	if (currentFilters.showSFSFSS && n.sfsfss_has_read && n.story_links && n.story_links.length > 0) {
+	  const storySection = document.createElement('div');
+	  storySection.className = 'story-links';
+	  
+	  const title = document.createElement('div');
+	  title.className = 'story-links-title';
+	  title.textContent = 'SFSFSS Stories Read:';
+	  storySection.appendChild(title);
+	  
+	  n.story_links.forEach(url => {
+		const linkItem = document.createElement('div');
+		linkItem.className = 'story-link-item';
+		
+		const link = document.createElement('a');
+		link.href = url;
+		link.target = '_blank';
+		link.textContent = url.split('/').pop() || url;
+		
+		const type = document.createElement('span');
+		type.className = 'story-link-type';
+		type.textContent = url.endsWith('.pdf') ? 'PDF' : 'HTML';
+		
+		linkItem.appendChild(link);
+		linkItem.appendChild(type);
+		storySection.appendChild(linkItem);
+	  });
+	  
+	  container.parentNode.insertBefore(storySection, container.nextSibling);
+	}
 }
 
 function hideNodePopup() {
@@ -1320,6 +1358,13 @@ function applyAllFiltersAndRefresh(restartSimForcefully = false) {
 
   // Apply search term highlighting
   highlightSearch();
+  
+	// Apply SFSFSS highlighting
+	if (currentFilters.showSFSFSS) {
+	nodeSel.classed('sfsfss-read', d => d.sfsfss_has_read === true);
+	} else {
+	nodeSel.classed('sfsfss-read', false);
+	}
 
   // If layout is static and sim wasn't restarted, ensure positions are updated
   if (!needsStrongRestart && layoutMode === 'tiers') {
@@ -1425,6 +1470,22 @@ function setupSearchAndFilter() {
       document.getElementById('focusNum').textContent = newDepth;
     }
   });
+  
+  // SFSFSS toggle handler
+const sfsfssToggle = document.getElementById('sfsfssToggle');
+sfsfssToggle.addEventListener('change', () => {
+  currentFilters.showSFSFSS = sfsfssToggle.checked;
+  applyAllFiltersAndRefresh(false);
+  
+  // Update any open popup
+  if (nodePopupId !== null) {
+    const n = nodeById.get(nodePopupId);
+    if (n) {
+      const popup = document.getElementById('nodePopup');
+      openNodePopup(nodePopupId, parseInt(popup.style.left), parseInt(popup.style.top));
+    }
+  }
+});
 }
 
 let searchResultsState = {

@@ -6,7 +6,9 @@
       "birth_year": "1892",
       "images": [
         "images/6.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 1,
@@ -14,7 +16,9 @@
       "birth_year": "1898",
       "images": [
         "images/1.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 2,
@@ -22,6 +26,11 @@
       "birth_year": "1916",
       "images": [
         "images/2.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://esl-bits.net/Novellas.for.ESL.Students/Henry.Sugar/01/text.html",
+        "https://roalddahl.fandom.com/wiki/The_Great_Automatic_Grammatizator_(short_story)"
       ]
     },
     {
@@ -30,7 +39,9 @@
       "birth_year": "1890",
       "images": [
         "images/3_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 4,
@@ -38,7 +49,9 @@
       "birth_year": "1906",
       "images": [
         "images/4.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 5,
@@ -46,7 +59,9 @@
       "birth_year": "1886",
       "images": [
         "images/5_1.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 7,
@@ -54,7 +69,9 @@
       "birth_year": "1809",
       "images": [
         "images/7.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 8,
@@ -62,19 +79,27 @@
       "birth_year": "1865",
       "images": [
         "images/8_0.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories/kipling-king.html"
       ]
     },
     {
       "id": 9,
       "name": "Charles Dickens",
       "birth_year": "1812",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 10,
       "name": "Harold Lamb",
       "birth_year": "1892",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 11,
@@ -82,13 +107,19 @@
       "birth_year": "1876",
       "images": [
         "images/11.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://americanliterature.com/author/jack-london/short-story/to-build-a-fire"
       ]
     },
     {
       "id": 12,
       "name": "Sax Rohmer",
       "birth_year": "1883",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 13,
@@ -96,6 +127,10 @@
       "birth_year": "1878",
       "images": [
         "images/13.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.book-lover.com/lord-dunsany/8drem10/8drem10_poltarnees__beholder_of_ocean.html|.html"
       ]
     },
     {
@@ -104,7 +139,9 @@
       "birth_year": "1796",
       "images": [
         "images/14.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 15,
@@ -112,7 +149,9 @@
       "birth_year": "1856",
       "images": [
         "images/15.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 16,
@@ -120,7 +159,9 @@
       "birth_year": "1875",
       "images": [
         "images/16.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 17,
@@ -128,7 +169,9 @@
       "birth_year": "1839",
       "images": [
         "images/17.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 18,
@@ -137,6 +180,11 @@
       "images": [
         "images/18.png",
         "images/18_1.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://haroldpboas.gitlab.io/courses/220-2003c/bottle.pdf",
+        "https://www.youtube.com/watch?v=2aAKz8ZhfIY"
       ]
     },
     {
@@ -145,7 +193,9 @@
       "birth_year": "1835",
       "images": [
         "images/19.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 20,
@@ -153,7 +203,9 @@
       "birth_year": "1844",
       "images": [
         "images/20_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 21,
@@ -161,37 +213,49 @@
       "birth_year": "1877",
       "images": [
         "images/21.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 22,
       "name": "Algernon Blackwood",
       "birth_year": "1869",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 23,
       "name": "M.R. James",
       "birth_year": "1862",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 24,
       "name": "Arthur Machen",
       "birth_year": "1863",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 25,
       "name": "William Morris",
       "birth_year": "1834",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 27,
       "name": "Algernon Charles Swinburne",
       "birth_year": "1837",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 28,
@@ -199,19 +263,27 @@
       "birth_year": "1772",
       "images": [
         "images/28_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 29,
       "name": "William Shakespeare",
       "birth_year": "1564",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 30,
       "name": "Washington Irving",
       "birth_year": "1783",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/irving.html"
+      ]
     },
     {
       "id": 31,
@@ -219,6 +291,10 @@
       "birth_year": "1960",
       "images": [
         "images/31.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.neilgaiman.com/mediafiles/exclusive/shortstories/emerald.pdf"
       ]
     },
     {
@@ -227,7 +303,9 @@
       "birth_year": "1915",
       "images": [
         "images/32_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 33,
@@ -235,7 +313,9 @@
       "birth_year": "1947",
       "images": [
         "images/33_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 34,
@@ -243,13 +323,19 @@
       "birth_year": "1972",
       "images": [
         "images/34.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 35,
       "name": "Clive Barker",
       "birth_year": "1952",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/Babels-Children-Barker.html|.htmlhttp://www.sfsfss.com/"
+      ]
     },
     {
       "id": 36,
@@ -257,6 +343,13 @@
       "birth_year": "1899",
       "images": [
         "images/36.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://libraryofbabel.info/libraryofbabel.html",
+        "https://matiane.wordpress.com/2019/10/11/immortal-by-jorge-luis-borges/",
+        "https://web.stanford.edu/class/history34q/readings/textualizingscience/library_of_babel.html",
+        "https://www.keyschool.org/uploaded/Community/Adult_Education/Jorge_Luis_Borges_The_Secret_Miracle.pdf"
       ]
     },
     {
@@ -265,13 +358,17 @@
       "birth_year": "1953",
       "images": [
         "images/37_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 39,
       "name": "Andrew Liang",
       "birth_year": "1844",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 41,
@@ -282,7 +379,9 @@
         "images/41_0.png",
         "images/41_2.png",
         "images/41_3.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 42,
@@ -290,7 +389,9 @@
       "birth_year": "1874",
       "images": [
         "images/42.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 43,
@@ -298,7 +399,9 @@
       "birth_year": "1858",
       "images": [
         "images/43.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 44,
@@ -306,19 +409,25 @@
       "birth_year": "1898",
       "images": [
         "images/44.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 45,
       "name": "Dorothy L. Sayers",
       "birth_year": "1893",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 46,
       "name": "Joseph Conrad",
       "birth_year": "1857",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 47,
@@ -326,31 +435,41 @@
       "birth_year": "1821",
       "images": [
         "images/47_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 48,
-      "name": "Honor\u00e9 de Balzac",
+      "name": "Honoré de Balzac",
       "birth_year": "1799",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 49,
       "name": "Ivan Turgenev",
       "birth_year": "1818",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 50,
       "name": "Henry James",
       "birth_year": "1843",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 51,
       "name": "Mervyn Peake",
       "birth_year": "1911",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 52,
@@ -359,7 +478,9 @@
       "images": [
         "images/52_1.png",
         "images/52.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 53,
@@ -367,13 +488,20 @@
       "birth_year": "1939",
       "images": [
         "images/53_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 54,
       "name": "Philip K. Dick",
       "birth_year": "1928",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.gutenberg.org/files/32032/32032-h/32032-h.htm",
+        "https://www.youtube.com/watch?v=4LkWdmDeYxQ"
+      ]
     },
     {
       "id": 55,
@@ -383,13 +511,19 @@
         "images/55_0.png",
         "images/55_1.png",
         "images/55_2.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://xpressenglish.com/our-stories/amnesty-butler/"
       ]
     },
     {
       "id": 56,
       "name": "Thomas Ligotti",
       "birth_year": "1953",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 57,
@@ -397,6 +531,10 @@
       "birth_year": "1920",
       "images": [
         "images/57_0.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.audible.com/pd/Dune-Audiobook/B002V1OF70"
       ]
     },
     {
@@ -405,19 +543,25 @@
       "birth_year": "1934",
       "images": [
         "images/58_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 59,
       "name": "Zenna Henderson",
       "birth_year": "1917",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 60,
       "name": "Theodore Sturgeon",
       "birth_year": "1918",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 61,
@@ -425,13 +569,21 @@
       "birth_year": "1934",
       "images": [
         "images/61_0.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.sfsfss.com/stories2/Ellison,%20Harlan%20-%20A%20Boy%20and%20His%20Dog%20(v1.0)%20[html].html"
       ]
     },
     {
       "id": 62,
       "name": "Samuel R. Delany",
       "birth_year": "1942",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://strangehorizons.com/fiction/aye-and-gomorrah"
+      ]
     },
     {
       "id": 63,
@@ -439,13 +591,23 @@
       "birth_year": "1920",
       "images": [
         "images/63_0.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://ekladata.com/-Byix64G_NtE0xI4A6PA1--o1Hc/Asimov-Isaac-I-Robot.pdf",
+        "http://multivax.com/last_question.html",
+        "http://www.thrivenotes.com/the-last-answer/",
+        "https://ekladata.com/-Byix64G_NtE0xI4A6PA1--o1Hc/Asimov-Isaac-I-Robot.pdf",
+        "https://xpressenglish.com/our-stories/nightfall/"
       ]
     },
     {
       "id": 64,
       "name": "Alfred Korzybski",
       "birth_year": "1879",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 65,
@@ -453,43 +615,61 @@
       "birth_year": "1866",
       "images": [
         "images/65_0.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://americanliterature.com/author/hg-wells/short-story/the-door-in-the-wall"
       ]
     },
     {
       "id": 66,
       "name": "Jules Verne",
       "birth_year": "1828",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 67,
       "name": "Clifford D. Simak",
       "birth_year": "1904",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 68,
       "name": "John W. Campbell",
       "birth_year": "1910",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/twilight.html"
+      ]
     },
     {
       "id": 69,
       "name": "Jack Williamson",
       "birth_year": "1908",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 70,
       "name": "Stanley G. Weinbaum",
       "birth_year": "1902",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 71,
-      "name": "E.E. \u201cDoc\u201d Smith",
+      "name": "E.E. “Doc” Smith",
       "birth_year": "1890",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 72,
@@ -497,7 +677,9 @@
       "birth_year": "1881",
       "images": [
         "images/72_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 73,
@@ -505,7 +687,9 @@
       "birth_year": "1886",
       "images": [
         "images/73_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 74,
@@ -513,37 +697,53 @@
       "birth_year": "1911",
       "images": [
         "images/74_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 75,
       "name": "Bram Stoker",
       "birth_year": "1847",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 76,
       "name": "Robert Bloch",
       "birth_year": "1917",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 77,
       "name": "Richard Matheson",
       "birth_year": "1926",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 78,
       "name": "Ray Bradbury",
       "birth_year": "1920",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://lecturia.org/en/short-stories/ray-bradbury-the-pedestrian/9537",
+        "https://www.juhsd.net/cms/lib/CA01902464/Centricity/Domain/256/2016_The%20Veldt.pdf",
+        "stories2/dark-they-were-and-golden-eyed.html"
+      ]
     },
     {
       "id": 79,
       "name": "Herman Melville",
       "birth_year": "1819",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 80,
@@ -551,13 +751,27 @@
       "birth_year": "1954",
       "images": [
         "images/80_0.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://lib.ru/STERLINGB/taklamakan.txt",
+        "http://wtf.tw/ref/sterling_crystal_express.pdf",
+        "http://www.lightspeedmagazine.com/fiction/maneki-neko/",
+        "http://www.sfsfss.com/stories/Swarm.html",
+        "https://wtf.tw/ref/sterling_crystal_express.pdf",
+        "https://www.shareable.net/blog/the-exterminators-want-ad",
+        "https://www.technologyreview.com/s/408857/the-interoperation/"
       ]
     },
     {
       "id": 81,
       "name": "Vernor Vinge",
       "birth_year": "1944",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories/The Cookie Monster -- Vinge, Vernor.htm"
+      ]
     },
     {
       "id": 82,
@@ -566,19 +780,28 @@
       "images": [
         "images/82_0.png",
         "images/82_1.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://sporastudios.org/mark/courses/articles/Gibson_Johnny%20_Mnemonic.pdf",
+        "https://www.youtube.com/watch?v=5DFSvbkQaD0&list=PLYn090EvNBcinpVcrKNmYAHojxP7pnYC1"
       ]
     },
     {
       "id": 83,
       "name": "Norman Spinrad",
       "birth_year": "1940",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 84,
       "name": "Brian Aldiss",
       "birth_year": "1925",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 85,
@@ -587,13 +810,17 @@
       "images": [
         "images/85_0.png",
         "images/85_1.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 86,
       "name": "Leo Tolstoy",
       "birth_year": "1828",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 87,
@@ -601,7 +828,9 @@
       "birth_year": "1923",
       "images": [
         "images/87_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 88,
@@ -609,49 +838,74 @@
       "birth_year": "1954",
       "images": [
         "images/88_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 89,
       "name": "Thomas Disch",
       "birth_year": "1940",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 90,
       "name": "Tim Powers",
       "birth_year": "1952",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 91,
       "name": "Gene Wolfe",
       "birth_year": "1931",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.lightspeedmagazine.com/fiction/suzanne-delage/",
+        "http://www.sfsfss.com/stories2/ziggarut.html"
+      ]
     },
     {
       "id": 92,
       "name": "Robert Heinlein",
       "birth_year": "1907",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories2/Robert-Heinlein-Solution-Unsatisfactory.html",
+        "https://pot.home.xs4all.nl/scifi/byhisbootstraps.html",
+        "https://www.youtube.com/watch?v=2tKogSR5w0U",
+        "https://xpressenglish.com/our-stories/all-you-zombies/",
+        "https://youtu.be/ldpmCzvju84?si=HH-cvW0Jm8VqT3pk"
+      ]
     },
     {
       "id": 93,
       "name": "Sinclar Lewis",
       "birth_year": "1885",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 94,
       "name": "Ayn Rand",
       "birth_year": "1905",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 95,
       "name": "Thomas Pynchon",
       "birth_year": "1937",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 96,
@@ -659,99 +913,154 @@
       "birth_year": "1894",
       "images": [
         "images/96_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 97,
       "name": "Franz Kafka",
       "birth_year": "1883",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 98,
       "name": "Ted Chiang",
       "birth_year": "1967",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.lightspeedmagazine.com/fiction/exhalation/",
+        "https://archive.org/details/TedChiangUnderstand",
+        "https://onezero.medium.com/anxiety-is-the-dizziness-of-freedom-b5ab45cae2a5",
+        "https://waldyrious.neocities.org/ted_chiang/story-of-your-life",
+        "https://web.archive.org/web/20121102213307/http://www.ibooksonline.com/88/Text/liking.html|.html",
+        "https://www.e-reading.club/bookreader.php/1048694/Chiang_-_Tower_Of_Babylon"
+      ]
     },
     {
       "id": 99,
       "name": "Greg Egan",
       "birth_year": "1961",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://outofthiseos.typepad.com/blog/files/GregEganGlory.pdf",
+        "https://clarkesworldmagazine.com/egan_04_22/",
+        "https://clarkesworldmagazine.com/egan_10_20/",
+        "https://www.gregegan.net/OCEANIC/Complete/Oceanic.html",
+        "https://www.gregegan.net/PERMUTATION/Excerpt/PermutationExcerpt.html",
+        "https://www.infinityplus.co.uk/stories/yeyuka.htm",
+        "https://www.technologyreview.com/s/408858/steve-fever/",
+        "https://www.tor.com/2019/09/25/zeitgeber-greg-egan/"
+      ]
     },
     {
       "id": 100,
       "name": "James Tiptree, Jr",
       "birth_year": "1915",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 101,
       "name": "Umberto Eco",
       "birth_year": "1932",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 102,
       "name": "Mary Shelly",
       "birth_year": "1979",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 103,
       "name": "Vonda N. McIntyre",
       "birth_year": "1948",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://strangehorizons.com/wordpress/fiction/little-faces/"
+      ]
     },
     {
       "id": 104,
       "name": "James Branch Cabell",
       "birth_year": "1879",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 105,
       "name": "Anne McCaffrey",
       "birth_year": "1926",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 106,
       "name": "Kate Wilhelm",
       "birth_year": "1928",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 107,
       "name": "Andre Norton",
       "birth_year": "1912",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 108,
       "name": "Joanna Russ",
       "birth_year": "1937",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 109,
-      "name": "Robert W Chambers",
+      "name": "Robert W. Chambers",
       "birth_year": "1865",
       "images": [
         "images/109_0.png"
+      ],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.youtube.com/watch?v=jaMK4jCUvj8",
+        "stories/repairer-of-reputations.html"
       ]
     },
     {
       "id": 110,
       "name": "James Blish",
       "birth_year": "1921",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 111,
       "name": "Ambrose Bierce",
       "birth_year": "1842",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://americanliterature.com/author/ambrose-bierce/short-story/an-occurrence-at-owl-creek-bridge/"
+      ]
     },
     {
       "id": 112,
@@ -759,259 +1068,366 @@
       "birth_year": "1854",
       "images": [
         "images/112_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 113,
-      "name": "Th\u00e9ophile Gautier",
+      "name": "Théophile Gautier",
       "birth_year": "1811",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 114,
       "name": "Jeff VanderMeer",
       "birth_year": "1968",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 115,
       "name": "Carlos Fuentes",
       "birth_year": "1928",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 116,
       "name": "Paul Auster",
       "birth_year": "1947",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 117,
       "name": "Salman Rushdie",
       "birth_year": "1947",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 118,
-      "name": "Julio Cort\u00e1zar",
+      "name": "Julio Cortázar",
       "birth_year": "1914",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 119,
       "name": "Mario Vargas Llosa",
       "birth_year": "1936",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 120,
-      "name": "Roberto Bola\u00f1o",
+      "name": "Roberto Bolaño",
       "birth_year": "1953",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 121,
       "name": "Lucius Shepard",
       "birth_year": "1943",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.infinityplus.co.uk/stories/jaguarhunter.htm",
+        "http://www.sfsfss.com/stories2/Shepard,%20Lucius%20-%20The%20Man%20Who%20Painted%20the%20Dragon%20Griaule.html"
+      ]
     },
     {
       "id": 122,
       "name": "Jack Vance",
       "birth_year": "1916",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 123,
       "name": "Lafciado Hearn",
       "birth_year": "1850",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 124,
       "name": "ALain Robbe-Grillet",
       "birth_year": "1922",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 125,
       "name": "E.T.A. Hoffmann",
       "birth_year": "1776",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 126,
       "name": "Nikolai Gogol",
       "birth_year": "1809",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 127,
       "name": "Alexander Pushkin",
       "birth_year": "1799",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 128,
       "name": "George Sand",
       "birth_year": "1804",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 129,
-      "name": "Eug\u00e8ne Sue",
+      "name": "Eugène Sue",
       "birth_year": "1804",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 130,
       "name": "Ernest Hemingway",
       "birth_year": "1899",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://ia601900.us.archive.org/11/items/BM282003hemingway/BM28_2003_hemingway.pdf",
+        "https://vitaeducation.org/wp-content/uploads/Hemingway-Ernest-The-Snows-of-Kilimanjaro.pdf"
+      ]
     },
     {
       "id": 131,
       "name": "William Faulkner",
       "birth_year": "1897",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 132,
       "name": "Herman Hesse",
       "birth_year": "1877",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 133,
-      "name": "Gabriel Garc\u00eda M\u00e1rquez",
+      "name": "Gabriel García Márquez",
       "birth_year": "1927",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 134,
       "name": "Roger Zelazny",
       "birth_year": "1937",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://readerslibrary.org/wp-content/uploads/The-Doors-of-His-Face.pdf"
+      ]
     },
     {
       "id": 135,
       "name": "Robin Williams",
       "birth_year": "1951",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 136,
       "name": "Gene Roddenberry",
       "birth_year": "1921",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 137,
       "name": "George R. R. Martin",
       "birth_year": "1948",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://cernunninsel.wordpress.com/wp-content/uploads/2019/07/and-seven-times-never-kill-man.pdf"
+      ]
     },
     {
       "id": 138,
       "name": "Damon Knight",
       "birth_year": "1922",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://archive.org/details/Fantasy_Science_Fiction_v011n06_1956-12_PDF/page/n3/mode/2up",
+        "https://www.baen.com/Chapters/9781625791139/9781625791139___2.htm"
+      ]
     },
     {
       "id": 139,
       "name": "Frederik Pohl",
       "birth_year": "1919",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories2/Pohl,%20Frederik%20-%20The%20Gold%20at%20the%20Starbow's%20End%20v1.0.htm"
+      ]
     },
     {
       "id": 140,
       "name": "Barry N. Malzberg",
       "birth_year": "1939",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 141,
       "name": "J.D. Salinger",
       "birth_year": "1919",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 142,
       "name": "Robert Silverberg",
       "birth_year": "1935",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.baen.com/Chapters/9781625795304/9781625795304___2.htm"
+      ]
     },
     {
       "id": 143,
       "name": "Ben Bova",
       "birth_year": "1932",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 144,
       "name": "Lester del Rey",
       "birth_year": "1915",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 145,
       "name": "Joe R. Lansdale",
       "birth_year": "1951",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 146,
       "name": "Dan Simmons",
       "birth_year": "1948",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://sfsfss.com/stories2/Simmons,%20Dan%20-%20The%20End%20Of%20Gravity.html"
+      ]
     },
     {
       "id": 147,
       "name": "J. Michael Straczynski",
       "birth_year": "1954",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 148,
       "name": "Warren Ellis",
       "birth_year": "1968",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 149,
       "name": "Cory Doctorow",
       "birth_year": "1971",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.infinitematrix.net/stories/shorts/i-robot.html"
+      ]
     },
     {
       "id": 150,
       "name": "George Bernard Shaw",
       "birth_year": "1856",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 152,
       "name": "Tom Clancy",
       "birth_year": "1947",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 153,
       "name": "Arthur C. Clarke",
       "birth_year": "1917",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 154,
       "name": "George MacDonald",
       "birth_year": "1824",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 155,
       "name": "J.K. Rowling",
       "birth_year": "1965",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 156,
@@ -1019,489 +1435,1802 @@
       "birth_year": "1983",
       "images": [
         "images/156_0.png"
-      ]
+      ],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 157,
       "name": "David Eddings",
       "birth_year": "1931",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 158,
       "name": "Robert Jordan",
       "birth_year": "1948",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 159,
       "name": "A.E. van Vogt",
       "birth_year": "1912",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 160,
       "name": "L. Sprague de Camp",
       "birth_year": "1907",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 161,
       "name": "Poul Anderson",
       "birth_year": "1926",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.ling.upenn.edu/~beatrice/1100/docs/uncleftish-beholding.html",
+        "stories2/Anderson, Poul - Call Me Joe.htm"
+      ]
     },
     {
       "id": 162,
       "name": "Gordon R. Dickson",
       "birth_year": "1923",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 163,
       "name": "Kurt Vonnegut",
       "birth_year": "1922",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/Vonnegut-2br2b.html"
+      ]
     },
     {
       "id": 164,
       "name": "Margaret Atwood",
       "birth_year": "1939",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 165,
-      "name": "Stanis\u0142aw Lem",
+      "name": "Stanisław Lem",
       "birth_year": "1921",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://english.lem.pl/works/novels/the-star-diaries/154-the-seventh-voyage",
+        "http://www.math.u-szeged.hu/~csakany/Pdffiles/LEM.pdf",
+        "https://mwichary.medium.com/one-hundred-and-thirty-seven-seconds-2a0a3dfbc59e",
+        "https://www.youtube.com/watch?v=gzMhTTJnWHQ"
+      ]
     },
     {
       "id": 166,
       "name": "Kim Stanley Robinson",
       "birth_year": "1952",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.baen.com/Chapters/1597801844/1597801844___4.htm"
+      ]
     },
     {
       "id": 167,
       "name": "Alastair Reynolds",
       "birth_year": "1966",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/Reynolds, Alastair - Beyond the Aquila Rift.html|.html"
+      ]
     },
     {
       "id": 168,
       "name": "Liu Cixin",
       "birth_year": "1963",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 169,
       "name": "Andy Weir",
       "birth_year": "1972",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.galactanet.com/oneoff/theegg_mod.html"
+      ]
     },
     {
       "id": 170,
       "name": "Aldous Huxley",
       "birth_year": "1894",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 171,
       "name": "George Orwell",
       "birth_year": "1903",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 172,
       "name": "Douglas Adams",
       "birth_year": "1952",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 173,
       "name": "Terry Pratchett",
       "birth_year": "1948",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/A-Blink-of-the-Screen.epub"
+      ]
     },
     {
       "id": 174,
       "name": "Ken Liu",
       "birth_year": "1976",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/liu_09_22/",
+        "https://clarkesworldmagazine.com/liu_10_11",
+        "https://clarkesworldmagazine.com/liu_10_11/",
+        "https://www.uncannymagazine.com/article/50-things-every-ai-working-with-humans-should-know/"
+      ]
     },
     {
       "id": 175,
       "name": "Jack Kerouac",
       "birth_year": "1922",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 176,
       "name": "T.S. Eliot",
       "birth_year": "1888",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 177,
       "name": "A. Merritt",
       "birth_year": "1884",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 178,
       "name": "Marion Zimmer Bradley",
       "birth_year": "1930",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 179,
       "name": "Judith Merril",
       "birth_year": "1923",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 180,
       "name": "Kate Millett",
       "birth_year": "1934",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 181,
       "name": "Suzy McKee Charnas",
       "birth_year": "1939",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 183,
       "name": "Mercedes Lackey",
       "birth_year": "1950",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 184,
       "name": "Robin Hobb",
       "birth_year": "1952",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
-	 {
+    {
       "id": 185,
       "name": "Nathaniel Hawthorne",
       "birth_year": "1804",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 186,
       "name": "Thomas Carlyle",
       "birth_year": "1795",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 187,
       "name": "Ralph Waldo Emerson",
       "birth_year": "1803",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 188,
       "name": "Daniel Defoe",
       "birth_year": "1660",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 189,
       "name": "Cormac McCarthy",
       "birth_year": "1933",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 190,
       "name": "Don DeLillo",
       "birth_year": "1936",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
-	 {
+    {
       "id": 191,
       "name": "Walter Scott",
       "birth_year": "1771",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 192,
       "name": "Beatrix Potter",
       "birth_year": "1866",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 193,
       "name": "Kenneth Grahame",
       "birth_year": "1859",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 194,
       "name": "A.A. Milne",
       "birth_year": "1882",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 195,
       "name": "Quentin Blake",
       "birth_year": "1932",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 196,
       "name": "John Milton",
       "birth_year": "1608",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 197,
       "name": "William Wordsworth",
       "birth_year": "1770",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 198,
       "name": "George Gordon Byron",
       "birth_year": "1788",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 199,
       "name": "Adam Smith",
       "birth_year": "1723",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 200,
       "name": "Ludwig von Mises",
       "birth_year": "1881",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 201,
       "name": "Aristotle",
       "birth_year": "-384",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 202,
       "name": "Bret Easton Ellis",
       "birth_year": "1964",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 203,
       "name": "Artemus Ward",
       "birth_year": "1834",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 204,
       "name": "Bret Harte",
       "birth_year": "1836",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 205,
       "name": "William Dean Howells",
       "birth_year": "1837",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 206,
       "name": "Clark Ashton Smith",
       "birth_year": "1893",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 207,
       "name": "Michael Shea",
       "birth_year": "1946",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 208,
       "name": "Jacob Grimm",
       "birth_year": "1785",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 209,
       "name": "Wilhelm Grimm",
       "birth_year": "1786",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 210,
       "name": "Charles Perrault",
       "birth_year": "1628",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 211,
       "name": "Joseph Jacobs",
       "birth_year": "1854",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 212,
       "name": "Tad Williams",
       "birth_year": "1957",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.starshipsofa.com/blog/2010/11/23/aural-delights-no-164-tad-williams/"
+      ]
     },
     {
       "id": 213,
       "name": "Joe Abercrombie",
       "birth_year": "1974",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 214,
       "name": "Brandon Sanderson",
       "birth_year": "1975",
-      "images": []
+      "images": [],
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.brandonsanderson.com/defending-elysium/"
+      ]
     },
-	{
+    {
       "id": 215,
       "name": "C.L. Moore",
       "birth_year": "1911",
       "images": [],
-      "notes": "Catherine Lucille Moore, pioneering female SF/fantasy writer, married to Henry Kuttner"
+      "notes": "Catherine Lucille Moore, pioneering female SF/fantasy writer, married to Henry Kuttner",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 216,
       "name": "Joy Davidman",
       "birth_year": "1915",
       "images": [],
-      "notes": "American writer, C.S. Lewis's wife, influenced his later works"
+      "notes": "American writer, C.S. Lewis's wife, influenced his later works",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 217,
       "name": "Edith Tolkien",
       "birth_year": "1889",
       "images": [],
-      "notes": "Edith Bratt, J.R.R. Tolkien's wife and inspiration for Lúthien"
+      "notes": "Edith Bratt, J.R.R. Tolkien's wife and inspiration for Lúthien",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
-	 {
+    {
       "id": 218,
       "name": "Hugo Gernsback",
       "birth_year": "1884",
       "images": [],
-      "notes": "Father of Science Fiction, founded Amazing Stories in 1926"
+      "notes": "Father of Science Fiction, founded Amazing Stories in 1926",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 219,
       "name": "Walter M. Miller Jr.",
       "birth_year": "1923",
       "images": [],
-      "notes": "Author of A Canticle for Leibowitz"
+      "notes": "Author of A Canticle for Leibowitz",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 220,
       "name": "Hal Clement",
       "birth_year": "1922",
       "images": [],
-      "notes": "Hard SF master, Mission of Gravity"
+      "notes": "Hard SF master, Mission of Gravity",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 221,
       "name": "Fritz Leiber",
       "birth_year": "1910",
       "images": [],
-      "notes": "Fantasy and SF writer, sword and sorcery pioneer"
+      "notes": "Fantasy and SF writer, sword and sorcery pioneer",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 222,
       "name": "Eric Frank Russell",
       "birth_year": "1905",
       "images": [],
-      "notes": "British SF writer, Astounding contributor"
+      "notes": "British SF writer, Astounding contributor",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 223,
       "name": "Murray Leinster",
-      "birth_year": "1896", 
+      "birth_year": "1896",
       "images": [],
-      "notes": "Will F. Jenkins, Dean of Science Fiction"
+      "notes": "Will F. Jenkins, Dean of Science Fiction",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 224,
       "name": "Gardner Dozois",
       "birth_year": "1947",
       "images": [],
-      "notes": "Editor who popularized term 'cyberpunk'"
+      "notes": "Editor who popularized term 'cyberpunk'",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 225,
       "name": "Cordwainer Smith",
       "birth_year": "1913",
       "images": [],
-      "notes": "Paul Linebarger, Instrumentality of Mankind"
+      "notes": "Paul Linebarger, Instrumentality of Mankind",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 226,
       "name": "Alfred Bester",
       "birth_year": "1913",
       "images": [],
-      "notes": "The Stars My Destination, The Demolished Man"
+      "notes": "The Stars My Destination, The Demolished Man",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories2/Bester,%20Alfred%20-%20Fondly%20Fahrenheit%20v1.0.htm"
+      ]
     },
     {
       "id": 227,
       "name": "Cyril M. Kornbluth",
       "birth_year": "1923",
       "images": [],
-      "notes": "Collaborated with Frederik Pohl"
+      "notes": "Collaborated with Frederik Pohl",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 228,
       "name": "Rudy Rucker",
       "birth_year": "1946",
       "images": [],
-      "notes": "Cyberpunk founder, mathematician"
+      "notes": "Cyberpunk founder, mathematician",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 229,
       "name": "Pat Cadigan",
       "birth_year": "1953",
       "images": [],
-      "notes": "Queen of Cyberpunk"
+      "notes": "Queen of Cyberpunk",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://clarkesworldmagazine.com/cadigan_02_18_reprint/"
+      ]
     },
     {
       "id": 230,
       "name": "John Shirley",
       "birth_year": "1953",
       "images": [],
-      "notes": "Cyberpunk founder"
+      "notes": "Cyberpunk founder",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 231,
       "name": "Lewis Shiner",
       "birth_year": "1950",
       "images": [],
-      "notes": "Cyberpunk founder"
+      "notes": "Cyberpunk founder",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 232,
       "name": "Jack Womack",
       "birth_year": "1956",
       "images": [],
-      "notes": "Second-generation cyberpunk"
+      "notes": "Second-generation cyberpunk",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 233,
       "name": "John Sladek",
       "birth_year": "1937",
       "images": [],
-      "notes": "Satirical SF, New Wave contributor"
+      "notes": "Satirical SF, New Wave contributor",
+      "sfsfss_has_read": false,
+      "story_links": []
     },
     {
       "id": 234,
       "name": "Bruce Bethke",
       "birth_year": "1955",
       "images": [],
-      "notes": "Coined the term 'cyberpunk' in 1983"
+      "notes": "Coined the term 'cyberpunk' in 1983",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 235,
+      "name": "Terry Gilliam",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 236,
+      "name": "Vladimir Nabokov",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://biblioklept.org/2020/07/21/read-details-of-a-sunset-a-short-story-by-vladimir-nabokov/"
+      ]
+    },
+    {
+      "id": 237,
+      "name": "Joe Haldeman",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://shortstoryproject.com/stories/none-so-blind/",
+        "https://www.poemhunter.com/poem/eighteen-years-old-october-eleventh/"
+      ]
+    },
+    {
+      "id": 238,
+      "name": "Tyler Alterman",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories/cognitive-security.html"
+      ]
+    },
+    {
+      "id": 239,
+      "name": "Nibedita Sen",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.nightmare-magazine.com/fiction/ten-excerpts-from-an-annotated-bibliography-on-the-cannibal-women-of-ratnabar-island/"
+      ]
+    },
+    {
+      "id": 240,
+      "name": "Minsoo Kang",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.lightspeedmagazine.com/fiction/the-virtue-of-unfaithful-translations/"
+      ]
+    },
+    {
+      "id": 241,
+      "name": "H.P. Lovecraft",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.hplovecraft.com/writings/texts/fiction/cc.aspx",
+        "https://www.hplovecraft.com/writings/texts/poetry/p289.aspx",
+        "https://www.youtube.com/watch?v=Rxh_SVtyZqo",
+        "https://www.youtube.com/watch?v=vqIxCqayQok"
+      ]
+    },
+    {
+      "id": 242,
+      "name": "J.R.R. Tolkien",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://lentenlordoftherings.wordpress.com/wp-content/uploads/2015/01/tolkien-ainulindale.pdf"
+      ]
+    },
+    {
+      "id": 243,
+      "name": "Laurence Raab",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://exceptindreams.livejournal.com/230188.html"
+      ]
+    },
+    {
+      "id": 244,
+      "name": "Ursula K. Le Guin",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://clarkesworldmagazine.com/le_guin_03_14_reprint/",
+        "http://www.baen.com/Chapters/9781625791405/9781625791405___2.htm",
+        "http://www.sfsfss.com/stories2/Le%20Guin,%20Ursula%20K.%20-%20The%20Matter%20of%20Seggri.html",
+        "http://www.sfsfss.com/stories2/Solitude-LeGuin.html",
+        "https://frielingretc.files.wordpress.com/2013/03/the-wifes-story-ursula-k.pdf",
+        "https://learning.hccs.edu/faculty/emily.klotz/engl1302-6/readings/the-ones-who-walk-away-from-omelas-ursula-le-guin/view",
+        "https://xenoflesh.wordpress.com/wp-content/uploads/2017/03/ursula-k.-le-guin.pdf"
+      ]
+    },
+    {
+      "id": 245,
+      "name": "George Eliot",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.gutenberg.org/files/10762/10762-h/10762-h.htm"
+      ]
+    },
+    {
+      "id": 246,
+      "name": "Bong Joon-ho",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 247,
+      "name": "Rokeya Sakhawat Hossain",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://digital.library.upenn.edu/women/sultana/dream/dream.html"
+      ]
+    },
+    {
+      "id": 248,
+      "name": "Christina Rosetti",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.poetryfoundation.org/poems/44996/goblin-market"
+      ]
+    },
+    {
+      "id": 249,
+      "name": "exurb1a",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.youtube.com/watch?v=o1OsDWT_DUc&t=58s"
+      ]
+    },
+    {
+      "id": 250,
+      "name": "Marc Stiegler",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.skyhunter.com/marcs/GentleSeduction.html"
+      ]
+    },
+    {
+      "id": 251,
+      "name": "Richard Ngo",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.asimov.press/p/gentle-romance",
+        "https://www.narrativeark.xyz/p/d2c",
+        "https://www.narrativeark.xyz/p/from-the-archives",
+        "https://www.narrativeark.xyz/p/succession",
+        "https://www.narrativeark.xyz/p/the-witness",
+        "https://www.narrativeark.xyz/p/tinker"
+      ]
+    },
+    {
+      "id": 252,
+      "name": "Rational Animations",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.youtube.com/watch?v=KUkHhVYv3jU"
+      ]
+    },
+    {
+      "id": 253,
+      "name": "William Tenn",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/Tenn,%20William%20-%20Bernie%20the%20Faust.html",
+        "https://www.you-books.com/book/W-Tenn/Brooklyn-Project",
+        "https://www.you-books.com/book/W-Tenn/Time-in-Advance"
+      ]
+    },
+    {
+      "id": 254,
+      "name": "Steve Bowers",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.orionsarm.com/page/478",
+        "https://www.sfsfss.com/stories2/from-the-shadows-fable.mp3"
+      ]
+    },
+    {
+      "id": 255,
+      "name": "Arula Ratnakar",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/ratnakar_10_24"
+      ]
+    },
+    {
+      "id": 256,
+      "name": "Alexander Wales",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://alexanderwales.com/glimwarden-prologue/",
+        "https://alexanderwales.com/the-last-christmas-chapter-1/stories2/",
+        "https://archiveofourown.org/works/41112099"
+      ]
+    },
+    {
+      "id": 257,
+      "name": "Fiona Moore",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/moore_10_24"
+      ]
+    },
+    {
+      "id": 258,
+      "name": "Damián Neri",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/neri_10_24"
+      ]
+    },
+    {
+      "id": 259,
+      "name": "Mike Robinson",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/robinson_10_24"
+      ]
+    },
+    {
+      "id": 260,
+      "name": "John Varley",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://fuseki.net/sfgroup/equinoctal.html",
+        "http://fuseki.net/sfgroup/equinoctal.html|.html",
+        "http://www.sfsfss.com/stories/persistence-of-vision.html",
+        "https://varley.net/excerpt/the-phantom-of-kansas-full-text/",
+        "https://www.baen.com/Chapters/9781625791542/9781625791542___3.htm"
+      ]
+    },
+    {
+      "id": 261,
+      "name": "Louis Inglis Hall",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/hall_10_24"
+      ]
+    },
+    {
+      "id": 262,
+      "name": "Peter F Hamilton",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.infinityplus.co.uk/stories/softsin.htm",
+        "http://www.sfsfss.com/stories/Blessed-By-An-Angel-Peter-F-Hamilton.html"
+      ]
+    },
+    {
+      "id": 263,
+      "name": "RA Lafferty",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.gutenberg.org/cache/epub/31663/pg31663-images.html",
+        "https://www.gutenberg.org/cache/epub/51774/pg51774-images.html"
+      ]
+    },
+    {
+      "id": 264,
+      "name": "R Scott Bakker",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://rsbakker.wordpress.com/stories/the-false-sun"
+      ]
+    },
+    {
+      "id": 265,
+      "name": "Hao Jingfang",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.uncannymagazine.com/article/folding-beijing-2/"
+      ]
+    },
+    {
+      "id": 266,
+      "name": "John Scalzi",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/the-tale-of-the-wicked.html",
+        "https://whatever.scalzi.com/2010/10/02/when-the-yogurt-took-over-a-short-story/"
+      ]
+    },
+    {
+      "id": 267,
+      "name": "Tennessee Williams",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://en.wikisource.org/wiki/Weird_Tales/Volume_12/Issue_2/The_Vengeance_of_Nitocris"
+      ]
+    },
+    {
+      "id": 268,
+      "name": "Tanith Lee",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/AllTheBirdsOfHell.html",
+        "stories2/beauty.html"
+      ]
+    },
+    {
+      "id": 269,
+      "name": "Robin Hanson",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://ageofem.com/AoE-FreeSample.pdf"
+      ]
+    },
+    {
+      "id": 270,
+      "name": "Anne Rice",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/rampling-gate.html|.html"
+      ]
+    },
+    {
+      "id": 271,
+      "name": "James H Schmitz",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/grandpa.html"
+      ]
+    },
+    {
+      "id": 272,
+      "name": "Daisuke Ashihara",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 273,
+      "name": "Daniel Abraham",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.lightspeedmagazine.com/fiction/the-cambist-and-lord-iron-a-fairy-tale-of-economics"
+      ]
+    },
+    {
+      "id": 274,
+      "name": "Peter Watts",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://clarkesworldmagazine.com/watts_01_10/",
+        "http://www.lightspeedmagazine.com/fiction/collateral/",
+        "http://www.rifters.com/real/shorts/PeterWatts_Ambassador.pdf",
+        "https://clarkesworldmagazine.com/watts_09_14_reprint"
+      ]
+    },
+    {
+      "id": 275,
+      "name": "Frank Belknap Long",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://bruces.medium.com/the-hounds-of-tindalos-by-frank-belknap-long-1929-97e5636fe7a2"
+      ]
+    },
+    {
+      "id": 276,
+      "name": "u/solguard",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.reddit.com/r/HFY/comments/lom9cb/kindness_to_kin"
+      ]
+    },
+    {
+      "id": 277,
+      "name": "Jackdaws love my big sphinx of quartz",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://web.archive.org/web/20121008025245/http://squid314.livejournal.com/332946.html"
+      ]
+    },
+    {
+      "id": 278,
+      "name": "Jeffrey Ford",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/night-whiskey.html",
+        "http://www.sfsfss.com/stories2/malthusias-zombie-jeffrey-ford.html"
+      ]
+    },
+    {
+      "id": 279,
+      "name": "David Langford",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/BLIT.htm"
+      ]
+    },
+    {
+      "id": 280,
+      "name": "Kurt Vonnegut, Jr.",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.tnellen.com/cybereng/harrison.html"
+      ]
+    },
+    {
+      "id": 281,
+      "name": "Max Harms",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://crystalbooks.ai/society/ChapterOne",
+        "http://crystalbooks.ai/society/download/CrystalSociety.txt",
+        "https://www.youtube.com/watch?v=xwjJekGKFTE&list=PLO1uFvmwxzgrh3R2qeezvXdDBzYn7HtXl&index=3"
+      ]
+    },
+    {
+      "id": 282,
+      "name": "Maureen McHugh",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories2/Laika-Maureen-McHugh.html"
+      ]
+    },
+    {
+      "id": 283,
+      "name": "US!",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 284,
+      "name": "Bud Sparhawk",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://sfsfss.com/stories2/The-Suit-Bud-Sparhawk.pdf"
+      ]
+    },
+    {
+      "id": 285,
+      "name": "Dan Peacock",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://littlebluemarble.ca/2023/08/11/the-smiling-virologist"
+      ]
+    },
+    {
+      "id": 286,
+      "name": "N.K. Jemisin",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.lightspeedmagazine.com/fiction/the-ones-who-stay-and-fight"
+      ]
+    },
+    {
+      "id": 287,
+      "name": "Aliette De Bodard",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/debodard_01_17_reprint"
+      ]
+    },
+    {
+      "id": 288,
+      "name": "P. Andrew Miller",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.youtube.com/watch?v=RDer_U-qeYg"
+      ]
+    },
+    {
+      "id": 289,
+      "name": "Charles Stross",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://will.tip.dhappy.org/blog/Porn%20Recommender/.../book/by/Charles%20Stross/Palimpsest/Charles%20Stross%20-%20Palimpsest.html",
+        "https://www.tor.com/2009/12/22/overtime/",
+        "https://www.tor.com/2012/07/20/a-tall-tail/"
+      ]
+    },
+    {
+      "id": 290,
+      "name": "Vitalik Buterin",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://vitalik.eth.limo/general/2023/11/27/techno_optimism.html"
+      ]
+    },
+    {
+      "id": 291,
+      "name": "James Thurber",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.newyorker.com/magazine/1939/03/18/the-secret-life-of-walter-mitty-james-thurber"
+      ]
+    },
+    {
+      "id": 292,
+      "name": "George Saunders",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.newyorker.com/magazine/2005/08/01/commcomm"
+      ]
+    },
+    {
+      "id": 293,
+      "name": "Joanna Rush",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.future-lives.com/wp-content/uploads/2014/09/When-It-Changed.pdf"
+      ]
+    },
+    {
+      "id": 294,
+      "name": "Walter Jon Williams",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/Walter_Jon_Williams_-_Incarnation_Day.htm",
+        "http://www.sfsfss.com/stories/videostar.html",
+        "https://clarkesworldmagazine.com/williams_12_15_reprint/"
+      ]
+    },
+    {
+      "id": 295,
+      "name": "Gareth Edwards",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 296,
+      "name": "Fred Saberhagen",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/Fred_Saberhagen_-_Birthdays.htm",
+        "https://www.baen.com/Chapters/0743498860/0743498860___3.htm",
+        "stories/patron-of-the-arts.html"
+      ]
+    },
+    {
+      "id": 297,
+      "name": "qntm",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://qntm.org/frame",
+        "https://qntm.org/mmacevedo"
+      ]
+    },
+    {
+      "id": 298,
+      "name": "Connie Willis",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/Willis, Connie - The Last of the Winnebagos.htm"
+      ]
+    },
+    {
+      "id": 299,
+      "name": "Nancy Kress",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.fcusd.org/cms/lib/CA01001934/Centricity/Domain/3762/Out%20of%20All%20Them%20Bright%20Stars.pdf",
+        "stories2/Nancy Kress - Out of All Them Bright Stars.html"
+      ]
+    },
+    {
+      "id": 300,
+      "name": "Marie Vibbert",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/vibbert_06_22/"
+      ]
+    },
+    {
+      "id": 301,
+      "name": "David Weber",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.baen.com/Chapters/A9781481483971/A9781481483971___4.htm",
+        "https://www.baen.com/darkfall"
+      ]
+    },
+    {
+      "id": 302,
+      "name": "Mike Resnick",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://archive.is/E7pK9/"
+      ]
+    },
+    {
+      "id": 303,
+      "name": "Robert Reed",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://will.tip.dhappy.org/blog/Porn%20Recommender/.../book/by/Robert%20Reed/A%20Billion%20Eves/Robert%20Reed%20-%20A%20Billion%20Eves.html",
+        "http://www.lightspeedmagazine.com/fiction/blood-wedding/",
+        "http://www.robertreedwriter.com/crusade.html",
+        "https://clarkesworldmagazine.com/reed_12_20/",
+        "stories/Robert Reed - Pipes.html"
+      ]
+    },
+    {
+      "id": 304,
+      "name": "John McCarthy",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www-formal.stanford.edu/jmc/robotandbaby/robotandbaby.html"
+      ]
+    },
+    {
+      "id": 305,
+      "name": "Spencer Ellsworth",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.nightmare-magazine.com/fiction/the-ghost-eaters/"
+      ]
+    },
+    {
+      "id": 306,
+      "name": "Terry Bisson",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.terrybisson.com/theyre-made-out-of-meat-2/"
+      ]
+    },
+    {
+      "id": 307,
+      "name": "Caroline M. Yoachim",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.lightspeedmagazine.com/fiction/welcome-to-the-medical-clinic-at-the-interplanetary-relay-station/"
+      ]
+    },
+    {
+      "id": 308,
+      "name": "Octavia Butler",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://future-lives.com/wp-content/uploads/2014/11/speech_sounds.pdf",
+        "http://www.baen.com/Chapters/9781625791191/9781625791191___1.htm",
+        "stories2/24.2butler.pdf"
+      ]
+    },
+    {
+      "id": 309,
+      "name": "Angela Makholwa",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://upshot.riscura.com/last-shot/"
+      ]
+    },
+    {
+      "id": 310,
+      "name": "Alan E Nourse",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.youtube.com/watch?v=vfo-_J6arUk"
+      ]
+    },
+    {
+      "id": 311,
+      "name": "Charlie Jane Anders",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://kotaku.com/read-a-short-story-where-video-game-cats-save-peoples-s-1725041677",
+        "https://www.tor.com/2010/08/11/the-fermi-paradox-is-our-business-model/"
+      ]
+    },
+    {
+      "id": 312,
+      "name": "Neal Stephenson",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 313,
+      "name": "Daniels",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 314,
+      "name": "Robert Charles Wilson",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.tor.com/2010/08/05/divided-by-infinity/"
+      ]
+    },
+    {
+      "id": 315,
+      "name": "George R.R. Martin",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories2/song.html",
+        "https://forwearemany.files.wordpress.com/2009/04/sandkings.pdf",
+        "https://www.youtube.com/watch?v=08YOzWkI-HQ",
+        "https://www.youtube.com/watch?v=1VVGrmQHgkg",
+        "https://www.youtube.com/watch?v=GWbH990p9OA",
+        "https://www.youtube.com/watch?v=TvUKOToYZ9s"
+      ]
+    },
+    {
+      "id": 316,
+      "name": "EM Forster",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.cs.ucdavis.edu/~koehl/Teaching/ECS188/PDF_files/Machine_stops.pdf"
+      ]
+    },
+    {
+      "id": 317,
+      "name": "Naomi Kritzer",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://clarkesworldmagazine.com/kritzer_01_20/"
+      ]
+    },
+    {
+      "id": 318,
+      "name": "Denis Villeneuve",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 319,
+      "name": "Michael Swanwick",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://will.tip.dhappy.org/blog/Compression%20Trees/.../book/by/Michael%20Swanwick/Legions%20In%20Time/Michael%20Swanwick%20-%20Legions%20In%20Time.html",
+        "http://www.lightspeedmagazine.com/fiction/slow-life/"
+      ]
+    },
+    {
+      "id": 320,
+      "name": "Paolo Bacigalupi",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/yellow-card-man.html",
+        "http://www.slate.com/articles/technology/future_tense/2016/04/mika_model_a_new_short_story_from_paolo_bacigalupi.html",
+        "https://www.baen.com/Chapters/1597801348/1597801348___3.htm"
+      ]
+    },
+    {
+      "id": 321,
+      "name": "David Lake",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/David-Lake-Creator.html"
+      ]
+    },
+    {
+      "id": 322,
+      "name": "AltShiftX & CM Kösemen",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.youtube.com/watch?v=imNtSPM3-r4"
+      ]
+    },
+    {
+      "id": 323,
+      "name": "James Tiptree, Jr.",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.lightspeedmagazine.com/fiction/love-is-the-plan-the-plan-is-death/"
+      ]
+    },
+    {
+      "id": 324,
+      "name": "N. K. Jemisin",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://nkjemisin.com/2012/08/the-trojan-girl/"
+      ]
+    },
+    {
+      "id": 325,
+      "name": "Ian Duncan",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://docs.google.com/document/d/1SddGHeVfcVa5SCDHHTOA4RlKwnef-Q6IMw_Jqw9I0Mw/edit"
+      ]
+    },
+    {
+      "id": 326,
+      "name": "Jamie Wahls",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://strangehorizons.com/fiction/truth/",
+        "http://strangehorizons.com/fiction/utopia-lol/"
+      ]
+    },
+    {
+      "id": 327,
+      "name": "Dennard Dayle",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://clarkesworldmagazine.com/dayle_06_20/"
+      ]
+    },
+    {
+      "id": 328,
+      "name": "Larry Niven",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/niven-madness2.html"
+      ]
+    },
+    {
+      "id": 329,
+      "name": "Robert J Sawyer",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://sfwriter.com/ststream.htm"
+      ]
+    },
+    {
+      "id": 330,
+      "name": "David Brin",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.davidbrin.com/fiction/givingplague.html",
+        "http://www.lightspeedmagazine.com/fiction/the-crystal-spheres/"
+      ]
+    },
+    {
+      "id": 331,
+      "name": "Geoffrey A. Landis",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.baen.com/Chapters/0671878522/0671878522___1.htm"
+      ]
+    },
+    {
+      "id": 332,
+      "name": "Michael Shara & Jack Mcdevitt",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.baen.com/Chapters/1596061958/1596061958___8.htm",
+        "stories2/Cool-Neighbor.pdf"
+      ]
+    },
+    {
+      "id": 333,
+      "name": "Frederic Brown",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.ucs.louisiana.edu/~jjl5766/share/Arena.pdf",
+        "https://www.youtube.com/watch?v=FVOORpCImBU"
+      ]
+    },
+    {
+      "id": 334,
+      "name": "Localroger",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://localroger.com/k5host/passhome.html"
+      ]
+    },
+    {
+      "id": 335,
+      "name": "Crispin Cooper",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://omnisplore.wordpress.com/2019/06/21/manifest-logic/"
+      ]
+    },
+    {
+      "id": 336,
+      "name": "Alistair Reynolds",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "stories2/zima blue.pdf"
+      ]
+    },
+    {
+      "id": 337,
+      "name": "Benedict_SC",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://archiveofourown.org/works/6178036/chapters/14574775"
+      ]
+    },
+    {
+      "id": 338,
+      "name": "Usman T. Malik",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://medium.com/@usmantm/the-vaporization-enthalpy-of-a-peculiar-pakistani-family-6362b08bbf2a"
+      ]
+    },
+    {
+      "id": 339,
+      "name": "Donald S. Crankshaw and Matthew Bailey",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.castofwonders.org/2019/09/cast-of-wonders-372-little-wonders-22-fantasyworldproblems/"
+      ]
+    },
+    {
+      "id": 340,
+      "name": "James Gray",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 341,
+      "name": "Leo Szilard",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.fadedpage.com/showbook.php?pid=20190414#chap01"
+      ]
+    },
+    {
+      "id": 342,
+      "name": "S. L. Huang",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories2/the-woman-who-destroyed-us.html"
+      ]
+    },
+    {
+      "id": 343,
+      "name": "Rich Larson",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.tor.com/2018/06/06/meat-and-salt-and-sparks-rich-larson/"
+      ]
+    },
+    {
+      "id": 344,
+      "name": "Aimee Ogden",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.beneath-ceaseless-skies.com/stories/blood-bone-seed-spark/"
+      ]
+    },
+    {
+      "id": 345,
+      "name": "Robert E. Howard",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://gutenberg.net.au/ebooks06/0600741h.html"
+      ]
+    },
+    {
+      "id": 346,
+      "name": "SCP",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.scp-wiki.net/introductory-antimemetics"
+      ]
+    },
+    {
+      "id": 347,
+      "name": "Simone Heller",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://clarkesworldmagazine.com/heller_10_18/"
+      ]
+    },
+    {
+      "id": 348,
+      "name": "Wyman Guin",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.gutenberg.org/files/51842/51842-h/51842-h.htm"
+      ]
+    },
+    {
+      "id": 349,
+      "name": "Daniel Keyes",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.forum2.org/mellon/lj/flwrs.html"
+      ]
+    },
+    {
+      "id": 350,
+      "name": "John C Wright",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories2/guest-law.pdf",
+        "https://www.youtube.com/watch?v=7Yn5wk6H-O8"
+      ]
+    },
+    {
+      "id": 351,
+      "name": "Vonda McIntyre",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.boblyman.net/englt392/texts/Mountains%20of%20Sunset.pdf",
+        "http://www.sfsfss.com/stories/Hugo_1974_Nominee_Short_Story_-_Vonda_N._McIntyre_-_Wings.htm",
+        "http://www.sfsfss.com/stories2/McIntyre,%20Vonda%20-%20Of%20Mist,%20and%20Grass,%20and%20Sand%20v1.5.htm"
+      ]
+    },
+    {
+      "id": 352,
+      "name": "Stephen Baxter",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://will.tip.dhappy.org/revolution/Technoanarchist/plan/.../book/by/Stephen%20Baxter/On%20the%20Orion%20Line/Stephen%20Baxter%20-%20On%20the%20Orion%20Line.html"
+      ]
+    },
+    {
+      "id": 353,
+      "name": "Iain M Banks",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.youtube.com/watch?v=IRl9D_agLbU"
+      ]
+    },
+    {
+      "id": 354,
+      "name": "James Tiptree, Jr. aka Alice Sheldon",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://sfsfss.com/stories/HoustonHouston.html"
+      ]
+    },
+    {
+      "id": 355,
+      "name": "Jonathan Brazee",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.jonathanbrazee.com/WeaponizedMath.docx"
+      ]
+    },
+    {
+      "id": 356,
+      "name": "Sarah Pinkster",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://sarahpinsker.com.hostbaby.com/files/WindWillRove_Pinsker.pdf"
+      ]
+    },
+    {
+      "id": 357,
+      "name": "Spider Robinson",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/Spider_Robinson_-_Melancholy_Elephants.pdf"
+      ]
+    },
+    {
+      "id": 358,
+      "name": "Linda Nagata",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.tor.com/2017/07/19/the-martian-obelisk/"
+      ]
+    },
+    {
+      "id": 359,
+      "name": "Mary Robinette Kowal",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://maryrobinettekowal.com/journal/for-want-of-a-nail-is-a-hugo-nominee/"
+      ]
+    },
+    {
+      "id": 360,
+      "name": "David D Levine",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/Hugo_2006_Winner_Short_Story_-_David_D._Levine_-_Tk'tk'tk.htm"
+      ]
+    },
+    {
+      "id": 361,
+      "name": "Alex Garland",
+      "sfsfss_has_read": true,
+      "story_links": []
+    },
+    {
+      "id": 362,
+      "name": "Don A Stuart",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/forgetfulness%20-%20don%20a%20stuart.html"
+      ]
+    },
+    {
+      "id": 363,
+      "name": "Mark Clifton",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/What%20Have%20I%20Done%20-%20Mark%20Clifton.htm"
+      ]
+    },
+    {
+      "id": 364,
+      "name": "Blake Stone-Banks",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://epochemagazine.org/fiction-colosseum-1a887daf7255"
+      ]
+    },
+    {
+      "id": 365,
+      "name": "Greg Bear",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.baen.com/Chapters/9781625791153/9781625791153___2.htm"
+      ]
+    },
+    {
+      "id": 366,
+      "name": "Katherine MacLean & Charles V De Vet",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://www.sfsfss.com/stories/SecondGame.htm"
+      ]
+    },
+    {
+      "id": 367,
+      "name": "Nicky Case",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://blog.ncase.me/take-your-time/",
+        "http://blog.ncase.me/the-war-on-yourself/"
+      ]
+    },
+    {
+      "id": 368,
+      "name": "Cordwaiter Smith",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://www.baen.com/Chapters/9781625791207/9781625791207___3.htm"
+      ]
+    },
+    {
+      "id": 369,
+      "name": "Scott Alexander",
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://slatestarcodex.com/2015/06/02/and-i-show-you-how-deep-the-rabbit-hole-goes/"
+      ]
     }
   ],
   "links": [
@@ -1858,7 +3587,7 @@
     {
       "id1": 71,
       "id2": 63,
-      "label": "E.E. \u201cDoc\u201d Smith"
+      "label": "E.E. “Doc” Smith"
     },
     {
       "id1": 72,
@@ -3425,7 +5154,7 @@
       "id2": 105,
       "label": "colleague"
     },
-	{
+    {
       "id1": 29,
       "id2": 79,
       "label": "influenced (dramatic structure and language)"
@@ -3540,7 +5269,7 @@
       "id2": 87,
       "label": "influenced (philosophical narrative)"
     },
-	{
+    {
       "id1": 6,
       "id2": 137,
       "label": "major influence (epic fantasy structure)"
@@ -3820,7 +5549,7 @@
       "id2": 155,
       "label": "influenced (fairy tale fantasy)"
     },
-	{
+    {
       "id1": 6,
       "id2": 1,
       "label": "co-founder of the Inklings, lifelong friend and literary collaborator"
@@ -3920,7 +5649,7 @@
       "id2": 31,
       "label": "influenced (exotic mysticism in urban fantasy)"
     },
-	{
+    {
       "id1": 32,
       "id2": 215,
       "label": "married collaborator and co-writer"
@@ -3935,7 +5664,7 @@
       "id2": 217,
       "label": "married 1916, inspiration for Lúthien and other heroines"
     },
-	{
+    {
       "id1": 22,
       "id2": 112,
       "label": "met in literary circles, mutual respect"
@@ -3960,7 +5689,7 @@
       "id2": 155,
       "label": "influenced (fairy tale collection methodology)"
     },
-	 {
+    {
       "id1": 218,
       "id2": 65,
       "label": "inspired (science fiction pioneer to scientific romance)"

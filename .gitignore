@@ -1,4 +1,5 @@
 __pycache__/
 images/
 backups/
-stories.json
+
+data/stories.json

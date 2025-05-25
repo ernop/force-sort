@@ -1,229 +1,347 @@
 #!/usr/bin/env python3
 """
-Updates data.json with SFSFSS reading history from stories.json.
+Update data.json with SFSFSS reading history from schedule.json
+Adds missing authors and updates reading status/story links
 
-This script:
-1. Reads stories.json to extract authors and their story links
-2. Updates data.json to add missing authors and reading status
-3. Adds two new fields to each node:
-   - sfsfss_has_read: boolean indicating if group has read their stories
-   - story_links: list of URLs to stories read by the group
-4. Respects existing node IDs and only adds missing authors
+Features:
+- Extracts authors from HTML tags (e.g., <a href="">u/solguard</a> -> u/solguard)
+- Filters out non-author entries like "unknown", "the internet", "US"
+- Case-insensitive matching for existing authors
+- Preserves all existing node data
 """
 
 import json
+import os
 import re
-from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
-def clean_author_name(author_raw: str) -> str:
-    """Clean up author names from stories.json."""
-    if not author_raw or not author_raw.strip():
+
+def load_json_file(filename: str) -> dict:
+    """Load and parse a JSON file"""
+    try:
+        with open(filename, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"Error: {filename} not found")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"Error parsing {filename}: {e}")
+        return None
+
+
+def save_json_file(filename: str, data: dict) -> bool:
+    """Save data to JSON file with pretty printing"""
+    try:
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        return True
+    except Exception as e:
+        print(f"Error saving {filename}: {e}")
+        return False
+
+
+def clean_author_name(author: str) -> str:
+    """
+    Clean author name by removing HTML tags and extracting text content
+    Returns cleaned name or empty string if invalid
+    """
+    if not author:
         return ""
     
-    # Remove HTML tags
-    author = re.sub(r'<[^>]*>', '', author_raw)
+    # Remove HTML tags and extract text content
+    # Handle <a href="...">text</a> pattern
+    author = re.sub(r'<a\s+[^>]*>([^<]+)</a>', r'\1', author)
     
-    # Take only the first part before various separators
-    separators = ['<', '\n', '|', 'br/>']
-    for sep in separators:
-        if sep in author:
-            author = author.split(sep)[0]
+    # Handle <span class="...">text</span> pattern
+    author = re.sub(r'<span\s+[^>]*>([^<]+)</span>', r'\1', author)
+    
+    # Remove any remaining HTML tags
+    author = re.sub(r'<[^>]+>', '', author)
     
     # Clean up whitespace
     author = author.strip()
     
-    # Skip generic/invalid entries
-    invalid_entries = {'US!', 'Us!', '', 'Gareth EdwardsFred Saberhagenqntm'}
-    if author in invalid_entries or '</td>' in author or 'class=' in author:
+    # List of non-author entries to skip (case-insensitive)
+    skip_list = [
+        "unknown",
+        "the internet",
+        "us",
+        "how well can you predict the scientific and technological future?",
+        # Add more as needed
+    ]
+    
+    # Check if this is a real author
+    if author.lower() in skip_list:
         return ""
-        
+    
+    # Additional check for very short "authors" that are likely not real
+    if len(author) <= 2 and author.upper() == author:  # e.g., "US", "UK"
+        return ""
+    
     return author
 
-def extract_birth_year(author: str) -> str:
-    """Extract birth year from author name patterns."""
-    # This is a basic implementation - you might want to expand this
-    # based on patterns you see in the data
-    birth_years = {
-        'Nibedita Sen': '1985',
-        'Minsoo Kang': '1970', 
-        'Laurence Raab': '1946',
-        'George Eliot': '1819',
-        'Joe Haldeman': '1943',
-        'Rokeya Sakhawat Hossain': '1880',
-        'Christina Rossetti': '1830',
-        'exurb1a': '1990',
-        'Marc Stiegler': '1954',
-        'Bong Joon-ho': '1969',
-        'Spencer Ellsworth': '1979',
-        'Vitalik Buterin': '1994',
-        'James Thurber': '1894',
-        'Angela Makholwa': '1970',
-        'Alan E Nourse': '1928',
-        'Charlie Jane Anders': '1969',
-        'Gareth Edwards': '1975',
-        'Fred Saberhagen': '1930',
-        'qntm': '1988',
-        'Connie Willis': '1945',
-        'Robert Reed': '1956',
-        'E.M. Forster': '1879',
-        'Naomi Kritzer': '1971',
-        'Terry Bisson': '1942',
-        'Caroline M. Yoachim': '1977',
-        'Richard Ngo': '1993',
-        'P. Andrew Miller': '1965',
-        'Charles Stross': '1964',
-        'Alexander Wales': '1991',
-        'Steve Bowers': '1960',
-        'Arula Ratnakar': '1985',
-        'Fiona Moore': '1970',
-        'Damián Neri': '1975',
-        'Mike Robinson': '1965',
-        'Dennard Dayle': '1985',
-        'Jamie Wahls': '1990',
-        'William Tenn': '1920',
-        'Damon Knight': '1922',
-        'Larry Niven': '1938',
-        'Walter Jon Williams': '1953',
-        'John McCarthy': '1927',
-        'Geoffrey A. Landis': '1955',
-        'Pat Cadigan': '1953',
-        'Michael Shara': '1953',
-        'Jack McDevitt': '1935',
-        'Frederic Brown': '1906',
-        'N.K. Jemisin': '1972',
-        'Localroger': '1960',
-        'Crispin Cooper': '1975',
-        'Benedict_SC': '1985',
-        'Usman T. Malik': '1977',
-        'Donald S. Crankshaw': '1970',
-        'Matthew Bailey': '1975',
-        'Peter Watts': '1958',
-        'Scott Alexander': '1984',
-        'Rational Animations': '2010'  # Org, not person
-    }
-    return birth_years.get(author, "")
 
-def process_stories_data(stories_path: Path) -> Tuple[Dict[str, List[str]], Set[str]]:
-    """Process stories.json and return author->story_links mapping and set of read authors."""
-    with open(stories_path, 'r', encoding='utf-8') as f:
-        stories = json.load(f)
+def extract_authors_from_stories(stories_data: List[dict]) -> Dict[str, Set[str]]:
+    """
+    Extract unique authors and their story URLs from schedule.json
+    Returns: dict mapping author name -> set of story URLs
+    """
+    author_stories = {}
+    total_stories = 0
+    stories_with_urls = 0
+    skipped_authors = []
     
-    author_story_map = {}
-    read_authors = set()
+    print("\nAnalyzing schedule.json structure...")
     
-    for story in stories:
-        if not story.get('author') or not story.get('link'):
-            continue
-            
-        author = clean_author_name(story['author'])
-        if not author:
-            continue
-            
-        link = story['link'].strip()
-        # Only include valid links
-        if not (link.startswith('http') or '.html' in link or '.pdf' in link or link.startswith('stories')):
-            continue
-            
-        read_authors.add(author)
+    # Handle both possible formats: array of weeks or array of stories
+    for item in stories_data:
+        # Check if this is a week object with stories array
+        if 'stories' in item:
+            print(f"  Week {item.get('number', '?')}: {len(item['stories'])} stories")
+            for story in item['stories']:
+                total_stories += 1
+                raw_author = story.get('author', '').strip()
+                author = clean_author_name(raw_author)
+                
+                if not author:
+                    if raw_author and raw_author not in skipped_authors:
+                        skipped_authors.append(raw_author)
+                        print(f"    Skipped non-author: '{raw_author}'")
+                    continue
+                    
+                if author not in author_stories:
+                    author_stories[author] = set()
+                
+                # Extract URLs from links
+                links = story.get('links', [])
+                for link in links:
+                    url = link.get('url', '').strip()
+                    if url:  # Only add non-empty URLs
+                        author_stories[author].add(url)
+                        stories_with_urls += 1
         
-        if author not in author_story_map:
-            author_story_map[author] = []
-        
-        if link not in author_story_map[author]:
-            author_story_map[author].append(link)
+        # Check if this is a flat story format (legacy)
+        elif 'author' in item:
+            total_stories += 1
+            raw_author = item.get('author', '').strip()
+            author = clean_author_name(raw_author)
+            
+            if not author:
+                if raw_author and raw_author not in skipped_authors:
+                    skipped_authors.append(raw_author)
+                    print(f"  Skipped non-author: '{raw_author}'")
+                continue
+                
+            if author not in author_stories:
+                author_stories[author] = set()
+            
+            # Check for direct link field
+            url = item.get('link', '').strip()
+            if url:
+                author_stories[author].add(url)
+                stories_with_urls += 1
     
-    return author_story_map, read_authors
+    print(f"\nStories analysis complete:")
+    print(f"  Total stories found: {total_stories}")
+    print(f"  Stories with URLs: {stories_with_urls}")
+    print(f"  Unique valid authors: {len(author_stories)}")
+    print(f"  Skipped non-authors: {len(skipped_authors)}")
+    
+    # List authors with their story counts
+    print("\nAuthors found in reading history:")
+    for author, urls in sorted(author_stories.items()):
+        print(f"  - {author}: {len(urls)} story URL(s)")
+    
+    return author_stories
 
-def update_data_json(data_path: Path, author_story_map: Dict[str, List[str]], read_authors: Set[str]):
-    """Update data.json with reading information and missing authors."""
-    with open(data_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+
+def find_author_in_nodes(author_name: str, nodes: List[dict]) -> dict:
+    """
+    Find an author node by name (case-insensitive)
+    Returns the node dict if found, None otherwise
+    """
+    author_lower = author_name.lower()
+    for node in nodes:
+        if node.get('name', '').lower() == author_lower:
+            return node
+    return None
+
+
+def get_next_node_id(nodes: List[dict]) -> int:
+    """Get the next available node ID"""
+    if not nodes:
+        return 1
+    max_id = max(node.get('id', 0) for node in nodes)
+    return max_id + 1
+
+
+def update_data_with_stories(data_file: str, stories_file: str) -> None:
+    """
+    Main function to update data.json with SFSFSS reading history
+    """
+    print(f"Loading {data_file}...")
+    data = load_json_file(data_file)
+    if data is None:
+        return
     
-    # Get existing authors and max ID
-    existing_authors = {node['name']: node for node in data['nodes']}
-    max_id = max(node['id'] for node in data['nodes']) if data['nodes'] else 0
+    print(f"Loading {stories_file}...")
+    stories = load_json_file(stories_file)
+    if stories is None:
+        return
     
-    print(f"Loaded {len(data['nodes'])} existing nodes, max ID: {max_id}")
+    # Ensure data has the required structure
+    if 'nodes' not in data:
+        data['nodes'] = []
+    if 'links' not in data:
+        data['links'] = []
     
-    # Update existing nodes with new fields
-    updated_count = 0
-    for node in data['nodes']:
-        author_name = node['name']
+    print(f"\nCurrent graph statistics:")
+    print(f"  Nodes (authors): {len(data['nodes'])}")
+    print(f"  Links (relationships): {len(data['links'])}")
+    
+    # List current authors
+    current_authors = {node.get('name', '').lower(): node.get('name', '') 
+                      for node in data['nodes']}
+    print(f"\nCurrent authors in graph: {len(current_authors)}")
+    
+    # Extract authors and their stories
+    author_stories = extract_authors_from_stories(stories)
+    
+    # Track statistics
+    authors_added = 0
+    authors_updated = 0
+    authors_already_marked = 0
+    
+    print("\nProcessing authors...")
+    
+    # Process each author from stories
+    for author_name, story_urls in author_stories.items():
+        existing_node = find_author_in_nodes(author_name, data['nodes'])
         
-        # Add the new fields
-        if author_name in read_authors:
-            node['sfsfss_has_read'] = True
-            node['story_links'] = author_story_map.get(author_name, [])
-            if not node.get('sfsfss_has_read', False):  # Only count if newly updated
-                updated_count += 1
+        if existing_node:
+            # Update existing author
+            changed = False
+            
+            # Check if already marked as read
+            if existing_node.get('sfsfss_has_read', False):
+                authors_already_marked += 1
+            else:
+                existing_node['sfsfss_has_read'] = True
+                changed = True
+            
+            # Update story_links
+            existing_links = set(existing_node.get('story_links', []))
+            new_links = story_urls - existing_links
+            
+            if new_links:
+                existing_node['story_links'] = sorted(list(existing_links | story_urls))
+                changed = True
+                print(f"  Updated: {author_name} (+{len(new_links)} new links)")
+            elif changed:
+                print(f"  Marked as read: {author_name}")
+            
+            if changed:
+                authors_updated += 1
         else:
+            # Add new author
+            new_node = {
+                'id': get_next_node_id(data['nodes']),
+                'name': author_name,
+                'sfsfss_has_read': True,
+                'story_links': sorted(list(story_urls)) if story_urls else []
+            }
+            data['nodes'].append(new_node)
+            authors_added += 1
+            print(f"  Added new: {author_name} (ID: {new_node['id']}) with {len(story_urls)} links")
+    
+    # Ensure all existing nodes have the required fields
+    nodes_needing_defaults = 0
+    for node in data['nodes']:
+        if 'sfsfss_has_read' not in node:
             node['sfsfss_has_read'] = False
+            nodes_needing_defaults += 1
+        if 'story_links' not in node:
             node['story_links'] = []
     
-    # Find missing authors
-    missing_authors = []
-    for author in read_authors:
-        if author not in existing_authors:
-            missing_authors.append(author)
-    
-    print(f"Found {len(missing_authors)} missing authors: {missing_authors[:10]}{'...' if len(missing_authors) > 10 else ''}")
-    
-    # Add missing authors
-    added_count = 0
-    for author in missing_authors:
-        max_id += 1
-        new_node = {
-            'id': max_id,
-            'name': author,
-            'images': [],
-            'sfsfss_has_read': True,
-            'story_links': author_story_map.get(author, [])
-        }
-        
-        # Add birth year if we have it
-        birth_year = extract_birth_year(author)
-        if birth_year:
-            new_node['birth_year'] = birth_year
-            
-        data['nodes'].append(new_node)
-        added_count += 1
-        
-        print(f"Added: {author} (ID: {max_id})")
+    if nodes_needing_defaults > 0:
+        print(f"\nAdded default fields to {nodes_needing_defaults} existing nodes")
     
     # Save updated data
-    with open(data_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    print(f"\nSaving updates to {data_file}...")
+    if save_json_file(data_file, data):
+        print("\nSuccess! Summary:")
+        print(f"  Authors added: {authors_added}")
+        print(f"  Authors updated: {authors_updated}")
+        print(f"  Authors already marked: {authors_already_marked}")
+        print(f"  Total authors in graph: {len(data['nodes'])}")
+        print(f"  Total SFSFSS authors read: {len(author_stories)}")
+        
+        # List authors not in graph
+        missing_from_graph = []
+        for author in author_stories:
+            if author.lower() not in current_authors:
+                if not find_author_in_nodes(author, data['nodes']):
+                    missing_from_graph.append(author)
+        
+        if missing_from_graph:
+            print(f"\nNote: The following authors from stories were not found in the original graph:")
+            for author in missing_from_graph:
+                print(f"  - {author}")
+    else:
+        print("Failed to save updates")
+
+
+def analyze_data_files(data_file: str, stories_file: str) -> None:
+    """
+    Analyze both files to understand the data structure and potential issues
+    """
+    print("\n=== Data File Analysis ===")
     
-    print(f"\nSummary:")
-    print(f"- Updated {updated_count} existing authors with reading status")
-    print(f"- Added {added_count} new authors")
-    print(f"- Total authors with SFSFSS reads: {len(read_authors)}")
-    print(f"- Total nodes: {len(data['nodes'])}")
+    # Analyze data.json
+    if os.path.exists(data_file):
+        data = load_json_file(data_file)
+        if data:
+            print(f"\ndata.json structure:")
+            print(f"  Top-level keys: {list(data.keys())}")
+            if 'nodes' in data and data['nodes']:
+                print(f"  Sample node: {json.dumps(data['nodes'][0], indent=2)}")
+            if 'links' in data and data['links']:
+                print(f"  Sample link: {json.dumps(data['links'][0], indent=2)}")
+    
+    # Analyze schedule.json
+    if os.path.exists(stories_file):
+        stories = load_json_file(stories_file)
+        if stories and len(stories) > 0:
+            print(f"\nschedule.json structure:")
+            print(f"  Type: {type(stories)}")
+            print(f"  Length: {len(stories)}")
+            print(f"  First item keys: {list(stories[0].keys()) if isinstance(stories, list) else 'Not a list'}")
+            if isinstance(stories, list) and len(stories) > 0:
+                print(f"  Sample item: {json.dumps(stories[0], indent=2)}")
+
 
 def main():
-    """Main function to update data.json with reading information."""
-    stories_path = Path('stories.json')
-    data_path = Path('data.json')
+    """Entry point"""
+    data_file = 'data/data.json'
+    stories_file = 'data/schedule.json'
     
-    if not stories_path.exists():
-        print(f"Error: {stories_path} not found!")
+    # Check if files exist
+    if not os.path.exists(stories_file):
+        print(f"Error: {stories_file} not found!")
+        print("Please ensure your SFSFSS reading history is saved as 'data/schedule.json'")
         return
     
-    if not data_path.exists():
-        print(f"Error: {data_path} not found!")
-        return
+    if not os.path.exists(data_file):
+        print(f"Warning: {data_file} not found, creating new file...")
+        save_json_file(data_file, {'nodes': [], 'links': []})
     
-    print("Processing stories.json...")
-    author_story_map, read_authors = process_stories_data(stories_path)
+    # First analyze the files to understand structure
+    analyze_data_files(data_file, stories_file)
     
-    print(f"Found {len(read_authors)} unique authors with stories")
-    print(f"Total story links: {sum(len(links) for links in author_story_map.values())}")
-    
-    print("\nUpdating data.json...")
-    update_data_json(data_path, author_story_map, read_authors)
-    
-    print(f"\ndata.json has been updated successfully!")
+    # Run the update
+    print("\n=== Starting Update Process ===")
+    update_data_with_stories(data_file, stories_file)
+
 
 if __name__ == '__main__':
     main()

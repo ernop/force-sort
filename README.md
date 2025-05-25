@@ -57,8 +57,9 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 ├── graph-editor.js         # Core graph logic & interactions
 ├── duplicate-cleanup.js    # Data cleanup utilities
 ├── server.py               # Python server for uploads/saves
-├── data.json               # Graph data storage
-├── stories.json            # SFSFSS reading history (optional)
+├── data/                   # Data directory
+│   ├── data.json          # Graph data storage
+│   └── schedule.json      # SFSFSS reading history (optional)
 ├── update_reading_data.py  # Script to sync reading data
 ├── images/                 # Uploaded images directory
 ├── backups/                # Automatic backup versions
@@ -100,7 +101,7 @@ Then open [http://localhost:8007/force.html](http://localhost:8007/force.html) i
 ### SFSFSS Reading Data Integration (Optional)
 If you're tracking reading history from the SF Short Story Society:
 
-1. Place your `stories.json` file in the project root
+1. Place your `schedule.json` file in the `data` directory
 2. Run the update script:
    ```bash
    python update_reading_data.py

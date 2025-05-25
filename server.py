@@ -5,7 +5,7 @@ import datetime
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 import cgi
 
-DATA_FILE = 'data.json'
+DATA_FILE = 'data/data.json'
 IMAGE_DIR = 'images'
 BACKUP_DIR = 'backups'
 PORT = 8007
