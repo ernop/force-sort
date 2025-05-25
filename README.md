@@ -1,10 +1,6 @@
 # Force-Sort Graph Editor
 
-This project is a minimal editor for an author relationship graph.  The page
-`force.html` displays a D3 force‑directed diagram and lets you add or edit
-nodes and edges directly in the browser.  Uploaded images are stored in the
-`images/` folder via `server.py` and referenced by the graph data file
-`data.json`.
+This project is a minimal editor for an author relationship graph. The page `force.html` displays a D3 force‑directed diagram and lets you add or edit nodes and edges directly in the browser. Uploaded images are stored in the `images/` folder via `server.py` and referenced by the graph data file `data.json`.
 
 ## Running
 
@@ -14,51 +10,27 @@ Start the lightweight web server from the repository root:
 python server.py
 ```
 
-Then open [http://localhost:8007/force.html](http://localhost:8007/force.html)
- in your browser.  The script allows image uploads, so using `python -m
-http.server` will only provide read‑only access.
+Then open [http://localhost:8007/force.html](http://localhost:8007/force.html) in your browser. The script allows image uploads, so using `python -m http.server` will only provide read‑only access.
 
 ## Product Goals
 
-* **Simple editing.**  Nodes and edges can be created, deleted and renamed
-  without leaving the page.
-* **Copy‑to‑save workflow.**  All changes are reflected in the data view in the
-  bottom‑right corner.  The text area turns yellow whenever the data differs
-  from what you've copied.  Click the area to copy the JSON to your clipboard
-  and it turns white again.  The page now also sends the data to
-  `server.py` each time it changes so it is written to `data.json`
-  automatically.  Previous versions are stored in the `backups/` folder.
-* **Image support.**  Each node can hold multiple images.  Paste or upload
-  pictures while the editor popup is open, rearrange or remove them, and
-  identical uploads are detected automatically. Image paths are stored in an
-  `images` array on each node.
-The popup now reliably resets when switching between nodes so you never
-  see another person's pictures by mistake.
-* **Layout options.**  A "tiers" layout is available in addition to the default
-  force simulation. A new "force+direction" mode keeps edges mostly pointing
-  downward while still using forces.
-* **Filter persistence.**  Active focus or year filters stay applied while you
-  edit nodes or edges. The selected filters only change when you interact with
-  the filter controls themselves.
+* **Simple editing.** Nodes and edges can be created, deleted and renamed without leaving the page.
+* **Copy‑to‑save workflow.** All changes are reflected in the data view in the bottom‑right corner. The text area turns yellow whenever the data differs from what you've copied. Click the area to copy the JSON to your clipboard and it turns white again. The page now also sends the data to `server.py` each time it changes so it is written to `data.json` automatically. Previous versions are stored in the `backups/` folder.
+* **Image support.** Each node can hold multiple images. Paste or upload pictures while the editor popup is open, rearrange or remove them, and identical uploads are detected automatically. Image paths are stored in an `images` array on each node. The popup now reliably resets when switching between nodes so you never see another person's pictures by mistake.
+* **Layout options.** A "tiers" layout is available in addition to the default force simulation. A new "force+direction" mode keeps edges mostly pointing downward while still using forces.
+* **Filter persistence.** Active focus or year filters stay applied while you edit nodes or edges. The selected filters only change when you interact with the filter controls themselves.
+* **Physics-based decluttering.** The force simulation uses adaptive link distances based on node degree, radial forces in focus mode, and proper momentum clearing when dragging nodes.
+* **Smart label handling.** Long relationship labels are truncated with ellipsis and expand smoothly on hover with a subtle background for readability.
 
 ## Data Format
 
-The `data.json` file contains two arrays: `nodes` and `links`. Each node holds
-an `id`, a `name`, an optional `birth_year`, and an `images` array. The
-`images` array may be empty or contain multiple file paths. Links store `id1`,
-`id2` and a `label` describing the connection.
+The `data.json` file contains two arrays: `nodes` and `links`. Each node holds an `id`, a `name`, an optional `birth_year`, and an `images` array. The `images` array may be empty or contain multiple file paths. Links store `id1`, `id2` and a `label` describing the connection.
 
-
-The application aims to remain single‑page and self‑contained.  Styling is kept
-minimal and everything is bundled inside `force.html` for easy hosting.
+The application aims to remain single‑page and self‑contained. Styling is kept minimal and everything is bundled inside `force.html` for easy hosting.
 
 ## Line Endings
 
-All text files use **CRLF** (`\r\n`) line terminators. The repository includes
-`.gitattributes` and `.editorconfig` files so Git and common editors enforce this
-automatically. No additional setup is required.
-
-
+All text files use **CRLF** (`\r\n`) line terminators. The repository includes `.gitattributes` and `.editorconfig` files so Git and common editors enforce this automatically. No additional setup is required.
 
 # Interactive Graph Network Editor
 
@@ -72,10 +44,11 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 3. **Contextual Controls**: Year filtering, focus mode, search highlighting
 4. **Responsive Feedback**: Hover effects, smooth transitions, immediate visual responses
 5. **Minimal UI Friction**: Placeholders over labels, X buttons over Cancel, auto-close popups
+6. **Data Integrity**: Never hide or lose information - use physics to organize better layouts
 
 ### Technical Architecture
 - **Frontend Only**: Pure HTML/CSS/JavaScript - no backend required
-- **Local Storage**: All data persists in browser localStorage
+- **Server Support**: Python server for image uploads and automatic saves
 - **Force Simulation**: D3.js physics for natural node positioning
 - **Component Separation**: Distinct files for structure, styling, and logic
 
@@ -88,13 +61,15 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 - **Search** with rich green highlighting and glow effects
 - **Focus mode** with connection depth control (1-5 degrees)
 - **Year filtering** with dual-handle slider and 50-year tick marks
+- **Smart physics** with adaptive link distances and radial organization
 
 ### Data Management
 - **Live editing** with immediate visual updates
-- **Auto-save** to localStorage with status indicators
+- **Auto-save** to server with backup versioning
 - **Import/Export** JSON data for sharing/backup
 - **Image support** via paste-to-add functionality
-- **Relationship presets** (influenced by, mentored, etc.)
+- **Relationship presets** with Select2 autocomplete
+- **Proper momentum handling** when dragging nodes
 
 ### Visual Design
 - **Clean modern UI** with CSS custom properties
@@ -102,6 +77,7 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 - **Contextual colors**: Black for edges, green for focus/search, blue for primary actions
 - **Responsive layout** with fixed top controls and right sidebar
 - **Professional typography** with proper hierarchy
+- **Truncated labels** that expand on hover for long relationships
 
 ## 📁 File Structure
 
@@ -109,6 +85,10 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 ├── force.html          # Main HTML structure & layout
 ├── styles.css          # Complete styling system
 ├── graph-editor.js     # Core graph logic & interactions
+├── server.py           # Python server for uploads/saves
+├── data.json           # Graph data storage
+├── images/             # Uploaded images directory
+├── backups/            # Automatic backup versions
 ├── nouislider.min.js   # Year range slider component
 ├── nouislider.min.css  # Slider styling
 └── README.md           # This documentation
@@ -131,19 +111,24 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 - **Drop shadows** for search highlights
 - **Gradient buttons** with subtle animations
 - **Smooth transitions** (0.2s ease) throughout
+- **Black strokes** for nodes and edges
+- **Truncated labels** with hover expansion
 
 ## 🔧 Key Implementation Details
 
 ### Graph Rendering
-- Uses D3.js `forceSimulation()` with charge, center, and link forces
+- Uses D3.js `forceSimulation()` with charge, center, link, and collision forces
 - Nodes sized dynamically based on content length
 - Arrow markers with proper positioning (`refX: 28`)
 - Edge labels positioned at midpoint with collision detection
+- Adaptive link distances based on node degree
+- Radial force layout in focus mode
 
 ### State Management
 - Global objects: `nodeById`, `linkById`, `focusedNodeId`
 - Event-driven updates with `updateGraph()` and `updateVisualization()`
 - Debounced localStorage saves for performance
+- Proper momentum clearing on drag release
 
 ### Popup System
 - **Single popup rule**: Close others when opening new
@@ -157,6 +142,13 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 - **Dynamic range** based on data min/max
 - **Real-time filtering** with smooth transitions
 
+### Physics Improvements
+- **Adaptive link distance**: Nodes with more connections get more space
+- **Radial forces**: Focus mode arranges connected nodes in clean patterns
+- **Velocity decay**: 0.4 friction for natural movement
+- **Alpha decay**: 0.005 for better settling time
+- **Collision detection**: Variable radius based on node degree
+
 ## 🛠️ Development Guidelines
 
 ### Code Style Preferences
@@ -165,6 +157,7 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 - **Event delegation**: Efficient DOM event handling
 - **Modular functions**: Single responsibility principle
 - **CSS organization**: Logical grouping, consistent naming
+- **Targeted diffs**: Prefer small, specific changes over full rewrites
 
 ### UI/UX Patterns
 - **Placeholders over labels**: Cleaner forms, less visual noise
@@ -172,18 +165,30 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 - **Consistent interactions**: Same action patterns throughout
 - **Visual hierarchy**: Size, color, and spacing for importance
 - **Error prevention**: Validation and helpful defaults
+- **Physics over hiding**: Use forces to declutter, don't remove data
 
 ### Performance Considerations
 - **Debounced operations**: Search, save, filter updates
 - **Efficient DOM updates**: Minimize redraws, batch changes
 - **Event cleanup**: Remove listeners to prevent memory leaks
 - **Selective rendering**: Only update changed elements
+- **Smart label truncation**: Show full text only on hover
 
 ## 🎯 Feature Priorities & Roadmap
 
+### Recently Implemented
+- ✅ Black node strokes for consistency
+- ✅ Fixed relationship controls layout (2-line wrap)
+- ✅ Proper error handling (no fake data fallback)
+- ✅ Select2 for relationship type with autocomplete
+- ✅ Swap source/target button functionality
+- ✅ Momentum clearing on node release
+- ✅ Numerical display for charge/link sliders
+- ✅ Label truncation with hover expansion
+
 ### High Priority Improvements
-1. **Arrow positioning fixes** for focus mode connections=1
-2. **Enhanced search** with fuzzy matching and history
+1. **Smart curved edges** that actually avoid overlaps
+2. **Label collision detection** with automatic repositioning
 3. **Batch operations** for multiple node/edge editing
 4. **Export formats** (CSV, GraphML, Cytoscape)
 5. **Undo/redo system** for complex editing sessions
@@ -205,17 +210,17 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 ## 🚨 Known Issues & Solutions
 
 ### Current Bugs
-1. **Arrow positioning** when connections=1 in focus mode
-   - *Fix*: Adjust `refX` value based on connection depth
-2. **Popup z-index conflicts** with other UI elements
-   - *Fix*: Consistent z-index hierarchy (1001 for popups)
-3. **Year input validation** allows invalid dates
-   - *Fix*: Add regex validation and input constraints
+1. **Label overlap** in dense graphs
+   - *Solution in progress*: Force-based label repulsion
+2. **Performance with 500+ nodes**
+   - *Fix*: Implement viewport culling
+3. **Mobile touch support** needs improvement
+   - *Fix*: Add proper touch event handlers
 
 ### Browser Compatibility
 - **Modern browsers only**: Uses ES6+, CSS Grid, Custom Properties
-- **LocalStorage dependency**: Graceful fallback needed
-- **Touch device support**: Mobile interaction improvements needed
+- **Server dependency**: Requires Python server for full functionality
+- **Touch device support**: Basic functionality, needs enhancement
 
 ## 📊 Data Format
 
@@ -225,17 +230,16 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
   id: "unique-id",
   name: "Author Name",
   birth_year: 1850,
-  images: ["data:image/jpeg;base64,..."]
+  images: ["images/1_0.png", "images/1_1.png"]
 }
 ```
 
 ### Edge Structure
 ```javascript
 {
-  source: "node-id-1",
-  target: "node-id-2",
-  label: "influenced by",
-  year: 1875  // Optional relationship timing
+  id1: "source-node-id",
+  id2: "target-node-id",
+  label: "influenced by"
 }
 ```
 
@@ -246,6 +250,7 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 2. **Maintain consistency**: Follow established patterns
 3. **Document decisions**: Update this README
 4. **Progressive enhancement**: Don't break existing functionality
+5. **Use targeted diffs**: Show exact before/after code blocks
 
 ### Code Review Checklist
 - [ ] Follows established naming conventions
@@ -254,7 +259,9 @@ A sophisticated web-based tool for creating, editing, and visualizing networks o
 - [ ] Updates documentation as needed
 - [ ] Tests in multiple browsers
 - [ ] Preserves accessibility features
+- [ ] Uses physics to solve layout issues
+- [ ] Provides clear diff instructions
 
 ---
 
-*This project emphasizes thoughtful interaction design, clean code architecture, and extensible data structures for long-term maintainability and user satisfaction.*
+*This project emphasizes thoughtful interaction design, clean code architecture, and physics-based solutions for maintaining data visibility while reducing visual clutter.*
