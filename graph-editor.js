@@ -1134,6 +1134,16 @@ function setFocus(nodeId, depth) {
   const oldDepth = currentFilters.focus.depth;
   currentFilters.focus.depth = nodeId === null ? 1 : parseInt(depth, 10);
   
+  // If focusing on a node, ensure it has valid coordinates
+  if (nodeId !== null) {
+    const focusNode = nodeById.get(nodeId);
+    if (focusNode && (typeof focusNode.x === 'undefined' || typeof focusNode.y === 'undefined')) {
+      // Give hidden nodes default positions in center
+      focusNode.x = width / 2;
+      focusNode.y = height / 2;
+    }
+  }
+  
   // If we're changing depth on the same node, position newly visible nodes nicely
   if (nodeId !== null && nodeId === oldFocusNodeId && oldDepth !== currentFilters.focus.depth) {
     const focusNode = nodeById.get(nodeId);
@@ -1223,7 +1233,12 @@ function setFocus(nodeId, depth) {
 }
 
 function applyAllFiltersAndRefresh(restartSimForcefully = false) {
+  console.log('=== applyAllFiltersAndRefresh START ===');
+  console.log('Current filters:', JSON.parse(JSON.stringify(currentFilters)));
+  console.log('Total nodes:', nodes.length);
+  
   let visibleNodeIds = new Set(nodes.map(n => n.id));
+  console.log('Initial visible nodes:', visibleNodeIds.size);
 
   // Apply Year Filter
   const yearSlider = document.getElementById('yearSlider');
@@ -1531,14 +1546,24 @@ function updateSearchSelection(resultsDiv) {
 function selectSearchResult(item, resultsDiv) {
   const nodeId = parseInt(item.dataset.nodeId, 10);
   
-  // Clear search UI first (but don't trigger filter refresh)
-  document.getElementById('searchInput').value = '';
+  // Clear search state BEFORE clearing input to prevent event cascade
+  currentFilters.searchTerm = '';
   hideSearchResults(resultsDiv);
   
-  // Clear search term WITHOUT triggering refresh
-  currentFilters.searchTerm = '';
+  // Clear input without triggering events
+  const searchInput = document.getElementById('searchInput');
+  searchInput.value = '';
   
-  // Now set focus (this will call applyAllFiltersAndRefresh internally)
+  // Position the focused node in center immediately
+  const focusNode = nodeById.get(nodeId);
+  if (focusNode) {
+    focusNode.x = width / 2;
+    focusNode.y = height / 2;
+    focusNode.fx = focusNode.x;
+    focusNode.fy = focusNode.y;
+  }
+  
+  // Set focus (this will call applyAllFiltersAndRefresh internally)
   setFocus(nodeId, currentFilters.focus.depth);
 }
 

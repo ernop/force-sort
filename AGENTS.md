@@ -1,102 +1,34 @@
-# Project Info
-
-This repository contains a small web project displaying a D3 force-directed graph of authors and their relationships. The main page is **force.html**, which bundles the HTML, CSS and JavaScript and pulls in external libraries from CDNs. Graph data lives in **data.json** and is loaded by the page at runtime.
-
-## Usage
-
-Run the custom webserver from the repository root:
-
-```
-python server.py
-```
-
-This script extends `http.server` so the page can upload images and auto-save data. The old `python -m http.server 8007` command will still serve the page read-only. Then open `http://localhost:8007/force.html` in your browser.
-
-The server automatically saves changes to `data.json` and creates timestamped backups in the `backups/` folder. Images are uploaded to the `images/` folder and referenced by path (never as binary data in JSON).
-
-## Status
-
-Development is active. The repository now contains:
-
-- `server.py` – HTTP server that accepts image uploads and auto-saves data
-- `images/` – uploaded image files (ignored by Git)
-- `force.html` – the main page with inline JS references
-- `graph-editor.js` – core graph logic and interactions
-- `styles.css` – complete styling system
-- `data.json` – the dataset consumed by the page
-- `backups/` – automatic versioned backups of data.json
-
-Recent improvements:
-- Node strokes are now black for visual consistency
-- Relationship controls wrap properly in sidebar
-- Select2 integration for relationship type with autocomplete
-- Proper momentum handling when dragging nodes
-- Smart label truncation with hover expansion
-- Physics-based decluttering instead of hiding data
-
-## Repository Overview
-This section summarizes the purpose of each file and folder in the project.
-
-- `README.md` – high level overview and instructions
-- `AGENTS.md` – contributor notes (this file)
-- `server.py` – python server that saves `data.json` and accepts image uploads
-- `force.html` – browser-based graph editor main page
-- `graph-editor.js` – core D3.js graph logic
-- `styles.css` – complete styling system
-- `data.json` – graph dataset of nodes and links
-- `images/` – uploaded pictures referenced from nodes, ignored by Git
-- `backups/` – automatic copies of `data.json` made by the server
-- `.gitignore` – excludes transient folders from version control
-- `.gitattributes` – enforces CRLF line endings
-- `.editorconfig` – editor configuration for consistent formatting
-
-### `data.json` format
-The dataset is a single JSON object with two arrays:
-
-```
-{
-  "nodes": [ ... ],
-  "links": [ ... ]
-}
-```
-
-Each **node** has at least:
-- `id` – unique integer
-- `name` – author name
-
-Optional fields are:
-- `birth_year` – year of birth as a string
-- `images` – array of picture paths. The array may be empty
-
-Each **link** describes a relationship:
-- `id1` – source node id
-- `id2` – target node id
-- `label` – text describing the connection
-
-Example snippet:
-```json
-{
-  "nodes": [
-    {
-      "id": 1,
-      "name": "Example Author",
-      "birth_year": "1900",
-      "images": ["images/1_0.png"]
-    }
-  ],
-  "links": [
-    { "id1": 1, "id2": 2, "label": "influenced" }
-  ]
-}
-```
-
-## Contribution Guidelines
-
-To avoid churn from inconsistent line endings, use **CRLF** (`\r\n`) line terminators for all files in this repository. Configure your editor to save files with Windows line endings and do not convert them to plain `\r` or other styles. Line endings are automatically enforced by the repository's `.gitattributes` and `.editorconfig` files so most editors will handle them correctly without extra setup.
-
 # AI Agent Development Guide
 
 This document provides specific guidance for AI assistants working on the Interactive Graph Network Editor project.
+
+## 📋 Project Overview
+
+This repository contains a web-based graph editor for visualizing relationships between authors and thinkers across time. The main page is **force.html**, which displays a D3.js force-directed graph with nodes (authors) and edges (relationships). The application supports image uploads, automatic data persistence, and optional integration with SFSFSS reading history.
+
+### Current Status
+
+Development is active. The repository contains:
+
+- `force.html` – Main page with graph visualization
+- `graph-editor.js` – Core D3.js graph logic and interactions
+- `duplicate-cleanup.js` – Data cleanup utilities
+- `styles.css` – Complete styling system
+- `server.py` – HTTP server for image uploads and auto-saves
+- `data.json` – Graph dataset consumed by the page
+- `stories.json` – Optional SFSFSS reading history
+- `update_reading_data.py` – Script to sync reading data
+- `images/` – Uploaded image files (ignored by Git)
+- `backups/` – Automatic versioned backups of data.json
+
+### Recent Improvements
+- Edge creation via Ctrl+Click on nodes
+- Duplicate detection and cleanup for nodes/edges
+- Search with keyboard navigation and author images
+- Two layout modes: Force-directed and Chronological Tiers
+- SFSFSS reading history integration
+- Smart label truncation with hover expansion
+- Physics-based decluttering instead of hiding data
 
 ## 🎯 Project Context & User Preferences
 
@@ -116,6 +48,43 @@ This document provides specific guidance for AI assistants working on the Intera
 - **Modern CSS**: Custom properties, flexbox, grid
 - **Vanilla JavaScript**: ES6+ features, no frameworks
 - **External libraries**: jQuery, Select2, NoUISlider from CDNs
+
+## 📊 Data Schemas
+
+### data.json Schema
+```typescript
+{
+  nodes: Array<{
+    id: number;                    // Required: unique integer
+    name: string;                  // Required: author's name
+    birth_year?: string;           // Optional: year as string
+    images?: string[];             // Optional: array of image paths
+    sfsfss_has_read?: boolean;     // Optional: reading status
+    story_links?: string[];        // Optional: array of story URLs
+  }>;
+  links: Array<{
+    id1: number;                   // Required: source node id
+    id2: number;                   // Required: target node id
+    label: string;                 // Required: relationship description
+  }>;
+}
+```
+
+### stories.json Schema (Optional)
+```typescript
+Array<{
+  number: string;         // Story number
+  date: string;           // Publication date
+  title: string;          // Story title
+  author: string;         // Author name
+  year: string;           // Story year
+  link: string;           // URL to story
+  linkText: string;       // Link type (HTML/PDF)
+  length: string;         // Word count
+  weekId: string;         // Week identifier
+  storyIndex: number;     // Story index in week
+}>
+```
 
 ## 🛠️ Development Approach
 
@@ -160,7 +129,7 @@ hover states with color/shadow changes
 ```
 
 ### JavaScript Architecture
-- **Global state objects**: `nodeById`, `linkById`, `currentFilters`
+- **Global state objects**: `nodeById`, `links`, `nodes`, `currentFilters`
 - **Event-driven updates**: Call `updateGraph()` after data changes
 - **Function naming**: Descriptive verbs (`openNodePopup`, `hideEdgePopup`)
 - **Error handling**: Graceful degradation, console warnings
@@ -174,7 +143,7 @@ hover states with color/shadow changes
 - **Body text**: 14px, line-height 1.5, readable contrast
 - **Form inputs**: 8-12px padding, consistent border radius
 - **Buttons**: Gradient backgrounds, subtle shadows, hover animations
-- **Label truncation**: ~20 chars with ellipsis, expand on hover
+- **Label truncation**: Dynamic based on edge length, expand on hover
 
 ### Color Usage Patterns
 - **Black**: Edges, edge labels, node strokes, primary text (`#000000`)
@@ -221,18 +190,13 @@ document.addEventListener('click', (e) => {
 ```javascript
 // Standard force configuration with physics improvements
 const simulation = d3.forceSimulation(nodes)
-  .force('link', d3.forceLink(links).id(d => d.id).distance(d => {
-    // Adaptive distance based on node degree
-    const base = +linkInput.value;
-    const srcDegree = links.filter(l => l.id1 === d.source.id || l.id2 === d.source.id).length;
-    const tgtDegree = links.filter(l => l.id1 === d.target.id || l.id2 === d.target.id).length;
-    return base * (1 + Math.log(Math.max(srcDegree, tgtDegree)) * 0.2);
-  }))
-  .force('charge', d3.forceManyBody().strength(-300))
-  .force('center', d3.forceCenter(width/2, height/2))
-  .force('collision', d3.forceCollide().radius(40))
-  .alphaDecay(0.005)  // Slower for better settling
-  .velocityDecay(0.4); // Add friction
+  .force('link', d3.forceLink().id(d => d.id).distance(() => +linkInput.value))
+  .force('charge', d3.forceManyBody().strength(() => layoutMode === 'tiers' ? +chargeInput.value * 2 : +chargeInput.value))
+  .force('center', d3.forceCenter(width / 2, height / 2))
+  .force('collision', d3.forceCollide().radius(layoutMode === 'tiers' ? 60 : 40))
+  .alphaDecay(layoutMode === 'tiers' ? 0.01 : 0.001)
+  .velocityDecay(layoutMode === 'tiers' ? 0.8 : 0.4)
+  .on('tick', ticked);
 ```
 
 ### Select2 Integration
@@ -242,7 +206,19 @@ $('#edgeLabel').select2({
   tags: true,
   width: '100%',
   placeholder: 'Relationship type',
-  data: ['influenced by', 'inspired by', 'mentored', ...],
+  data: [
+    'influenced',
+    'inspired',
+    'mentored',
+    'collaborated with',
+    'friend of',
+    'contemporary of',
+    'studied under',
+    'rival of',
+    'edited',
+    'married',
+    'corresponded with'
+  ],
   createTag: function(params) {
     return {
       id: params.term,
@@ -274,6 +250,7 @@ $('#edgeLabel').select2({
 5. **Error prevention**: Validate inputs, provide helpful defaults
 6. **Physics solutions**: Use forces to declutter, don't hide data
 7. **Proper diffs**: Show exact code to find and replace
+8. **Maintain data integrity**: Preserve all fields when updating nodes
 
 ### Must Never Do
 1. **Break existing functionality**: Test before confirming changes
@@ -283,6 +260,7 @@ $('#edgeLabel').select2({
 5. **Overcomplicate simple fixes**: Prefer minimal viable solutions
 6. **Use fake data fallbacks**: Show proper error messages instead
 7. **Store images as binary**: Always use server for image uploads
+8. **Lose data fields**: Preserve optional fields even if not displayed
 
 ## 🎯 Feature Development Priorities
 
@@ -295,28 +273,28 @@ $('#edgeLabel').select2({
 - Smart label truncation with expansion
 
 ### Medium Priority Features
-- Drag-to-create edges between nodes
-- Batch operations for multiple selections
 - Enhanced search with fuzzy matching
 - Export formats (CSV, JSON, GraphML)
 - Undo/redo functionality
 - Curved edges that actually avoid obstacles
+- Group selection and batch operations
+- Timeline visualization improvements
 
 ### Complex Features (Plan Carefully)
 - Real-time collaboration
 - Plugin system for extensions
 - Advanced graph algorithms
-- Timeline visualization modes
 - Mobile touch interaction redesign
 - Force-based label collision detection
+- AI-assisted relationship suggestions
 
 ## 🐛 Debugging Guidelines
 
 ### Common Issues & Solutions
 ```javascript
 // Arrow positioning problems
-// Fix: Adjust refX based on node radius and connection depth
-.attr('refX', nodeRadius + 8)
+// Fix: Adjust refX based on node radius
+.attr('refX', 28)
 
 // Popup z-index conflicts  
 // Fix: Consistent hierarchy (popups: 1001, controls: 100, graph: 1)
@@ -332,6 +310,11 @@ d.vx = 0; d.vy = 0;
 // Select2 not updating
 // Fix: Use jQuery methods and trigger('change')
 $('#edgeFrom').val(id).trigger('change');
+
+// Edge creation visual feedback
+// Fix: Use filter with drop-shadow for glow effects
+.classed('edge-source', true)
+.style('filter', 'drop-shadow(0 0 8px rgba(37, 99, 235, 0.8))')
 ```
 
 ### Testing Checklist
@@ -344,6 +327,9 @@ $('#edgeFrom').val(id).trigger('change');
 - [ ] No console errors
 - [ ] Momentum clears on drag release
 - [ ] Labels truncate and expand properly
+- [ ] Edge creation mode works
+- [ ] Duplicate cleanup functions correctly
+- [ ] Optional data fields preserved
 
 ## 📋 Code Review Standards
 
@@ -354,6 +340,7 @@ $('#edgeFrom').val(id).trigger('change');
 4. **Code readability**: Clear naming, appropriate comments
 5. **Documentation updates**: README/AGENTS reflects new functionality
 6. **Diff quality**: Clear before/after with line numbers
+7. **Data integrity**: All node/link fields preserved
 
 ### Diff Quality Standards
 ```javascript
@@ -400,9 +387,31 @@ const labelVal = document.getElementById('edgeLabel').value;
 - Adaptive link distances based on node degree
 - Radial forces for focus mode organization
 - Collision detection with variable radius
-- Slower alpha decay (0.005) for better settling
-- Velocity decay (0.4) for natural friction
+- Different settings for Force vs Tiers layout
+- Velocity decay for natural friction
 - Label truncation instead of hiding
+
+## 🚧 Current Known Issues
+
+1. **Label overlap** in dense graphs
+   - *Solution in progress*: Force-based label repulsion
+2. **Performance with 500+ nodes**
+   - *Fix*: Implement viewport culling
+3. **Mobile touch support** needs improvement
+   - *Fix*: Add proper touch event handlers
+
+## 📦 External Dependencies
+
+All loaded from CDNs in force.html:
+- D3.js v7.9.0
+- jQuery 3.6.0
+- Select2 4.0.13
+- NoUISlider 15.7.0
+
+## 🤝 Contribution Guidelines
+
+### Making Changes
+To avoid churn from inconsistent line endings, use **CRLF** (`\r\n`) line terminators for all files in this repository. Configure your editor to save files with Windows line endings and do not convert them to plain `\n` or other styles. Line endings are automatically enforced by the repository's `.gitattributes` and `.editorconfig` files so most editors will handle them correctly without extra setup.
 
 ---
 
@@ -417,13 +426,17 @@ When asked to modify this project:
 5. **Test the logic flow** before presenting changes
 6. **Update documentation** if adding new features
 7. **Use physics to solve layout issues**, don't hide data
+8. **Preserve all data fields** including optional ones
 
 Remember: This user values **working solutions over perfect theory**, **targeted diffs over full rewrites**, and **physics-based decluttering over hiding information**. Provide implementable code changes that respect the existing architecture and design philosophy.
 
-Key recent learnings:
+### Key Recent Learnings
 - User prefers small, targeted diffs with clear before/after
 - Black strokes for nodes are important for consistency
 - Don't create fake data fallbacks - show proper errors
 - Select2 integration needs proper jQuery handling
 - Physics solutions are preferred over hiding/truncating data
 - Label truncation with hover expansion is acceptable compromise
+- Edge creation via Ctrl+Click is intuitive
+- Duplicate cleanup is essential for data quality
+- Optional fields (sfsfss_has_read, story_links) must be preserved
