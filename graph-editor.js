@@ -649,11 +649,10 @@ document.getElementById('edgeLabel').addEventListener('keydown', (e) => {
 
 // Flip relationship button
 document.getElementById('flipRelationship').addEventListener('click', () => {
-  const fromSelect = document.getElementById('edgeFrom');
-  const toSelect = document.getElementById('edgeTo');
-  const tempValue = fromSelect.value;
-  fromSelect.value = toSelect.value;
-  toSelect.value = tempValue;
+  const fromVal = $('#edgeFrom').val();
+  const toVal = $('#edgeTo').val();
+  $('#edgeFrom').val(toVal).trigger('change');
+  $('#edgeTo').val(fromVal).trigger('change');
 });
 
 // Clear focus button
@@ -686,6 +685,7 @@ function addNode() {
   nodeById.set(id, nodes[nodes.length - 1]);
 
   const fromVal = document.getElementById('edgeFrom').value;
+  const toVal = document.getElementById('edgeTo').value;
   const labelVal = document.getElementById('edgeLabel').value;
   
   nameInput.value = '';
@@ -694,9 +694,9 @@ function addNode() {
   updateGraph(true);
   populateSelects();
 
-  $('#edgeFrom').val(fromVal);
-  $('#edgeTo').val(id).trigger('change');
-  document.getElementById('edgeLabel').value = labelVal;
+  $('#edgeFrom').val(id).trigger('change');
+  $('#edgeTo').val(toVal);
+  $('#edgeLabel').val(labelVal).trigger('change');
 }
 
 document.getElementById('addNodeBtn').addEventListener('click', addNode);
@@ -711,12 +711,12 @@ document.getElementById('newNodeYear').addEventListener('keydown', e => {
 document.getElementById('addEdgeBtn').addEventListener('click', () => {
   const id1 = parseInt(document.getElementById('edgeFrom').value, 10);
   const id2 = parseInt(document.getElementById('edgeTo').value, 10);
-  const lbl = document.getElementById('edgeLabel').value.trim() || '';
+  const lbl = $('#edgeLabel').val() || '';
 
   if (isNaN(id1) || isNaN(id2) || id1 === id2) return;
   
   links.push({ id1, id2, label: lbl });
-  document.getElementById('edgeLabel').value = '';
+  // Don't clear the label - keep it for convenience
   updateGraph(true, links.length - 1);
 });
 
@@ -1193,6 +1193,32 @@ $(document).ready(() => {
   $(document).on('select2:open', function() {
     const searchField = document.querySelector('.select2-container--open .select2-search__field');
     if (searchField) searchField.focus();
+  });
+  
+  // Initialize Select2 for relationship type with tags
+  $('#edgeLabel').select2({
+    tags: true,
+    width: '100%',
+    placeholder: 'Relationship type',
+    data: [
+      'influenced by',
+      'inspired by',
+      'mentored by',
+      'mentored',
+      'collaborated with',
+      'friend of',
+      'contemporary of',
+      'studied under',
+      'rival of',
+      'corresponded with'
+    ],
+    createTag: function(params) {
+      return {
+        id: params.term,
+        text: params.term,
+        newOption: true
+      };
+    }
   });
   
   initialize();

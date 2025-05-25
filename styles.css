@@ -140,11 +140,12 @@ html, body {
 
 .year-filter-section {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .year-slider-container {
   height: 25px;
-  margin: 8px 0;
+  margin: 8px 0 20px 0;
 }
 
 .search-focus-controls {

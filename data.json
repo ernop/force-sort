@@ -60,7 +60,9 @@
       "id": 8,
       "name": "Rudyard Kipling",
       "birth_year": "1865",
-      "images": []
+      "images": [
+        "images/8_0.png"
+      ]
     },
     {
       "id": 9,
@@ -985,6 +987,30 @@
       "name": "Cory Doctorow",
       "birth_year": "1971",
       "images": []
+    },
+    {
+      "id": 150,
+      "name": "George Bernard Shaw",
+      "birth_year": "1856",
+      "images": []
+    },
+    {
+      "id": 151,
+      "name": "Ayn Rand",
+      "birth_year": "1905",
+      "images": []
+    },
+    {
+      "id": 152,
+      "name": "Tom Clancy",
+      "birth_year": "1947",
+      "images": []
+    },
+    {
+      "id": 153,
+      "name": "Arthur C. Clarke",
+      "birth_year": "1917",
+      "images": []
     }
   ],
   "links": [
@@ -1006,7 +1032,7 @@
     {
       "id1": 8,
       "id2": 2,
-      "label": "Influenced By"
+      "label": "influenced"
     },
     {
       "id1": 9,
@@ -1024,8 +1050,8 @@
       "label": "Influenced"
     },
     {
-      "id1": 4,
-      "id2": 8,
+      "id1": 8,
+      "id2": 4,
       "label": "influenced"
     },
     {
@@ -1054,13 +1080,13 @@
       "label": "influenced"
     },
     {
-      "id1": 8,
-      "id2": 17,
+      "id1": 17,
+      "id2": 8,
       "label": "influenced"
     },
     {
-      "id1": 8,
-      "id2": 18,
+      "id1": 18,
+      "id2": 8,
       "label": "influenced"
     },
     {
@@ -2052,6 +2078,56 @@
       "id1": 20,
       "id2": 73,
       "label": "influenced"
+    },
+    {
+      "id1": 150,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 65,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 151,
+      "id2": 92,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 61,
+      "label": "influenced"
+    },
+    {
+      "id1": 92,
+      "id2": 136,
+      "label": "\"Heinlein was among the few authors at whose feet I'd gladly sit\""
+    },
+    {
+      "id1": 92,
+      "id2": 152,
+      "label": "\"We proceed down a path marked by his ideas\""
+    },
+    {
+      "id1": 63,
+      "id2": 92,
+      "label": "Called Heinlein \"the best science fiction writer in existence\" and said \"He had kept his position as greatest science fiction writer unshaken to the end\""
+    },
+    {
+      "id1": 153,
+      "id2": 92,
+      "label": "Said \"Goodbye, Bob, and thank you for the influence you had on my life and career\""
+    },
+    {
+      "id1": 142,
+      "id2": 92,
+      "label": "\"Heinlein's belief that a story had to make sense, and the irresistible vitality of his storytelling, delighted the readership\""
+    },
+    {
+      "id1": 142,
+      "id2": 33,
+      "label": "Declared Heinlein as \"not only America's premier writer of speculative fiction, but the greatest writer of such fiction in the world\""
     }
   ]
 }
