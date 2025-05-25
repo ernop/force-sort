@@ -694,3 +694,75 @@ html, body {
   stroke-width: 3px !important;
   filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.8));
 }
+
+/* Data Cleanup UI */
+#duplicateStatus {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px;
+  text-align: center;
+  border-radius: 4px;
+  background: #f3f4f6;
+}
+
+.control-button {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.control-button:hover {
+  background: #2563eb;
+}
+
+/* Data Cleanup UI */
+#duplicateStatus {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px;
+  text-align: center;
+  border-radius: 4px;
+  background: #f3f4f6;
+}
+
+.control-button {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.control-button:hover {
+  background: #2563eb;
+}
+
+/* Search Results Keyboard Navigation */
+.search-result-item.keyboard-selected {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+.search-result-item.keyboard-selected .search-result-year {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Search Results Keyboard Navigation */
+.search-result-item.keyboard-selected {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+.search-result-item.keyboard-selected .search-result-year {
+  color: rgba(255, 255, 255, 0.8) !important;
+}

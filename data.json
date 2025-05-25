@@ -188,11 +188,6 @@
       "images": []
     },
     {
-      "id": 26,
-      "name": "Brothers Grimm",
-      "images": []
-    },
-    {
       "id": 27,
       "name": "Algernon Charles Swinburne",
       "birth_year": "1837",
@@ -761,7 +756,10 @@
     {
       "id": 112,
       "name": "Oscar Wilde",
-      "images": []
+      "birth_year": "1854",
+      "images": [
+        "images/112_0.png"
+      ]
     },
     {
       "id": 113,
@@ -992,12 +990,6 @@
       "images": []
     },
     {
-      "id": 151,
-      "name": "Ayn Rand",
-      "birth_year": "1905",
-      "images": []
-    },
-    {
       "id": 152,
       "name": "Tom Clancy",
       "birth_year": "1947",
@@ -1136,6 +1128,380 @@
       "name": "Ken Liu",
       "birth_year": "1976",
       "images": []
+    },
+    {
+      "id": 175,
+      "name": "Jack Kerouac",
+      "birth_year": "1922",
+      "images": []
+    },
+    {
+      "id": 176,
+      "name": "T.S. Eliot",
+      "birth_year": "1888",
+      "images": []
+    },
+    {
+      "id": 177,
+      "name": "A. Merritt",
+      "birth_year": "1884",
+      "images": []
+    },
+    {
+      "id": 178,
+      "name": "Marion Zimmer Bradley",
+      "birth_year": "1930",
+      "images": []
+    },
+    {
+      "id": 179,
+      "name": "Judith Merril",
+      "birth_year": "1923",
+      "images": []
+    },
+    {
+      "id": 180,
+      "name": "Kate Millett",
+      "birth_year": "1934",
+      "images": []
+    },
+    {
+      "id": 181,
+      "name": "Suzy McKee Charnas",
+      "birth_year": "1939",
+      "images": []
+    },
+    {
+      "id": 183,
+      "name": "Mercedes Lackey",
+      "birth_year": "1950",
+      "images": []
+    },
+    {
+      "id": 184,
+      "name": "Robin Hobb",
+      "birth_year": "1952",
+      "images": []
+    },
+	 {
+      "id": 185,
+      "name": "Nathaniel Hawthorne",
+      "birth_year": "1804",
+      "images": []
+    },
+    {
+      "id": 186,
+      "name": "Thomas Carlyle",
+      "birth_year": "1795",
+      "images": []
+    },
+    {
+      "id": 187,
+      "name": "Ralph Waldo Emerson",
+      "birth_year": "1803",
+      "images": []
+    },
+    {
+      "id": 188,
+      "name": "Daniel Defoe",
+      "birth_year": "1660",
+      "images": []
+    },
+    {
+      "id": 189,
+      "name": "Cormac McCarthy",
+      "birth_year": "1933",
+      "images": []
+    },
+    {
+      "id": 190,
+      "name": "Don DeLillo",
+      "birth_year": "1936",
+      "images": []
+    },
+	 {
+      "id": 191,
+      "name": "Walter Scott",
+      "birth_year": "1771",
+      "images": []
+    },
+    {
+      "id": 192,
+      "name": "Beatrix Potter",
+      "birth_year": "1866",
+      "images": []
+    },
+    {
+      "id": 193,
+      "name": "Kenneth Grahame",
+      "birth_year": "1859",
+      "images": []
+    },
+    {
+      "id": 194,
+      "name": "A.A. Milne",
+      "birth_year": "1882",
+      "images": []
+    },
+    {
+      "id": 195,
+      "name": "Quentin Blake",
+      "birth_year": "1932",
+      "images": []
+    },
+    {
+      "id": 196,
+      "name": "John Milton",
+      "birth_year": "1608",
+      "images": []
+    },
+    {
+      "id": 197,
+      "name": "William Wordsworth",
+      "birth_year": "1770",
+      "images": []
+    },
+    {
+      "id": 198,
+      "name": "George Gordon Byron",
+      "birth_year": "1788",
+      "images": []
+    },
+    {
+      "id": 199,
+      "name": "Adam Smith",
+      "birth_year": "1723",
+      "images": []
+    },
+    {
+      "id": 200,
+      "name": "Ludwig von Mises",
+      "birth_year": "1881",
+      "images": []
+    },
+    {
+      "id": 201,
+      "name": "Aristotle",
+      "birth_year": "-384",
+      "images": []
+    },
+    {
+      "id": 202,
+      "name": "Bret Easton Ellis",
+      "birth_year": "1964",
+      "images": []
+    },
+    {
+      "id": 203,
+      "name": "Artemus Ward",
+      "birth_year": "1834",
+      "images": []
+    },
+    {
+      "id": 204,
+      "name": "Bret Harte",
+      "birth_year": "1836",
+      "images": []
+    },
+    {
+      "id": 205,
+      "name": "William Dean Howells",
+      "birth_year": "1837",
+      "images": []
+    },
+    {
+      "id": 206,
+      "name": "Clark Ashton Smith",
+      "birth_year": "1893",
+      "images": []
+    },
+    {
+      "id": 207,
+      "name": "Michael Shea",
+      "birth_year": "1946",
+      "images": []
+    },
+    {
+      "id": 208,
+      "name": "Jacob Grimm",
+      "birth_year": "1785",
+      "images": []
+    },
+    {
+      "id": 209,
+      "name": "Wilhelm Grimm",
+      "birth_year": "1786",
+      "images": []
+    },
+    {
+      "id": 210,
+      "name": "Charles Perrault",
+      "birth_year": "1628",
+      "images": []
+    },
+    {
+      "id": 211,
+      "name": "Joseph Jacobs",
+      "birth_year": "1854",
+      "images": []
+    },
+    {
+      "id": 212,
+      "name": "Tad Williams",
+      "birth_year": "1957",
+      "images": []
+    },
+    {
+      "id": 213,
+      "name": "Joe Abercrombie",
+      "birth_year": "1974",
+      "images": []
+    },
+    {
+      "id": 214,
+      "name": "Brandon Sanderson",
+      "birth_year": "1975",
+      "images": []
+    },
+	{
+      "id": 215,
+      "name": "C.L. Moore",
+      "birth_year": "1911",
+      "images": [],
+      "notes": "Catherine Lucille Moore, pioneering female SF/fantasy writer, married to Henry Kuttner"
+    },
+    {
+      "id": 216,
+      "name": "Joy Davidman",
+      "birth_year": "1915",
+      "images": [],
+      "notes": "American writer, C.S. Lewis's wife, influenced his later works"
+    },
+    {
+      "id": 217,
+      "name": "Edith Tolkien",
+      "birth_year": "1889",
+      "images": [],
+      "notes": "Edith Bratt, J.R.R. Tolkien's wife and inspiration for Lúthien"
+    },
+	 {
+      "id": 218,
+      "name": "Hugo Gernsback",
+      "birth_year": "1884",
+      "images": [],
+      "notes": "Father of Science Fiction, founded Amazing Stories in 1926"
+    },
+    {
+      "id": 219,
+      "name": "Walter M. Miller Jr.",
+      "birth_year": "1923",
+      "images": [],
+      "notes": "Author of A Canticle for Leibowitz"
+    },
+    {
+      "id": 220,
+      "name": "Hal Clement",
+      "birth_year": "1922",
+      "images": [],
+      "notes": "Hard SF master, Mission of Gravity"
+    },
+    {
+      "id": 221,
+      "name": "Fritz Leiber",
+      "birth_year": "1910",
+      "images": [],
+      "notes": "Fantasy and SF writer, sword and sorcery pioneer"
+    },
+    {
+      "id": 222,
+      "name": "Eric Frank Russell",
+      "birth_year": "1905",
+      "images": [],
+      "notes": "British SF writer, Astounding contributor"
+    },
+    {
+      "id": 223,
+      "name": "Murray Leinster",
+      "birth_year": "1896", 
+      "images": [],
+      "notes": "Will F. Jenkins, Dean of Science Fiction"
+    },
+    {
+      "id": 224,
+      "name": "Gardner Dozois",
+      "birth_year": "1947",
+      "images": [],
+      "notes": "Editor who popularized term 'cyberpunk'"
+    },
+    {
+      "id": 225,
+      "name": "Cordwainer Smith",
+      "birth_year": "1913",
+      "images": [],
+      "notes": "Paul Linebarger, Instrumentality of Mankind"
+    },
+    {
+      "id": 226,
+      "name": "Alfred Bester",
+      "birth_year": "1913",
+      "images": [],
+      "notes": "The Stars My Destination, The Demolished Man"
+    },
+    {
+      "id": 227,
+      "name": "Cyril M. Kornbluth",
+      "birth_year": "1923",
+      "images": [],
+      "notes": "Collaborated with Frederik Pohl"
+    },
+    {
+      "id": 228,
+      "name": "Rudy Rucker",
+      "birth_year": "1946",
+      "images": [],
+      "notes": "Cyberpunk founder, mathematician"
+    },
+    {
+      "id": 229,
+      "name": "Pat Cadigan",
+      "birth_year": "1953",
+      "images": [],
+      "notes": "Queen of Cyberpunk"
+    },
+    {
+      "id": 230,
+      "name": "John Shirley",
+      "birth_year": "1953",
+      "images": [],
+      "notes": "Cyberpunk founder"
+    },
+    {
+      "id": 231,
+      "name": "Lewis Shiner",
+      "birth_year": "1950",
+      "images": [],
+      "notes": "Cyberpunk founder"
+    },
+    {
+      "id": 232,
+      "name": "Jack Womack",
+      "birth_year": "1956",
+      "images": [],
+      "notes": "Second-generation cyberpunk"
+    },
+    {
+      "id": 233,
+      "name": "John Sladek",
+      "birth_year": "1937",
+      "images": [],
+      "notes": "Satirical SF, New Wave contributor"
+    },
+    {
+      "id": 234,
+      "name": "Bruce Bethke",
+      "birth_year": "1955",
+      "images": [],
+      "notes": "Coined the term 'cyberpunk' in 1983"
     }
   ],
   "links": [
@@ -1256,11 +1622,6 @@
     },
     {
       "id1": 25,
-      "id2": 13,
-      "label": "Inspired"
-    },
-    {
-      "id1": 26,
       "id2": 13,
       "label": "Inspired"
     },
@@ -1945,17 +2306,7 @@
       "label": "influenced"
     },
     {
-      "id1": 122,
-      "id2": 121,
-      "label": "influenced"
-    },
-    {
       "id1": 46,
-      "id2": 121,
-      "label": "influenced"
-    },
-    {
-      "id1": 36,
       "id2": 121,
       "label": "influenced"
     },
@@ -2065,8 +2416,8 @@
       "label": "influenced"
     },
     {
-      "id1": 62,
-      "id2": 61,
+      "id1": 61,
+      "id2": 62,
       "label": "friend"
     },
     {
@@ -2195,16 +2546,6 @@
       "label": "influenced"
     },
     {
-      "id1": 65,
-      "id2": 92,
-      "label": "influenced"
-    },
-    {
-      "id1": 151,
-      "id2": 92,
-      "label": "influenced"
-    },
-    {
       "id1": 92,
       "id2": 61,
       "label": "influenced"
@@ -2261,17 +2602,12 @@
     },
     {
       "id1": 6,
-      "id2": 1,
-      "label": "influenced"
-    },
-    {
-      "id1": 6,
       "id2": 155,
       "label": "influenced"
     },
     {
-      "id1": 6,
-      "id2": 157,
+      "id1": 157,
+      "id2": 6,
       "label": "influenced"
     },
     {
@@ -2300,8 +2636,8 @@
       "label": "connected to"
     },
     {
-      "id1": 157,
-      "id2": 154,
+      "id1": 154,
+      "id2": 157,
       "label": "connected to"
     },
     {
@@ -2728,6 +3064,1286 @@
       "id1": 96,
       "id2": 82,
       "label": "influenced (noir atmosphere)"
+    },
+    {
+      "id1": 36,
+      "id2": 134,
+      "label": "influenced (mythological themes)"
+    },
+    {
+      "id1": 175,
+      "id2": 134,
+      "label": "influenced (beat generation style)"
+    },
+    {
+      "id1": 176,
+      "id2": 134,
+      "label": "influenced (poetic language)"
+    },
+    {
+      "id1": 29,
+      "id2": 134,
+      "label": "influenced (dramatic structure)"
+    },
+    {
+      "id1": 13,
+      "id2": 134,
+      "label": "influenced (Celtic mythology)"
+    },
+    {
+      "id1": 20,
+      "id2": 134,
+      "label": "influenced (philosophical themes)"
+    },
+    {
+      "id1": 97,
+      "id2": 134,
+      "label": "influenced (absurdist elements)"
+    },
+    {
+      "id1": 134,
+      "id2": 31,
+      "label": "influenced (mythological fantasy)"
+    },
+    {
+      "id1": 134,
+      "id2": 90,
+      "label": "influenced (supernatural adventure)"
+    },
+    {
+      "id1": 134,
+      "id2": 53,
+      "label": "influenced (multiverse concepts)"
+    },
+    {
+      "id1": 134,
+      "id2": 91,
+      "label": "influenced (literary SF style)"
+    },
+    {
+      "id1": 134,
+      "id2": 137,
+      "label": "close friend"
+    },
+    {
+      "id1": 134,
+      "id2": 61,
+      "label": "friend and collaborator"
+    },
+    {
+      "id1": 134,
+      "id2": 142,
+      "label": "friend"
+    },
+    {
+      "id1": 134,
+      "id2": 139,
+      "label": "friend"
+    },
+    {
+      "id1": 16,
+      "id2": 107,
+      "label": "influenced (adventure fiction)"
+    },
+    {
+      "id1": 15,
+      "id2": 107,
+      "label": "influenced (lost world adventures)"
+    },
+    {
+      "id1": 177,
+      "id2": 107,
+      "label": "influenced (fantasy elements)"
+    },
+    {
+      "id1": 8,
+      "id2": 107,
+      "label": "influenced (adventure tales)"
+    },
+    {
+      "id1": 18,
+      "id2": 107,
+      "label": "influenced (adventure structure)"
+    },
+    {
+      "id1": 6,
+      "id2": 107,
+      "label": "influenced (fantasy worldbuilding)"
+    },
+    {
+      "id1": 107,
+      "id2": 178,
+      "label": "mentored"
+    },
+    {
+      "id1": 107,
+      "id2": 105,
+      "label": "influenced (women in SF)"
+    },
+    {
+      "id1": 107,
+      "id2": 103,
+      "label": "influenced (career guidance)"
+    },
+    {
+      "id1": 107,
+      "id2": 155,
+      "label": "influenced (young adult fantasy)"
+    },
+    {
+      "id1": 107,
+      "id2": 156,
+      "label": "influenced (dragon fantasy)"
+    },
+    {
+      "id1": 107,
+      "id2": 157,
+      "label": "influenced (quest narratives)"
+    },
+    {
+      "id1": 105,
+      "id2": 107,
+      "label": "colleague and friend"
+    },
+    {
+      "id1": 92,
+      "id2": 107,
+      "label": "encouraged her career"
+    },
+    {
+      "id1": 63,
+      "id2": 107,
+      "label": "colleague"
+    },
+    {
+      "id1": 85,
+      "id2": 108,
+      "label": "influenced (stream of consciousness)"
+    },
+    {
+      "id1": 29,
+      "id2": 108,
+      "label": "influenced (dramatic structure)"
+    },
+    {
+      "id1": 97,
+      "id2": 108,
+      "label": "influenced (absurdist techniques)"
+    },
+    {
+      "id1": 36,
+      "id2": 108,
+      "label": "influenced (literary experimentation)"
+    },
+    {
+      "id1": 179,
+      "id2": 108,
+      "label": "mentor in SF community"
+    },
+    {
+      "id1": 180,
+      "id2": 108,
+      "label": "influenced (feminist theory)"
+    },
+    {
+      "id1": 68,
+      "id2": 108,
+      "label": "published early work"
+    },
+    {
+      "id1": 108,
+      "id2": 181,
+      "label": "influenced (feminist SF)"
+    },
+    {
+      "id1": 108,
+      "id2": 55,
+      "label": "influenced (feminist themes)"
+    },
+    {
+      "id1": 108,
+      "id2": 178,
+      "label": "influenced (feminist fantasy)"
+    },
+    {
+      "id1": 100,
+      "id2": 108,
+      "label": "friend and mutual influence"
+    },
+    {
+      "id1": 61,
+      "id2": 108,
+      "label": "contentious relationship"
+    },
+    {
+      "id1": 92,
+      "id2": 108,
+      "label": "critiqued heavily"
+    },
+    {
+      "id1": 41,
+      "id2": 108,
+      "label": "complex influence (critiqued and learned from)"
+    },
+    {
+      "id1": 46,
+      "id2": 100,
+      "label": "influenced (psychological depth)"
+    },
+    {
+      "id1": 47,
+      "id2": 100,
+      "label": "influenced (human darkness)"
+    },
+    {
+      "id1": 3,
+      "id2": 100,
+      "label": "influenced (cosmic horror)"
+    },
+    {
+      "id1": 78,
+      "id2": 100,
+      "label": "influenced (poetic SF)"
+    },
+    {
+      "id1": 92,
+      "id2": 100,
+      "label": "influenced (hard SF elements)"
+    },
+    {
+      "id1": 100,
+      "id2": 55,
+      "label": "influenced (gender themes)"
+    },
+    {
+      "id1": 100,
+      "id2": 103,
+      "label": "influenced (women in SF)"
+    },
+    {
+      "id1": 100,
+      "id2": 41,
+      "label": "influenced (feminist SF)"
+    },
+    {
+      "id1": 100,
+      "id2": 181,
+      "label": "influenced (feminist themes)"
+    },
+    {
+      "id1": 100,
+      "id2": 98,
+      "label": "influenced (philosophical depth)"
+    },
+    {
+      "id1": 61,
+      "id2": 100,
+      "label": "friend and admirer"
+    },
+    {
+      "id1": 62,
+      "id2": 100,
+      "label": "friend"
+    },
+    {
+      "id1": 134,
+      "id2": 100,
+      "label": "friend"
+    },
+    {
+      "id1": 142,
+      "id2": 100,
+      "label": "published and admired"
+    },
+    {
+      "id1": 92,
+      "id2": 105,
+      "label": "influenced (hard SF elements)"
+    },
+    {
+      "id1": 107,
+      "id2": 105,
+      "label": "influenced (adventure structure)"
+    },
+    {
+      "id1": 6,
+      "id2": 105,
+      "label": "influenced (dragon mythology)"
+    },
+    {
+      "id1": 15,
+      "id2": 105,
+      "label": "influenced (adventure tales)"
+    },
+    {
+      "id1": 92,
+      "id2": 105,
+      "label": "encouraged her career"
+    },
+    {
+      "id1": 63,
+      "id2": 105,
+      "label": "colleague"
+    },
+    {
+      "id1": 105,
+      "id2": 183,
+      "label": "influenced (fantasy with strong female characters)"
+    },
+    {
+      "id1": 105,
+      "id2": 184,
+      "label": "influenced (dragon fantasy)"
+    },
+    {
+      "id1": 105,
+      "id2": 155,
+      "label": "influenced (dragon themes)"
+    },
+    {
+      "id1": 105,
+      "id2": 156,
+      "label": "influenced (dragon riders)"
+    },
+    {
+      "id1": 105,
+      "id2": 103,
+      "label": "colleague and friend"
+    },
+    {
+      "id1": 105,
+      "id2": 100,
+      "label": "colleague"
+    },
+    {
+      "id1": 105,
+      "id2": 41,
+      "label": "colleague"
+    },
+    {
+      "id1": 178,
+      "id2": 105,
+      "label": "colleague"
+    },
+	{
+      "id1": 29,
+      "id2": 79,
+      "label": "influenced (dramatic structure and language)"
+    },
+    {
+      "id1": 185,
+      "id2": 79,
+      "label": "close friend and major influence"
+    },
+    {
+      "id1": 186,
+      "id2": 79,
+      "label": "influenced (philosophical style)"
+    },
+    {
+      "id1": 187,
+      "id2": 79,
+      "label": "influenced (transcendentalist themes)"
+    },
+    {
+      "id1": 188,
+      "id2": 79,
+      "label": "influenced (maritime adventure)"
+    },
+    {
+      "id1": 28,
+      "id2": 79,
+      "label": "influenced (romantic poetry)"
+    },
+    {
+      "id1": 36,
+      "id2": 79,
+      "label": "influenced (philosophical depth)"
+    },
+    {
+      "id1": 79,
+      "id2": 46,
+      "label": "influenced (sea narratives and alienation)"
+    },
+    {
+      "id1": 79,
+      "id2": 47,
+      "label": "influenced (psychological complexity)"
+    },
+    {
+      "id1": 79,
+      "id2": 3,
+      "label": "influenced (cosmic horror and obsession)"
+    },
+    {
+      "id1": 79,
+      "id2": 130,
+      "label": "influenced (spare prose and masculinity)"
+    },
+    {
+      "id1": 79,
+      "id2": 131,
+      "label": "influenced (American gothic)"
+    },
+    {
+      "id1": 79,
+      "id2": 95,
+      "label": "influenced (postmodern techniques)"
+    },
+    {
+      "id1": 79,
+      "id2": 189,
+      "label": "influenced (violence and philosophy)"
+    },
+    {
+      "id1": 79,
+      "id2": 190,
+      "label": "influenced (American alienation)"
+    },
+    {
+      "id1": 79,
+      "id2": 91,
+      "label": "influenced (literary SF style)"
+    },
+    {
+      "id1": 79,
+      "id2": 57,
+      "label": "influenced (ecological themes in Dune)"
+    },
+    {
+      "id1": 79,
+      "id2": 78,
+      "label": "influenced (poetic prose)"
+    },
+    {
+      "id1": 79,
+      "id2": 21,
+      "label": "influenced (sea horror)"
+    },
+    {
+      "id1": 79,
+      "id2": 33,
+      "label": "influenced (obsession and isolation themes)"
+    },
+    {
+      "id1": 79,
+      "id2": 52,
+      "label": "influenced (psychological extremes)"
+    },
+    {
+      "id1": 79,
+      "id2": 85,
+      "label": "influenced (stream of consciousness)"
+    },
+    {
+      "id1": 79,
+      "id2": 87,
+      "label": "influenced (philosophical narrative)"
+    },
+	{
+      "id1": 6,
+      "id2": 137,
+      "label": "major influence (epic fantasy structure)"
+    },
+    {
+      "id1": 191,
+      "id2": 137,
+      "label": "influenced (historical fiction techniques)"
+    },
+    {
+      "id1": 4,
+      "id2": 137,
+      "label": "influenced (sword and sorcery)"
+    },
+    {
+      "id1": 47,
+      "id2": 137,
+      "label": "influenced (psychological complexity)"
+    },
+    {
+      "id1": 86,
+      "id2": 137,
+      "label": "influenced (war and peace themes)"
+    },
+    {
+      "id1": 29,
+      "id2": 137,
+      "label": "influenced (dramatic structure)"
+    },
+    {
+      "id1": 79,
+      "id2": 137,
+      "label": "influenced (American epic scope)"
+    },
+    {
+      "id1": 137,
+      "id2": 212,
+      "label": "influenced (epic fantasy)"
+    },
+    {
+      "id1": 137,
+      "id2": 213,
+      "label": "influenced (grimdark fantasy)"
+    },
+    {
+      "id1": 137,
+      "id2": 214,
+      "label": "influenced (complex worldbuilding)"
+    },
+    {
+      "id1": 137,
+      "id2": 31,
+      "label": "influenced (dark fantasy themes)"
+    },
+    {
+      "id1": 192,
+      "id2": 2,
+      "label": "influenced (animal characters)"
+    },
+    {
+      "id1": 193,
+      "id2": 2,
+      "label": "influenced (anthropomorphic animals)"
+    },
+    {
+      "id1": 194,
+      "id2": 2,
+      "label": "influenced (whimsical children's stories)"
+    },
+    {
+      "id1": 8,
+      "id2": 2,
+      "label": "influenced (adventure tales)"
+    },
+    {
+      "id1": 195,
+      "id2": 2,
+      "label": "illustrated many works"
+    },
+    {
+      "id1": 2,
+      "id2": 31,
+      "label": "influenced (dark children's literature)"
+    },
+    {
+      "id1": 2,
+      "id2": 155,
+      "label": "influenced (children's fantasy)"
+    },
+    {
+      "id1": 196,
+      "id2": 28,
+      "label": "influenced (epic poetry)"
+    },
+    {
+      "id1": 29,
+      "id2": 28,
+      "label": "influenced (poetic language)"
+    },
+    {
+      "id1": 197,
+      "id2": 28,
+      "label": "friend and collaborator"
+    },
+    {
+      "id1": 198,
+      "id2": 28,
+      "label": "romantic contemporary"
+    },
+    {
+      "id1": 28,
+      "id2": 6,
+      "label": "influenced (mythological themes)"
+    },
+    {
+      "id1": 28,
+      "id2": 7,
+      "label": "influenced (atmospheric poetry)"
+    },
+    {
+      "id1": 28,
+      "id2": 3,
+      "label": "influenced (supernatural themes)"
+    },
+    {
+      "id1": 28,
+      "id2": 13,
+      "label": "influenced (romantic fantasy)"
+    },
+    {
+      "id1": 199,
+      "id2": 94,
+      "label": "influenced (free market economics)"
+    },
+    {
+      "id1": 200,
+      "id2": 94,
+      "label": "influenced (Austrian economics)"
+    },
+    {
+      "id1": 201,
+      "id2": 94,
+      "label": "influenced (rational philosophy)"
+    },
+    {
+      "id1": 20,
+      "id2": 94,
+      "label": "influenced (individualism)"
+    },
+    {
+      "id1": 92,
+      "id2": 94,
+      "label": "influenced (libertarian themes)"
+    },
+    {
+      "id1": 94,
+      "id2": 92,
+      "label": "influenced (objectivist themes)"
+    },
+    {
+      "id1": 94,
+      "id2": 202,
+      "label": "influenced (materialist themes)"
+    },
+    {
+      "id1": 203,
+      "id2": 19,
+      "label": "influenced (American humor)"
+    },
+    {
+      "id1": 204,
+      "id2": 19,
+      "label": "influenced (western themes)"
+    },
+    {
+      "id1": 205,
+      "id2": 19,
+      "label": "friend and literary ally"
+    },
+    {
+      "id1": 7,
+      "id2": 19,
+      "label": "influenced (dark humor)"
+    },
+    {
+      "id1": 9,
+      "id2": 19,
+      "label": "influenced (social satire)"
+    },
+    {
+      "id1": 19,
+      "id2": 130,
+      "label": "influenced (American voice)"
+    },
+    {
+      "id1": 19,
+      "id2": 131,
+      "label": "influenced (American literature)"
+    },
+    {
+      "id1": 19,
+      "id2": 78,
+      "label": "influenced (American nostalgia)"
+    },
+    {
+      "id1": 19,
+      "id2": 33,
+      "label": "influenced (American gothic)"
+    },
+    {
+      "id1": 206,
+      "id2": 122,
+      "label": "influenced (baroque fantasy)"
+    },
+    {
+      "id1": 36,
+      "id2": 122,
+      "label": "influenced (literary complexity)"
+    },
+    {
+      "id1": 97,
+      "id2": 122,
+      "label": "influenced (absurdist elements)"
+    },
+    {
+      "id1": 13,
+      "id2": 122,
+      "label": "influenced (Celtic fantasy)"
+    },
+    {
+      "id1": 122,
+      "id2": 207,
+      "label": "influenced (Dying Earth pastiche)"
+    },
+    {
+      "id1": 122,
+      "id2": 31,
+      "label": "influenced (fantasy prose style)"
+    },
+    {
+      "id1": 122,
+      "id2": 91,
+      "label": "influenced (literary SF)"
+    },
+    {
+      "id1": 208,
+      "id2": 39,
+      "label": "collected fairy tales"
+    },
+    {
+      "id1": 209,
+      "id2": 39,
+      "label": "collected fairy tales"
+    },
+    {
+      "id1": 210,
+      "id2": 39,
+      "label": "influenced (fairy tale tradition)"
+    },
+    {
+      "id1": 211,
+      "id2": 39,
+      "label": "influenced (Celtic fairy tales)"
+    },
+    {
+      "id1": 39,
+      "id2": 6,
+      "label": "influenced (fairy tale elements)"
+    },
+    {
+      "id1": 39,
+      "id2": 2,
+      "label": "influenced (fairy tale structure)"
+    },
+    {
+      "id1": 39,
+      "id2": 155,
+      "label": "influenced (fairy tale fantasy)"
+    },
+	{
+      "id1": 6,
+      "id2": 1,
+      "label": "co-founder of the Inklings, lifelong friend and literary collaborator"
+    },
+    {
+      "id1": 29,
+      "id2": 6,
+      "label": "influenced (dramatic structure and language mastery)"
+    },
+    {
+      "id1": 42,
+      "id2": 6,
+      "label": "friend and Inklings member, theological influence"
+    },
+    {
+      "id1": 42,
+      "id2": 5,
+      "label": "close friend, shared Christian apologetics"
+    },
+    {
+      "id1": 1,
+      "id2": 5,
+      "label": "Inklings co-member, theological discussions"
+    },
+    {
+      "id1": 44,
+      "id2": 5,
+      "label": "Inklings member, philosophical influence"
+    },
+    {
+      "id1": 32,
+      "id2": 77,
+      "label": "writing partner and husband of C.L. Moore"
+    },
+    {
+      "id1": 78,
+      "id2": 65,
+      "label": "influenced (scientific romance to poetic SF)"
+    },
+    {
+      "id1": 78,
+      "id2": 153,
+      "label": "influenced (sense of wonder)"
+    },
+    {
+      "id1": 78,
+      "id2": 7,
+      "label": "influenced (atmospheric horror)"
+    },
+    {
+      "id1": 110,
+      "id2": 63,
+      "label": "friend and colleague in science fiction"
+    },
+    {
+      "id1": 110,
+      "id2": 92,
+      "label": "influenced by Heinlein's engineering approach"
+    },
+    {
+      "id1": 110,
+      "id2": 68,
+      "label": "published by Campbell in Astounding"
+    },
+    {
+      "id1": 22,
+      "id2": 23,
+      "label": "contemporary ghost story writers"
+    },
+    {
+      "id1": 22,
+      "id2": 24,
+      "label": "influenced each other's supernatural fiction"
+    },
+    {
+      "id1": 23,
+      "id2": 24,
+      "label": "masters of antiquarian ghost stories"
+    },
+    {
+      "id1": 30,
+      "id2": 7,
+      "label": "influenced (American gothic atmosphere)"
+    },
+    {
+      "id1": 112,
+      "id2": 2,
+      "label": "influenced (wit and dark humor in children's literature)"
+    },
+    {
+      "id1": 112,
+      "id2": 31,
+      "label": "influenced (fairy tale subversion)"
+    },
+    {
+      "id1": 12,
+      "id2": 31,
+      "label": "influenced (exotic mysticism in urban fantasy)"
+    },
+	{
+      "id1": 32,
+      "id2": 215,
+      "label": "married collaborator and co-writer"
+    },
+    {
+      "id1": 1,
+      "id2": 216,
+      "label": "married 1956, influenced 'A Grief Observed' and later theology"
+    },
+    {
+      "id1": 6,
+      "id2": 217,
+      "label": "married 1916, inspiration for Lúthien and other heroines"
+    },
+	{
+      "id1": 22,
+      "id2": 112,
+      "label": "met in literary circles, mutual respect"
+    },
+    {
+      "id1": 27,
+      "id2": 112,
+      "label": "Victorian literary contemporaries"
+    },
+    {
+      "id1": 30,
+      "id2": 19,
+      "label": "early American literary friendship"
+    },
+    {
+      "id1": 14,
+      "id2": 6,
+      "label": "influenced (classical mythology retelling)"
+    },
+    {
+      "id1": 39,
+      "id2": 155,
+      "label": "influenced (fairy tale collection methodology)"
+    },
+	 {
+      "id1": 218,
+      "id2": 65,
+      "label": "inspired (science fiction pioneer to scientific romance)"
+    },
+    {
+      "id1": 218,
+      "id2": 68,
+      "label": "foundational influence on pulp SF editors"
+    },
+    {
+      "id1": 218,
+      "id2": 63,
+      "label": "enabled early career through Amazing Stories"
+    },
+    {
+      "id1": 68,
+      "id2": 63,
+      "label": "editor and mentor, developed Three Laws of Robotics together"
+    },
+    {
+      "id1": 68,
+      "id2": 92,
+      "label": "discovered and mentored, shaped libertarian themes"
+    },
+    {
+      "id1": 68,
+      "id2": 60,
+      "label": "editor and mentor, refined literary style"
+    },
+    {
+      "id1": 68,
+      "id2": 159,
+      "label": "published first stories, encouraged development"
+    },
+    {
+      "id1": 68,
+      "id2": 144,
+      "label": "published and mentored early career"
+    },
+    {
+      "id1": 68,
+      "id2": 221,
+      "label": "published regularly in Astounding"
+    },
+    {
+      "id1": 68,
+      "id2": 220,
+      "label": "published in Astounding, hard SF advocate"
+    },
+    {
+      "id1": 68,
+      "id2": 222,
+      "label": "published British contributor to Astounding"
+    },
+    {
+      "id1": 68,
+      "id2": 223,
+      "label": "published veteran writer in Astounding"
+    },
+    {
+      "id1": 68,
+      "id2": 225,
+      "label": "published unique visionary stories"
+    },
+    {
+      "id1": 68,
+      "id2": 226,
+      "label": "encouraged avant-garde style"
+    },
+    {
+      "id1": 68,
+      "id2": 227,
+      "label": "published early collaborative works"
+    },
+    {
+      "id1": 68,
+      "id2": 219,
+      "label": "published A Canticle for Leibowitz"
+    },
+    {
+      "id1": 53,
+      "id2": 52,
+      "label": "New Worlds editor, published experimental fiction"
+    },
+    {
+      "id1": 53,
+      "id2": 33,
+      "label": "New Worlds editor, encouraged literary experimentation"
+    },
+    {
+      "id1": 53,
+      "id2": 54,
+      "label": "New Worlds contributor, experimental SF"
+    },
+    {
+      "id1": 53,
+      "id2": 89,
+      "label": "New Wave co-conspirator"
+    },
+    {
+      "id1": 53,
+      "id2": 233,
+      "label": "published satirical New Wave fiction"
+    },
+    {
+      "id1": 58,
+      "id2": 53,
+      "label": "New Wave contributor to New Worlds"
+    },
+    {
+      "id1": 58,
+      "id2": 84,
+      "label": "British New Wave contemporaries"
+    },
+    {
+      "id1": 31,
+      "id2": 52,
+      "label": "New Wave influence on fantasy"
+    },
+    {
+      "id1": 226,
+      "id2": 82,
+      "label": "proto-cyberpunk influence, experimental typography"
+    },
+    {
+      "id1": 226,
+      "id2": 54,
+      "label": "influenced paranoid SF themes"
+    },
+    {
+      "id1": 226,
+      "id2": 31,
+      "label": "influenced genre-blending approach"
+    },
+    {
+      "id1": 82,
+      "id2": 80,
+      "label": "cyberpunk co-founder and collaborator"
+    },
+    {
+      "id1": 82,
+      "id2": 228,
+      "label": "cyberpunk founder"
+    },
+    {
+      "id1": 82,
+      "id2": 230,
+      "label": "cyberpunk founder"
+    },
+    {
+      "id1": 82,
+      "id2": 231,
+      "label": "cyberpunk founder"
+    },
+    {
+      "id1": 82,
+      "id2": 229,
+      "label": "cyberpunk colleague"
+    },
+    {
+      "id1": 80,
+      "id2": 228,
+      "label": "cyberpunk co-founder"
+    },
+    {
+      "id1": 80,
+      "id2": 230,
+      "label": "cyberpunk co-founder"
+    },
+    {
+      "id1": 80,
+      "id2": 231,
+      "label": "cyberpunk co-founder"
+    },
+    {
+      "id1": 80,
+      "id2": 229,
+      "label": "cyberpunk colleague"
+    },
+    {
+      "id1": 80,
+      "id2": 232,
+      "label": "influenced second-generation cyberpunk"
+    },
+    {
+      "id1": 82,
+      "id2": 232,
+      "label": "influenced second-generation cyberpunk"
+    },
+    {
+      "id1": 234,
+      "id2": 82,
+      "label": "coined term that defined Gibson's movement"
+    },
+    {
+      "id1": 224,
+      "id2": 82,
+      "label": "popularized cyberpunk term in Washington Post"
+    },
+    {
+      "id1": 224,
+      "id2": 80,
+      "label": "identified as cyberpunk leader"
+    },
+    {
+      "id1": 224,
+      "id2": 231,
+      "label": "identified as cyberpunk founder"
+    },
+    {
+      "id1": 61,
+      "id2": 82,
+      "label": "New Wave to cyberpunk bridge"
+    },
+    {
+      "id1": 61,
+      "id2": 229,
+      "label": "encouraged women in SF"
+    },
+    {
+      "id1": 61,
+      "id2": 89,
+      "label": "New Wave contemporary"
+    },
+    {
+      "id1": 62,
+      "id2": 82,
+      "label": "influenced postmodern SF themes"
+    },
+    {
+      "id1": 62,
+      "id2": 80,
+      "label": "influenced literary cyberpunk"
+    },
+    {
+      "id1": 227,
+      "id2": 139,
+      "label": "regular collaborator on novels and stories"
+    },
+    {
+      "id1": 227,
+      "id2": 142,
+      "label": "contemporary in Campbell's stable"
+    },
+    {
+      "id1": 221,
+      "id2": 32,
+      "label": "mentor and friend"
+    },
+    {
+      "id1": 221,
+      "id2": 215,
+      "label": "published and encouraged"
+    },
+    {
+      "id1": 32,
+      "id2": 215,
+      "label": "husband and writing partner"
+    },
+    {
+      "id1": 215,
+      "id2": 68,
+      "label": "published in Astounding under multiple names"
+    },
+    {
+      "id1": 215,
+      "id2": 179,
+      "label": "pioneering women SF writers"
+    },
+    {
+      "id1": 179,
+      "id2": 108,
+      "label": "mentor to next generation feminist SF"
+    },
+    {
+      "id1": 179,
+      "id2": 103,
+      "label": "encouraged women in SF"
+    },
+    {
+      "id1": 225,
+      "id2": 91,
+      "label": "influenced literary SF style"
+    },
+    {
+      "id1": 225,
+      "id2": 41,
+      "label": "influenced social SF themes"
+    },
+    {
+      "id1": 220,
+      "id2": 166,
+      "label": "hard SF tradition mentor"
+    },
+    {
+      "id1": 220,
+      "id2": 153,
+      "label": "hard SF contemporary"
+    },
+    {
+      "id1": 219,
+      "id2": 78,
+      "label": "influenced post-apocalyptic themes"
+    },
+    {
+      "id1": 219,
+      "id2": 91,
+      "label": "influenced religious SF themes"
+    },
+    {
+      "id1": 223,
+      "id2": 68,
+      "label": "veteran contributor to Astounding"
+    },
+    {
+      "id1": 223,
+      "id2": 63,
+      "label": "influenced robot and AI stories"
+    },
+    {
+      "id1": 222,
+      "id2": 33,
+      "label": "British influence on American SF"
+    },
+    {
+      "id1": 222,
+      "id2": 84,
+      "label": "British SF contemporaries"
+    },
+    {
+      "id1": 233,
+      "id2": 89,
+      "label": "satirical SF contemporaries"
+    },
+    {
+      "id1": 233,
+      "id2": 163,
+      "label": "influenced satirical approach"
+    },
+    {
+      "id1": 58,
+      "id2": 166,
+      "label": "influenced environmental SF"
+    },
+    {
+      "id1": 58,
+      "id2": 164,
+      "label": "influenced dystopian themes"
+    },
+    {
+      "id1": 89,
+      "id2": 95,
+      "label": "influenced postmodern literary techniques"
+    },
+    {
+      "id1": 89,
+      "id2": 116,
+      "label": "influenced experimental narrative"
+    },
+    {
+      "id1": 44,
+      "id2": 6,
+      "label": "Inklings member, philological influence"
+    },
+    {
+      "id1": 44,
+      "id2": 1,
+      "label": "Inklings member, anthroposophical influence"
+    },
+    {
+      "id1": 42,
+      "id2": 44,
+      "label": "Christian intellectual contemporaries"
+    },
+    {
+      "id1": 216,
+      "id2": 44,
+      "label": "met through Lewis, shared interests"
+    },
+    {
+      "id1": 217,
+      "id2": 42,
+      "label": "met socially through Tolkien circle"
     }
   ]
 }

@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>Enhanced Force‑Directed Graph Editor</title>
+  <!-- Add favicon to fix 404 error -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='20' fill='%232563eb'/><circle cx='30' cy='30' r='15' fill='%2310b981'/><circle cx='70' cy='70' r='15' fill='%23ef4444'/><line x1='30' y1='30' x2='50' y2='50' stroke='%23000' stroke-width='2'/><line x1='50' y1='50' x2='70' y2='70' stroke='%23000' stroke-width='2'/></svg>" />
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
@@ -12,6 +15,17 @@
   
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- Custom CSS to fix select2 filter issues -->
+  <style>
+    /* Fix select2 CSS filter issues */
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+      filter: none !important;
+    }
+    .select2-dropdown {
+      filter: none !important;
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
@@ -35,8 +49,8 @@
 		  <input id="chargeRange" class="range-input" type="range" min="-2000" max="0" value="-300">
 		</label>
 		<label>
-		  Link Distance <span id="linkValue">150</span>
-		  <input id="linkRange" class="range-input" type="range" min="10" max="500" value="150">
+		  Link Distance <span id="linkValue">250</span>
+		  <input id="linkRange" class="range-input" type="range" min="10" max="500" value="250">
 		</label>
         </div>
 
@@ -88,6 +102,18 @@
             ✓ Saved
           </div>
         </section>
+		
+		<!-- Data cleanup section -->
+		<section class="sidebar-section">
+		  <h2 class="sidebar-title">Data Cleanup</h2>
+		  <div id="duplicateStatus" style="margin-bottom: 10px;">Checking...</div>
+		  <button onclick="window.graphEditor.removeDuplicateEdges()" class="control-button">
+			Remove Duplicate Edges
+		  </button>
+		  <button onclick="window.graphEditor.mergeDuplicateNodes()" class="control-button">
+			Merge Duplicate Authors
+		  </button>
+		</section>
       </aside>
     </div>
 
@@ -141,6 +167,7 @@
   </div>
 
   <!-- Custom JavaScript -->
+  <script src="duplicate-cleanup.js"></script>
   <script src="graph-editor.js"></script>
 </body>
 </html>

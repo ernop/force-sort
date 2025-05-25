@@ -26,6 +26,11 @@ function loadData() {
         nodeById.set(n.id, n);
       });
       nextNodeId = Math.max(0, ...nodes.map(n => n.id)) + 1;
+      
+      // Check for duplicates using the function from duplicate-cleanup.js
+      if (window.graphEditor && window.graphEditor.checkForDuplicates) {
+        window.graphEditor.checkForDuplicates();
+      }
     });
 }
 
@@ -97,11 +102,11 @@ const yearSpacing = 60;
 
 const simulation = d3.forceSimulation(nodes)
   .force('link', d3.forceLink().id(d => d.id).distance(() => +linkInput.value))
-  .force('charge', d3.forceManyBody().strength(() => +chargeInput.value).distanceMax(1000000))
+  .force('charge', d3.forceManyBody().strength(() => layoutMode === 'tiers' ? +chargeInput.value * 2 : +chargeInput.value).distanceMax(1000000))
   .force('center', d3.forceCenter(width / 2, height / 2))
-  .force('collision', d3.forceCollide().radius(40))
-  .alphaDecay(0.001)
-  .velocityDecay(0.4)
+  .force('collision', d3.forceCollide().radius(layoutMode === 'tiers' ? 60 : 40))
+  .alphaDecay(layoutMode === 'tiers' ? 0.01 : 0.001)
+  .velocityDecay(layoutMode === 'tiers' ? 0.8 : 0.4)
   .on('tick', ticked);
 
 
@@ -448,34 +453,49 @@ function computeYearLayout() {
     maxYear = Math.max(...years);
   }
 
-  const rows = new Map();
+  // Group nodes by year
+  const yearGroups = new Map();
   nodes.forEach(n => {
     const y = parseInt(n.birth_year, 10);
-    const key = isNaN(y) ? 'unknown' : y;
-    if (!rows.has(key)) rows.set(key, []);
-    rows.get(key).push(n);
+    const key = isNaN(y) ? maxYear + 1 : y;
+    if (!yearGroups.has(key)) yearGroups.set(key, []);
+    yearGroups.get(key).push(n);
   });
 
-  rows.forEach((row, key) => {
-    row.forEach((n, i) => {
-      const yr = parseInt(n.birth_year, 10);
-      const line = isNaN(yr) ? maxYear + 1 : yr;
-      n.x = tierSpacing + i * 150;
-      n.y = (line - minYear) * yearSpacing + 40;
+  // Sort years and assign y positions (close together)
+  const sortedYears = Array.from(yearGroups.keys()).sort((a, b) => a - b);
+  const rowHeight = 80; // Closer rows
+  
+  sortedYears.forEach((year, rowIndex) => {
+    const yPos = rowIndex * rowHeight + 100;
+    const nodesInYear = yearGroups.get(year);
+    
+    // Spread nodes horizontally within the year
+    nodesInYear.forEach((node, i) => {
+      // Start nodes spread across more horizontal space
+      const xSpacing = Math.max(200, width / Math.max(nodesInYear.length, 4));
+      node.x = (i - (nodesInYear.length - 1) / 2) * xSpacing + width / 2;
+      node.y = yPos;
+      // Fix Y position but allow X movement
+      node.fy = yPos;
+      node.fx = null; // Allow horizontal movement
+      // Add extra horizontal repulsion in tier mode
+      node._tierMode = true;
     });
   });
 
-  const labelData = Array.from(rows.keys()).map(k => ({
-    key: k,
-    line: isNaN(parseInt(k,10)) ? maxYear + 1 : parseInt(k,10)
+  // Year labels
+  const labelData = sortedYears.map((year, rowIndex) => ({
+    year: year,
+    yPos: rowIndex * rowHeight + 100
   }));
   
-  yearLabelSel = yearLabelGroup.selectAll('text').data(labelData, d => d.key)
+  yearLabelSel = yearLabelGroup.selectAll('text').data(labelData, d => d.year)
     .join('text')
-      .text(d => d.key === 'unknown' ? 'Unknown' : d.key)
-      .attr('text-anchor', 'end');
-  yearLabelSel.attr('x', 80)
-              .attr('y', d => (d.line - minYear) * yearSpacing + 55);
+      .text(d => d.year > maxYear ? 'Unknown' : d.year)
+      .attr('text-anchor', 'end')
+      .attr('x', 80)
+      .attr('y', d => d.yPos + 5);
 }
 
 function applyLayoutForces(restartAlpha = true) {
@@ -493,11 +513,8 @@ function applyLayoutForces(restartAlpha = true) {
   if (layoutMode === 'tiers') {
     computeYearLayout();
     yearLabelGroup.style('display', null);
-    nodes.forEach(n => {
-      n.fx = n.x;
-      n.fy = n.y;
-    });
-    ticked();
+    // Start simulation for horizontal movement within year rows
+    simulation.alpha(1).restart();
   } else if (layoutMode === 'force') {
     simulation.force('tier', null);
     yearLabelGroup.style('display', 'none');
@@ -1100,6 +1117,10 @@ function highlightSearch() {
 
 
 function setFocus(nodeId, depth) {
+  // Close any open popups when focusing
+  hideEdgePopup();
+  hideNodePopup();
+  
   const oldFocusNodeId = currentFilters.focus.nodeId;
   if (oldFocusNodeId && nodeById.has(oldFocusNodeId)) {
     const oldNode = nodeById.get(oldFocusNodeId);
@@ -1110,7 +1131,54 @@ function setFocus(nodeId, depth) {
   }
 
   currentFilters.focus.nodeId = nodeId;
+  const oldDepth = currentFilters.focus.depth;
   currentFilters.focus.depth = nodeId === null ? 1 : parseInt(depth, 10);
+  
+  // If we're changing depth on the same node, position newly visible nodes nicely
+  if (nodeId !== null && nodeId === oldFocusNodeId && oldDepth !== currentFilters.focus.depth) {
+    const focusNode = nodeById.get(nodeId);
+    if (focusNode && focusNode.x && focusNode.y) {
+      // Find newly visible nodes and arrange them in a circle around focus
+      const focusNeighborhood = new Set([nodeId]);
+      let frontier = [nodeId];
+      
+      for (let i = 0; i < currentFilters.focus.depth; i++) {
+        const nextFrontier = [];
+        frontier.forEach(id => {
+          links.forEach(l => {
+            if (l.id1 === id || l.id2 === id) {
+              const other = (l.id1 === id) ? l.id2 : l.id1;
+              if (nodeById.has(other) && !focusNeighborhood.has(other)) {
+                focusNeighborhood.add(other);
+                nextFrontier.push(other);
+                
+                // Position new nodes based on edge direction
+                const isIncoming = l.id2 === id; // Edge points TO the current node
+                const isOutgoing = l.id1 === id; // Edge points FROM the current node
+                
+                let angle;
+                if (isIncoming) {
+                  // Incoming edges: position above (top semicircle)
+                  angle = Math.PI + (Math.random() - 0.5) * Math.PI;
+                } else {
+                  // Outgoing edges: position below (bottom semicircle)  
+                  angle = (Math.random() - 0.5) * Math.PI;
+                }
+                
+                const radius = 150 + (i * 80); // Further out for deeper connections
+                const newNode = nodeById.get(other);
+                if (newNode) {
+                  newNode.x = focusNode.x + Math.cos(angle) * radius;
+                  newNode.y = focusNode.y + Math.sin(angle) * radius;
+                }
+              }
+            }
+          });
+        });
+        frontier = nextFrontier;
+      }
+    }
+  }
 
   const focusBox = document.getElementById('focusBox');
   const focusLabel = document.getElementById('focusLabel');
@@ -1238,8 +1306,6 @@ function applyAllFiltersAndRefresh(restartSimForcefully = false) {
   // Apply search term highlighting
   highlightSearch();
 
-
-
   // If layout is static and sim wasn't restarted, ensure positions are updated
   if (!needsStrongRestart && layoutMode === 'tiers') {
     ticked();
@@ -1302,6 +1368,31 @@ function setupSearchAndFilter() {
     applyAllFiltersAndRefresh(false);
   });
   
+  // Add keyboard navigation for search results
+  searchInput.addEventListener('keydown', (e) => {
+    if (searchResults.style.display === 'block') {
+      switch(e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          navigateSearchResults('down', searchResults);
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          navigateSearchResults('up', searchResults);
+          break;
+        case 'Enter':
+          e.preventDefault();
+          selectCurrentSearchResult(searchResults);
+          break;
+        case 'Escape':
+          e.preventDefault();
+          hideSearchResults(searchResults);
+          searchInput.blur();
+          break;
+      }
+    }
+  });
+  
   // Hide search results when clicking outside
   document.addEventListener('click', (e) => {
     if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
@@ -1320,6 +1411,11 @@ function setupSearchAndFilter() {
     }
   });
 }
+
+let searchResultsState = {
+  currentIndex: -1,
+  results: []
+};
 
 function createSearchResults() {
   const resultsDiv = document.createElement('div');
@@ -1350,10 +1446,13 @@ function showSearchResults(term, resultsDiv) {
     n.name.toLowerCase().includes(term)
   ).sort((a, b) => a.name.localeCompare(b.name));
   
+  searchResultsState.results = matchingNodes;
+  searchResultsState.currentIndex = -1;
+  
   if (matchingNodes.length === 0) {
     resultsDiv.innerHTML = '<div style="padding: 12px; color: var(--text-secondary);">No authors found</div>';
   } else {
-    resultsDiv.innerHTML = matchingNodes.map(node => {
+    resultsDiv.innerHTML = matchingNodes.map((node, index) => {
       const name = node.name;
       const year = node.birth_year || '';
       const image = node.image || '';
@@ -1363,7 +1462,7 @@ function showSearchResults(term, resultsDiv) {
       const highlightedName = name.replace(regex, '<mark>$1</mark>');
       
       return `
-        <div class="search-result-item" data-node-id="${node.id}" style="
+        <div class="search-result-item" data-node-id="${node.id}" data-index="${index}" style="
           display: flex;
           align-items: center;
           padding: 8px 12px;
@@ -1385,7 +1484,7 @@ function showSearchResults(term, resultsDiv) {
           </div>
           <div style="flex: 1; min-width: 0;">
             <div style="font-weight: 500; color: var(--text-primary);">${highlightedName}</div>
-            ${year ? `<div style="font-size: 12px; color: var(--text-secondary);">${year}</div>` : ''}
+            ${year ? `<div class="search-result-year" style="font-size: 12px; color: var(--text-secondary);">${year}</div>` : ''}
           </div>
         </div>
       `;
@@ -1397,24 +1496,84 @@ function showSearchResults(term, resultsDiv) {
   // Add click handlers
   resultsDiv.querySelectorAll('.search-result-item').forEach(item => {
     item.addEventListener('mouseenter', () => {
+      // Clear keyboard selection when hovering
+      searchResultsState.currentIndex = -1;
+      updateSearchSelection(resultsDiv);
       item.style.background = 'var(--bg-tertiary)';
     });
     item.addEventListener('mouseleave', () => {
       item.style.background = 'transparent';
     });
     item.addEventListener('click', () => {
-      const nodeId = parseInt(item.dataset.nodeId, 10);
-      setFocus(nodeId, currentFilters.focus.depth);
-      hideSearchResults(resultsDiv);
-      document.getElementById('searchInput').value = '';
-      currentFilters.searchTerm = '';
-      applyAllFiltersAndRefresh(false);
+      selectSearchResult(item, resultsDiv);
     });
   });
+  
+  // Update selection display
+  updateSearchSelection(resultsDiv);
+}
+
+function updateSearchSelection(resultsDiv) {
+  const items = resultsDiv.querySelectorAll('.search-result-item');
+  items.forEach((item, index) => {
+    if (index === searchResultsState.currentIndex) {
+      item.style.background = 'var(--primary-color)';
+      item.style.color = 'white';
+      // Scroll into view if needed
+      item.scrollIntoView({ block: 'nearest' });
+    } else {
+      item.style.background = 'transparent';
+      item.style.color = '';
+    }
+  });
+}
+
+function selectSearchResult(item, resultsDiv) {
+  const nodeId = parseInt(item.dataset.nodeId, 10);
+  
+  // Clear search UI first (but don't trigger filter refresh)
+  document.getElementById('searchInput').value = '';
+  hideSearchResults(resultsDiv);
+  
+  // Clear search term WITHOUT triggering refresh
+  currentFilters.searchTerm = '';
+  
+  // Now set focus (this will call applyAllFiltersAndRefresh internally)
+  setFocus(nodeId, currentFilters.focus.depth);
+}
+
+function navigateSearchResults(direction, resultsDiv) {
+  if (searchResultsState.results.length === 0) return;
+  
+  if (direction === 'down') {
+    searchResultsState.currentIndex = Math.min(
+      searchResultsState.currentIndex + 1, 
+      searchResultsState.results.length - 1
+    );
+  } else if (direction === 'up') {
+    searchResultsState.currentIndex = Math.max(
+      searchResultsState.currentIndex - 1, 
+      -1
+    );
+  }
+  
+  updateSearchSelection(resultsDiv);
+}
+
+function selectCurrentSearchResult(resultsDiv) {
+  if (searchResultsState.currentIndex >= 0 && searchResultsState.currentIndex < searchResultsState.results.length) {
+    const selectedNode = searchResultsState.results[searchResultsState.currentIndex];
+    const item = resultsDiv.querySelector(`[data-node-id="${selectedNode.id}"]`);
+    if (item) {
+      selectSearchResult(item, resultsDiv);
+    }
+  }
 }
 
 function hideSearchResults(resultsDiv) {
   resultsDiv.style.display = 'none';
+  searchResultsState.currentIndex = -1;
+  searchResultsState.results = [];
 }
 
 function refreshLinks(restartSim = true) {
@@ -1455,7 +1614,11 @@ function refreshLinks(restartSim = true) {
       const text = g.append('text')
         .attr('class', 'label')
         .text(d => {
-          const maxLength = 20; // Adjust as needed
+          // Dynamic max length based on edge distance
+          const dx = d.target.x - d.source.x;
+          const dy = d.target.y - d.source.y;
+          const edgeLength = Math.sqrt(dx*dx + dy*dy);
+          const maxLength = Math.max(15, Math.min(50, Math.floor(edgeLength / 8)));
           return d.label.length > maxLength ? 
             d.label.substring(0, maxLength) + '…' : 
             d.label;
@@ -1492,8 +1655,11 @@ function refreshLinks(restartSim = true) {
           const textEl = d3.select(this).select('text');
           const bgEl = d3.select(this).select('rect');
           
-          // Truncate again
-          const maxLength = 20;
+          // Truncate again with dynamic length
+          const dx = d.target.x - d.source.x;
+          const dy = d.target.y - d.source.y;
+          const edgeLength = Math.sqrt(dx*dx + dy*dy);
+          const maxLength = Math.max(15, Math.min(50, Math.floor(edgeLength / 8)));
           textEl.text(d.label.length > maxLength ? 
             d.label.substring(0, maxLength) + '…' : 
             d.label);
@@ -1559,6 +1725,14 @@ function initialize() {
     }
 
     if (initialFocusNodeId !== null && nodeById.has(initialFocusNodeId)) {
+      // Center the focused node when loading from URL
+      const focusNode = nodeById.get(initialFocusNodeId);
+      if (focusNode) {
+        focusNode.x = width / 2;
+        focusNode.y = height / 2;
+        focusNode.fx = focusNode.x;
+        focusNode.fy = focusNode.y;
+      }
       setFocus(initialFocusNodeId, initialFocusDepth);
     } else {
       applyAllFiltersAndRefresh(false);
@@ -1663,14 +1837,13 @@ $(document).ready(() => {
 });
 
 // Export some functions for console debugging
-window.graphEditor = {
-  setFocus,
-  addNode,
-  nodes,
-  links,
-  currentFilters,
-  simulation
-};
+window.graphEditor = window.graphEditor || {};
+window.graphEditor.setFocus = setFocus;
+window.graphEditor.addNode = addNode;
+window.graphEditor.nodes = nodes;
+window.graphEditor.links = links;
+window.graphEditor.currentFilters = currentFilters;
+window.graphEditor.simulation = simulation;
 
 // Add styles for image actions dynamically if not present
 if (!document.querySelector('#image-actions-style')) {
