@@ -10,7 +10,8 @@ let currentFilters = {
     year: { min: null, max: null },
     focus: { nodeId: null, depth: 1 },
     searchTerm: '',
-    showSFSFSS: true  // Default to on
+    showSFSFSS: true,  // Default to on
+    onlySFSFSS: false  // Default to off
 };
 
 /* ---------- Initialize Data ---------- */
@@ -107,12 +108,15 @@ const simulation = d3.forceSimulation(nodes)
   .force('center', d3.forceCenter(width / 2, height / 2))
   .force('collision', d3.forceCollide().radius(layoutMode === 'tiers' ? 60 : 40))
   .alphaDecay(layoutMode === 'tiers' ? 0.01 : 0.001)
-  .velocityDecay(layoutMode === 'tiers' ? 0.8 : 0.4)
+  .velocityDecay(layoutMode === 'tiers' ? 0.8 : 0.6)  // Increased base friction
   .on('tick', ticked);
 
 
 /* ---------- Tick Function ---------- */
 function ticked() {
+  // Detect and dampen coordinated motion
+  detectAndDampenCoordinatedMotion();
+  
   const r = 22;
   const pathD = d => {
     const dx = d.target.x - d.source.x,
@@ -198,6 +202,111 @@ function ticked() {
           return `rotate(${ang})`;
         });
   });
+}
+
+/* ---------- Motion Detection and Dampening ---------- */
+function detectAndDampenCoordinatedMotion() {
+  // Only check when simulation is running
+  if (simulation.alpha() < 0.01) return;
+  
+  // First, check individual nodes with high velocity
+  nodes.forEach(node => {
+    if (node.vx !== undefined && node.vy !== undefined) {
+      const speed = Math.sqrt(node.vx * node.vx + node.vy * node.vy);
+      // If any node is moving too fast, dampen it
+      if (speed > 2) {
+        node.vx *= 0.3;
+        node.vy *= 0.3;
+      }
+    }
+  });
+  
+  // Build connected components
+  const components = findConnectedComponents();
+  
+  components.forEach(component => {
+    // Skip very large components (more than half the graph)
+    if (component.size > nodes.length * 0.5) return;
+    
+    // Calculate average velocity for the component
+    let avgVx = 0, avgVy = 0;
+    let count = 0;
+    
+    component.forEach(nodeId => {
+      const node = nodeById.get(nodeId);
+      if (node && node.vx !== undefined && node.vy !== undefined) {
+        avgVx += node.vx;
+        avgVy += node.vy;
+        count++;
+      }
+    });
+    
+    if (count === 0) return;
+    
+    avgVx /= count;
+    avgVy /= count;
+    const avgSpeed = Math.sqrt(avgVx * avgVx + avgVy * avgVy);
+    
+    // If the component has significant coordinated motion
+    if (avgSpeed > 0.5) {
+      // Calculate how similar the velocities are
+      let similarityScore = 0;
+      component.forEach(nodeId => {
+        const node = nodeById.get(nodeId);
+        if (node && node.vx !== undefined && node.vy !== undefined) {
+          const dotProduct = (node.vx * avgVx + node.vy * avgVy) / (avgSpeed * Math.sqrt(node.vx * node.vx + node.vy * node.vy) || 1);
+          similarityScore += dotProduct;
+        }
+      });
+      similarityScore /= count;
+      
+      // If velocities are mostly aligned (moving together)
+      if (similarityScore > 0.7) {
+        // Apply extra dampening to this component
+        const dampenFactor = component.size <= 3 ? 0.3 : 0.5; // Stronger dampening for small groups
+        component.forEach(nodeId => {
+          const node = nodeById.get(nodeId);
+          if (node) {
+            node.vx = (node.vx || 0) * dampenFactor;
+            node.vy = (node.vy || 0) * dampenFactor;
+          }
+        });
+      }
+    }
+  });
+}
+
+function findConnectedComponents() {
+  const visited = new Set();
+  const components = [];
+  
+  nodes.forEach(node => {
+    if (!visited.has(node.id)) {
+      const component = new Set();
+      const queue = [node.id];
+      
+      while (queue.length > 0) {
+        const currentId = queue.shift();
+        if (visited.has(currentId)) continue;
+        
+        visited.add(currentId);
+        component.add(currentId);
+        
+        // Find all connected nodes
+        visibleLinks.forEach(link => {
+          if (link.id1 === currentId && !visited.has(link.id2)) {
+            queue.push(link.id2);
+          } else if (link.id2 === currentId && !visited.has(link.id1)) {
+            queue.push(link.id1);
+          }
+        });
+      }
+      
+      components.push(component);
+    }
+  });
+  
+  return components;
 }
 
 /* ---------- Edge Creation Mode ---------- */
@@ -840,8 +949,8 @@ document.getElementById('perturb').addEventListener('click', () => {
 
 document.getElementById('dampen').addEventListener('click', () => {
   nodes.forEach(n => {
-    n.vx = (n.vx || 0) * 0.5;
-    n.vy = (n.vy || 0) * 0.5;
+    n.vx = (n.vx || 0) * 0.1;  // Stronger dampening on manual click
+    n.vy = (n.vy || 0) * 0.1;
   });
 });
 
@@ -865,6 +974,7 @@ layoutSelect.addEventListener('change', e => {
   layoutMode = e.target.value;
   applyLayoutForces();
   applyAllFiltersAndRefresh(true);
+  updateURLFromFilters();
 });
 
 // Enter key handlers for adding nodes
@@ -1254,18 +1364,7 @@ function setFocus(nodeId, depth) {
   }
   
   // Use history API for back/forward support
-  const params = new URLSearchParams(location.hash.slice(1));
-  if(nodeId !== null) {
-    params.set('focus', nodeId);
-    params.set('depth', currentFilters.focus.depth);
-  } else {
-    params.delete('focus');
-    params.delete('depth');
-  }
-  const newHash = '#' + params.toString();
-  if (location.hash !== newHash) {
-    history.pushState({focus: nodeId, depth: currentFilters.focus.depth}, '', newHash);
-  }
+  updateURLFromFilters();
   
   applyAllFiltersAndRefresh(); 
 }
@@ -1279,18 +1378,29 @@ function applyAllFiltersAndRefresh(restartSimForcefully = false) {
   console.log('Initial visible nodes:', visibleNodeIds.size);
 
   // Apply Year Filter
-  const yearSlider = document.getElementById('yearSlider');
-  if (yearSlider.noUiSlider && currentFilters.year.min !== null && currentFilters.year.max !== null) {
-    const [minY, maxY] = [currentFilters.year.min, currentFilters.year.max];
-    let yearFilteredNodes = new Set();
-    nodes.forEach(n => {
-      const y = parseInt(n.birth_year, 10);
-      if (isNaN(y) || (y >= minY && y <= maxY)) {
-        yearFilteredNodes.add(n.id);
-      }
-    });
-    visibleNodeIds = yearFilteredNodes;
-  }
+const yearSlider = document.getElementById('yearSlider');
+if (yearSlider.noUiSlider && currentFilters.year.min !== null && currentFilters.year.max !== null) {
+  const [minY, maxY] = [currentFilters.year.min, currentFilters.year.max];
+  let yearFilteredNodes = new Set();
+  nodes.forEach(n => {
+    const y = parseInt(n.birth_year, 10);
+    if (isNaN(y) || (y >= minY && y <= maxY)) {
+      yearFilteredNodes.add(n.id);
+    }
+  });
+  visibleNodeIds = yearFilteredNodes;
+}
+
+// Apply SFSFSS Only Filter
+if (currentFilters.onlySFSFSS) {
+  let sfsfssFilteredNodes = new Set();
+  nodes.forEach(n => {
+    if (n.sfsfss_has_read === true && visibleNodeIds.has(n.id)) {
+      sfsfssFilteredNodes.add(n.id);
+    }
+  });
+  visibleNodeIds = sfsfssFilteredNodes;
+}
 
   // Apply Focus Filter
   let isFocusActive = false;
@@ -1407,6 +1517,7 @@ function setupSearchAndFilter() {
       currentFilters.year.min = parseInt(values[0], 10);
       currentFilters.year.max = parseInt(values[1], 10);
       applyAllFiltersAndRefresh();
+      updateURLFromFilters();
     });
   } else {
     yearSlider.style.display = 'none';
@@ -1426,6 +1537,7 @@ function setupSearchAndFilter() {
     }
     
     applyAllFiltersAndRefresh(false);
+    updateURLFromFilters();
   });
   
   // Add keyboard navigation for search results
@@ -1470,12 +1582,19 @@ function setupSearchAndFilter() {
       document.getElementById('focusNum').textContent = newDepth;
     }
   });
+}
   
-  // SFSFSS toggle handler
+// SFSFSS toggle handlers
 const sfsfssToggle = document.getElementById('sfsfssToggle');
 sfsfssToggle.addEventListener('change', () => {
   currentFilters.showSFSFSS = sfsfssToggle.checked;
+  // If hiding highlights, also turn off "only show"
+  if (!sfsfssToggle.checked) {
+    currentFilters.onlySFSFSS = false;
+    document.getElementById('onlySfsfssToggle').checked = false;
+  }
   applyAllFiltersAndRefresh(false);
+  updateURLFromFilters();
   
   // Update any open popup
   if (nodePopupId !== null) {
@@ -1486,7 +1605,18 @@ sfsfssToggle.addEventListener('change', () => {
     }
   }
 });
-}
+
+const onlySfsfssToggle = document.getElementById('onlySfsfssToggle');
+onlySfsfssToggle.addEventListener('change', () => {
+  currentFilters.onlySFSFSS = onlySfsfssToggle.checked;
+  // If showing only SFSFSS, ensure highlights are on
+  if (onlySfsfssToggle.checked) {
+    currentFilters.showSFSFSS = true;
+    document.getElementById('sfsfssToggle').checked = true;
+  }
+  applyAllFiltersAndRefresh(false);
+  updateURLFromFilters();
+});
 
 let searchResultsState = {
   currentIndex: -1,
@@ -1662,6 +1792,105 @@ function hideSearchResults(resultsDiv) {
   searchResultsState.results = [];
 }
 
+/* ---------- URL State Management ---------- */
+function updateURLFromFilters() {
+  const params = new URLSearchParams();
+  
+  // Focus state
+  if (currentFilters.focus.nodeId !== null) {
+    params.set('focus', currentFilters.focus.nodeId);
+    params.set('depth', currentFilters.focus.depth);
+  }
+  
+  // Year filter
+  if (currentFilters.year.min !== null && currentFilters.year.max !== null) {
+    const years = nodes.map(n => parseInt(n.birth_year, 10)).filter(y => !isNaN(y));
+    if (years.length > 0) {
+      const dataMin = Math.min(...years);
+      const dataMax = Math.max(...years);
+      // Only save if different from data range
+      if (currentFilters.year.min !== dataMin || currentFilters.year.max !== dataMax) {
+        params.set('yearMin', currentFilters.year.min);
+        params.set('yearMax', currentFilters.year.max);
+      }
+    }
+  }
+  
+  // Search term
+  if (currentFilters.searchTerm) {
+    params.set('search', currentFilters.searchTerm);
+  }
+  
+  // SFSFSS filters
+  if (!currentFilters.showSFSFSS) {
+    params.set('sfsfss', 'hide');
+  }
+  if (currentFilters.onlySFSFSS) {
+    params.set('sfsfssOnly', 'true');
+  }
+  
+  // Layout mode
+  if (layoutMode !== 'force') {
+    params.set('layout', layoutMode);
+  }
+  
+  const newHash = '#' + params.toString();
+  if (location.hash !== newHash) {
+    history.replaceState(null, '', newHash);
+  }
+}
+
+function loadFiltersFromURL() {
+  const params = new URLSearchParams(location.hash.slice(1));
+  
+  // Layout mode (load this first as it affects other filters)
+  if (params.has('layout')) {
+    layoutMode = params.get('layout');
+    document.getElementById('layoutSelect').value = layoutMode;
+  }
+  
+  // Year filter
+  if (params.has('yearMin') && params.has('yearMax')) {
+    const yearMin = parseInt(params.get('yearMin'), 10);
+    const yearMax = parseInt(params.get('yearMax'), 10);
+    if (!isNaN(yearMin) && !isNaN(yearMax)) {
+      currentFilters.year.min = yearMin;
+      currentFilters.year.max = yearMax;
+      // Update slider if it exists
+      const yearSlider = document.getElementById('yearSlider');
+      if (yearSlider.noUiSlider) {
+        yearSlider.noUiSlider.set([yearMin, yearMax]);
+      }
+    }
+  }
+  
+  // Search term
+  if (params.has('search')) {
+    currentFilters.searchTerm = params.get('search');
+    document.getElementById('searchInput').value = currentFilters.searchTerm;
+  }
+  
+  // SFSFSS filters
+  if (params.has('sfsfss')) {
+    currentFilters.showSFSFSS = params.get('sfsfss') !== 'hide';
+    document.getElementById('sfsfssToggle').checked = currentFilters.showSFSFSS;
+  }
+  if (params.has('sfsfssOnly')) {
+    currentFilters.onlySFSFSS = params.get('sfsfssOnly') === 'true';
+    document.getElementById('onlySfsfssToggle').checked = currentFilters.onlySFSFSS;
+  }
+  
+  // Focus (handled separately for proper node positioning)
+  let focusNodeId = null;
+  let focusDepth = 1;
+  if (params.has('focus')) {
+    focusNodeId = parseInt(params.get('focus'), 10);
+    focusDepth = parseInt(params.get('depth') || '1', 10);
+  }
+  
+  return { focusNodeId, focusDepth };
+}
+
 function refreshLinks(restartSim = true) {
   const simLinks = buildSimLinks(visibleLinks);
 
@@ -1800,15 +2029,8 @@ function initialize() {
     setupSearchAndFilter();
     updateGraph(false, null, false);
 
-    // Parse URL hash for focus
-    const params = new URLSearchParams(location.hash.slice(1));
-    let initialFocusNodeId = null;
-    let initialFocusDepth = 1;
-
-    if (params.has('focus')) {
-      initialFocusNodeId = parseInt(params.get('focus'), 10);
-      initialFocusDepth = parseInt(params.get('depth') || '1', 10);
-    }
+    // Load all filters from URL
+    const { focusNodeId: initialFocusNodeId, focusDepth: initialFocusDepth } = loadFiltersFromURL();
 
     if (initialFocusNodeId !== null && nodeById.has(initialFocusNodeId)) {
       // Center the focused node when loading from URL
@@ -1875,9 +2097,10 @@ $(document).ready(() => {
     }
   });
   
-  // Handle browser back/forward
+    // Handle browser back/forward
 	window.addEventListener('popstate', (event) => {
-	  if (event.state) {
+	   loadFiltersFromURL();
+	  applyAllFiltersAndRefresh();
 		const focusNodeId = event.state.focus || null;
 		const focusDepth = event.state.depth || 1;
 		
@@ -1916,7 +2139,7 @@ $(document).ready(() => {
 		}
 		
 		applyAllFiltersAndRefresh();
-	  }
+	  
 	});
   
   initialize();

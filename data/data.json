@@ -7,8 +7,10 @@
       "images": [
         "images/6.png"
       ],
-      "sfsfss_has_read": false,
-      "story_links": []
+      "sfsfss_has_read": true,
+      "story_links": [
+        "https://lentenlordoftherings.wordpress.com/wp-content/uploads/2015/01/tolkien-ainulindale.pdf"
+      ]
     },
     {
       "id": 1,
@@ -372,7 +374,7 @@
     },
     {
       "id": 41,
-      "name": "Ursula K Le Guin",
+      "name": "Ursula K. Le Guin",
       "birth_year": "1929",
       "images": [
         "images/41_1.png",
@@ -380,8 +382,16 @@
         "images/41_2.png",
         "images/41_3.png"
       ],
-      "sfsfss_has_read": false,
-      "story_links": []
+      "sfsfss_has_read": true,
+      "story_links": [
+        "http://clarkesworldmagazine.com/le_guin_03_14_reprint/",
+        "http://www.baen.com/Chapters/9781625791405/9781625791405___2.htm",
+        "http://www.sfsfss.com/stories2/Le%20Guin,%20Ursula%20K.%20-%20The%20Matter%20of%20Seggri.html",
+        "http://www.sfsfss.com/stories2/Solitude-LeGuin.html",
+        "https://frielingretc.files.wordpress.com/2013/03/the-wifes-story-ursula-k.pdf",
+        "https://learning.hccs.edu/faculty/emily.klotz/engl1302-6/readings/the-ones-who-walk-away-from-omelas-ursula-le-guin/view",
+        "https://xenoflesh.wordpress.com/wp-content/uploads/2017/03/ursula-k.-le-guin.pdf"
+      ]
     },
     {
       "id": 42,
@@ -2165,33 +2175,11 @@
       ]
     },
     {
-      "id": 242,
-      "name": "J.R.R. Tolkien",
-      "sfsfss_has_read": true,
-      "story_links": [
-        "https://lentenlordoftherings.wordpress.com/wp-content/uploads/2015/01/tolkien-ainulindale.pdf"
-      ]
-    },
-    {
       "id": 243,
       "name": "Laurence Raab",
       "sfsfss_has_read": true,
       "story_links": [
         "https://exceptindreams.livejournal.com/230188.html"
-      ]
-    },
-    {
-      "id": 244,
-      "name": "Ursula K. Le Guin",
-      "sfsfss_has_read": true,
-      "story_links": [
-        "http://clarkesworldmagazine.com/le_guin_03_14_reprint/",
-        "http://www.baen.com/Chapters/9781625791405/9781625791405___2.htm",
-        "http://www.sfsfss.com/stories2/Le%20Guin,%20Ursula%20K.%20-%20The%20Matter%20of%20Seggri.html",
-        "http://www.sfsfss.com/stories2/Solitude-LeGuin.html",
-        "https://frielingretc.files.wordpress.com/2013/03/the-wifes-story-ursula-k.pdf",
-        "https://learning.hccs.edu/faculty/emily.klotz/engl1302-6/readings/the-ones-who-walk-away-from-omelas-ursula-le-guin/view",
-        "https://xenoflesh.wordpress.com/wp-content/uploads/2017/03/ursula-k.-le-guin.pdf"
       ]
     },
     {
@@ -3231,6 +3219,71 @@
       "story_links": [
         "http://slatestarcodex.com/2015/06/02/and-i-show-you-how-deep-the-rabbit-hole-goes/"
       ]
+	  
+    },
+	{
+      "id": 370,
+      "name": "Ray Cummings",
+      "birth_year": "1887",
+      "notes": "Early SF writer, worked with Thomas Edison, wrote time travel stories",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 371,
+      "name": "Edmond Hamilton",
+      "birth_year": "1904",
+      "notes": "World Wrecker, space opera pioneer, married to Leigh Brackett",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 372,
+      "name": "Leigh Brackett",
+      "birth_year": "1915",
+      "notes": "Queen of Space Opera, wrote Empire Strikes Back screenplay",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 373,
+      "name": "Abraham Merritt",
+      "birth_year": "1884",
+      "notes": "A. Merritt, fantasy/horror writer",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 374,
+      "name": "Fletcher Pratt",
+      "birth_year": "1897",
+      "notes": "Naval historian, fantasy writer, collaborator with L. Sprague de Camp",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 375,
+      "name": "Donald Wollheim",
+      "birth_year": "1914",
+      "notes": "Editor, publisher (DAW Books), Futurians member",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 376,
+      "name": "Terry Carr",
+      "birth_year": "1937",
+      "notes": "Editor who discovered many major SF writers",
+      "sfsfss_has_read": false,
+      "story_links": []
+    },
+    {
+      "id": 377,
+      "name": "David Hartwell",
+      "birth_year": "1941",
+      "notes": "Influential editor at Tor Books",
+      "sfsfss_has_read": false,
+      "story_links": []
     }
   ],
   "links": [
@@ -6073,6 +6126,551 @@
       "id1": 217,
       "id2": 42,
       "label": "met socially through Tolkien circle"
+    },
+	{
+      "id1": 71,
+      "id2": 370,
+      "label": "contemporary pulp writers"
+    },
+    {
+      "id1": 71,
+      "id2": 371,
+      "label": "space opera contemporaries"
+    },
+    {
+      "id1": 371,
+      "id2": 372,
+      "label": "married 1946"
+    },
+    {
+      "id1": 372,
+      "id2": 78,
+      "label": "influenced and friend"
+    },
+    {
+      "id1": 372,
+      "id2": 92,
+      "label": "influenced space adventure style"
+    },
+    {
+      "id1": 177,
+      "id2": 373,
+      "label": "same person (A. Merritt)"
+    },
+    {
+      "id1": 373,
+      "id2": 3,
+      "label": "major influence on cosmic horror"
+    },
+    {
+      "id1": 373,
+      "id2": 4,
+      "label": "influenced fantasy adventures"
+    },
+    {
+      "id1": 374,
+      "id2": 160,
+      "label": "frequent collaborator"
+    },
+    {
+      "id1": 374,
+      "id2": 92,
+      "label": "naval history colleague"
+    },
+    {
+      "id1": 375,
+      "id2": 63,
+      "label": "Futurians co-founder"
+    },
+    {
+      "id1": 375,
+      "id2": 139,
+      "label": "Futurians co-founder"
+    },
+    {
+      "id1": 375,
+      "id2": 227,
+      "label": "Futurians member"
+    },
+    {
+      "id1": 375,
+      "id2": 138,
+      "label": "Futurians member"
+    },
+    {
+      "id1": 375,
+      "id2": 100,
+      "label": "editor and publisher"
+    },
+    {
+      "id1": 375,
+      "id2": 179,
+      "label": "Futurians member"
+    },
+    {
+      "id1": 376,
+      "id2": 41,
+      "label": "discovered and edited"
+    },
+    {
+      "id1": 376,
+      "id2": 91,
+      "label": "editor and champion"
+    },
+    {
+      "id1": 376,
+      "id2": 166,
+      "label": "discovered and mentored"
+    },
+    {
+      "id1": 377,
+      "id2": 91,
+      "label": "editor at Tor"
+    },
+    {
+      "id1": 377,
+      "id2": 168,
+      "label": "brought Three-Body to US"
+    },
+    {
+      "id1": 72,
+      "id2": 2,
+      "label": "influenced British humor"
+    },
+    {
+      "id1": 72,
+      "id2": 172,
+      "label": "influenced British comic tradition"
+    },
+    {
+      "id1": 74,
+      "id2": 52,
+      "label": "influenced psychological extremism"
+    },
+    {
+      "id1": 85,
+      "id2": 87,
+      "label": "influenced modernist techniques"
+    },
+    {
+      "id1": 86,
+      "id2": 47,
+      "label": "Russian literary tradition"
+    },
+    {
+      "id1": 86,
+      "id2": 165,
+      "label": "influenced philosophical depth"
+    },
+    {
+      "id1": 88,
+      "id2": 166,
+      "label": "influenced space opera scale"
+    },
+    {
+      "id1": 88,
+      "id2": 167,
+      "label": "influenced British space opera"
+    },
+    {
+      "id1": 89,
+      "id2": 146,
+      "label": "influenced literary horror SF"
+    },
+    {
+      "id1": 90,
+      "id2": 146,
+      "label": "influenced occult SF themes"
+    },
+    {
+      "id1": 91,
+      "id2": 146,
+      "label": "influenced literary ambition"
+    },
+    {
+      "id1": 96,
+      "id2": 77,
+      "label": "influenced noir atmosphere"
+    },
+    {
+      "id1": 97,
+      "id2": 36,
+      "label": "influenced labyrinthine narratives"
+    },
+    {
+      "id1": 97,
+      "id2": 116,
+      "label": "influenced paranoid narratives"
+    },
+    {
+      "id1": 99,
+      "id2": 274,
+      "label": "hard SF contemporaries"
+    },
+    {
+      "id1": 99,
+      "id2": 166,
+      "label": "influenced mathematical SF"
+    },
+    {
+      "id1": 101,
+      "id2": 87,
+      "label": "semiotics and narrative theory"
+    },
+    {
+      "id1": 102,
+      "id2": 3,
+      "label": "influenced (created modern horror SF)"
+    },
+    {
+      "id1": 106,
+      "id2": 138,
+      "label": "Milford Conference co-founder"
+    },
+    {
+      "id1": 106,
+      "id2": 179,
+      "label": "friend and colleague"
+    },
+    {
+      "id1": 111,
+      "id2": 36,
+      "label": "influenced unreliable narrator"
+    },
+    {
+      "id1": 114,
+      "id2": 34,
+      "label": "New Weird contemporary"
+    },
+    {
+      "id1": 114,
+      "id2": 274,
+      "label": "influenced ecological horror"
+    },
+    {
+      "id1": 115,
+      "id2": 133,
+      "label": "magical realism colleagues"
+    },
+    {
+      "id1": 116,
+      "id2": 190,
+      "label": "postmodern contemporaries"
+    },
+    {
+      "id1": 117,
+      "id2": 133,
+      "label": "magical realism influence"
+    },
+    {
+      "id1": 118,
+      "id2": 36,
+      "label": "Latin American fantastic"
+    },
+    {
+      "id1": 119,
+      "id2": 120,
+      "label": "Latin American literary rivals"
+    },
+    {
+      "id1": 121,
+      "id2": 34,
+      "label": "influenced weird fiction"
+    },
+    {
+      "id1": 121,
+      "id2": 114,
+      "label": "influenced ecological weird"
+    },
+    {
+      "id1": 123,
+      "id2": 31,
+      "label": "influenced Japanese folklore use"
+    },
+    {
+      "id1": 124,
+      "id2": 87,
+      "label": "nouveau roman influence"
+    },
+    {
+      "id1": 125,
+      "id2": 126,
+      "label": "influenced uncanny tales"
+    },
+    {
+      "id1": 126,
+      "id2": 3,
+      "label": "influenced weird atmosphere"
+    },
+    {
+      "id1": 127,
+      "id2": 49,
+      "label": "Russian literary tradition"
+    },
+    {
+      "id1": 128,
+      "id2": 48,
+      "label": "French literary contemporaries"
+    },
+    {
+      "id1": 129,
+      "id2": 48,
+      "label": "French serial tradition"
+    },
+    {
+      "id1": 130,
+      "id2": 189,
+      "label": "influenced sparse violence"
+    },
+    {
+      "id1": 131,
+      "id2": 133,
+      "label": "influenced stream of consciousness"
+    },
+    {
+      "id1": 132,
+      "id2": 165,
+      "label": "influenced philosophical fiction"
+    },
+    {
+      "id1": 133,
+      "id2": 120,
+      "label": "influenced magical realism"
+    },
+    {
+      "id1": 140,
+      "id2": 163,
+      "label": "New Wave satire colleagues"
+    },
+    {
+      "id1": 141,
+      "id2": 163,
+      "label": "influenced alienation themes"
+    },
+    {
+      "id1": 143,
+      "id2": 146,
+      "label": "edited at Omni magazine"
+    },
+    {
+      "id1": 144,
+      "id2": 375,
+      "label": "editorial colleagues"
+    },
+    {
+      "id1": 145,
+      "id2": 146,
+      "label": "horror fiction contemporaries"
+    },
+    {
+      "id1": 147,
+      "id2": 53,
+      "label": "TV SF to literary SF"
+    },
+    {
+      "id1": 148,
+      "id2": 37,
+      "label": "comics contemporaries"
+    },
+    {
+      "id1": 149,
+      "id2": 80,
+      "label": "cyberpunk successor"
+    },
+    {
+      "id1": 150,
+      "id2": 65,
+      "label": "Victorian contemporaries"
+    },
+    {
+      "id1": 152,
+      "id2": 92,
+      "label": "techno-thriller influenced by SF"
+    },
+    {
+      "id1": 156,
+      "id2": 157,
+      "label": "fantasy contemporary"
+    },
+    {
+      "id1": 158,
+      "id2": 214,
+      "label": "Sanderson completed Wheel of Time"
+    },
+    {
+      "id1": 159,
+      "id2": 225,
+      "label": "influenced cosmic scope"
+    },
+    {
+      "id1": 160,
+      "id2": 374,
+      "label": "frequent collaborator"
+    },
+    {
+      "id1": 161,
+      "id2": 166,
+      "label": "influenced alternate history"
+    },
+    {
+      "id1": 162,
+      "id2": 178,
+      "label": "collaborated on novels"
+    },
+    {
+      "id1": 165,
+      "id2": 274,
+      "label": "influenced philosophical SF"
+    },
+    {
+      "id1": 167,
+      "id2": 88,
+      "label": "British space opera tradition"
+    },
+    {
+      "id1": 169,
+      "id2": 214,
+      "label": "hard SF contemporary"
+    },
+    {
+      "id1": 170,
+      "id2": 171,
+      "label": "dystopian contemporaries"
+    },
+    {
+      "id1": 172,
+      "id2": 163,
+      "label": "influenced absurdist SF"
+    },
+    {
+      "id1": 173,
+      "id2": 31,
+      "label": "British fantasy friendship"
+    },
+    {
+      "id1": 175,
+      "id2": 163,
+      "label": "Beat influence on SF"
+    },
+    {
+      "id1": 176,
+      "id2": 6,
+      "label": "influenced mythological method"
+    },
+    {
+      "id1": 181,
+      "id2": 55,
+      "label": "feminist SF contemporary"
+    },
+    {
+      "id1": 183,
+      "id2": 184,
+      "label": "fantasy contemporaries"
+    },
+    {
+      "id1": 185,
+      "id2": 79,
+      "label": "American romantic tradition"
+    },
+    {
+      "id1": 186,
+      "id2": 187,
+      "label": "transcendentalist colleagues"
+    },
+    {
+      "id1": 188,
+      "id2": 66,
+      "label": "adventure novel tradition"
+    },
+    {
+      "id1": 189,
+      "id2": 190,
+      "label": "postmodern American contemporaries"
+    },
+    {
+      "id1": 191,
+      "id2": 18,
+      "label": "Scottish literary tradition"
+    },
+    {
+      "id1": 195,
+      "id2": 2,
+      "label": "illustrated Dahl's works"
+    },
+    {
+      "id1": 196,
+      "id2": 29,
+      "label": "epic poetry tradition"
+    },
+    {
+      "id1": 197,
+      "id2": 198,
+      "label": "Romantic poets"
+    },
+    {
+      "id1": 199,
+      "id2": 200,
+      "label": "economic philosophy tradition"
+    },
+    {
+      "id1": 201,
+      "id2": 20,
+      "label": "philosophical tradition"
+    },
+    {
+      "id1": 202,
+      "id2": 190,
+      "label": "1980s literary contemporaries"
+    },
+    {
+      "id1": 203,
+      "id2": 204,
+      "label": "frontier humorists"
+    },
+    {
+      "id1": 205,
+      "id2": 50,
+      "label": "American realist tradition"
+    },
+    {
+      "id1": 206,
+      "id2": 3,
+      "label": "Weird Tales colleague"
+    },
+    {
+      "id1": 207,
+      "id2": 122,
+      "label": "Dying Earth pastiche writer"
+    },
+    {
+      "id1": 208,
+      "id2": 209,
+      "label": "Brothers Grimm"
+    },
+    {
+      "id1": 210,
+      "id2": 39,
+      "label": "fairy tale collector"
+    },
+    {
+      "id1": 211,
+      "id2": 39,
+      "label": "fairy tale collector"
+    },
+    {
+      "id1": 212,
+      "id2": 137,
+      "label": "epic fantasy contemporary"
+    },
+    {
+      "id1": 213,
+      "id2": 137,
+      "label": "grimdark contemporary"
+    },
+    {
+      "id1": 214,
+      "id2": 158,
+      "label": "completed Wheel of Time"
     }
   ]
 }
